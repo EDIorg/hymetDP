@@ -21,7 +21,7 @@
 #'
 odm_controlled_vocabulary <- function(vocab = 'Units') {
 
-  # TODO support a character vector to retun multiple CVs
+  # TODO support a character vector to return multiple CVs
 
   odmcv <- get_odm_controlled_vocabulary(vocab = vocab)
 
