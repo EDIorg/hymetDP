@@ -13,4 +13,14 @@
 # @details
 #     Validation checks are function specific.
 #
-validate_arguments <- function(fun.name, fun.args) {}
+validate_arguments <- function(fun.name, fun.args) {
+
+
+  # define_variable() -------------------------------------------------------
+
+  if (fun.name == 'define_variable') {
+    if (!exists(as.character(fun.args$table))) stop("Please specify or create the \"flat\" table.")
+    if (is.null(fun.args$variable)) stop("Please specify at least one variable.")
+
+  }
+}
