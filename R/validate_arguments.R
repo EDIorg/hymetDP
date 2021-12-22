@@ -19,8 +19,17 @@ validate_arguments <- function(fun.name, fun.args) {
   # define_variable() -------------------------------------------------------
 
   if (fun.name == 'define_variable') {
-    if (!exists(as.character(fun.args$table))) stop("Please specify or create the \"flat\" table.")
-    if (is.null(fun.args$variable)) stop("Please specify at least one variable.")
+
+    # Flat table is specified
+    if (!exists(as.character(fun.args$table))) stop("Please specify or create the \"flat\" table.", call. = FALSE)
+
+    # Variable is specified
+    if (is.null(fun.args$variable)) stop("Please specify at least one variable.", call. = FALSE)
+
+    # Unit is specified or unit column exists in table
+    table <- get(as.character(fun.args$table))
+    if (is.null(fun.args$variable_units) & !"unit" %in% names(table)) stop("A unit must be given for this variable if a \"unit\" column does not exist.", call. = FALSE)
+
 
   }
 }
