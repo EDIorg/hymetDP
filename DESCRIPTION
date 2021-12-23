@@ -22,4 +22,5 @@ Imports:
     stringr,
     magrittr,
     purrr,
-    dplyr
+    dplyr,
+    rlang
