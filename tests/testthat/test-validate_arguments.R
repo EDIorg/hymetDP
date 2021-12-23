@@ -19,7 +19,7 @@ testthat::test_that("define_variable()", {
   inputs <- as.list(
     list(
       table = "flat",
-      variable = "air_temp",
+      local_variable = "air_temp",
       variable_units = 'celsius'))
   expect_error(validate_arguments("define_variable", inputs),
                regexp = "Please specify or create the \"flat\" table.")
@@ -31,14 +31,14 @@ testthat::test_that("define_variable()", {
   inputs <- as.list(
     list(
       table = "flat",
-      variable = "air_temp",
+      local_variable = "air_temp",
       variable_units = 'celsius'))
   expect_null(validate_arguments("define_variable", inputs))
 
   inputs <- as.list(
     list(
       table = "flat",
-      variable = NULL,
+      local_variable = NULL,
       variable_units = 'celsius'))
   expect_error(validate_arguments("define_variable", inputs),
                regexp = "Please specify at least one variable.")
@@ -48,7 +48,7 @@ testthat::test_that("define_variable()", {
   inputs <- as.list(
     list(
       table = "flat",
-      variable = "air_temp",
+      local_variable = "air_temp",
       variable_units = NULL))
   expect_error(validate_arguments("define_variable", inputs),
                regexp = "A unit must be given for this variable if a \"unit\" column does not exist.")
@@ -56,7 +56,7 @@ testthat::test_that("define_variable()", {
   inputs <- as.list(
     list(
       table = "flat",
-      variable = "air_temp",
+      local_variable = "air_temp",
       variable_units = 'celsius'))
   expect_null(validate_arguments("define_variable", inputs))
 
@@ -65,7 +65,7 @@ testthat::test_that("define_variable()", {
   inputs <- as.list(
     list(
       table = "flat",
-      variable = "air_temp",
+      local_variable = "air_temp",
       variable_units = NULL))
   expect_null(validate_arguments("define_variable", inputs))
 
