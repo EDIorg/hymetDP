@@ -3,7 +3,10 @@
 
 library(hymetDP)
 
-testthat::test_that("Single method is added (no variable, no method link)", {
+
+# Method is added (no variable, no method link) ---------------------------
+
+testthat::test_that("Method is added (no variable, no method link)", {
 
   flat <<- data.frame(
     "datetime" = as.Date('2021-12-21'),
@@ -24,21 +27,41 @@ testthat::test_that("Single method is added (no variable, no method link)", {
 
   on.exit(flat, add = TRUE)
 
-  res <- define_method(method_description = 'Here is the desciption of a test method.')
+  # First method added
+
+  flat <<- define_method(method_description = 'Here is the desciption of a test method.')
+  on.exit(flat, add = TRUE)
 
   expected_cols <- c(
     "datetime", "variable_name", "value", "unit", "VariableCode", "VariableName",
     "VariableUnitsName", "SampleMedium", "ValueType", "IsRegular", "TimeSupport",
     "TimeUnitsName", "DataType", "GeneralCategory", "NoDataValue", "MethodDescription_1")
 
+  expect_true(all(expected_cols %in% names(flat)))
+
+  expect_equal(length(unique(flat$MethodDescription_1)), 1)
+
+  # Second method added
+
+  res <- define_method(method_description = 'Here is another desciption of a test method.')
+
+  expected_cols <- c(
+    "datetime", "variable_name", "value", "unit", "VariableCode", "VariableName",
+    "VariableUnitsName", "SampleMedium", "ValueType", "IsRegular", "TimeSupport",
+    "TimeUnitsName", "DataType", "GeneralCategory", "NoDataValue",
+    "MethodDescription_1", "MethodDescription_2")
+
   expect_true(all(expected_cols %in% names(res)))
 
-  expect_equal(length(unique(res$MethodDescription_1)), 1)
+  expect_equal(length(unique(res$MethodDescription_2)), 1)
 
 
 })
 
-testthat::test_that("Single method is added to single variable (by variable name, no method link)", {
+
+# Method is added to variable (by name, no method link) -------------------
+
+testthat::test_that("Method is added to variable (by name, no method link)", {
 
   flat <<- data.frame(
     "datetime" = as.Date('2021-12-21'),
@@ -59,22 +82,42 @@ testthat::test_that("Single method is added to single variable (by variable name
 
   on.exit(flat, add = TRUE)
 
-  res <- define_method(method_description = 'Here is the desciption of a test method.',
+  flat <<- define_method(method_description = 'Here is the desciption of a test method.',
                        local_variable = 'test_var')
+  on.exit(flat, add = TRUE)
+
 
   expected_cols <- c(
     "datetime", "variable_name", "value", "unit", "VariableCode", "VariableName",
     "VariableUnitsName", "SampleMedium", "ValueType", "IsRegular", "TimeSupport",
     "TimeUnitsName", "DataType", "GeneralCategory", "NoDataValue", "MethodDescription_1")
 
+  expect_true(all(expected_cols %in% names(flat)))
+
+  expect_equal(length(unique(flat$MethodDescription_1)), 2)
+
+
+  res <- define_method(method_description = 'Here is the desciption of a test method.',
+                         local_variable = 'another_test_var')
+  on.exit(flat, add = TRUE)
+
+
+  expected_cols <- c(
+    "datetime", "variable_name", "value", "unit", "VariableCode", "VariableName",
+    "VariableUnitsName", "SampleMedium", "ValueType", "IsRegular", "TimeSupport",
+    "TimeUnitsName", "DataType", "GeneralCategory", "NoDataValue",
+    "MethodDescription_1", "MethodDescription_2")
+
   expect_true(all(expected_cols %in% names(res)))
 
-  expect_equal(length(unique(res$MethodDescription_1)), 2)
+  expect_equal(length(unique(res$MethodDescription_2)), 2)
 
 })
 
 
-testthat::test_that("Single method is added to single variable (by variable code, no method link)", {
+# Method is added to variable (by code, no method link) -------------------
+
+testthat::test_that("Method is added to variable (by code, no method link)", {
 
   flat <<- data.frame(
     "datetime" = as.Date('2021-12-21'),
@@ -95,16 +138,30 @@ testthat::test_that("Single method is added to single variable (by variable code
 
   on.exit(flat, add = TRUE)
 
-  res <- define_method(method_description = 'Here is the desciption of a test method.',
-                       local_variable = 'test_var')
+  flat <<- define_method(method_description = 'Here is the desciption of a test method.',
+                       variable_code = 1)
+  on.exit(flat, add = TRUE)
 
   expected_cols <- c(
     "datetime", "variable_name", "value", "unit", "VariableCode", "VariableName",
     "VariableUnitsName", "SampleMedium", "ValueType", "IsRegular", "TimeSupport",
     "TimeUnitsName", "DataType", "GeneralCategory", "NoDataValue", "MethodDescription_1")
 
+  expect_true(all(expected_cols %in% names(flat)))
+
+  expect_equal(length(unique(flat$MethodDescription_1)), 2)
+
+  res <- define_method(method_description = 'Here is the desciption of a test method.',
+                         variable_code = 2)
+
+  expected_cols <- c(
+    "datetime", "variable_name", "value", "unit", "VariableCode", "VariableName",
+    "VariableUnitsName", "SampleMedium", "ValueType", "IsRegular", "TimeSupport",
+    "TimeUnitsName", "DataType", "GeneralCategory", "NoDataValue",
+    "MethodDescription_1", "MethodDescription_2")
+
   expect_true(all(expected_cols %in% names(res)))
 
-  expect_equal(length(unique(res$MethodDescription_1)), 2)
+  expect_equal(length(unique(res$MethodDescription_2)), 2)
 
 })
