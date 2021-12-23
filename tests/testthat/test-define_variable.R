@@ -45,8 +45,6 @@ testthat::test_that("Multiple variables are added correctly", {
 
   on.exit(flat, add = TRUE)
 
-  print(flat)
-
   res <- define_variable(
     local_variable = 'another_test_var',
     variable_name = 'Precipitation')
@@ -55,8 +53,6 @@ testthat::test_that("Multiple variables are added correctly", {
     "datetime", "variable_name", "value", "unit", "VariableCode", "VariableName",
     "VariableUnitsName", "SampleMedium", "ValueType", "IsRegular", "TimeSupport",
     "TimeUnitsName", "DataType", "GeneralCategory", "NoDataValue")
-
-  print(res)
 
   expect_true(all(expected_cols %in% names(res)))
 

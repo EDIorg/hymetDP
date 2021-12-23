@@ -15,11 +15,15 @@ define_variable <- function(
 
   validate_arguments(fun.name = "define_variable", fun.args = as.list(environment()))
 
+  # Assign the argument for "table" to a variable
+
+  flat_input <- get(table)
+
   # if set to null, defaults to `unit` from table. Validate returns an error if unit_<variable_code> is not in CV
 
   if(is.null(variable_units)) {
 
-    unit_col <- unique(flat[flat$variable_name == local_variable,]$unit)
+    unit_col <- unique(flat_input[flat_input$variable_name == local_variable,]$unit)
 
     if (length(unit_col) > 1) {
 
@@ -47,7 +51,7 @@ define_variable <- function(
 
   VariableCode <-  NA_integer_
 
-  if (!"VariableCode" %in% names(flat)) {
+  if (!"VariableCode" %in% names(flat_input)) {
 
     VariableCode <- 1
 
@@ -55,7 +59,7 @@ define_variable <- function(
 
     # Increment VariableCode for subsequent variables
 
-    VariableCode <- max(flat$VariableCode, na.rm = TRUE) + 1
+    VariableCode <- max(flat_input$VariableCode, na.rm = TRUE) + 1
 
   }
 
@@ -82,21 +86,21 @@ define_variable <- function(
 
   # Join variable table to flat
 
-  if (!"VariableCode" %in% names(flat)) {
+  if (!"VariableCode" %in% names(flat_input)) {
 
     # For the first variable added to flat table
 
-    flat <- flat %>% dplyr::left_join(variable_table, by = setNames(lvn, local_variable_column))
+    flat_output <- flat_input %>% dplyr::left_join(variable_table, by = setNames(lvn, local_variable_column))
 
   } else {
 
     # Save the final column names
 
-    final_columns <- names(flat)
+    final_columns <- names(flat_input)
 
     # Merge tables with a join, merge columns with coalesce, select final columns with select
 
-    flat <- flat %>%
+    flat_output <- flat_input %>%
       dplyr::left_join(variable_table, by = setNames(lvn, local_variable_column)) %>%
       dplyr::mutate(VariableCode = dplyr::coalesce(VariableCode.x, VariableCode.y),
                 VariableName = dplyr::coalesce(VariableName.x, VariableName.y),
@@ -109,11 +113,11 @@ define_variable <- function(
                 DataType = dplyr::coalesce(DataType.x, DataType.y),
                 GeneralCategory = dplyr::coalesce(GeneralCategory.x, GeneralCategory.y),
                 NoDataValue = dplyr::coalesce(NoDataValue.x, NoDataValue.y)) %>%
-      dplyr::select(final_columns)
+      dplyr::select(all_of(final_columns))
   }
 
 
-  return(flat)
+  return(flat_output)
 
 
 }
