@@ -47,7 +47,7 @@ define_method <- function(
       link_sym <- rlang::sym(paste0("MethodLink_", existing_methods + 1))
 
       flat_output <- flat_output %>%
-        mutate(link_sym := method_link)
+        dplyr::mutate(!!link_sym := method_link)
     }
 
   } else if (is.null(variable_code) & !is.null(local_variable)) {
@@ -66,7 +66,7 @@ define_method <- function(
       link_sym <- rlang::sym(paste0("MethodLink_", existing_methods + 1))
 
       method_table <- method_table %>%
-        mutate(link_sym := method_link)
+        dplyr::mutate(!!link_sym := method_link)
     }
 
     # This is necessary to use setNames() in the by parameter of the join
@@ -92,7 +92,7 @@ define_method <- function(
       link_sym <- rlang::sym(paste0("MethodLink_", existing_methods + 1))
 
       method_table <- method_table %>%
-        mutate(link_sym := method_link)
+        dplyr::mutate(!!link_sym := method_link)
     }
 
     flat_output <- flat_input %>%

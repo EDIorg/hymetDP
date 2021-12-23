@@ -4,9 +4,9 @@
 library(hymetDP)
 
 
-# Method is added (no variable, no method link) ---------------------------
+# Method is added (no variable) ---------------------------
 
-testthat::test_that("Method is added (no variable, no method link)", {
+testthat::test_that("Method is added (no variable)", {
 
   flat <<- data.frame(
     "datetime" = as.Date('2021-12-21'),
@@ -43,13 +43,14 @@ testthat::test_that("Method is added (no variable, no method link)", {
 
   # Second method added
 
-  res <- define_method(method_description = 'Here is another desciption of a test method.')
+  res <- define_method(method_description = 'Here is another desciption of a test method.',
+                       method_link = 'https://my-method.html')
 
   expected_cols <- c(
     "datetime", "variable_name", "value", "unit", "VariableCode", "VariableName",
     "VariableUnitsName", "SampleMedium", "ValueType", "IsRegular", "TimeSupport",
     "TimeUnitsName", "DataType", "GeneralCategory", "NoDataValue",
-    "MethodDescription_1", "MethodDescription_2")
+    "MethodDescription_1", "MethodDescription_2", "MethodLink_2")
 
   expect_true(all(expected_cols %in% names(res)))
 
@@ -61,7 +62,7 @@ testthat::test_that("Method is added (no variable, no method link)", {
 
 # Method is added to variable (by name, no method link) -------------------
 
-testthat::test_that("Method is added to variable (by name, no method link)", {
+testthat::test_that("Method is added to variable (by name)", {
 
   flat <<- data.frame(
     "datetime" = as.Date('2021-12-21'),
@@ -98,6 +99,7 @@ testthat::test_that("Method is added to variable (by name, no method link)", {
 
 
   res <- define_method(method_description = 'Here is the desciption of a test method.',
+                       method_link = 'https://my-method.html',
                          local_variable = 'another_test_var')
   on.exit(flat, add = TRUE)
 
@@ -106,18 +108,20 @@ testthat::test_that("Method is added to variable (by name, no method link)", {
     "datetime", "variable_name", "value", "unit", "VariableCode", "VariableName",
     "VariableUnitsName", "SampleMedium", "ValueType", "IsRegular", "TimeSupport",
     "TimeUnitsName", "DataType", "GeneralCategory", "NoDataValue",
-    "MethodDescription_1", "MethodDescription_2")
+    "MethodDescription_1", "MethodDescription_2", "MethodLink_2")
 
   expect_true(all(expected_cols %in% names(res)))
 
   expect_equal(length(unique(res$MethodDescription_2)), 2)
+
+  expect_equal(length(unique(res$MethodLink_2)), 2)
 
 })
 
 
 # Method is added to variable (by code, no method link) -------------------
 
-testthat::test_that("Method is added to variable (by code, no method link)", {
+testthat::test_that("Method is added to variable (by code)", {
 
   flat <<- data.frame(
     "datetime" = as.Date('2021-12-21'),
@@ -151,17 +155,20 @@ testthat::test_that("Method is added to variable (by code, no method link)", {
 
   expect_equal(length(unique(flat$MethodDescription_1)), 2)
 
-  res <- define_method(method_description = 'Here is the desciption of a test method.',
-                         variable_code = 2)
+  res <- define_method(method_description = 'Here is the desciption of another test method.',
+                       method_link = 'https://my-method.html',
+                       variable_code = 2)
 
   expected_cols <- c(
     "datetime", "variable_name", "value", "unit", "VariableCode", "VariableName",
     "VariableUnitsName", "SampleMedium", "ValueType", "IsRegular", "TimeSupport",
     "TimeUnitsName", "DataType", "GeneralCategory", "NoDataValue",
-    "MethodDescription_1", "MethodDescription_2")
+    "MethodDescription_1", "MethodDescription_2", "MethodLink_2")
 
   expect_true(all(expected_cols %in% names(res)))
 
   expect_equal(length(unique(res$MethodDescription_2)), 2)
+
+  expect_equal(length(unique(res$MethodLink_2)), 2)
 
 })
