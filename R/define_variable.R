@@ -23,6 +23,8 @@ define_variable <- function(
 
     if (length(unit_col) > 1) {
 
+      # If multiple units found for one variable, use the first but issue a warning
+
       warning("Multiple units found for variable \"", local_variable, "\". Defaulting to first option: ", unit_col[[1]])
 
       variable_units <- unit_col[[1]]
@@ -51,6 +53,8 @@ define_variable <- function(
 
   } else {
 
+    # Increment VariableCode for subsequent variables
+
     VariableCode <- max(flat$VariableCode, na.rm = TRUE) + 1
 
   }
@@ -72,17 +76,25 @@ define_variable <- function(
     NoDataValue = no_data
   )
 
+  # This is necessary to use setNames() in the by parameter of the join
+
   lvn = "local_variable_name"
 
   # Join variable table to flat
 
   if (!"VariableCode" %in% names(flat)) {
 
+    # For the first variable added to flat table
+
     flat <- flat %>% dplyr::left_join(variable_table, by = setNames(lvn, local_variable_column))
 
   } else {
 
+    # Save the final column names
+
     final_columns <- names(flat)
+
+    # Merge tables with a join, merge columns with coalesce, select final columns with select
 
     flat <- flat %>%
       dplyr::left_join(variable_table, by = setNames(lvn, local_variable_column)) %>%
