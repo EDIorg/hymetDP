@@ -32,4 +32,17 @@ validate_arguments <- function(fun.name, fun.args) {
 
 
   }
+
+
+  # define_method() -------------------------------------------------------
+
+  if (fun.name == 'define_method') {
+
+    # Flat table is specified
+    if (!exists(as.character(fun.args$table))) stop("Please specify or create the \"flat\" table.", call. = FALSE)
+
+    if(is.null(fun.args$method_description)) stop("Please provide a method description.", call. = FALSE)
+
+  }
+
 }
