@@ -13,10 +13,12 @@ define_method <- function(
   flat_input <- get(table)
 
   # TODO what to do if local_variable and variable_code specified? Should only variable code be supported?
+  ## Currently, both supported. If both are provided, defaults to code over name.
 
-  # TODO this function will add a single column "MethodDescription_<MethodCode>"
-  ## This is to prevent the (possibly already huge) flat table from
-  ## doubling or tripling in size with the addition of multiple methods to a single/every variable
+  # This function will add a single column "MethodDescription_<MethodCode>"
+  # This is to prevent the (possibly already huge) flat table from
+  # doubling or tripling in size with the addition of multiple methods to a single/every variable
+  # TODO Is this the best way to do this? or stick to a truly flat table with possibly many rows?
 
   # Determine existing methods
 
@@ -37,14 +39,31 @@ define_method <- function(
     flat_output <- flat_input %>%
       dplyr::mutate(!!method_sym := method_description)
 
+    # Handle method links
+
+    if (!is.null(method_link)) {
+      link_sym <- rlang::sym(paste0("MethodLink_", existing_methods + 1))
+
+      flat_output <- flat_output %>%
+        mutate(link_sym := method_link)
+    }
+
   } else if (is.null(variable_code) & !is.null(local_variable)) {
 
     # Create method table and join by local_variable
 
     method_table <- dplyr::tibble(
       local_variable_name = local_variable,
-      !!method_sym := method_description
-    )
+      !!method_sym := method_description)
+
+    # Handle method links
+
+    if (!is.null(method_link)) {
+      link_sym <- rlang::sym(paste0("MethodLink_", existing_methods + 1))
+
+      method_table <- method_table %>%
+        mutate(link_sym := method_link)
+    }
 
     # This is necessary to use setNames() in the by parameter of the join
 
@@ -59,13 +78,23 @@ define_method <- function(
 
     method_table <- dplyr::tibble(
       VariableCode = variable_code,
-      !!method_sym := method_description
-    )
+      !!method_sym := method_description)
+
+    # Handle method links
+
+    if (!is.null(method_link)) {
+      link_sym <- rlang::sym(paste0("MethodLink_", existing_methods + 1))
+
+      method_table <- method_table %>%
+        mutate(link_sym := method_link)
+    }
 
     flat_output <- flat_input %>%
       dplyr::left_join(method_table, by = "VariableCode")
 
   }
+
+
 
   return(flat_output)
 }
