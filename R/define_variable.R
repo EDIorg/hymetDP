@@ -78,23 +78,26 @@ define_variable <- function(
 
   if (!"VariableCode" %in% names(flat)) {
 
-    flat <- flat %>% left_join(variable_table, by = setNames(lvn, local_variable_column))
+    flat <- flat %>% dplyr::left_join(variable_table, by = setNames(lvn, local_variable_column))
 
   } else {
 
+    final_columns <- names(flat)
+
     flat <- flat %>%
-      left_join(variable_table, by = setNames(lvn, local_variable_column)) %>%
-      transmute(VariableCode = coalesce(VariableCode.x, VariableCode.y),
-                VariableName = coalesce(variable_name.x, variable_name.y),
-                VariableUnitsName = coalesce(variable_units.x, variable_units.y),
-                SampleMedium = coalesce(sample_medium.x, sample_medium.y),
-                ValueType = coalesce(value_type.x, value_type.y),
-                IsRegular = coalesce(is_regular.x, is_regular.y),
-                TimeSupport = coalesce(time_support.x, time_support.y),
-                TimeUnitsName = coalesce(time_units.x, time_units.y),
-                DataType = coalesce(data_type.x, data_type.y),
-                GeneralCategory = coalesce(general_category.x, general_category.y),
-                NoDataValue = coalesce(no_data.x, no_data.y))
+      dplyr::left_join(variable_table, by = setNames(lvn, local_variable_column)) %>%
+      dplyr::mutate(VariableCode = dplyr::coalesce(VariableCode.x, VariableCode.y),
+                VariableName = dplyr::coalesce(VariableName.x, VariableName.y),
+                VariableUnitsName = dplyr::coalesce(VariableUnitsName.x, VariableUnitsName.y),
+                SampleMedium = dplyr::coalesce(SampleMedium.x, SampleMedium.y),
+                ValueType = dplyr::coalesce(ValueType.x, ValueType.y),
+                IsRegular = dplyr::coalesce(IsRegular.x, IsRegular.y),
+                TimeSupport = dplyr::coalesce(TimeSupport.x, TimeSupport.y),
+                TimeUnitsName = dplyr::coalesce(TimeUnitsName.x, TimeUnitsName.y),
+                DataType = dplyr::coalesce(DataType.x, DataType.y),
+                GeneralCategory = dplyr::coalesce(GeneralCategory.x, GeneralCategory.y),
+                NoDataValue = dplyr::coalesce(NoDataValue.x, NoDataValue.y)) %>%
+      dplyr::select(final_columns)
   }
 
 

@@ -3,7 +3,7 @@
 
 #context("validate_arguments()")
 
-library(ecocomDP)
+library(hymetDP)
 
 
 # define_*() --------------------------------------------------------------
@@ -14,11 +14,9 @@ testthat::test_that("define_variable()", {
 
   # flat table must exist
 
-  globalVariables("flat")
-
   inputs <- as.list(
     list(
-      table = "flat",
+      table = "non-existent-flat",
       local_variable = "air_temp",
       variable_units = 'celsius'))
   expect_error(validate_arguments("define_variable", inputs),
