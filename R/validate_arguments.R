@@ -24,7 +24,7 @@ validate_arguments <- function(fun.name, fun.args) {
     if (!exists(as.character(fun.args$table))) stop("Please specify or create the \"flat\" table.", call. = FALSE)
 
     # Variable is specified
-    if (is.null(fun.args$variable)) stop("Please specify at least one variable.", call. = FALSE)
+    if (is.null(fun.args$local_variable)) stop("Please specify at least one variable.", call. = FALSE)
 
     # Unit is specified or unit column exists in table
     table <- get(as.character(fun.args$table))
