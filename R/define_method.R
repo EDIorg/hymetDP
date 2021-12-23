@@ -34,6 +34,8 @@ define_method <- function(
 
   if (is.null(variable_code) & is.null(local_variable)) {
 
+    # Add method to every observation -----------------------------------------
+
     # Add the method description and code to every observation
 
     flat_output <- flat_input %>%
@@ -49,6 +51,8 @@ define_method <- function(
     }
 
   } else if (is.null(variable_code) & !is.null(local_variable)) {
+
+    # Join by variable name ---------------------------------------------------
 
     # Create method table and join by local_variable
 
@@ -74,6 +78,8 @@ define_method <- function(
 
   } else {
 
+    # Join by variable code ---------------------------------------------------
+
     # Create a method table and join by variable_code
 
     method_table <- dplyr::tibble(
@@ -91,10 +97,7 @@ define_method <- function(
 
     flat_output <- flat_input %>%
       dplyr::left_join(method_table, by = "VariableCode")
-
   }
-
-
 
   return(flat_output)
 }
