@@ -24,13 +24,13 @@ define_method <- function(
     stringr::str_detect('MethodDescription_') %>%
     sum()
 
-  # TODO handle when there is methodLink
-
-  if (is.null(variable_code) & is.null(local_variable)) {
-
     # Define new column names
 
     method_sym <- rlang::sym(paste0("MethodDescription_", existing_methods + 1))
+
+  # TODO handle when there is methodLink
+
+  if (is.null(variable_code) & is.null(local_variable)) {
 
     # Add the method description and code to every observation
 
@@ -39,11 +39,25 @@ define_method <- function(
 
   } else if (is.null(variable_code) & !is.null(local_variable)) {
 
-    # TODO Create a single column table and join by local_variable
+    # Create method table
+
+    method_table <- dplyr::tibble(
+      local_variable_name = local_variable,
+      !!method_sym := method_description
+    )
+
+    # This is necessary to use setNames() in the by parameter of the join
+
+    lvn = "local_variable_name"
+
+    flat_output <- flat_input %>%
+      dplyr::left_join(method_table, by = setNames(lvn, local_variable_column))
 
   } else {
 
     # TODO Create a single column table and join by variable_code
 
   }
+
+  return(flat_output)
 }
