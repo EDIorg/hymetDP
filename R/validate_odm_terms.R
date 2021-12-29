@@ -53,6 +53,11 @@ validate_odm_terms <- function(fun.name, fun.args) {
       warning(paste0("The TimeUnits term \"", fun.args$time_units, "\" was not found in the UnitsCV.\n"), call. = FALSE)
       close_list <- list(close_list, "TimeUnits" = return_close(fun.args$time_units, UnitsCV$UnitsName))}
 
+    # Check data_type
+    if (!check_odm_cv(fun.args$data_type, DataTypeCV$Term)) {
+      warning(paste0("The DataType term \"", fun.args$data_type, "\" was not found in the DataTypeCV\n"), call. = FALSE)
+      close_list <- list(close_list, "DataType" = return_close(fun.args$data_type, DataTypeCV$Term))}
+
     # Check #general_category
     if (!check_odm_cv(fun.args$general_category, GeneralCategoryCV$Term)) {
       warning(paste0("The GeneralCategory term \"", fun.args$general_category, "\" was not found in the GeneralCategoryCV.\n"), call. = FALSE)

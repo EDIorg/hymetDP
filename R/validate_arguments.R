@@ -20,9 +20,6 @@ validate_arguments <- function(fun.name, fun.args) {
 
   if (fun.name == 'define_variable') {
 
-    print(deparse(substitute(fun.args$L0_flat)))
-    print(class(fun.args$L0_flat))
-
     # Flat table is specified
     if (!any(class(fun.args$L0_flat) == 'data.frame')) stop("Please specify or create the \"flat\" table.", call. = FALSE)
 
