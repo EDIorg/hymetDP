@@ -5,7 +5,7 @@
 \title{Define a hymetDP method}
 \usage{
 define_method(
-  table = "flat",
+  L0_flat = flat,
   local_variable_column = "variable_name",
   local_variable = NULL,
   variable_code = NULL,
@@ -14,11 +14,11 @@ define_method(
 )
 }
 \arguments{
-\item{table}{(character) The fully joined source L0 dataset, in "flat" format (see details).}
+\item{L0_flat}{(tbl_df, tbl, data.frame) The fully joined source L0 dataset, in "flat" format (see details).}
 
-\item{local_variable_column}{(character) Column in \code{table} containing the L0 variable name.}
+\item{local_variable_column}{(character) Column in \code{L0_flat} table containing the L0 variable name.}
 
-\item{local_variable}{(character) Reference to a value (or values) in the \code{local_variable_column} from the \code{table} to which the new hymetDP method refers.}
+\item{local_variable}{(character) Reference to a value (or values) in the \code{local_variable_column} from the \code{L0_flat} table to which the new hymetDP method refers.}
 
 \item{variable_code}{(character) The auto-generated primary key for a variable (from column \code{VariableCode}). Another way to link a method to a value (or values). Takes priority over \code{local_variable}.}
 
@@ -33,7 +33,7 @@ define_method(
 Define a hymetDP method
 }
 \details{
-This function appends columns to the \code{table} and returns the augmented table.
+This function appends columns to the \code{L0_flat} table and returns the augmented table.
 
 "flat" format refers to the fully joined source L0 dataset in "wide" form with the exception of the core observation variables, which are in "long" form (i.e. using the variable_name, value, unit columns of the observation table). This "flat" format is the "widest" an L1 hymetDP dataset can be consistently spread due to the frequent occurrence of L0 source datasets with > 1 core observation variable.
 }
@@ -42,7 +42,7 @@ This function appends columns to the \code{table} and returns the augmented tabl
 flat <- <insert_test_flat_table_here>
 
 flat <- define_variable(
-  table = "flat",
+  L0_flat = flat,
   local_variable_column = "variable_name",
   local_variable = NULL,
   variable_code = NULL,
