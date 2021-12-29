@@ -19,7 +19,7 @@
 #' "flat" format refers to the fully joined source L0 dataset in "wide" form with the exception of the core observation variables, which are in "long" form (i.e. using the variable_name, value, unit columns of the observation table). This "flat" format is the "widest" an L1 hymetDP dataset can be consistently spread due to the frequent occurrence of L0 source datasets with > 1 core observation variable.
 #'
 #'
-#' @return (tbl_df, tbl, data.frame) An augmented version of the original flat table, with all of the original columns plus one for each of the variable values (i.e. variable_name, variable_units, etc.).
+#' @return (tbl_df, tbl, data.frame) An augmented version of the original flat table, with all of the original columns plus one for each of the specified variable values (i.e. variable_name, variable_units, etc.), plus the VariableCode column, with an auto-generated integer value that will become the primary key of the Variables table. Columns are only added the first time the function is run. Subsequent runs append values to the existing columns.
 #'
 #' @examples
 #'

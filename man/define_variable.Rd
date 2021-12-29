@@ -48,7 +48,7 @@ define_variable(
 \item{no_data}{(numeric) Numeric value used to encode when a data value is not available for this variable. DataValues will be reformatted to match this value.}
 }
 \value{
-(tbl_df, tbl, data.frame) An augmented version of the original flat table, with all of the original columns plus one for each of the variable values (i.e. variable_name, variable_units, etc.).
+(tbl_df, tbl, data.frame) An augmented version of the original flat table, with all of the original columns plus one for each of the specified variable values (i.e. variable_name, variable_units, etc.), plus the VariableCode column, with an auto-generated integer value that will become the primary key of the Variables table. Columns are only added the first time the function is run. Subsequent runs append values to the existing columns.
 }
 \description{
 Define a hymetDP variable
