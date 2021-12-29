@@ -1,18 +1,18 @@
-# Validate arguments of hymetDP functions that should be using CUAHSI ODM CV terms
-#
-# @description
-#     Validate input arguments to hymetDP functions that should have direct matches to terms in CUAHSI ODM CVs.
-#
-# @param fun.name
-#     (character) Name of function from which \code{validate_omd_terms()} is
-#     called.
-# @param fun.args
-#     (named list) Arguments passed to calling function and formatted as
-#     \code{as.list(environment())}.
-#
-# @details
-#     Validation checks are function specific.
-#
+#' Validate arguments of hymetDP functions that should be using CUAHSI ODM CV terms
+#'
+#' @description
+#'     Validate input arguments to hymetDP functions that should have direct matches to terms in CUAHSI ODM CVs.
+#'
+#' @param fun.name
+#'     (character) Name of function from which \code{validate_omd_terms()} is
+#'     called.
+#' @param fun.args
+#'     (named list) Arguments passed to calling function and formatted as
+#'     \code{as.list(environment())}.
+#'
+#' @details
+#'     Validation checks are function specific.
+#'
 
 validate_odm_terms <- function(fun.name, fun.args) {
 
