@@ -1,5 +1,37 @@
+#' Define a hymetDP method
+#'
+#' @param table (character) The fully joined source L0 dataset, in "flat" format (see details).
+#' @param local_variable_column (character) Column in \code{table} containing the L0 variable name.
+#' @param local_variable (character) Reference to a value (or values) in the \code{local_variable_column} from the \code{table} to which the new hymetDP method refers.
+#' @param variable_code (character) The auto-generated primary key for a variable (from column \code{VariableCode}). Another way to link a method to a value (or values). Takes priority over \code{local_variable}.
+#' @param method_description (character) Text description of the method.
+#' @param method_link (character) Optional. Link to additional reference material on the method. Should be a single valid URL.
+#'
+#' @details This function appends columns to the \code{table} and returns the augmented table.
+#'
+#' "flat" format refers to the fully joined source L0 dataset in "wide" form with the exception of the core observation variables, which are in "long" form (i.e. using the variable_name, value, unit columns of the observation table). This "flat" format is the "widest" an L1 hymetDP dataset can be consistently spread due to the frequent occurrence of L0 source datasets with > 1 core observation variable.
+#'
+#'
+#'
+#' @return (tbl_df, tbl, data.frame) An augmented version of the original flat table, with all of the original columns plus one additional column for the method description (or two additional columns if a method link is defined). Column name includes the auto-generated MethodCode (i.e. MethodDescription_1), which will become the the primary key in the Methods table.
+#'
+#' @examples
+#'
+#' flat <- <insert_test_flat_table_here>
+#'
+#' flat <- define_variable(
+#'   table = "flat",
+#'   local_variable_column = "variable_name",
+#'   local_variable = NULL,
+#'   variable_code = NULL,
+#'   method_description = NULL,
+#'   method_link = NULL)
+#'
+#'
+#' @export
+#'
 define_method <- function(
-  table = "flat", # the name of the flat table as a character
+  table = "flat",
   local_variable_column = "variable_name",
   local_variable = NULL, # Can be a single variable or multiple
   variable_code = NULL, # Can be a single code or multiple. If null, method applies to every observation
