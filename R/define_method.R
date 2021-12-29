@@ -33,9 +33,8 @@
 define_method <- function(
   L0_flat = flat,
   local_variable_column = "variable_name",
-  local_variable = NULL, # Can be a single variable or multiple
-  variable_code = NULL, # Can be a single code or multiple. If null, method applies to every observation
-  method_description = NULL,
+  local_variable = NULL,
+  variable_code = NULL,
   method_link = NULL) {
 
   validate_arguments(fun.name = "define_method", fun.args = as.list(environment()))
