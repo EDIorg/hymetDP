@@ -6,7 +6,7 @@ library(hymetDP)
 
 testthat::test_that("Single variable is added correctly", {
 
-  flat <<- data.frame(
+  flat <- data.frame(
     "datetime" = as.Date('2021-12-21'),
     "variable_name" = 'test_var',
     "value" = 8.2693,
@@ -15,6 +15,7 @@ testthat::test_that("Single variable is added correctly", {
   on.exit(flat, add = TRUE)
 
   res <- define_variable(
+    L0_flat = flat,
     local_variable = 'test_var',
     variable_name = 'Temperature')
 
@@ -61,4 +62,32 @@ testthat::test_that("Multiple variables are added correctly", {
   expect_true(length(unique(res$VariableCode)) == 2)
 
   expect_true(max(res$VariableCode) == 2)
+})
+
+testthat::test_that("Conflicting units are handled correctly", {
+
+  flat <- data.frame(
+    "datetime" = as.Date('2021-12-21'),
+    "variable_name" = c('test_var', 'test_var'),
+    "value" = c(8.2693, 3.9628),
+    "unit" = c("degree celsius", "millimeter"))
+
+  on.exit(flat, add = TRUE)
+
+  res <- expect_warning(define_variable(
+    L0_flat = flat,
+    local_variable = 'test_var',
+    variable_name = 'Temperature'),
+    regexp = "Multiple units found for variable \"test_var\". Defaulting to first option: degree celsius")
+
+  expected_cols <- c(
+    "datetime", "variable_name", "value", "unit", "VariableCode", "VariableName",
+    "VariableUnitsName", "SampleMedium", "ValueType", "IsRegular", "TimeSupport",
+    "TimeUnitsName", "DataType", "GeneralCategory", "NoDataValue")
+
+  expect_true(all(expected_cols %in% names(res)))
+
+  expect_true(length(unique(res$unit)) == 2)
+
+  expect_true(length(unique(res$VariableUnitsName)) == 1)
 })
