@@ -1,9 +1,48 @@
+#' Define a hymetDP variable
+#'
+#' @param table (character) The fully joined source L0 dataset, in "flat" format (see details).
+#' @param local_variable_column (character) Column in \code{table} containing the L0 variable name.
+#' @param local_variable (character) Reference to a value in the \code{local_variable_column} from the \code{table} to which the new hymetDP variable refers.
+#' @param variable_name (character) The CUAHSI ODM Controlled Vocabulary name for the variable that was measured, observed, modeled, etc. Defaults to the \code{local_variable} value.
+#' @param variable_units (character) The CUAHSI ODM Controlled Vocabulary name of units of the data values associated with a variable. Defaults to a column \code{unit} from the \code{table} if left unspecified.
+#' @param sample_medium (character) The CUAHSI ODM Controlled Vocabulary name of the medium in which the sample or observation was taken or made.
+#' @param value_type (character) The CUAHSI ODM Controlled Vocabulary value that indicates how the data value was generated.
+#' @param is_regular (boolean) Value indicates whether the data values are from a regularly sampled time series. Choose \code{TRUE} or \code{FALSE}.
+#' @param time_support (numeric) Numerical value that indicates the time support (or temporal footprint) of the data values. 0 is used to indicate data values that are instantaneous. Other values indicate the time over which the data values are implicitly or explicitly averaged or aggregated. Goes along with \code{time_units} if \code{is_regular == TRUE}.
+#' @param time_units (character) The CUAHSI ODM Controlled Vocabulary name of units of the time support. If \code{time_support == 0}, indicating an instantaneous observation, a unit needs to still be given for completeness, although it is arbitrary.
+#' @param data_type (character) The CUAHSI ODM Controlled Vocabulary value that indicates how the value applies over a time interval.
+#' @param general_category (character) The CUAHSI ODM Controlled Vocabulary value for general category of the data  (i.e. Hydrology).
+#' @param no_data (numeric) Numeric value used to encode when a data value is not available for this variable. DataValues will be reformatted to match this value.
+#'
+#' @return (tbl_df, tbl, data.frame) An augmented version of the original flat table, with all of the original columns plus one for each of the variable values (i.e. variable_name, variable_units, etc.).
+#'
+#' @examples
+#'
+#' flat <- <insert_test_flat_table_here>
+#'
+#' flat <- define_variable(
+#'   table = "flat",
+#'   local_variable_column = "variable_name",
+#'   local_variable = NULL,
+#'   variable_name = local_variable,
+#'   variable_units = NULL,
+#'   sample_medium = "Unknown",
+#'   value_type = "Unknown",
+#'   is_regular = FALSE,
+#'   time_support = 0,
+#'   time_units = "hour",
+#'   data_type = "Unknown",
+#'   general_category = "Unknown",
+#'   no_data = -9999)
+#'
+#' @export
+#'
 define_variable <- function(
-  table = "flat", # the name of the flat table as a character
+  table = "flat",
   local_variable_column = "variable_name",
-  local_variable = NULL, # Must be user-provided
-  variable_name = local_variable, # if not specified, defaults to variable_name (variable) value. Either way, needs to be in ODM CV
-  variable_units = NULL, # if set to null, defaults to `unit` from table. Validate returns an error if unit_<variable_code> is not in CV
+  local_variable = NULL,
+  variable_name = local_variable,
+  variable_units = NULL,
   sample_medium = "Unknown",
   value_type = "Unknown",
   is_regular = FALSE,
