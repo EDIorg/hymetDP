@@ -1,10 +1,10 @@
 #' Define a hymetDP variable
 #'
-#' @param table (character) The fully joined source L0 dataset, in "flat" format (see details).
-#' @param local_variable_column (character) Column in \code{table} containing the L0 variable name.
-#' @param local_variable (character) Reference to a value in the \code{local_variable_column} from the \code{table} to which the new hymetDP variable refers.
+#' @param L0_flat (tbl_df, tbl, data.frame) The fully joined source L0 dataset, in "flat" format (see details).
+#' @param local_variable_column (character) Column in \code{L0_flat} table containing the L0 variable name.
+#' @param local_variable (character) Reference to a value in the \code{local_variable_column} from the \code{L0_flat} table to which the new hymetDP variable refers.
 #' @param variable_name (character) The CUAHSI ODM Controlled Vocabulary name for the variable that was measured, observed, modeled, etc. Defaults to the \code{local_variable} value.
-#' @param variable_units (character) The CUAHSI ODM Controlled Vocabulary name of units of the data values associated with a variable. Defaults to a column \code{unit} from the \code{table} if left unspecified.
+#' @param variable_units (character) The CUAHSI ODM Controlled Vocabulary name of units of the data values associated with a variable. Defaults to a column \code{unit} from the \code{L0_flat} table if left unspecified.
 #' @param sample_medium (character) The CUAHSI ODM Controlled Vocabulary name of the medium in which the sample or observation was taken or made.
 #' @param value_type (character) The CUAHSI ODM Controlled Vocabulary value that indicates how the data value was generated.
 #' @param is_regular (boolean) Value indicates whether the data values are from a regularly sampled time series. Choose \code{TRUE} or \code{FALSE}.
@@ -14,7 +14,7 @@
 #' @param general_category (character) The CUAHSI ODM Controlled Vocabulary value for general category of the data  (i.e. Hydrology).
 #' @param no_data (numeric) Numeric value used to encode when a data value is not available for this variable. DataValues will be reformatted to match this value.
 #'
-#' @details This function appends columns to the \code{table} and returns the augmented table.
+#' @details This function appends columns to the \code{L0_flat} table and returns the augmented table.
 #'
 #' "flat" format refers to the fully joined source L0 dataset in "wide" form with the exception of the core observation variables, which are in "long" form (i.e. using the variable_name, value, unit columns of the observation table). This "flat" format is the "widest" an L1 hymetDP dataset can be consistently spread due to the frequent occurrence of L0 source datasets with > 1 core observation variable.
 #'
@@ -26,7 +26,7 @@
 #' flat <- <insert_test_flat_table_here>
 #'
 #' flat <- define_variable(
-#'   table = "flat",
+#'   L0_flat = flat,
 #'   local_variable_column = "variable_name",
 #'   local_variable = NULL,
 #'   variable_name = local_variable,
@@ -43,7 +43,7 @@
 #' @export
 #'
 define_variable <- function(
-  table = "flat",
+  L0_flat = flat,
   local_variable_column = "variable_name",
   local_variable = NULL,
   variable_name = local_variable,
@@ -59,9 +59,9 @@ define_variable <- function(
 
   validate_arguments(fun.name = "define_variable", fun.args = as.list(environment()))
 
-  # Assign the argument for "table" to a variable
+  # Assign the L0_flat to a variable
 
-  flat_input <- get(table)
+  flat_input <- L0_flat
 
   # if set to null, defaults to `unit` from table. Validate returns an error if unit_<variable_code> is not in CV
 

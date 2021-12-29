@@ -31,7 +31,7 @@ testthat::test_that("Single variable is added correctly", {
 
 testthat::test_that("Multiple variables are added correctly", {
 
-  flat <<- data.frame(
+  flat <- data.frame(
     "datetime" = as.Date('2021-12-21'),
     "variable_name" = c('test_var', 'another_test_var'),
     "value" = c(8.2693, 3.9628),
@@ -39,13 +39,15 @@ testthat::test_that("Multiple variables are added correctly", {
 
   on.exit(flat, add = TRUE)
 
-  flat <<- define_variable(
+  flat <- define_variable(
+    L0_flat = flat,
     local_variable = 'test_var',
     variable_name = 'Temperature')
 
   on.exit(flat, add = TRUE)
 
   res <- define_variable(
+    L0_flat = flat,
     local_variable = 'another_test_var',
     variable_name = 'Precipitation')
 

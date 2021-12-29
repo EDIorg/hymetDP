@@ -10,13 +10,11 @@ library(hymetDP)
 
 testthat::test_that("define_variable()", {
 
-  # TODO this sets global variables. Is this ok? A better way to do this?
-
   # flat table must exist
 
   inputs <- as.list(
     list(
-      table = "non-existent-flat",
+      L0_flat = 'non-existent-flat',
       local_variable = "air_temp",
       variable_units = 'celsius'))
   expect_error(validate_arguments("define_variable", inputs),
@@ -24,18 +22,18 @@ testthat::test_that("define_variable()", {
 
   # variable is required
 
-  flat <<- data.frame()
+  flat <- data.frame()
   on.exit(flat, add = TRUE)
   inputs <- as.list(
     list(
-      table = "flat",
+      L0_flat = flat,
       local_variable = "air_temp",
       variable_units = 'celsius'))
   expect_null(validate_arguments("define_variable", inputs))
 
   inputs <- as.list(
     list(
-      table = "flat",
+      L0_flat = flat,
       local_variable = NULL,
       variable_units = 'celsius'))
   expect_error(validate_arguments("define_variable", inputs),
@@ -45,7 +43,7 @@ testthat::test_that("define_variable()", {
 
   inputs <- as.list(
     list(
-      table = "flat",
+      L0_flat = flat,
       local_variable = "air_temp",
       variable_units = NULL))
   expect_error(validate_arguments("define_variable", inputs),
@@ -53,16 +51,16 @@ testthat::test_that("define_variable()", {
 
   inputs <- as.list(
     list(
-      table = "flat",
+      L0_flat = flat,
       local_variable = "air_temp",
       variable_units = 'celsius'))
   expect_null(validate_arguments("define_variable", inputs))
 
-  flat <<- data.frame("unit" = NA_character_)
+  flat <- data.frame("unit" = NA_character_)
   on.exit(flat, add = TRUE)
   inputs <- as.list(
     list(
-      table = "flat",
+      L0_flat = flat,
       local_variable = "air_temp",
       variable_units = NULL))
   expect_null(validate_arguments("define_variable", inputs))

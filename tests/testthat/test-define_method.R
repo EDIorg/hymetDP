@@ -8,7 +8,7 @@ library(hymetDP)
 
 testthat::test_that("Method is added (no variable)", {
 
-  flat <<- data.frame(
+  flat <- data.frame(
     "datetime" = as.Date('2021-12-21'),
     "variable_name" = c('test_var', 'another_test_var'),
     "value" = c(8.2693, 3.9628),
@@ -29,7 +29,7 @@ testthat::test_that("Method is added (no variable)", {
 
   # First method added
 
-  flat <<- define_method(method_description = 'Here is the desciption of a test method.')
+  flat <- define_method(L0_flat = flat, method_description = 'Here is the desciption of a test method.')
   on.exit(flat, add = TRUE)
 
   expected_cols <- c(
@@ -43,7 +43,7 @@ testthat::test_that("Method is added (no variable)", {
 
   # Second method added
 
-  res <- define_method(method_description = 'Here is another desciption of a test method.',
+  res <- define_method(L0_flat = flat, method_description = 'Here is another desciption of a test method.',
                        method_link = 'https://my-method.html')
 
   expected_cols <- c(
@@ -64,7 +64,7 @@ testthat::test_that("Method is added (no variable)", {
 
 testthat::test_that("Method is added to variable (by name)", {
 
-  flat <<- data.frame(
+  flat <- data.frame(
     "datetime" = as.Date('2021-12-21'),
     "variable_name" = c('test_var', 'another_test_var'),
     "value" = c(8.2693, 3.9628),
@@ -83,7 +83,7 @@ testthat::test_that("Method is added to variable (by name)", {
 
   on.exit(flat, add = TRUE)
 
-  flat <<- define_method(method_description = 'Here is the desciption of a test method.',
+  flat <- define_method(L0_flat = flat, method_description = 'Here is the desciption of a test method.',
                        local_variable = 'test_var')
   on.exit(flat, add = TRUE)
 
@@ -98,7 +98,7 @@ testthat::test_that("Method is added to variable (by name)", {
   expect_equal(length(unique(flat$MethodDescription_1)), 2)
 
 
-  res <- define_method(method_description = 'Here is the desciption of a test method.',
+  res <- define_method(L0_flat = flat, method_description = 'Here is the desciption of a test method.',
                        method_link = 'https://my-method.html',
                          local_variable = 'another_test_var')
   on.exit(flat, add = TRUE)
@@ -123,7 +123,7 @@ testthat::test_that("Method is added to variable (by name)", {
 
 testthat::test_that("Method is added to variable (by code)", {
 
-  flat <<- data.frame(
+  flat <- data.frame(
     "datetime" = as.Date('2021-12-21'),
     "variable_name" = c('test_var', 'another_test_var'),
     "value" = c(8.2693, 3.9628),
@@ -142,7 +142,7 @@ testthat::test_that("Method is added to variable (by code)", {
 
   on.exit(flat, add = TRUE)
 
-  flat <<- define_method(method_description = 'Here is the desciption of a test method.',
+  flat <- define_method(L0_flat = flat, method_description = 'Here is the desciption of a test method.',
                        variable_code = 1)
   on.exit(flat, add = TRUE)
 
@@ -155,7 +155,7 @@ testthat::test_that("Method is added to variable (by code)", {
 
   expect_equal(length(unique(flat$MethodDescription_1)), 2)
 
-  res <- define_method(method_description = 'Here is the desciption of another test method.',
+  res <- define_method(L0_flat = flat, method_description = 'Here is the desciption of another test method.',
                        method_link = 'https://my-method.html',
                        variable_code = 2)
 
