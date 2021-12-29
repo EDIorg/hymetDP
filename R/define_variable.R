@@ -14,6 +14,11 @@
 #' @param general_category (character) The CUAHSI ODM Controlled Vocabulary value for general category of the data  (i.e. Hydrology).
 #' @param no_data (numeric) Numeric value used to encode when a data value is not available for this variable. DataValues will be reformatted to match this value.
 #'
+#' @details This function appends columns to the \code{table} and returns the augmented table.
+#'
+#' "flat" format refers to the fully joined source L0 dataset in "wide" form with the exception of the core observation variables, which are in "long" form (i.e. using the variable_name, value, unit columns of the observation table). This "flat" format is the "widest" an L1 hymetDP dataset can be consistently spread due to the frequent occurrence of L0 source datasets with > 1 core observation variable.
+#'
+#'
 #' @return (tbl_df, tbl, data.frame) An augmented version of the original flat table, with all of the original columns plus one for each of the variable values (i.e. variable_name, variable_units, etc.).
 #'
 #' @examples
