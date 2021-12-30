@@ -61,7 +61,31 @@ validate_arguments <- function(fun.name, fun.args) {
 
   }
 
+  # create_sources() ----------------------------------------------------
 
+  # If there is more than one oganization listed, there should either be exactly 1 of all other arguments, or the same number as organizations
+
+  if (fun.name == 'create_sources') {
+
+    if (is.null(fun.args$Organization)) stop("A source Organization must be provided.")
+
+    if (all(class(eml) == c("xml_document", "xml_node")) & is.null(fun.args$SourceDescription)) stop("A valid EML document or a SourceDescription must be provided.")
+
+    var_lengths <- c(length(fun.args$ContactName), length(fun.args$Phone), length(fun.args$Email), length(fun.args$Address), length(fun.args$City), length(fun.args$State), length(fun.args$ZipCode))
+    if (length(fun.args$Organization) > 1) {
+      for (i in var_lengths) {
+        if (i != length(fun.args$Organization) | i == 1) stop("If multiple Organizations are specified, all other arguments must be of the same length or length == 1", call. = FALSE)
+      }
+    }
+
+    # Only one sourcelink, sourcedescription, citation
+
+    var_lengths <- c(length(fun.args$SourceLink), length(fun.args$SourceDescription), length(fun.args$Citation))
+    if (any(var_lengths > 1)) {
+      stop("Only one input is allowed to 'SourceLink', 'SourceDescription', and 'Citation'. This will typically be the source data package's DOI, abstract, and citation, respectively. ", call. = FALSE)
+    }
+
+  }
 
 
 }

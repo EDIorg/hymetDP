@@ -20,6 +20,7 @@ create_data_values(
   QualifierCode = NULL,
   MethodCode,
   QualityControlLevelCode,
+  SourceCode,
   NoDataValue
 )
 }
