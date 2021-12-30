@@ -46,6 +46,21 @@ validate_arguments <- function(fun.name, fun.args) {
   }
 
 
+  # create_data_values() ----------------------------------------------------
+
+  if (fun.name == 'create_data_values') {
+    var_lengths <- c(length(fun.args$ValueID), length(fun.args$DataValue), length(fun.args$VariableCode))
+    if (any(var_lengths != 1)) {
+      stop("Only one input is allowed to 'DataValue', 'VariableCode', and 'ValueID'. Gather your primary observation variables into long format before calling this function. ", call. = FALSE)
+    }
+
+    var_lengths <- c(length(fun.args$MethodCode), length(fun.args$SourceCode))
+    if (any(var_lengths != 1)) {
+      stop("Only one input is allowed to 'MethodCode', and 'SourceCode'. Use create_methods and create_sources to combine methods and sources into long format before calling this function. ", call. = FALSE)
+    }
+
+  }
+
 
 
 

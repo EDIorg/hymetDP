@@ -42,6 +42,7 @@ create_data_values <- function( # TODO change the "Code used by the organization
   QualifierCode = NULL,
   MethodCode,
   QualityControlLevelCode,
+  SourceCode,
   NoDataValue) {
 
   validate_arguments(fun.name = "create_data_values", fun.args = as.list(environment()))
@@ -59,6 +60,7 @@ create_data_values <- function( # TODO change the "Code used by the organization
                       CensorCode,
                       QualifierCode,
                       MethodCode,
+                      SourceCode,
                       QualityControlLevelCode)
 
   res <- L0_flat %>%
