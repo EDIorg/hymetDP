@@ -69,6 +69,10 @@ create_data_values <- function( # TODO change the "Code used by the organization
 
   # TODO add UTC time
 
+  if (is.null(DateTimeUTC)) {
+    # Calculate from Local and UTCOFfset
+  }
+
   # TODO handle SourceCode
 
   # reorder

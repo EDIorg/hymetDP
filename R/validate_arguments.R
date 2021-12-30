@@ -45,4 +45,16 @@ validate_arguments <- function(fun.name, fun.args) {
 
   }
 
+
+  # define_source() ----------------------------------------------------------
+
+  if (fun.name == 'define_source') {
+
+    # EML document is specified
+    if (!all(class(fun.args$eml) == c("xml_document", "xml_node")) & (is.null(fun.args$organization) | is.null(fun.args$source_description))) stop("Please specify a source EML or an Organizaton and SourceDescription")
+
+  }
+
+
+
 }
