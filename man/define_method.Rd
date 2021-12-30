@@ -9,7 +9,6 @@ define_method(
   local_variable_column = "variable_name",
   local_variable = NULL,
   variable_code = NULL,
-  method_description = NULL,
   method_link = NULL
 )
 }
@@ -22,9 +21,9 @@ define_method(
 
 \item{variable_code}{(character) The auto-generated primary key for a variable (from column \code{VariableCode}). Another way to link a method to a value (or values). Takes priority over \code{local_variable}.}
 
-\item{method_description}{(character) Text description of the method.}
-
 \item{method_link}{(character) Optional. Link to additional reference material on the method. Should be a single valid URL.}
+
+\item{method_description}{(character) Text description of the method.}
 }
 \value{
 (tbl_df, tbl, data.frame) An augmented version of the original flat table, with all of the original columns plus one additional column for the method description (or two additional columns if a method link is defined). Column name includes the auto-generated MethodCode (i.e. MethodDescription_1), which will become the the primary key in the Methods table.
