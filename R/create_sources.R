@@ -114,14 +114,22 @@ create_source <- function(
     dplyr::bind_rows(res, new_source)
   }
 
+  # Primary Key
 
-  # TODO if (x_paramater == "Unknown") try(<to find in the eml>) else "Unknown"
+  res$SourceCode <- seq(nrow(res))
 
+  # reorder
+  res <- res %>%
+    dplyr::select(SourceCode, all_of(cols_to_gather))
 
+  return(res)
 
-
-  # TODO SourceCode <- length(Organization)
 }
+
+
+
+
+
 
 #' Create an EDI data package citation from EML hosted on the EDI Data Portal
 #'
