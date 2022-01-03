@@ -129,36 +129,3 @@ create_source <- function(
 
 
 
-
-
-
-#' Create an EDI data package citation from EML hosted on the EDI Data Portal
-#'
-#' @param Citation (character) If anything other than NULL is passed to this function, a citation will not be generated
-#'
-#' @return (character) An EDI data package citation
-#'
-#' @examples
-#'
-create_citation <- function(eml = eml, Citation = Citation) {
-
-  if (is.null(Citation)) {
-    creator_firsts <- xml2::xml_text(xml2::xml_find_all(eml, './/creator/individualName/givenName'))
-    creator_lasts <- xml2::xml_text(xml2::xml_find_all(eml, './/creator/individualName/surName'))
-    names <- knitr::combine_words(paste(substr(creator_firsts, 0, 1), creator_lasts, sep = ". "))
-    pid <- xml2::xml_attr(eml, 'packageId')
-    quality_report <- xml2::xml_ns_strip(read_data_package_report(pid))
-    creation_year <- substr(xml2::xml_text(xml2::xml_find_all(quality_report, 'creationDate')), 0, 4)
-    title <- xml2::xml_text(xml2::xml_find_all(eml, './/dataset/title'))
-    versioned_title <- paste0(title, " ver ", parse_packageId(pid)$rev)
-    full_doi <- xml2::xml_text(xml2::xml_find_first(eml, './/alternateIdentifier'))
-    doi <- substr(full_doi, 5, nchar(full_doi))
-    doi_link <- paste0(xml2::xml_attr(xml2::xml_find_first(eml, './/alternateIdentifier'), 'system'), "/", doi)
-    doi_accessed <- paste0(doi_link, " (Accessed ", Sys.Date(), ").")
-
-    Citation <- paste(names, creation_year, versioned_title, "Environmental Data Initiative", doi_accessed, sep = ". ")
-  }
-
-  return(Citation)
-
-}

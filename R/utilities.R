@@ -62,3 +62,39 @@ parse_packageId <- function(package.id) {
   res <- list(scope = parts[1], id = parts[2], rev = parts[3])
   return(res)
 }
+
+
+
+#' Construct base URL of the EDI repository web services
+#'
+#' @param env (character) Data repository environment to perform the evaluation in. Can be: 'development', 'staging', 'production'.
+#'
+#' @return (character) Base url
+#'
+#' @noRd
+#'
+base_url <- function(env){
+  env <- tolower(env)
+  if (env == 'development'){
+    res <- 'https://pasta-d.lternet.edu'
+  } else if (env == 'staging'){
+    res <- 'https://pasta-s.lternet.edu'
+  } else if (env == 'production'){
+    res <- 'https://pasta.lternet.edu'
+  }
+  return(res)
+}
+
+
+
+
+#' Set EDIutils user agent for http requests
+#'
+#' @return (request) EDIutils user agent
+#'
+#' @noRd
+#'
+set_user_agent <- function() {
+  res <- httr::user_agent("https://github.com/EDIorg/EDIutils")
+  return(res)
+}
