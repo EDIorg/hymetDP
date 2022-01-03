@@ -66,53 +66,54 @@ create_source <- function(
 
       res$ZipCode <- ifelse(is.na(xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/postalCode'))), "Unknown", .)
     }
-
-
-
-  } else if (length(contact_info) < 7) {
-
-    newContactName <- paste0(xml2::xml_text(xml2::xml_find_first(eml, './/contact/individualName/givenName')), ' ',
-                              xml2::xml_text(xml2::xml_find_first(eml, './/contact/individualName/surName')))
-
-    newPhone <- ifelse(is.na(xml2::xml_text(xml2::xml_find_first(eml, './/contact/phone'))), "Unknown", .)
-
-    newEmail <- ifelse(is.na(xml2::xml_text(xml2::xml_find_first(eml, './/contact/electronicMailAddress'))), "Unknown", .)
-
-    if (!is.na(xml2::xml_text(xml2::xml_find_first(eml, './/contact/address')))) {
-
-      newAddress <- ifelse(is.na(xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/deliveryPoint'))), "Unknown", .)
-
-      newCity <- ifelse(is.na(xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/city'))), "Unknown", .)
-
-      if (xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/country')) == "USA") {
-
-        newState <- ifelse(is.na(xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/administrativeArea'))), "Unknown", .)
-      } else {
-
-        newState <- ifelse(is.na(xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/country'))), "Unknown", .)
-      }
-
-      newZipCode <- ifelse(is.na(xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/postalCode'))), "Unknown", .)
-    }
-
-    if (length(c(newContactName, newPhone, newEmail, newAddress, newCity, newState, newZipCode)) > length(contact_info))
-
-    new_source <- data.frame(
-      "Organization" = res$Organization[[1]],
-      "SourceDescription" = res$SourceDescription[[1]],
-      "SourceLink" = res$SourceLink[[1]],
-      "ContactName" = newContactName,
-      "Phone" = newPhone,
-      "Email" = newEmail,
-      "Address" = newAddress,
-      "City" = newCity,
-      "State" = newState,
-      "ZipCode" = newZipCode,
-      "Citation" = res$Citation[[1]]
-    )
-
-    dplyr::bind_rows(res, new_source)
   }
+
+  # TODO the below chunk would be useful if more than 1 source is allowed. Not sure that it is.
+
+  # else if (length(contact_info) < 7) {
+  #
+  #   newContactName <- paste0(xml2::xml_text(xml2::xml_find_first(eml, './/contact/individualName/givenName')), ' ',
+  #                             xml2::xml_text(xml2::xml_find_first(eml, './/contact/individualName/surName')))
+  #
+  #   newPhone <- ifelse(is.na(xml2::xml_text(xml2::xml_find_first(eml, './/contact/phone'))), "Unknown", .)
+  #
+  #   newEmail <- ifelse(is.na(xml2::xml_text(xml2::xml_find_first(eml, './/contact/electronicMailAddress'))), "Unknown", .)
+  #
+  #   if (!is.na(xml2::xml_text(xml2::xml_find_first(eml, './/contact/address')))) {
+  #
+  #     newAddress <- ifelse(is.na(xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/deliveryPoint'))), "Unknown", .)
+  #
+  #     newCity <- ifelse(is.na(xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/city'))), "Unknown", .)
+  #
+  #     if (xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/country')) == "USA") {
+  #
+  #       newState <- ifelse(is.na(xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/administrativeArea'))), "Unknown", .)
+  #     } else {
+  #
+  #       newState <- ifelse(is.na(xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/country'))), "Unknown", .)
+  #     }
+  #
+  #     newZipCode <- ifelse(is.na(xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/postalCode'))), "Unknown", .)
+  #   }
+  #
+  #   if (length(c(newContactName, newPhone, newEmail, newAddress, newCity, newState, newZipCode)) > length(contact_info))
+  #
+  #   new_source <- data.frame(
+  #     "Organization" = res$Organization[[1]],
+  #     "SourceDescription" = res$SourceDescription[[1]],
+  #     "SourceLink" = res$SourceLink[[1]],
+  #     "ContactName" = newContactName,
+  #     "Phone" = newPhone,
+  #     "Email" = newEmail,
+  #     "Address" = newAddress,
+  #     "City" = newCity,
+  #     "State" = newState,
+  #     "ZipCode" = newZipCode,
+  #     "Citation" = res$Citation[[1]]
+  #   )
+  #
+  #   dplyr::bind_rows(res, new_source)
+  # }
 
   # Primary Key
 
