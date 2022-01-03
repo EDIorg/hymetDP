@@ -24,4 +24,5 @@ Imports:
     purrr,
     dplyr,
     rlang,
-    xml2
+    xml2,
+    knitr (>= 1.36)
