@@ -1,3 +1,46 @@
+#' Define a hymetDP source
+#'
+#' @param L0_flat (tbl_df, tbl, data.frame) The fully joined source L0 dataset, in "flat" format (see details).
+#' @param eml ('xml_document' 'xml_node') EML metadata.
+#' @param Organization (character) Name of the organization that collected the data.
+#' @param SourceDescription (character) Full text description of the source of the data.
+#' @param SourceLink (character) Optional. Full text description of the source of the data.
+#' @param ContactName (character) Name of the contact person for the data source.
+#' @param Phone (character) Phone number for the contact person.
+#' @param Email (character) Email addresss for the contact person.
+#' @param Address (character) Street address for the contact person.
+#' @param City (character) City in which the contact person is located.
+#' @param State (character) State in which the contact person is located. Use two letter abbreviations for US. For other countries give the full country name.
+#' @param ZipCode (character) US Zip Code or country postal code.
+#' @param Citation (character) Text string that gives the citation to be used when the data from each source are referenced.
+#'
+#' @details This function appends columns to the \code{L0_flat} table and returns the augmented table.
+#'
+#' "flat" format refers to the fully joined source L0 dataset in "wide" form with the exception of the core observation variables, which are in "long" form (i.e. using the variable_name, value, unit columns of the observation table). This "flat" format is the "widest" an L1 hymetDP dataset can be consistently spread due to the frequent occurrence of L0 source datasets with > 1 core observation variable.
+#'
+#' @return (tbl_df, tbl, data.frame) An augmented version of the original flat table, with all of the original columns plus additional columns for the Source information.
+#'
+#' @examples
+#'
+#' flat <- <insert_test_flat_table_here>
+#'
+#' flat <- define_variable(
+#'   L0_flat = flat,
+#'   eml = eml,
+#'   Organization = NULL,
+#'   SourceDescription = NULL,
+#'   SourceLink = NULL,
+#'   ContactName = NULL,
+#'   Phone = NULL,
+#'   Email = NULL,
+#'   Address = NULL,
+#'   City = NULL,
+#'   State = NULL,
+#'   ZipCode = NULL,
+#'   Citation = NULL)
+#'
+#' @export
+#'
 define_source <- function(
   L0_flat = flat,
   eml = eml,
@@ -17,25 +60,33 @@ define_source <- function(
 
   flat_input <- L0_flat
 
-  if (is.null(SourceDescription) & !"SourceDescription" %in% names(flat_input)) {
+  eml_exists <- exists('eml') & all(class(eml) == c("xml_document", "xml_node"))
+
+  if (is.null(SourceDescription) & !"SourceDescription" %in% names(flat_input) & eml_exists) {
     flat_input$SourceDescription <- xml2::xml_text(xml2::xml_find_first(eml, './/abstract'))
+  } else if (!is.null(SourceDescription)) {
+    flat_input$SourceDescription <- SourceDescription
   }
 
   message("SourceDescription added")
 
   if (is.null(SourceLink) & !"SourceLink" %in% names(flat_input)) {
-    if(all(class(eml) == c("xml_document", "xml_node"))) {
+    if(eml_exists) {
       full_doi <- xml2::xml_text(xml2::xml_find_first(eml, './/alternateIdentifier'))
       doi <- substr(full_doi, 5, nchar(full_doi))
-      flat_input$SourceLink <- paste0("https://doi.org/", doi)
-  }}
+      flat_input$SourceLink <- paste0("https://doi.org/", doi)}
+  } else if (!is.null(SourceLink)) {
+    flat_input$SourceLink <- SourceLink
+  }
 
   message("SourceLink added")
 
   # create the citation
 
-  if (is.null(Citation) & !"Citation" %in% names(flat_input)) {
-    flat_input$Citation <- create_citation(eml, Citation)
+  if (is.null(Citation) & !"Citation" %in% names(flat_input) & eml_exists) {
+    flat_input$Citation <- create_citation(eml)
+  } else if (!is.null(Citation)) {
+    flat_input$Citation <- Citation
   }
 
   message("Citation added")
@@ -45,7 +96,7 @@ define_source <- function(
 
   # Only look up information from EML if set is completely empty. If any part of the Source info is provided, no automatic lookup.
 
-  if (is.null(contact_info) & all(contact_cols %in% names(flat_input) == FALSE)) {
+  if (is.null(contact_info) & all(contact_cols %in% names(flat_input) == FALSE) & eml_exists) {
 
     #get all fields
     flat_input$ContactName <- paste0(xml2::xml_text(xml2::xml_find_first(eml, './/contact/individualName/givenName')), ' ',
@@ -79,6 +130,15 @@ define_source <- function(
 
       flat_input$ZipCode <- ifelse(is.na(eml_postal), "Unknown", eml_postal)
     }
+  } else if (!is.null(contact_info)) {
+
+    if (!is.null(ContactName)) flat_input$ContactName <- ContactName
+    if (!is.null(Phone)) flat_input$Phone <- Phone
+    if (!is.null(Email)) flat_input$Email <- Email
+    if (!is.null(Address)) flat_input$Address <- Address
+    if (!is.null(City)) flat_input$City <- City
+    if (!is.null(State)) flat_input$State <- State
+    if (!is.null(ZipCode)) flat_input$ZipCode <- ZipCode
   }
 
   message("Contact Info Added")

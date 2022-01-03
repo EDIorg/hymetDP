@@ -46,6 +46,19 @@ validate_arguments <- function(fun.name, fun.args) {
   }
 
 
+  # define_source() ---------------------------------------------------------
+
+  if (fun.name == 'define_source') {
+
+    # Flat table is specified
+    if (!any(class(fun.args$L0_flat) == 'data.frame')) stop("Please specify or create the \"flat\" table.", call. = FALSE)
+
+    if (is.null(fun.args$Organization) & !"Organization" %in% names(fun.args$L0_flat)) stop("A source Organization must be provided.")
+
+
+  }
+
+
   # create_data_values() ----------------------------------------------------
 
   if (fun.name == 'create_data_values') {
