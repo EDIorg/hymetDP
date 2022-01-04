@@ -51,6 +51,12 @@ define_method <- function(
   # This is to prevent the (possibly already huge) flat table from
   # doubling or tripling in size with the addition of multiple methods to a single/every variable
   # TODO Is this the best way to do this? or stick to a truly flat table with possibly many rows?
+  # TODO I think I've found the problem with this. I want a MethodCode attached to the flat table. This doesnt do that.
+  # TODO the problem I was trying to avoid (duplicating observataions to allow for multiple methods assigned to one)
+  # TODO might be moot because you can really only have one method per observation.
+
+  # TODO what I want to do is follow a more similar build DF and join to flat as I do in define variable
+
 
   # Determine existing methods
 

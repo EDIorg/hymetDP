@@ -47,6 +47,8 @@ create_sources <- function(
     dplyr::select(all_of(cols_to_gather)) %>%
     dplyr::distinct()
 
+  # add missing columns
+
   if (is.null(SourceLink)) {
     res$SourceLink <- NA_character_
   }
