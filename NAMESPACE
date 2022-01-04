@@ -2,6 +2,7 @@
 
 export("%>%")
 export(create_data_values)
+export(create_sources)
 export(define_method)
 export(define_source)
 export(define_variable)

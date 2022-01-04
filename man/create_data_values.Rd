@@ -25,40 +25,42 @@ create_data_values(
 )
 }
 \arguments{
-\item{L0_flat}{L0_flat (tbl_df, tbl, data.frame) The fully joined source L0 dataset, in "flat" format (see details).}
+\item{L0_flat}{(tbl_df, tbl, data.frame) The fully joined source L0 dataset, in "flat" format (see details).}
 
-\item{ValueID}{Column in \code{L0_flat} containing the identifier assigned to each unique data value.}
+\item{ValueID}{(character) Column in \code{L0_flat} containing the identifier assigned to each unique data value.}
 
-\item{DataValue}{Column in \code{L0_flat} containing the numeric value of the observation.}
+\item{DataValue}{(character) Column in \code{L0_flat} containing the numeric value of the observation.}
 
-\item{ValueAccuracy}{Optional. Column in \code{L0_flat} containing the umeric value that describes the measurement accuracy of the data value.}
+\item{ValueAccuracy}{(character) Optional. Column in \code{L0_flat} containing the umeric value that describes the measurement accuracy of the data value.}
 
-\item{LocalDateTime}{Column in \code{L0_flat} containing local date and time at which the data value was observed.}
+\item{LocalDateTime}{(character) Column in \code{L0_flat} containing local date and time at which the data value was observed.}
 
-\item{UTCOffset}{Column in \code{L0_flat} containing offset in hours from UTC time of the corresponding LocalDateTime value.}
+\item{UTCOffset}{(character) Column in \code{L0_flat} containing offset in hours from UTC time of the corresponding LocalDateTime value.}
 
-\item{DateTimeUTC}{Column in \code{L0_flat} containing UTC date and time at which the data value was observed.}
+\item{DateTimeUTC}{(character) Column in \code{L0_flat} containing UTC date and time at which the data value was observed.}
 
-\item{SiteCode}{Column in \code{L0_flat} containing code used by organization that collects the data to identify the site.}
+\item{SiteCode}{(character) Column in \code{L0_flat} containing code used by organization that collects the data to identify the site.}
 
-\item{VariableCode}{Column in \code{L0_flat} containing code used by the organization that collects the data to identify the variable.}
+\item{VariableCode}{(character) Column in \code{L0_flat} containing code used by the organization that collects the data to identify the variable.}
 
-\item{OffsetValue}{Optional. Column in \code{L0_flat} containing distance from a datum or control point to the point at which a data value was observed.}
+\item{OffsetValue}{(character) Optional. Column in \code{L0_flat} containing distance from a datum or control point to the point at which a data value was observed.}
 
-\item{CensorCode}{Column in \code{L0_flat} containing text indication of whether the data value is censored. Defaults to "nc" (Not Censored).}
+\item{CensorCode}{(character) Column in \code{L0_flat} containing text indication of whether the data value is censored. Defaults to "nc" (Not Censored).}
 
-\item{QualifierCode}{Optional. Column in \code{L0_flat} containing a flag indicating a peculiarity with a particular data value.}
+\item{QualifierCode}{(character) Optional. Column in \code{L0_flat} containing a flag indicating a peculiarity with a particular data value.}
 
-\item{MethodCode}{Column in \code{L0_flat} containing code used by the organization that collects the data to identify the Method.}
+\item{MethodCode}{(character) Column in \code{L0_flat} containing code used by the organization that collects the data to identify the Method.}
 
-\item{QualityControlLevelCode}{Column in \code{L0_flat} containing code which identifies the level of quality control that the value has been subjected to.}
+\item{QualityControlLevelCode}{(character) Column in \code{L0_flat} containing code which identifies the level of quality control that the value has been subjected to.}
 
-\item{NoDataValue}{Column in \code{L0_flat} containing numeric value used to encode when a data value is not available for this variable.}
+\item{SourceCode}{(character) Column in \code{L0_flat} containing the code which identifies the organization that created the data.}
 
-\item{OffsetTypeCodeMandatory}{if OffsetValue is used. Column in \code{L0_flat} containing code used by the organization that collects the data to identify the OffsetType.}
+\item{NoDataValue}{(character) Column in \code{L0_flat} containing numeric value used to encode when a data value is not available for this variable.}
+
+\item{OffsetTypeCodeMandatory}{(character) if OffsetValue is used. Column in \code{L0_flat} containing code used by the organization that collects the data to identify the OffsetType.}
 }
 \value{
-
+(tbl_df, tbl, data.frame) The DataValues table.
 }
 \description{
 Create the DataValues table
