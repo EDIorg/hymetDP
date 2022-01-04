@@ -27,11 +27,11 @@ define_source(
 
 \item{Organization}{(character) Name of the organization that collected the data.}
 
-\item{SourceDescription}{(character) Full text description of the source of the data.}
+\item{SourceDescription}{(character) Full text description of the source of the data. If not provided, will default to the abstract from the EML document.}
 
-\item{SourceLink}{(character) Optional. Full text description of the source of the data.}
+\item{SourceLink}{(character) Optional. Full text description of the source of the data. If not provided, will default to the DOI in the EML document.}
 
-\item{ContactName}{(character) Name of the contact person for the data source.}
+\item{ContactName}{(character) Name of the contact person for the data source. If not provided, all contact information will default to the first contact listed in the EML document.}
 
 \item{Phone}{(character) Phone number for the contact person.}
 
@@ -45,7 +45,7 @@ define_source(
 
 \item{ZipCode}{(character) US Zip Code or country postal code.}
 
-\item{Citation}{(character) Text string that gives the citation to be used when the data from each source are referenced.}
+\item{Citation}{(character) Text string that gives the citation to be used when the data from each source are referenced. If not provided, will default to the Citation that appears (or that would appear) on the EDI Data Portal for the EML document.}
 }
 \value{
 (tbl_df, tbl, data.frame) An augmented version of the original flat table, with all of the original columns plus additional columns for the Source information.

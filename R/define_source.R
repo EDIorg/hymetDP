@@ -3,16 +3,16 @@
 #' @param L0_flat (tbl_df, tbl, data.frame) The fully joined source L0 dataset, in "flat" format (see details).
 #' @param eml ('xml_document' 'xml_node') EML metadata.
 #' @param Organization (character) Name of the organization that collected the data.
-#' @param SourceDescription (character) Full text description of the source of the data.
-#' @param SourceLink (character) Optional. Full text description of the source of the data.
-#' @param ContactName (character) Name of the contact person for the data source.
+#' @param SourceDescription (character) Full text description of the source of the data. If not provided, will default to the abstract from the EML document.
+#' @param SourceLink (character) Optional. Full text description of the source of the data. If not provided, will default to the DOI in the EML document.
+#' @param ContactName (character) Name of the contact person for the data source. If not provided, all contact information will default to the first contact listed in the EML document.
 #' @param Phone (character) Phone number for the contact person.
 #' @param Email (character) Email addresss for the contact person.
 #' @param Address (character) Street address for the contact person.
 #' @param City (character) City in which the contact person is located.
 #' @param State (character) State in which the contact person is located. Use two letter abbreviations for US. For other countries give the full country name.
 #' @param ZipCode (character) US Zip Code or country postal code.
-#' @param Citation (character) Text string that gives the citation to be used when the data from each source are referenced.
+#' @param Citation (character) Text string that gives the citation to be used when the data from each source are referenced. If not provided, will default to the Citation that appears (or that would appear) on the EDI Data Portal for the EML document.
 #'
 #' @details This function appends columns to the \code{L0_flat} table and returns the augmented table.
 #'
