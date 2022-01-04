@@ -24,7 +24,7 @@
 #'
 #' flat <- <insert_test_flat_table_here>
 #'
-#' flat <- define_variable(
+#' flat <- define_source(
 #'   L0_flat = flat,
 #'   eml = eml,
 #'   Organization = NULL,
