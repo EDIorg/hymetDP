@@ -1,4 +1,43 @@
 table	column	class	required	primary_key	foreign_key	composite_key	globally_unique
+Sources	NA	NA	TRUE	NA	NA	NA	NA
+Sources	SourceCode	character	TRUE	TRUE	FALSE	TRUE	TRUE
+Sources	Organization	character	TRUE	FALSE	FALSE	FALSE	FALSE
+Sources	SourceDescription	character	TRUE	FALSE	FALSE	FALSE	FALSE
+Sources	SourceLink	character	FALSE	FALSE	FALSE	FALSE	FALSE
+Sources	ContactName	character	TRUE	FALSE	FALSE	FALSE	FALSE
+Sources	Phone	character	TRUE	FALSE	FALSE	FALSE	FALSE
+Sources	Email	character	TRUE	FALSE	FALSE	FALSE	FALSE
+Sources	Address	character	TRUE	FALSE	FALSE	FALSE	FALSE
+Sources	City	character	TRUE	FALSE	FALSE	FALSE	FALSE
+Sources	State	character	TRUE	FALSE	FALSE	FALSE	FALSE
+Sources	ZipCode	character	TRUE	FALSE	FALSE	FALSE	FALSE
+Sources	Citation	character	TRUE	FALSE	FALSE	FALSE	FALSE
+DataValues	NA	NA	TRUE	NA	NA	NA	NA
+DataValues	ValueID	character	TRUE	TRUE	FALSE	TRUE	TRUE
+DataValues	DataValue	numeric	TRUE	FALSE	FALSE	FALSE	FALSE
+DataValues	ValueAccuracy	numeric	FALSE	FALSE	FALSE	FALSE	FALSE
+DataValues	LocalDateTime	Date	TRUE	FALSE	FALSE	FALSE	FALSE
+DataValues	UTCOffset	numeric	TRUE	FALSE	FALSE	FALSE	FALSE
+DataValues	DateTimeUTC	Date	TRUE	FALSE	FALSE	FALSE	FALSE
+DataValues	SiteCode	character	TRUE	FALSE	TRUE	FALSE	TRUE
+DataValues	VariableCode	character	TRUE	FALSE	TRUE	FALSE	TRUE
+DataValues	OffsetValue	numeric	FALSE	FALSE	FALSE	FALSE	FALSE
+DataValues	OffsetTypeCode	character	FALSE	FALSE	TRUE	FALSE	TRUE
+DataValues	CensorCode	character	FALSE	FALSE	TRUE	FALSE	TRUE
+DataValues	QualifierCode	character	FALSE	FALSE	TRUE	FALSE	TRUE
+DataValues	MethodCode	character	TRUE	FALSE	TRUE	FALSE	TRUE
+DataValues	SourceCode	character	TRUE	FALSE	TRUE	FALSE	TRUE
+DataValues	QualityControlLevelCode	character	TRUE	FALSE	TRUE	FALSE	TRUE
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
 location	NA	NA	TRUE	NA	NA	NA	NA
 location	location_id	character	TRUE	TRUE	FALSE	TRUE	TRUE
 location	location_name	character	FALSE	FALSE	FALSE	FALSE	FALSE
