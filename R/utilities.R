@@ -98,3 +98,16 @@ set_user_agent <- function() {
   res <- httr::user_agent("https://github.com/EDIorg/EDIutils")
   return(res)
 }
+
+
+
+
+# Read hymetDP criteria
+#
+# @return (data.frame) hymetDP criteria
+#
+read_criteria <- function() {
+  res <- data.table::fread(
+    system.file('extdata', 'validation_criteria.txt', package = 'hymetDP'))
+  return(res)
+}
