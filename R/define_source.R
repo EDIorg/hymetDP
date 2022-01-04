@@ -99,16 +99,17 @@ define_source <- function(
   if (is.null(contact_info) & all(contact_cols %in% names(flat_input) == FALSE) & eml_exists) {
 
     #get all fields
+
+  eml_phone <- xml2::xml_text(xml2::xml_find_first(eml, './/contact/phone'))
+  eml_email <- xml2::xml_text(xml2::xml_find_first(eml, './/contact/electronicMailAddress'))
+  eml_point <- xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/deliveryPoint'))
+  eml_city <- xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/city'))
+  eml_country <- xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/country'))
+  eml_admin <- xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/administrativeArea'))
+  eml_postal <- xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/administrativeArea'))
+
     flat_input$ContactName <- paste0(xml2::xml_text(xml2::xml_find_first(eml, './/contact/individualName/givenName')), ' ',
                               xml2::xml_text(xml2::xml_find_first(eml, './/contact/individualName/surName')))
-
-    eml_phone <- xml2::xml_text(xml2::xml_find_first(eml, './/contact/phone'))
-    eml_email <- xml2::xml_text(xml2::xml_find_first(eml, './/contact/electronicMailAddress'))
-    eml_point <- xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/deliveryPoint'))
-    eml_city <- xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/city'))
-    eml_country <- xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/country'))
-    eml_admin <- xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/administrativeArea'))
-    eml_postal <- xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/administrativeArea'))
 
     flat_input$Phone <- ifelse(is.na(eml_phone), "Unknown", eml_phone)
 
@@ -130,15 +131,25 @@ define_source <- function(
 
       flat_input$ZipCode <- ifelse(is.na(eml_postal), "Unknown", eml_postal)
     }
-  } else if (!is.null(contact_info)) {
+  } else {
 
-    if (!is.null(ContactName)) flat_input$ContactName <- ContactName
-    if (!is.null(Phone)) flat_input$Phone <- Phone
-    if (!is.null(Email)) flat_input$Email <- Email
-    if (!is.null(Address)) flat_input$Address <- Address
-    if (!is.null(City)) flat_input$City <- City
-    if (!is.null(State)) flat_input$State <- State
-    if (!is.null(ZipCode)) flat_input$ZipCode <- ZipCode
+    # If there is one piece of contact info provided (either in the flat table or as an argument),
+    # then default to the "Argument --> Column --> Unknown" scheme. No EML lookup.
+
+    flat_input$ContactName <- ifelse(!is.null(ContactName), ContactName,
+                                     ifelse("ContactName" %in% names(flat_input), flat_input$ContactName, "Unknown"))
+    flat_input$Phone <- ifelse(!is.null(Phone), Phone,
+                               ifelse("Phone" %in% names(flat_input), flat_input$Phone, "Unknown"))
+    flat_input$Email <- ifelse(!is.null(Email), Email,
+                               ifelse("Email" %in% names(flat_input), flat_input$Email, "Unknown"))
+    flat_input$Address <- ifelse(!is.null(Address), Address,
+                                 ifelse("Address" %in% names(flat_input), flat_input$Address, "Unknown"))
+    flat_input$City <- ifelse(!is.null(City), City,
+                              ifelse("City" %in% names(flat_input), flat_input$City, "Unknown"))
+    flat_input$State <- ifelse(!is.null(State), State,
+                               ifelse("State" %in% names(flat_input), flat_input$State, "Unknown"))
+    flat_input$ZipCode <- ifelse(!is.null(ZipCode), ZipCode,
+                                 ifelse("ZipCode" %in% names(flat_input), flat_input$ZipCode, "Unknown"))
   }
 
   message("Contact Info Added")

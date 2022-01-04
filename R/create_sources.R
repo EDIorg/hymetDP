@@ -1,36 +1,25 @@
-create_source <- function(
-  eml,
+create_sources <- function(
   L0_flat = flat,
-  Organization = NULL,
-  SourceDescription = NULL,
+  Organization = "Organization",
+  SourceDescription = "SourceDescription",
   SourceLink = NULL,
-  ContactName = NULL,
-  Phone = NULL,
-  Email = NULL,
-  Address = NULL,
-  City = NULL,
-  State = NULL,
-  ZipCode = NULL,
-  Citation = NULL) {
+  ContactName,
+  Phone,
+  Email,
+  Address,
+  City,
+  State,
+  ZipCode,
+  Citation) {
 
   validate_arguments(fun.name = "create_sources", fun.args = as.list(environment()))
 
   cols_to_gather <- c(Organization, SourceDescription, SourceLink, ContactName, Phone, Email, Address, City, State, ZipCode, Citation)
 
+
+
   res <- L0_flat %>%
     select(all_of(cols_to_gather))
-
-  # TODO maybe SourceDescription should not be abstract. Consider this more and RFC
-
-  if (is.null(SourceDescription)) {
-    res$SourceDescription <- xml2::xml_text(xml2::xml_find_first(eml, './/abstract'))
-  }
-
-  if (is.null(SourceLink) & all(class(eml) == c("xml_document", "xml_node"))) {
-    full_doi <- xml2::xml_text(xml2::xml_find_first(eml, './/alternateIdentifier'))
-    doi <- substr(full_doi, 5, nchar(full_doi))
-    res$SourceLink <- paste0("https://doi.org/", doi)
-  }
 
   # create the citation
 

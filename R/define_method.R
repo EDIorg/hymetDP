@@ -62,8 +62,6 @@ define_method <- function(
 
     method_sym <- rlang::sym(paste0("MethodDescription_", existing_methods + 1))
 
-  # TODO handle when there is methodLink
-
   if (is.null(variable_code) & is.null(local_variable)) {
 
     # Add method to every observation -----------------------------------------
