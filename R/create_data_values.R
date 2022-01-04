@@ -75,15 +75,28 @@ create_data_values <- function( # TODO change the "Code used by the organization
     # Calculate from Local and UTCOFfset
   }
 
-  # TODO handle SourceCode
+
+  # add missing columns
+
+  if (is.null(ValueAccuracy)) {
+    res$ValueAccuracy <- NA
+  }
+  if (is.null(OffsetValue)) {
+    res$OffsetValue <- NA
+  }
+  if (is.null(OffsetCode)) {
+    res$OffsetCode <- NA_character_
+  }
+  if (is.null(QualifierCode)) {
+    res$QualifierCode <- NA_character_
+  }
 
   # reorder
   res <- res %>%
     dplyr::select(all_of(cols_to_gather))
 
-  # TODO what is happening in the function below
-  # # coerce classes
-  # res <- coerce_table_classes(res, "observation", class(L0_flat))
+  # coerce classes
+  res <- coerce_table_classes(res, "DataValues", class(L0_flat))
   return(res)
 
 

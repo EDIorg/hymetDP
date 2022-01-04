@@ -60,6 +60,8 @@ define_source <- function(
 
   flat_input <- L0_flat
 
+  flat_input$SourceCode <- "1"
+
   eml_exists <- exists('eml') & all(class(eml) == c("xml_document", "xml_node"))
 
   if (is.null(SourceDescription) & !"SourceDescription" %in% names(flat_input) & eml_exists) {
