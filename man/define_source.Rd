@@ -62,7 +62,7 @@ This function appends columns to the \code{L0_flat} table and returns the augmen
 
 flat <- <insert_test_flat_table_here>
 
-flat <- define_variable(
+flat <- define_source(
   L0_flat = flat,
   eml = eml,
   Organization = NULL,

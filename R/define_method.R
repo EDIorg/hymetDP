@@ -3,9 +3,9 @@
 #' @param L0_flat (tbl_df, tbl, data.frame) The fully joined source L0 dataset, in "flat" format (see details).
 #' @param local_variable_column (character) Column in \code{L0_flat} table containing the L0 variable name.
 #' @param local_variable (character) Reference to a value (or values) in the \code{local_variable_column} from the \code{L0_flat} table to which the new hymetDP method refers.
-#' @param variable_code (character) The auto-generated primary key for a variable (from column \code{VariableCode}). Another way to link a method to a value (or values). Takes priority over \code{local_variable}.
-#' @param method_description (character) Text description of the method.
-#' @param method_link (character) Optional. Link to additional reference material on the method. Should be a single valid URL.
+#' @param VariableCode (character) The auto-generated primary key for a variable (from column \code{VariableCode}). Another way to link a method to a value (or values). Takes priority over \code{local_variable}.
+#' @param MethodDescription (character) Text description of the method.
+#' @param MethodLink (character) Optional. Link to additional reference material on the method. Should be a single valid URL.
 #'
 #' @details This function appends columns to the \code{L0_flat} table and returns the augmented table.
 #'
@@ -34,15 +34,16 @@ define_method <- function(
   L0_flat = flat,
   local_variable_column = "variable_name",
   local_variable = NULL,
-  variable_code = NULL,
-  method_description = NULL,
-  method_link = NULL) {
+  VariableCode = NULL,
+  MethodDescription = NULL,
+  MethodLink = NULL) {
 
   validate_arguments(fun.name = "define_method", fun.args = as.list(environment()))
 
   # Assign the argument for "table" to a variable
 
   flat_input <- L0_flat
+
 
   # TODO what to do if local_variable and variable_code specified? Should only variable code be supported?
   ## Currently, both supported. If both are provided, defaults to code over name.
@@ -59,34 +60,54 @@ define_method <- function(
 
 
   # Determine existing methods
+#
+#   existing_methods <- names(flat_input) %>%
+#     stringr::str_detect('MethodDescription_') %>%
+#     sum()
+#
+#     # Define new column names
+#
+#     method_sym <- rlang::sym(paste0("MethodDescription_", existing_methods + 1))
 
-  existing_methods <- names(flat_input) %>%
-    stringr::str_detect('MethodDescription_') %>%
-    sum()
-
-    # Define new column names
-
-    method_sym <- rlang::sym(paste0("MethodDescription_", existing_methods + 1))
-
-  if (is.null(variable_code) & is.null(local_variable)) {
+  if (is.null(VariableCode) & is.null(local_variable)) {
 
     # Add method to every observation -----------------------------------------
-
-    # Add the method description and code to every observation
+    # Since you can only have one method per variable, if you are adding to the whole table,
+    # MethodCode will always be 1
 
     flat_output <- flat_input %>%
-      dplyr::mutate(!!method_sym := method_description)
+      dplyr::mutate(
+        MethodCode = 1,
+        MethodDescription = MethodDescription,
+        MethodLink = MethodLink
+      )
 
-    # Handle method links
+    # TODO below is the old way of handling methods (MethodDescription_1 etc)
+    # # Add the method description and code to every observation
+    #
+    # flat_output <- flat_input %>%
+    #   dplyr::mutate(!!method_sym := method_description)
+    #
+    # # Handle method links
+    #
+    # if (!is.null(method_link)) {
+    #   link_sym <- rlang::sym(paste0("MethodLink_", existing_methods + 1))
+    #
+    #   flat_output <- flat_output %>%
+    #     dplyr::mutate(!!link_sym := method_link)
+    # }
 
-    if (!is.null(method_link)) {
-      link_sym <- rlang::sym(paste0("MethodLink_", existing_methods + 1))
+  }
 
-      flat_output <- flat_output %>%
-        dplyr::mutate(!!link_sym := method_link)
-    }
+  if ("MethodCode" %in% names(flat_input)) {
 
-  } else if (is.null(variable_code) & !is.null(local_variable)) {
+    MethodCode = max(flat_input$MethodCode) + 1
+  } else {
+
+    MethodCode <- 1
+  }
+
+  if (is.null(VariableCode) & !is.null(local_variable)) {
 
     # Join by variable name ---------------------------------------------------
 
@@ -94,16 +115,9 @@ define_method <- function(
 
     method_table <- dplyr::tibble(
       local_variable_name = local_variable,
-      !!method_sym := method_description)
-
-    # Handle method links
-
-    if (!is.null(method_link)) {
-      link_sym <- rlang::sym(paste0("MethodLink_", existing_methods + 1))
-
-      method_table <- method_table %>%
-        dplyr::mutate(!!link_sym := method_link)
-    }
+      MethodCode = MethodCode,
+      MethodDescription = MethodDescription,
+      MethodLink = MethodLink)
 
     # This is necessary to use setNames() in the by parameter of the join
 
@@ -112,27 +126,46 @@ define_method <- function(
     flat_output <- flat_input %>%
       dplyr::left_join(method_table, by = setNames(lvn, local_variable_column))
 
-  } else {
+  } else if (!is.null(VariableCode)) {
 
     # Join by variable code ---------------------------------------------------
 
-    # Create a method table and join by variable_code
+    # Create a method table and join by VariableCode
 
     method_table <- dplyr::tibble(
-      VariableCode = variable_code,
-      !!method_sym := method_description)
-
-    # Handle method links
-
-    if (!is.null(method_link)) {
-      link_sym <- rlang::sym(paste0("MethodLink_", existing_methods + 1))
-
-      method_table <- method_table %>%
-        dplyr::mutate(!!link_sym := method_link)
-    }
+      VariableCode = VariableCode,
+      MethodCode = MethodCode,
+      MethodDescription = MethodDescription,
+      MethodLink = MethodLink)
 
     flat_output <- flat_input %>%
       dplyr::left_join(method_table, by = "VariableCode")
+  }
+
+
+
+# Coalesce like columns ---------------------------------------------------
+
+
+  if (any(stringr::str_detect(names(flat_output),"MethodCode.x"))) {
+    flat_output <- flat_output %>%
+      dplyr::mutate(MethodCode = dplyr::coalesce(MethodCode.x, MethodCode.y)) %>%
+      dplyr::select(-MethodCode.x,
+                    -MethodCode.y)
+  }
+
+  if (any(stringr::str_detect(names(flat_output),"MethodDescription.x"))) {
+    flat_output <- flat_output %>%
+      dplyr::mutate(MethodDescription = dplyr::coalesce(MethodDescription.x, MethodDescription.y)) %>%
+      dplyr::select(-MethodDescription.x,
+                    -MethodDescription.y)
+  }
+
+  if (any(stringr::str_detect(names(flat_output), "MethodLink.x"))) {
+    flat_output <- flat_output %>%
+      dplyr::mutate(MethodLink = dplyr::coalesce(MethodLink.x, MethodLink.y)) %>%
+      dplyr::select(-MethodLink.x,
+                    -MethodLink.y)
   }
 
   return(flat_output)

@@ -46,7 +46,7 @@ validate_arguments <- function(fun.name, fun.args) {
     # Flat table is specified
     if (!any(class(fun.args$L0_flat) == 'data.frame')) stop("Please specify or create the \"flat\" table.", call. = FALSE)
 
-    if(is.null(fun.args$method_description)) stop("Please provide a method description.", call. = FALSE)
+    if(is.null(fun.args$MethodDescription)) stop("Please provide a method description.", call. = FALSE)
 
   }
 
