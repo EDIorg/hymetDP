@@ -32,6 +32,25 @@ Methods	NA	NA	TRUE	NA	NA	NA	NA
 Methods	MethodCode	character	TRUE	TRUE	FALSE	TRUE	TRUE
 Methods	MethodDescription	character	TRUE	FALSE	FALSE	FALSE	FALSE
 Methods	MethodLink	character	FALSE	FALSE	FALSE	FALSE	FALSE
+Variables	NA	NA	TRUE	NA	NA	NA	NA
+Variables	VariableCode	character	TRUE	TRUE	FALSE	TRUE	TRUE
+Variables	VariableName	character	TRUE	FALSE	FALSE	FALSE	FALSE
+Variables	VariableUnitsName	character	TRUE	FALSE	FALSE	FALSE	FALSE
+Variables	SampleMedium	character	TRUE	FALSE	FALSE	FALSE	FALSE
+Variables	ValueType	character	TRUE	FALSE	FALSE	FALSE	FALSE
+Variables	IsRegular	boolean	TRUE	FALSE	FALSE	FALSE	FALSE
+Variables	TimeSupport	numeric	TRUE	FALSE	FALSE	FALSE	FALSE
+Variables	TimeUnitsName	character	TRUE	FALSE	FALSE	FALSE	FALSE
+Variables	DataType	character	TRUE	FALSE	FALSE	FALSE	FALSE
+Variables	GeneralCategory	character	TRUE	FALSE	FALSE	FALSE	FALSE
+Variables	NoDataValue	numeric	TRUE	FALSE	FALSE	FALSE	FALSE
+							
+							
+							
+							
+							
+							
+							
 							
 							
 							
@@ -62,7 +81,7 @@ observation	variable_name	character	TRUE	FALSE	FALSE	FALSE	FALSE
 observation	value	numeric	TRUE	FALSE	FALSE	FALSE	FALSE
 observation	unit	character	FALSE	FALSE	FALSE	FALSE	FALSE
 location_ancillary	NA	NA	FALSE	NA	NA	NA	NA
-location_ancillary	location_ancillary_id	character	TRUE	TRUE	FALSE	FALSE	TRUE
+	location_ancillary_id	character	TRUE	TRUE	FALSE	FALSE	TRUE
 location_ancillary	location_id	character	TRUE	FALSE	TRUE	TRUE	TRUE
 location_ancillary	datetime	Date	FALSE	FALSE	FALSE	TRUE	FALSE
 location_ancillary	variable_name	character	TRUE	FALSE	FALSE	TRUE	FALSE
