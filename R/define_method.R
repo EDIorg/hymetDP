@@ -12,7 +12,6 @@
 #' "flat" format refers to the fully joined source L0 dataset in "wide" form with the exception of the core observation variables, which are in "long" form (i.e. using the variable_name, value, unit columns of the observation table). This "flat" format is the "widest" an L1 hymetDP dataset can be consistently spread due to the frequent occurrence of L0 source datasets with > 1 core observation variable.
 #'
 #'
-#'
 #' @return (tbl_df, tbl, data.frame) An augmented version of the original flat table, with all of the original columns plus one additional column for the method description (or two additional columns if a method link is defined). Column name includes the auto-generated MethodCode (i.e. MethodDescription_1), which will become the the primary key in the Methods table.
 #'
 #' @examples
@@ -101,7 +100,7 @@ define_method <- function(
 
   if ("MethodCode" %in% names(flat_input)) {
 
-    MethodCode = max(flat_input$MethodCode) + 1
+    MethodCode = max(flat_input$MethodCode, na.rm = TRUE) + 1
   } else {
 
     MethodCode <- 1

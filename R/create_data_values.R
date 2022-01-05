@@ -74,7 +74,7 @@ create_data_values <- function( # TODO change the "Code used by the organization
   # TODO add UTC time
 
   if (is.null(DateTimeUTC)) {
-    # Calculate from Local and UTCOFfset
+    # TODO Calculate from Local and UTCOFfset
   }
 
 
@@ -95,7 +95,21 @@ create_data_values <- function( # TODO change the "Code used by the organization
 
   # reorder
   res <- res %>%
-    dplyr::select(all_of(cols_to_gather))
+    dplyr::select(ValueID,
+                  DataValue,
+                  ValueAccuracy,
+                  LocalDateTime,
+                  UTCOffset,
+                  DateTimeUTC,
+                  SiteCode,
+                  VariableCode,
+                  OffsetValue,
+                  OffsetTypeCode,
+                  CensorCode,
+                  QualifierCode,
+                  MethodCode,
+                  SourceCode,
+                  QualityControlLevelCode)
 
   # coerce classes
   res <- coerce_table_classes(res, "DataValues", class(L0_flat))

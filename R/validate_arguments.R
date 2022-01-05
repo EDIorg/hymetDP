@@ -21,47 +21,45 @@ validate_arguments <- function(fun.name, fun.args) {
   criteria <- read_criteria()
 
 
-  # define_variable() -------------------------------------------------------
+  # define_*() functions ----------------------------------------------------
 
-  if (fun.name == 'define_variable') {
+  if (stringr::str_detect(fun.name, "^create_")) {
 
-    # Flat table is specified
-    if (!any(class(fun.args$L0_flat) == 'data.frame')) stop("Please specify or create the \"flat\" table.", call. = FALSE)
-
-    # Variable is specified
-    if (is.null(fun.args$local_variable)) stop("Please specify at least one variable.", call. = FALSE)
-
-    # Unit is specified or unit column exists in table
-    #table <- fun.args$L0_flat
-    if (is.null(fun.args$variable_units) & !"unit" %in% names(fun.args$L0_flat)) stop("A unit must be given for this variable if a \"unit\" column does not exist.", call. = FALSE)
-
-
-  }
-
-
-  # define_method() -------------------------------------------------------
-
-  if (fun.name == 'define_method') {
+    flat <- fun.args$L0_flat
 
     # Flat table is specified
-    if (!any(class(fun.args$L0_flat) == 'data.frame')) stop("Please specify or create the \"flat\" table.", call. = FALSE)
+    if (!any(class(flat) == 'data.frame')) stop("Please specify or create the \"flat\" table.", call. = FALSE)
 
-    if(is.null(fun.args$MethodDescription)) stop("Please provide a method description.", call. = FALSE)
 
+    # define_variable() -------------------------------------------------------
+
+    if (fun.name == 'define_variable') {
+
+      # Variable is specified
+      if (is.null(fun.args$local_variable)) stop("Please specify at least one variable.", call. = FALSE)
+
+      # Unit is specified or unit column exists in table
+      #table <- fun.args$L0_flat
+      if (is.null(fun.args$variable_units) & !"unit" %in% names(flat)) stop("A unit must be given for this variable if a \"unit\" column does not exist.", call. = FALSE)
+    }
+
+
+    # define_method() -------------------------------------------------------
+
+    if (fun.name == 'define_method') {
+
+      if(is.null(fun.args$MethodDescription)) stop("Please provide a method description.", call. = FALSE)
+    }
+
+
+    # define_source() ---------------------------------------------------------
+
+    if (fun.name == 'define_source') {
+
+      if (is.null(fun.args$Organization) & !"Organization" %in% names(flat)) stop("A source Organization must be provided.")
+    }
   }
 
-
-  # define_source() ---------------------------------------------------------
-
-  if (fun.name == 'define_source') {
-
-    # Flat table is specified
-    if (!any(class(fun.args$L0_flat) == 'data.frame')) stop("Please specify or create the \"flat\" table.", call. = FALSE)
-
-    if (is.null(fun.args$Organization) & !"Organization" %in% names(fun.args$L0_flat)) stop("A source Organization must be provided.")
-
-
-  }
 
   # create_tables() -----------------------------------------------------------
 

@@ -96,6 +96,8 @@ testthat::test_that("Method is added to variable (by name)", {
 
   expect_true(all(expected_cols %in% names(res)))
 
+  expect_true(!any(is.na(res$MethodCode)))
+
   expect_equal(length(unique(res$MethodDescription)), 2)
 
   expect_equal(length(unique(res$MethodLink)), 2)

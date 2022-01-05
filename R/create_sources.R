@@ -55,7 +55,7 @@ create_sources <- function(
 
   # reorder
   res <- res %>%
-    dplyr::select(all_of(cols_to_gather))
+    dplyr::select(SourceCode, Organization, SourceDescription, SourceLink, ContactName, Phone, Email, Address, City, State, ZipCode, Citation)
 
   # coerce classes
   res <- coerce_table_classes(res, "Sources", class(L0_flat))

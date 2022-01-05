@@ -4,12 +4,12 @@ create_methods <- function(
   MethodDescription,
   MethodLink = NULL) {
 
-  validate_arguments(fun.name = "create_sources", fun.args = as.list(environment()))
+  validate_arguments(fun.name = "create_methods", fun.args = as.list(environment()))
 
   # TODO this needs to be handled differently than other entries in the table
   # TODO methods are stored "wide" in the flat table MethodDescription_1, MethodDescription_2 etc.
 
-  cols_to_gather <- c(SourceCode, Organization, SourceDescription, SourceLink, ContactName, Phone, Email, Address, City, State, ZipCode, Citation)
+  cols_to_gather <- c(MethodCode, MethodDescription, MethodLink)
 
   res <- L0_flat %>%
     dplyr::select(all_of(cols_to_gather)) %>%
@@ -23,7 +23,7 @@ create_methods <- function(
 
   # reorder
   res <- res %>%
-    dplyr::select(all_of(cols_to_gather))
+    dplyr::select(MethodCode, MethodDescription, MethodLink)
 
   # coerce classes
   res <- coerce_table_classes(res, "Methods", class(L0_flat))
