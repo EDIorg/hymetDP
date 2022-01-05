@@ -49,9 +49,9 @@ create_data_values(
 
 \item{QualifierCode}{(character) Optional. Column in \code{L0_flat} containing a flag indicating a peculiarity with a particular data value.}
 
-\item{MethodCode}{(character) Column in \code{L0_flat} containing code used by the organization that collects the data to identify the Method.}
+\item{MethodCode}{(character) Column in \code{L0_flat} containing the code used by the organization that collects the data to identify the Method.}
 
-\item{QualityControlLevelCode}{(character) Column in \code{L0_flat} containing code which identifies the level of quality control that the value has been subjected to.}
+\item{QualityControlLevelCode}{(character) Column in \code{L0_flat} containing the code which identifies the level of quality control that the value has been subjected to.}
 
 \item{SourceCode}{(character) Column in \code{L0_flat} containing the code which identifies the organization that created the data.}
 

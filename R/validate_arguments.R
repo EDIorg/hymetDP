@@ -23,7 +23,7 @@ validate_arguments <- function(fun.name, fun.args) {
 
   # define_*() functions ----------------------------------------------------
 
-  if (stringr::str_detect(fun.name, "^create_")) {
+  if (stringr::str_detect(fun.name, "^define_")) {
 
     flat <- fun.args$L0_flat
 

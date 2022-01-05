@@ -1,3 +1,16 @@
+#' Title
+#'
+#' @param L0_flat (tbl_df, tbl, data.frame) The fully joined source L0 dataset, in "flat" format (see details).
+#' @param MethodCode (character) Column in \code{L0_flat} containing the code used by the organization that collects the data to identify the Method.
+#' @param MethodDescription (character) Column in \code{L0_flat} containing the text description of each method.
+#' @param MethodLink (character) Optional. Column in \code{L0_flat} containing a link to additional reference material on the method. Should be a single valid URL.
+#'
+#' @return (tbl_df, tbl, data.frame) The Methods table.
+#'
+#' @examples
+#'
+#' @export
+#'
 create_methods <- function(
   L0_flat = flat,
   MethodCode,

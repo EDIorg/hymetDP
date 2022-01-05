@@ -13,8 +13,8 @@
 #' @param OffsetTypeCodeMandatory (character) if OffsetValue is used. Column in \code{L0_flat} containing code used by the organization that collects the data to identify the OffsetType.
 #' @param CensorCode (character) Column in \code{L0_flat} containing text indication of whether the data value is censored. Defaults to "nc" (Not Censored).
 #' @param QualifierCode (character) Optional. Column in \code{L0_flat} containing a flag indicating a peculiarity with a particular data value.
-#' @param MethodCode (character) Column in \code{L0_flat} containing code used by the organization that collects the data to identify the Method.
-#' @param QualityControlLevelCode (character) Column in \code{L0_flat} containing code which identifies the level of quality control that the value has been subjected to.
+#' @param MethodCode (character) Column in \code{L0_flat} containing the code used by the organization that collects the data to identify the Method.
+#' @param QualityControlLevelCode (character) Column in \code{L0_flat} containing the code which identifies the level of quality control that the value has been subjected to.
 #' @param SourceCode (character) Column in \code{L0_flat} containing the code which identifies the organization that created the data.
 #' @param NoDataValue (character) Column in \code{L0_flat} containing numeric value used to encode when a data value is not available for this variable.
 #'
