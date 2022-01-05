@@ -28,10 +28,10 @@ DataValues	QualifierCode	character	FALSE	FALSE	TRUE	FALSE	TRUE
 DataValues	MethodCode	character	TRUE	FALSE	TRUE	FALSE	TRUE
 DataValues	SourceCode	character	TRUE	FALSE	TRUE	FALSE	TRUE
 DataValues	QualityControlLevelCode	character	TRUE	FALSE	TRUE	FALSE	TRUE
-							
-							
-							
-							
+Methods	NA	NA	TRUE	NA	NA	NA	NA
+Methods	MethodCode	character	TRUE	TRUE	FALSE	TRUE	TRUE
+Methods	MethodDescription	character	TRUE	FALSE	FALSE	FALSE	FALSE
+Methods	MethodLink	character	FALSE	FALSE	FALSE	FALSE	FALSE
 							
 							
 							
