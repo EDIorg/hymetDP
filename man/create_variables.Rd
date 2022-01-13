@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_variables.R
 \name{create_variables}
 \alias{create_variables}
-\title{Title}
+\title{Create the Variables table}
 \usage{
 create_variables(
   L0_flat = flat,
@@ -48,7 +48,7 @@ create_variables(
 (tbl_df, tbl, data.frame) The Variables table.
 }
 \description{
-Title
+Create the Variables table
 }
 \details{
 This function appends columns to the \code{L0_flat} table and returns the augmented table.

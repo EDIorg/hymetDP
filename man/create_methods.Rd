@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_methods.R
 \name{create_methods}
 \alias{create_methods}
-\title{Title}
+\title{Create the Methods table}
 \usage{
 create_methods(
   L0_flat = flat,
@@ -24,7 +24,7 @@ create_methods(
 (tbl_df, tbl, data.frame) The Methods table.
 }
 \description{
-Title
+Create the Methods table
 }
 \details{
 This function appends columns to the \code{L0_flat} table and returns the augmented table.
