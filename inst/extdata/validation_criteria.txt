@@ -44,6 +44,41 @@ Variables	TimeUnitsName	character	TRUE	FALSE	FALSE	FALSE	FALSE
 Variables	DataType	character	TRUE	FALSE	FALSE	FALSE	FALSE
 Variables	GeneralCategory	character	TRUE	FALSE	FALSE	FALSE	FALSE
 Variables	NoDataValue	numeric	TRUE	FALSE	FALSE	FALSE	FALSE
+Sites	NA	NA	TRUE	NA	NA	NA	NA
+Sites	SiteCode	character	TRUE	TRUE			
+Sites	SiteName	character	TRUE				
+Sites	Latitude	numeric	TRUE				
+Sites	Longitude	numeric	TRUE				
+Sites	LatLongDatumSRSName	character	TRUE				
+Sites	Elevation_m	numeric	FALSE				
+Sites	VerticalDatum	character	FALSE				
+Sites	LocalX	numeric	FALSE				
+Sites	LocalY	numeric	FALSE				
+Sites	LocalProjectionSRSName	character	FALSE				
+Sites	PosAccuracy_m	numeric	FALSE				
+Sites	State	character	FALSE				
+Sites	County	character	FALSE				
+Sites	Comments	character	FALSE				
+Sites	SiteType	character	TRUE				
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
 							
 							
 							

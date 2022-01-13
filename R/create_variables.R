@@ -1,4 +1,4 @@
-#' Title
+#' Create the Variables table
 #'
 #' @param L0_flat (tbl_df, tbl, data.frame) The fully joined source L0 dataset, in "flat" format (see details).
 #' @param VariableCode (character) Column in \code{L0_flat} containing the user or organization-defined code to describe the variable.
