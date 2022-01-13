@@ -16,7 +16,7 @@ DataValues	NA	NA	TRUE	NA	NA	NA	NA
 DataValues	ValueID	character	TRUE	TRUE	FALSE	TRUE	TRUE
 DataValues	DataValue	numeric	TRUE	FALSE	FALSE	FALSE	FALSE
 DataValues	ValueAccuracy	numeric	FALSE	FALSE	FALSE	FALSE	FALSE
-DataValues	LocalDateTime	Date	TRUE	FALSE	FALSE	FALSE	FALSE
+DataValues	LocalDateTime	POSIXt	TRUE	FALSE	FALSE	FALSE	FALSE
 DataValues	UTCOffset	numeric	TRUE	FALSE	FALSE	FALSE	FALSE
 DataValues	DateTimeUTC	Date	TRUE	FALSE	FALSE	FALSE	FALSE
 DataValues	SiteCode	character	TRUE	FALSE	TRUE	FALSE	TRUE
@@ -64,6 +64,193 @@ QualityControlLevels	NA	NA	TRUE	NA	NA	NA	NA
 QualityControlLevels	QualityControlLevelCode	character	TRUE	TRUE	FALSE	TRUE	TRUE
 QualityControlLevels	Definition	character	TRUE	FALSE	FALSE	FALSE	FALSE
 QualityControlLevels	Explanation	character	TRUE	FALSE	FALSE	FALSE	FALSE
+SeriesCatalog	NA	NA	TRUE	NA	NA	NA	NA
+SeriesCatalog	SeriesID	numeric	TRUE	TRUE	TRUE	TRUE	TRUE
+SeriesCatalog	SiteCode	character	TRUE	FALSE	TRUE	TRUE	TRUE
+SeriesCatalog	SiteName	character	TRUE	FALSE	FALSE	FALSE	FALSE
+SeriesCatalog	VariableCode	character	TRUE	FALSE	TRUE	TRUE	TRUE
+SeriesCatalog	VariableName	character	TRUE	FALSE	FALSE	FALSE	FALSE
+SeriesCatalog	VariableUnitsName	character	TRUE	FALSE	FALSE	FALSE	FALSE
+SeriesCatalog	SampleMedium	character	TRUE	FALSE	FALSE	FALSE	FALSE
+SeriesCatalog	ValueType	character	TRUE	FALSE	FALSE	FALSE	FALSE
+SeriesCatalog	TimeSupport	numeric	TRUE	FALSE	FALSE	FALSE	FALSE
+SeriesCatalog	TimeUnitsName	character	TRUE	FALSE	FALSE	FALSE	FALSE
+SeriesCatalog	DataType	character	TRUE	FALSE	FALSE	FALSE	FALSE
+SeriesCatalog	GeneralCategory	character	TRUE	FALSE	FALSE	FALSE	FALSE
+SeriesCatalog	MethodCode	character	TRUE	FALSE	TRUE	TRUE	TRUE
+SeriesCatalog	MethodDescription	character	TRUE	FALSE	FALSE	FALSE	FALSE
+SeriesCatalog	SourceCode	character	TRUE	FALSE	TRUE	TRUE	TRUE
+SeriesCatalog	Organization	character	TRUE	FALSE	FALSE	FALSE	FALSE
+SeriesCatalog	SourceDescription	character	TRUE	FALSE	FALSE	FALSE	FALSE
+SeriesCatalog	Citation	character	TRUE	FALSE	FALSE	FALSE	FALSE
+SeriesCatalog	QualityControlLevelCode	character	TRUE	FALSE	TRUE	TRUE	TRUE
+SeriesCatalog	BeginDateTime	POSIXt	TRUE	FALSE	FALSE	FALSE	FALSE
+SeriesCatalog	EndDateTime	POSIXt	TRUE	FALSE	FALSE	FALSE	FALSE
+SeriesCatalog	BeginDateTimeUTC	POSIXt	TRUE	FALSE	FALSE	FALSE	FALSE
+SeriesCatalog	EndDateTimeUTC	POSIXt	TRUE	FALSE	FALSE	FALSE	FALSE
+SeriesCatalog	ValueCount	numeric	TRUE	FALSE	FALSE	FALSE	FALSE
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
 							
 							
 							
