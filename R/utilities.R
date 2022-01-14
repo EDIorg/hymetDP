@@ -146,3 +146,79 @@ coerce_table_classes <- function(tbl, name, cls) {
   }
   return(tbl)
 }
+
+
+
+
+# TODO rework this for hymetdp
+write_tables <- function(
+  path, sep = ",", observation = NULL, location = NULL,
+  taxon = NULL, dataset_summary = NULL, observation_ancillary = NULL,
+  location_ancillary = NULL, taxon_ancillary = NULL, variable_mapping = NULL) {
+
+  # Validate arguments
+
+  if (missing(path)){
+    stop('Input argument "path" is required.', call. = FALSE)
+  }
+
+  # Write tables to file
+
+  message('Writing tables to file:')
+
+  if (sep == ",") {
+    suffix <- ".csv"
+  } else {
+    suffix <- ".txt"
+  }
+
+  if (!is.null(observation)) {
+    message("  observation")
+    f <- paste0(path, "/", paste0("observation", suffix))
+    data.table::fwrite(x = observation, file = f, sep = sep, na = "NA")
+  }
+
+  if (!is.null(location)) {
+    message("  location")
+    f <- paste0(path, "/", paste0("location", suffix))
+    data.table::fwrite(x = location, file = f, sep = sep, na = "NA")
+  }
+
+  if (!is.null(taxon)) {
+    message("  taxon")
+    f <- paste0(path, "/", paste0("taxon", suffix))
+    data.table::fwrite(x = taxon, file = f, sep = sep, na = "NA")
+  }
+
+  if (!is.null(dataset_summary)) {
+    message("  dataset_summary")
+    f <- paste0(path, "/", paste0("dataset_summary", suffix))
+    data.table::fwrite(x = dataset_summary, file = f, sep = sep, na = "NA")
+  }
+
+  if (!is.null(observation_ancillary)) {
+    message("  observation_ancillary")
+    f <- paste0(path, "/", paste0("observation_ancillary", suffix))
+    data.table::fwrite(x = observation_ancillary, file = f, sep = sep, na = "NA")
+  }
+
+  if (!is.null(location_ancillary)) {
+    message("  location_ancillary")
+    f <- paste0(path, "/", paste0("location_ancillary", suffix))
+    data.table::fwrite(x = location_ancillary, file = f, sep = sep, na = "NA")
+  }
+
+  if (!is.null(taxon_ancillary)) {
+    message("  taxon_ancillary")
+    f <- paste0(path, "/", paste0("taxon_ancillary", suffix))
+    data.table::fwrite(x = taxon_ancillary, file = f, sep = sep, na = "NA")
+  }
+
+  if (!is.null(variable_mapping)) {
+    message("  variable_mapping")
+    f <- paste0(path, "/", paste0("variable_mapping", suffix))
+    data.table::fwrite(x = variable_mapping, file = f, sep = sep, na = "NA")
+  }
+
+}
+

@@ -1,5 +1,4 @@
 create_series_catalog <- function(
-  L0_flat = flat,
   Sources = Sources,
   Methods = Methods,
   Variables = Variables,
@@ -12,6 +11,8 @@ create_series_catalog <- function(
   # TODO automatically acquires the necessary columns from the mandatory tables
 
   # TODO provide the list of columns each table should contain
+
+  criteria <- read_criteria()
 
   # TODO calculate begin/end dates and do the ValueCount
 
