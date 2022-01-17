@@ -65,6 +65,7 @@ create_data_values <- function( # TODO change the "Code used by the organization
                       SourceCode,
                       QualityControlLevelCode)
 
+
   res <- L0_flat %>%
     dplyr::select(all_of(cols_to_gather)) %>%
     dplyr::mutate(DataValue = as.numeric(DataValue)) %>%
@@ -86,11 +87,14 @@ create_data_values <- function( # TODO change the "Code used by the organization
   if (is.null(OffsetValue)) {
     res$OffsetValue <- NA
   }
-  if (is.null(OffsetCode)) {
+  if (is.null(OffsetTypeCode)) {
     res$OffsetCode <- NA_character_
   }
   if (is.null(QualifierCode)) {
     res$QualifierCode <- NA_character_
+  }
+  if (is.null(CensorCode)) {
+    res$CensorCode <- "nc"
   }
 
   # reorder
