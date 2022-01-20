@@ -239,3 +239,73 @@ write_tables <- function(
 
 }
 
+
+#' Detect the type of object input to the \code{data} parameter
+#'
+#' @description The \code{data} parameter, used by a few functions in the ecocomDP package, can accept different object types. \code{detect_data_type()} identifies the object type, which the calling function typically uses in some flow control logic.
+#'
+#' @param data (list or tbl_df, tbl, data.frame) The dataset object returned by \code{read_data()}, a named list of tables containing the observation table, or a flat table containing columns of the observation table.
+#'
+#' @return (character) The type of \code{data}, which is one of:
+#' \itemize{
+#'   \item "dataset": The default return of \code{read_data()}
+#'   \item "list_of_datasets": > 1 "dataset"
+#'   \item "table": A flat table
+#'   \item "list_of_tables": The named list of L1 tables (i.e. read_data()$tables)
+#'   \item "dataset_old": The old, and since deprecated, return of \code{read_data()}
+#'   \item "list_of_datasets_old": > 1 "dataset_old"
+#' }
+#'
+#' Unrecognized types will thorw an error.
+#'
+#' @noRd
+#'
+detect_data_type <- function(data){
+  table_names <- unique(read_criteria()$table)
+  # dataset
+  if (("list" %in% class(data)) & ("tables" %in% names(data))) {
+    if (sum(names(data) == "tables") == 1) {
+      return("dataset")
+    }
+  }
+  # list_of_datasets
+  if (("list" %in% class(data)) & (length(data) > 1)) {
+    res <- lapply(data, function(x) {"tables" %in% names(x)})
+    if (all(unlist(res))) {
+      return("list_of_datasets")
+    }
+  }
+  # table
+  if(all(class(data) %in% c("data.frame", "tbl_df", "tbl"))){
+    return("table")
+  }
+  # list_of_tables
+  if(("list" %in% class(data)) & any(table_names %in% names(data))) {
+    return("list_of_tables")
+  }
+  # dataset_old
+  is_dataset_old <- function(x) {
+    if ("list" %in% class(x)) {
+      if ("tables" %in% names(x)) {
+        return(FALSE)
+      }
+      if (length(x) == 1) {
+        if ("tables" %in% names(x[[1]])) {
+          return(TRUE)
+        }
+      }
+    }
+    return(FALSE)
+  }
+  if (is_dataset_old(data)) {
+    warning('Input to "data" is an old and deprecated format. Please use the ',
+            'new format instead. See ?read_data for more info.', call. = FALSE)
+    return("dataset_old")
+  }
+  # list_of_dataset_old
+  if (!is.null(data) & all(unlist(lapply(data, is_dataset_old)))) {
+    return("list_of_datasets_old")
+  }
+  # unrecognized
+  stop('Input to "data" is not one of the supported types.', call. = FALSE)
+}
