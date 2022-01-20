@@ -40,7 +40,7 @@ create_data_values <- function( # TODO change the "Code used by the organization
   VariableCode,
   OffsetValue = NULL,
   OffsetTypeCode = NULL,
-  CensorCode = "nc",
+  CensorCode = NULL,
   QualifierCode = NULL,
   MethodCode,
   QualityControlLevelCode,

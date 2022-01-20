@@ -9,16 +9,17 @@ create_series_catalog <- function(
 
   validate_arguments(fun.name = "create_variables", fun.args = as.list(environment()))
 
-  # TODO if flat is NULL, then ALL tables are required
-
-  # TODO if flat is not NULL and DataValues is NULL,
-
-
-
   # TODO require either DataValues table OR flat table...
+  # TODO if flat is NULL, then ALL tables are required
+  # All columns come from main tables
+  # TODO if flat is not NULL and DataValues is NULL, use flat for:
+  # creating combinations
+  # creating dv_comp
+  # TODO if flat is not NULL and other values are,
+  # check that columns from missing tables exist in flat
+  # use columns from the flat table
 
-  # TODO automatically acquires the necessary columns from the mandatory tables
-
+  # TODO move this to valdate arguments
   # TODO provide the list of columns each table should contain (this could be moved to validate_arguments)
 
   criteria <- read_criteria()
@@ -64,6 +65,7 @@ create_series_catalog <- function(
     stop(paste0("The following tables are missing columns:\n", stringr::str_flatten(errors)))
   }
 
+  # TODO ^^^^^ everything above this moves to validate_arguments ^^^^^
 
   # TODO validate columns before proceeding to building the SeriesCatalog?
 
@@ -72,6 +74,9 @@ create_series_catalog <- function(
   composite_key <- c("VariableCode", "MethodCode", "SourceCode", "SiteCode", "QualityControlLevelCode")
 
   # TODO this should default to DataValues when possible, but also support flat
+
+  # TODO vvvvvv everything below vvvvvv belongs in the "if flat is null OR all columns provided" section
+  # TODO still to create is "if flat is not null AND not all columns provided"
 
   combinations <- DataValues %>% select(all_of(composite_key))
 
