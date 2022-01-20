@@ -16,7 +16,7 @@ create_data_values(
   VariableCode,
   OffsetValue = NULL,
   OffsetTypeCode = NULL,
-  CensorCode = "nc",
+  CensorCode = NULL,
   QualifierCode = NULL,
   MethodCode,
   QualityControlLevelCode,

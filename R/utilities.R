@@ -150,11 +150,34 @@ coerce_table_classes <- function(tbl, name, cls) {
 
 
 
-# TODO rework this for hymetdp
+
+#' Write tables to file
+#'
+#' @param path (character) A path to the directory in which the files will be written.
+#' @param sep (character) Field delimiter to use when writing files. Default is comma.
+#' @param DataValues (tbl_df, tbl, data.frame) The DataValues table.
+#' @param Variables (tbl_df, tbl, data.frame) The Variables table.
+#' @param Methods (tbl_df, tbl, data.frame) The Methods table.
+#' @param Sources (tbl_df, tbl, data.frame) The Sources table.
+#' @param Sites (tbl_df, tbl, data.frame) The Sites table.
+#' @param QualityControlLevels (tbl_df, tbl, data.frame) The QualityControlLevels table.
+#' @param SeriesCatalog (tbl_df, tbl, data.frame) The SeriesCatalog table.
+#'
+#' @return hymetDP tables as \code{sep} delimited files
+#'
+#' @export
+#'
+#' @examples
+#'
+#'
+#'
+#'
+#'
+#'
 write_tables <- function(
-  path, sep = ",", observation = NULL, location = NULL,
-  taxon = NULL, dataset_summary = NULL, observation_ancillary = NULL,
-  location_ancillary = NULL, taxon_ancillary = NULL, variable_mapping = NULL) {
+  path, sep = ",", DataValues = NULL, Variables = NULL,
+  Methods = NULL, Sources = NULL, Sites = NULL,
+  QualityControlLevels = NULL, SeriesCatalog = NULL) {
 
   # Validate arguments
 
@@ -172,52 +195,46 @@ write_tables <- function(
     suffix <- ".txt"
   }
 
-  if (!is.null(observation)) {
-    message("  observation")
-    f <- paste0(path, "/", paste0("observation", suffix))
-    data.table::fwrite(x = observation, file = f, sep = sep, na = "NA")
+  if (!is.null(DataValues)) {
+    message("  DataValues")
+    f <- paste0(path, "/", paste0("DataValues", suffix))
+    data.table::fwrite(x = DataValues, file = f, sep = sep, na = "NA")
   }
 
-  if (!is.null(location)) {
-    message("  location")
-    f <- paste0(path, "/", paste0("location", suffix))
-    data.table::fwrite(x = location, file = f, sep = sep, na = "NA")
+  if (!is.null(Variables)) {
+    message("  Variables")
+    f <- paste0(path, "/", paste0("Variables", suffix))
+    data.table::fwrite(x = Variables, file = f, sep = sep, na = "NA")
   }
 
-  if (!is.null(taxon)) {
-    message("  taxon")
-    f <- paste0(path, "/", paste0("taxon", suffix))
-    data.table::fwrite(x = taxon, file = f, sep = sep, na = "NA")
+  if (!is.null(Methods)) {
+    message("  Methods")
+    f <- paste0(path, "/", paste0("Methods", suffix))
+    data.table::fwrite(x = Methods, file = f, sep = sep, na = "NA")
   }
 
-  if (!is.null(dataset_summary)) {
-    message("  dataset_summary")
-    f <- paste0(path, "/", paste0("dataset_summary", suffix))
-    data.table::fwrite(x = dataset_summary, file = f, sep = sep, na = "NA")
+  if (!is.null(Sources)) {
+    message("  Sources")
+    f <- paste0(path, "/", paste0("Sources", suffix))
+    data.table::fwrite(x = Sources, file = f, sep = sep, na = "NA")
   }
 
-  if (!is.null(observation_ancillary)) {
-    message("  observation_ancillary")
-    f <- paste0(path, "/", paste0("observation_ancillary", suffix))
-    data.table::fwrite(x = observation_ancillary, file = f, sep = sep, na = "NA")
+  if (!is.null(Sites)) {
+    message("  Sites")
+    f <- paste0(path, "/", paste0("Sites", suffix))
+    data.table::fwrite(x = Sites, file = f, sep = sep, na = "NA")
   }
 
-  if (!is.null(location_ancillary)) {
-    message("  location_ancillary")
-    f <- paste0(path, "/", paste0("location_ancillary", suffix))
-    data.table::fwrite(x = location_ancillary, file = f, sep = sep, na = "NA")
+  if (!is.null(QualityControlLevels)) {
+    message("  QualityControlLevels")
+    f <- paste0(path, "/", paste0("QualityControlLevels", suffix))
+    data.table::fwrite(x = QualityControlLevels, file = f, sep = sep, na = "NA")
   }
 
-  if (!is.null(taxon_ancillary)) {
-    message("  taxon_ancillary")
-    f <- paste0(path, "/", paste0("taxon_ancillary", suffix))
-    data.table::fwrite(x = taxon_ancillary, file = f, sep = sep, na = "NA")
-  }
-
-  if (!is.null(variable_mapping)) {
-    message("  variable_mapping")
-    f <- paste0(path, "/", paste0("variable_mapping", suffix))
-    data.table::fwrite(x = variable_mapping, file = f, sep = sep, na = "NA")
+  if (!is.null(SeriesCatalog)) {
+    message("  SeriesCatalog")
+    f <- paste0(path, "/", paste0("SeriesCatalog", suffix))
+    data.table::fwrite(x = SeriesCatalog, file = f, sep = sep, na = "NA")
   }
 
 }
