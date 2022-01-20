@@ -1,3 +1,23 @@
+#' Create the SeriesCatalog table
+#'
+#' @param L0_flat (tbl_df, tbl, data.frame) The fully joined source L0 dataset, in "flat" format (see details).
+#' @param Sources (tbl_df, tbl, data.frame) The Sources table.
+#' @param Methods (tbl_df, tbl, data.frame) The Methods table.
+#' @param Variables (tbl_df, tbl, data.frame) The Variables table.
+#' @param Sites (tbl_df, tbl, data.frame) The Sites table.
+#' @param QualityControlLevels (tbl_df, tbl, data.frame) The QualityControlLevels table.
+#' @param DataValues (tbl_df, tbl, data.frame) The DataValues table.
+#'
+#' @details This function appends columns to the \code{L0_flat} table and returns the augmented table.
+#'
+#' "flat" format refers to the fully joined source L0 dataset in "wide" form with the exception of the core observation variables, which are in "long" form (i.e. using the variable_name, value, unit columns of the observation table). This "flat" format is the "widest" an L1 hymetDP dataset can be consistently spread due to the frequent occurrence of L0 source datasets with > 1 core observation variable.
+#'
+#' @return (tbl_df, tbl, data.frame) The SeriesCatalog table.
+#'
+#' @export
+#'
+#' @examples
+#'
 create_series_catalog <- function(
   L0_flat = NULL,
   Sources = NULL,
