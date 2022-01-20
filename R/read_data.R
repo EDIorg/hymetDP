@@ -47,20 +47,14 @@ read_data <- function(id = NULL, parse_datetime = TRUE,
 
   # Modify --------------------------------------------------------------------
 
+  # TODO how does this apply to hymetDP?
+
   # Add missing columns
 
   for (x in names(d)) {
     for (y in names(d[[x]]$tables)) {
       nms <- attr_tbl$column[attr_tbl$table == y]
       tblnms <- names(d[[x]]$tables[[y]])
-      if ("observation_datetime" %in% tblnms) { # accommodate legacy data by converting observation_datetime to datetime
-        tblnms[tblnms == "observation_datetime"] <- "datetime"
-        names(d[[x]]$tables[[y]]) <- tblnms
-      }
-      if ((y == "observation_ancillary") & ("event_id" %in% tblnms)) { # Warn if legacy data linking observation_ancillary through the event_id
-        warning("This dataset conforms to an older version of the ecocomDP model in which the observation_ancillary table is linked through the event_id. No validation checks will be applied to the observation_ancillary table.", call. = FALSE)
-        event_id <- d[[x]]$tables[[y]]$event_id
-      }
       use_i <- setdiff(nms, tblnms)
       if (length(use_i) > 0) {
         d[[x]]$tables[[y]][use_i] <- NA
@@ -107,6 +101,8 @@ read_data <- function(id = NULL, parse_datetime = TRUE,
   # package_id, appending package_id to package_id changes the field definition
   # and shouldn't be necessary as the package_id is very unlikely to be
   # duplicated).
+
+  # TODO come back to this one ... need to determine if dataset summary is a necessary table
 
   if (isTRUE(unique_keys)) {
     for (x in names(d)) {
