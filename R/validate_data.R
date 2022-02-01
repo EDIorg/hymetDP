@@ -31,6 +31,8 @@ validate_data <- function(
   # provides the user more information for trouble shooting and assessment than
   # only seeing the first issue encountered.
 
+  # TODO leverage the controlled vocabularies in some novel validations.
+
   message("Validating ", id, ":")
   issues_table_presence <- validate_table_presence(d)
   issues_column_names <- validate_column_names(d)
@@ -237,6 +239,7 @@ validate_datetime <- function(data.list) {
           (criteria$class == "Date") &
           !is.na(criteria$column)]
       if (length(datetime_column) > 0) {
+        # TODO loop this to run for every datetime column
         v <- data.list[[x]][[datetime_column]]
         na_count_raw <- sum(is.na(v))               # count NAs in datetime field
         v <- as.character(v)                        # coerce to character
