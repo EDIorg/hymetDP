@@ -108,7 +108,7 @@ read_data <- function(id = NULL, parse_datetime = TRUE,
     for (x in names(d)) {
       for (y in names(d[[x]]$tables)) {
         for (z in names(d[[x]]$tables[[y]])) {
-          if (stringr::str_detect(z, "_id")) {
+          if (stringr::str_detect(z, "Code")) {
             if (!(z %in% c("package_id", "original_package_id",
                            "mapped_id", "authority_taxon_id",
                            "parent_location_id"))) {
