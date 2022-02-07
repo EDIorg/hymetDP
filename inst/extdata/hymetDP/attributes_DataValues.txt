@@ -1,1 +1,16 @@
 attributeName	attributeDefinition	class	unit	dateTimeFormatString	missingValueCode	missingValueCodeExplanation
+ValueID	Unique identifier for a data value.	character			NA	Not available
+DataValue	"The numeric value of the observation. For Categorical variables, a number is stored here."	numeric	dimensionless		<NoDataValue>	Not available
+ValueAccuracy	"Numeric value that describes the measurement accuracy of the data value. If not given, it is interpreted as unknown."	numeric	dimensionless		NA	Not available
+LocalDateTime	Local date and time at which the data value was observed.	Date		YYYY-MM-DD hh:mm:ss	NA	Not available
+UTCOffset	Offset in hours from UTC time of the corresponding LocalDateTime value.	numeric	hour		NA	Not available
+DateTimeUTC	UTC date and time at which the data value was observed.	Date		YYYY-MM-DD hh:mm:ss	NA	Not available
+SiteCode	Code assigned to each unique Site.	character			NA	Not available
+VariableCode	Code assigned to each unique Variable.	character			NA	Not available
+OffsetValue	"Distance from a datum or control point to the point at which a data value was observed. If not given the OffsetValue is inferred to be 0, or not relevant/necessary."	numeric	meter		NA	Not available
+OffsetTypeCode	Code assigned to each unique OffsetType.	character			NA	Not available
+CensorCode	Text indication of whether the data value is censored.	character			NA	Not available
+QualifierCode	"A flag indicating a peculiarity with a particular data value.  References the Qualifiers table. If not given, the data value is inferre to not be qualified."	character			NA	Not available
+MethodCode	Code assigned to each unique Method.	character			NA	Not available
+SourceCode	Code assigned to each unique Source.	character			NA	Not available
+QualityControlLevelCode	Code which identifies the level of quality control that the value has been subjected to.	character			NA	Not available

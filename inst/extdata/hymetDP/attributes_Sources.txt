@@ -1,1 +1,13 @@
 attributeName	attributeDefinition	class	unit	dateTimeFormatString	missingValueCode	missingValueCodeExplanation
+SourceCode	Code used to identify the organization that created the data.	character			NA	Not available
+Organization	Name of the organization that collected the data.	character			NA	Not available
+SourceDescription	Full text description of the source of the data.	character			NA	Not available
+SourceLink	Link to the original data file of the data source.	character			NA	Not available
+ContactName	Name of the contact person for the data source.	character			NA	Not available
+Phone	Phone number for the contact person.	character			NA	Not available
+Email	Email addresss for the contact person.	character			NA	Not available
+Address	Street address for the contact person.	character			NA	Not available
+City	City in which the contact person is located.	character			NA	Not available
+State	"State in which the contact person is located (Two-letter abbreviation). For countries other than US, the full country name."	character			NA	Not available
+ZipCode	US Zip Code or country postal code.	character			NA	Not available
+Citation	Text string that gives the citation to be used when the data from each source are referenced.	character			NA	Not available

@@ -1,1 +1,16 @@
-attributeName	attributeDefinition	class	unit	dateTimeFormatString	missingValueCode	missingValueCodeExplanation
+attributeName	attributeDefinition	class	unit	dateTimeFormatString	missingValueCode	missingValueCodeExplanation										
+SiteCode	User or organization-defined code that collects the data to identify the site.	character			NA	Not available										
+SiteName	Full name of the sampling site.	character			NA	Not available										
+Latitude	Latitude in decimal degrees.	numeric	degree		NA	Not available										
+Longitude	Longitude in decimal degrees.	numeric	degree		NA	Not available										
+LatLongDatumSRSName	The spatial reference system of the latitude and longitude coordinates.	character			NA	Not available										
+Elevation_m	Elevation of the sampling location in meters.	numeric	meter		NA	Not available										
+VerticalDatum	Vertical datum of the elevation.	character			NA	Not available										
+LocalX	Local projection X coordinate.	character			NA	Not available										
+LocalY	Local projection Y coordinate.	character			NA	Not available										
+LocalProjectionSRSName	Full text name of the spatial reference system of the local coordinates.	character			NA	Not available										
+PosAccuracy_m	Value giving the accuracy with which the positional information is specified in meters.	numeric	meter		NA	Not available										
+State	Name of state in which the monitoring site is located.	character			NA	Not available										
+County	Name of county in which monitoring site is located.	character			NA	Not available										
+Comments	Comments related to the site.	character			NA	Not available										
+SiteType	The type of site.	character			NA	Not available										

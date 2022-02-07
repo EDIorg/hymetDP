@@ -1,1 +1,25 @@
 attributeName	attributeDefinition	class	unit	dateTimeFormatString	missingValueCode	missingValueCodeExplanation
+SeriesID	Unique integer identifier for each data series. 	character			NA	Not available
+SiteCode	Code assigned to each unique Site.	character			NA	Not available
+SiteName	Full name of the sampling site.	character			NA	Not available
+VariableCode	Code assigned to each unique Variable.	character			NA	Not available
+VariableName	"Full text name of the variable that was measured, observed, modeled, etc."	character			NA	Not available
+VariableUnitsName	The name of units of the data values associated with a variable.	character			NA	Not available
+SampleMedium	The medium in which the sample or observation was taken or made.	character			NA	Not available
+ValueType	Indicates how the data value was generated.	character			NA	Not available
+TimeSupport	Numerical value that indicates the time support (or temporal footprint) of the data values. 0 is used to indicate data values that are instantaneous. Other values indicate the time over which the data values are implicitly or explicitly averaged or aggregated. The Timesupport goes along with TimeUnitsName if IsRegular = TRUE. 	numeric	hour		NA	Not available
+TimeUnitsName	The name of units of the time support.	character			NA	Not available
+DataType	Indicates how the value applies over a time interval.	character			NA	Not available
+GeneralCategory	General category of data.	character			NA	Not available
+MethodCode	Code assigned to each unique Method.	character			NA	Not available
+MethodDescription	Text description of each method.	character			NA	Not available
+SourceCode	Code assigned to each unique Source.	character			NA	Not available
+Organization	Name of the organization that collected the data.	character			NA	Not available
+SourceDescription	Full text description of the source of the data.	character			NA	Not available
+Citation	Text string that gives the citation to be used when the data from each source are referenced.	character			NA	Not available
+QualityControlLevelCode	Code which identifies the level of quality control that the value has been subjected to.	character			NA	Not available
+BeginDateTime	Date of the first data value in the series.	Date		YYYY-MM-DD hh:mm:ss	NA	Not available
+EndDateTime	Date of the last data value in the series.	Date		YYYY-MM-DD hh:mm:ss	NA	Not available
+BeginDateTimeUTC	Date of the first data value in the series in UTC.	Date		YYYY-MM-DD hh:mm:ss	NA	Not available
+EndDateTimeUTC	Date of the last data value in the series in UTC.	Date		YYYY-MM-DD hh:mm:ss	NA	Not available
+ValueCount	"The number of data values in the series identified by the combination of the SiteCode, VariableCode, MethodCode, SourceCode and QualityControlLevelCode fields."	numeric	number		NA	Not available

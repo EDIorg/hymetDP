@@ -145,7 +145,7 @@ create_eml <- function(path,
     data.table = data.table,
     other.entity = script)
 
-  eal_inputs$path <- system.file("extdata", "/ecocomDP", package = "ecocomDP")
+  eal_inputs$path <- system.file("extdata", "/hymetDP", package = "hymetDP")
   eal_inputs$data.path <- path
   eal_inputs$eml.path <- path
   eal_inputs$dataset.title <- "placeholder"
