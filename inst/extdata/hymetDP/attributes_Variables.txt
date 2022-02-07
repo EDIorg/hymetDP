@@ -1,0 +1,12 @@
+attributeName	attributeDefinition	class	unit	dateTimeFormatString	missingValueCode	missingValueCodeExplanation
+VariableCode	User or organization-defined code to describe the variable.	character				
+VariableName	"Full text name of the variable that was measured, observed, modeled, etc."	character				
+VariableUnitsName	The name of units of the data values associated with a variable.	character				
+SampleMedium	The medium in which the sample or observation was taken or made.	character				
+ValueType	Indicates how the data value was generated.	character				
+IsRegular	Value indicates whether the data values are from a regularly sampled time series. (TRUE or FALSE)	categorical				
+TimeSupport	Numerical value that indicates the time support (or temporal footprint) of the data values. 0 is used to indicate data values that are instantaneous. Other values indicate the time over which the data values are implicitly or explicitly averaged or aggregated. The Timesupport goes along with TimeUnitsName if IsRegular = TRUE. 	numeric	hour			
+TimeUnitsName	The name of units of the time support.	character				
+DataType	Indicates how the value applies over a time interval.	character				
+GeneralCategory	General category of data.	character				
+NoDataValue	Numeric value used to encode when a data value is not available for this variable.	numeric	dimensionless			
