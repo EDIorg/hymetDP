@@ -309,3 +309,114 @@ detect_data_type <- function(data){
   # unrecognized
   stop('Input to "data" is not one of the supported types.', call. = FALSE)
 }
+
+
+
+
+
+
+# Read EML metadata from a data repository
+#
+# @description A wrapper function to repository specific read methods (the repository arg drives the logic).
+#
+# @param package.id (character) Data package identifier
+#
+# @return (xml_document, xml_node) EML metadata
+#
+read_eml <- function(package.id) {
+
+  # Load Global Environment config
+
+  if (exists("config.repository", envir = .GlobalEnv)) {
+    repository <- get("config.repository", envir = .GlobalEnv)
+  } else {
+    repository <- "EDI"
+  }
+
+  if (exists("config.environment", envir = .GlobalEnv)) {
+    environment <- get("config.environment", envir = .GlobalEnv)
+  } else {
+    environment <- "production"
+  }
+
+  # Get EML
+
+  if (repository == "EDI") {
+    eml <- api_read_metadata(package.id, environment)
+  }
+
+  return(eml)
+
+}
+
+
+
+
+# Read metadata
+#
+# @description
+#     Read Metadata (EML) operation, specifying the scope, identifier, and
+#     revision of the EML document to be read in the URI.
+#
+# @param package.id
+#     (character) Package identifier composed of scope, identifier, and
+#     revision (e.g. 'edi.101.1').
+# @param environment
+#     (character) Data repository environment to create the package in.
+#     Can be: 'development', 'staging', 'production'.
+#
+# @return
+#     ('xml_document' 'xml_node') EML metadata.
+#
+#
+api_read_metadata <- function(package.id, environment = 'production'){
+
+  message(paste('Retrieving EML for data package', package.id))
+
+  ping_edi()
+
+  r <- httr::GET(
+    url = paste0(
+      url_env(environment),
+      '.lternet.edu/package/metadata/eml/',
+      stringr::str_replace_all(package.id, '\\.', '/')
+    )
+  )
+
+  eml <- httr::content(
+    r,
+    as = 'parsed',
+    encoding = 'UTF-8'
+  )
+
+  eml
+
+}
+
+
+
+
+# Make URL for PASTA+ environment
+#
+# @description
+#     Create the URL suffix to the PASTA+ environment specified by the
+#     environment argument.
+#
+# @param environment
+#     (character) Data repository environment to perform the evaluation in.
+#     Can be: 'development', 'staging', 'production'.
+#
+url_env <- function(environment){
+
+  environment <- tolower(environment)
+  if (environment == 'development'){
+    url_env <- 'https://pasta-d'
+  } else if (environment == 'staging'){
+    url_env <- 'https://pasta-s'
+  } else if (environment == 'production'){
+    url_env <- 'https://pasta'
+  }
+
+  url_env
+
+}
