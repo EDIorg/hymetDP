@@ -1,0 +1,1 @@
+﻿This data package conforms to the Ecological Community Data Pattern (ecocomDP) developed by the Environmental Data Initiative. The scripts used to convert the source data package to ecocomDP are published with this derived data package. Any questions about this data package should be directed to the first person listed under contacts.

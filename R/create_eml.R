@@ -140,7 +140,7 @@ create_eml <- function(path,
   # Create list of inputs to EAL_make_eml()
 
   eal_inputs <- EAL_template_arguments(
-    path = system.file("extdata", "/ecocomDP", package = "ecocomDP"),
+    path = system.file("extdata", "/hymetDP", package = "hymetDP"),
     data.path = path,
     data.table = data.table,
     other.entity = script)
