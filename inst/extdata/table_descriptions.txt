@@ -1,0 +1,8 @@
+table_name	description
+Variables	Lists the full descriptive information about what variables have been measured.
+Methods	Lists the methods used to collect the data and any additional information about the method.
+Sites	Provides information giving the spatial location at which data values have been collected.
+Sources	"Lists the original sources of the data, providing information on who collected the data."
+QualityControlLevels	Contains the quality control levels that are used for versioning data within the database.
+DataValues	Contains the actual data values and keys to metadata tables. 
+SeriesCatalog	Summarizes the time series available in the DataValues table.
