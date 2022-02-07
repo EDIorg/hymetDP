@@ -43,12 +43,12 @@ create_eml <- function(path,
     lapply(
       unique(attr_tbl$table),
       function(x) {
-        ecocomDP_table <- stringr::str_detect(
+        hymetDP_table <- stringr::str_detect(
           list.files(path),
           paste0("(?<=.{0,10000})", x, "(?=\\.[:alnum:]*$)"))
-        # if (any(hymetDP_table)) {
-        #   list.files(path)[hymetDP_table]
-        # }
+        if (any(hymetDP_table)) {
+          list.files(path)[hymetDP_table]
+        }
       }))
 
   # Arrange tables in the preferred order to be listed in the EML
@@ -64,7 +64,7 @@ create_eml <- function(path,
   # EAL_make_eml()
 
   descriptions <- data.table::fread(
-    system.file("extdata", "table_descriptions.txt", package = "ecocomDP"))
+    system.file("extdata", "table_descriptions.txt", package = "hymetDP"))
 
   data.table.description <- descriptions$description[
     match(
