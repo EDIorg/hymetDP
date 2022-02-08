@@ -210,7 +210,7 @@ create_eml <- function(path,
 
         datetime_format <- parse_datetime_frmt_from_vals(datetime)
 
-        # ecocomDP residual that likely will not apply to hymetDP
+        # TODO ecocomDP residual that likely will not apply to hymetDP
         # if ((is.null(datetime_format)) & (i != "attributes_observation.txt")) { # Default to observation table's datetime format specifier if no date time in ancillary tables. This prevents an EML schema validation error, where datetime attributes must have a format specified
         #   use_i <- eal_inputs$x$template[["attributes_observation.txt"]]$content$dateTimeFormatString != ""
         #   datetime_format <- eal_inputs$x$template[["attributes_observation.txt"]]$content$dateTimeFormatString[use_i]
@@ -225,14 +225,27 @@ create_eml <- function(path,
 
   # Get table attributes and definitions from EML then create catvars templates for each data table of this dataset
 
+  # TODO is this getting the attributes from the L0 eml? If so, then this would be a good point to rerout
+  # functionality from EML to ODM CV
+
+  # TODO for every column that requires something from a CV,
+  # TODO loop through the values in the column, look up term, get definition
+  # TODO this will depend on the columns already having been validated for CV
+
   defs <- get_attr_defs(xml_L0)
 
   r <- lapply(
+    # for each data table
     names(eal_inputs$x$data.table),
     function(tbl) {
+      # Does it have the "variable name" column (for hymet this would be: does it have a column that requires CV term?
+      # TODO list of all columns that require CV
       has_varname <- "variable_name" %in% colnames(eal_inputs$x$data.table[[tbl]]$content)
       if (has_varname) {
+        # get unique names from variable name column
         univars <- unique(eal_inputs$x$data.table[[tbl]]$content$variable_name)
+        # THis matches L0 def to the variable name attr. This has no relevance to hymet
+        # TODO This where the CV lookup would occur
         unidefs <- defs[names(defs) %in% univars]
         if (length(unidefs) == 0) { # FIXME sometimes there's no match, but could use variable_mapping vals if exists
           unidefs <- rep("NA", length(univars))
@@ -256,37 +269,39 @@ create_eml <- function(path,
   r <- Filter(Negate(is.null), r)
   eal_inputs$x$template <- c(eal_inputs$x$template, r)
 
+
+  # TODO ecocomDP residual likely no relevance to hymet
   # Create the taxonomic_coverage template used by EAL_make_eml()
   # from the taxon table of ecocomDP.
 
-  f <- stringr::str_subset(
-    names(eal_inputs$x$data.table),
-    "taxon\\.[:alpha:]*$")
-  taxon <- eal_inputs$x$data.table[[f]]$content
-
-  # Handle exceptions
-  if (!is.null(taxon$authority_system)) { # Default to taxonRankValue if missing authority cols
-    authsys <- taxon$authority_system
-  } else {
-    authsys <- NA_character_
-  }
-  if (!is.null(taxon$authority_taxon_id)) {
-    authid <- taxon$authority_taxon_id
-  } else {
-    authid <- NA_character_
-  }
-  authsys <- ifelse(is.na(authid), NA_character_, authsys) # Default to taxonRankValue if missing any required authority values
-  authid <- ifelse(is.na(authsys), NA_character_, authid)
-
-  taxonomic_coverage <- data.frame(
-    name = taxon$taxon_name,
-    name_type = "scientific",
-    name_resolved = taxon$taxon_name,
-    authority_system = authsys,
-    authority_id = authid,
-    stringsAsFactors = FALSE)
-
-  eal_inputs$x$template$taxonomic_coverage.txt$content <- taxonomic_coverage
+  # f <- stringr::str_subset(
+  #   names(eal_inputs$x$data.table),
+  #   "taxon\\.[:alpha:]*$")
+  # taxon <- eal_inputs$x$data.table[[f]]$content
+  #
+  # # Handle exceptions
+  # if (!is.null(taxon$authority_system)) { # Default to taxonRankValue if missing authority cols
+  #   authsys <- taxon$authority_system
+  # } else {
+  #   authsys <- NA_character_
+  # }
+  # if (!is.null(taxon$authority_taxon_id)) {
+  #   authid <- taxon$authority_taxon_id
+  # } else {
+  #   authid <- NA_character_
+  # }
+  # authsys <- ifelse(is.na(authid), NA_character_, authsys) # Default to taxonRankValue if missing any required authority values
+  # authid <- ifelse(is.na(authsys), NA_character_, authid)
+  #
+  # taxonomic_coverage <- data.frame(
+  #   name = taxon$taxon_name,
+  #   name_type = "scientific",
+  #   name_resolved = taxon$taxon_name,
+  #   authority_system = authsys,
+  #   authority_id = authid,
+  #   stringsAsFactors = FALSE)
+  #
+  # eal_inputs$x$template$taxonomic_coverage.txt$content <- taxonomic_coverage
 
   # The annotations template read in with EAL_template_arguments()
   # serves as a map from tables of this L1 to the boilerplate annotations
@@ -294,7 +309,9 @@ create_eml <- function(path,
 
   annotations_map <- eal_inputs$x$template$annotations.txt$content
   annotations <- annotations_map[0, ]
-
+  # TODO this adds the "ecological community" is_about to every dataset
+  # TODO remove the ecological community annotation
+  # TODO only take user defined dataset annotations. Come back to the question later of is there a good dataset option for everything.
   annotations <- rbind(
     annotations,
     annotations_map[annotations_map$context %in% "eml", ])
@@ -312,6 +329,7 @@ create_eml <- function(path,
     annotations <- rbind(annotations, additional_dataset_annotations)
   }
 
+  # TODO i wonder if there is a better object than analysis code. Processing code?
   other_entity_annotations <- data.frame(
     id = paste0("/", script),
     element = "/otherEntity",
@@ -323,6 +341,8 @@ create_eml <- function(path,
     object_uri = "http://purl.dataone.org/odo/ECSO_00002489",
     stringsAsFactors = FALSE)
   annotations <- rbind(annotations, other_entity_annotations)
+
+  # TODO the entire annotation map needs to be remade. See the inst/extdata dir
 
   for (i in data.table) {
     table <- stringr::str_remove(i, "\\.[:alpha:]*$")
@@ -342,6 +362,8 @@ create_eml <- function(path,
       table_annotations$subject, paste0("^", table, "$"), i)
     annotations <- rbind(annotations, table_annotations)
   }
+
+  # TODO there currently is no variable_mapping, though I think this would be a nice touch.
 
   variable_mapping <- stringr::str_subset(
     names(eal_inputs$x$data.table),
