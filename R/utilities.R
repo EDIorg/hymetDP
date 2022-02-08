@@ -420,3 +420,20 @@ url_env <- function(environment){
   url_env
 
 }
+
+
+
+
+
+# Is the EDI Data Repository accessible?
+#
+ping_edi <- function() {
+  r <- httr::GET(url = "https://pasta.lternet.edu/package/eml/edi/759") # Warn if EDI is down
+  if (httr::status_code(r) != 200) {
+    stop("The EDI Repository is down for regular maintenance (Wednesday 01:00",
+         " - 03:00 UTC). If you have reached this message outside maintenance",
+         " hours, then there is an unexpected issue that will be resolved ",
+         "shortly. Our apologies for the inconvenience. Please try again ",
+         "later.", call. = FALSE)
+  }
+}
