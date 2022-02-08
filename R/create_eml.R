@@ -204,18 +204,22 @@ create_eml <- function(path,
             stringr::str_extract(i, "(?<=attributes_).*(?=\\.txt)"),
             "\\.[:alnum:]*$")))
 
-      datetime <- eal_inputs$x$data.table[[data_table]]$content[[date_column]]
+      for  (j in seq(length(date_column))) {
 
-      datetime_format <- parse_datetime_frmt_from_vals(datetime)
-      if ((is.null(datetime_format)) & (i != "attributes_observation.txt")) { # Default to observation table's datetime format specifier if no date time in ancillary tables. This prevents an EML schema validation error, where datetime attributes must have a format specified
-        use_i <- eal_inputs$x$template[["attributes_observation.txt"]]$content$dateTimeFormatString != ""
-        datetime_format <- eal_inputs$x$template[["attributes_observation.txt"]]$content$dateTimeFormatString[use_i]
+        datetime <- eal_inputs$x$data.table[[data_table]]$content[[date_column[[j]]]]
+
+        datetime_format <- parse_datetime_frmt_from_vals(datetime)
+
+        # ecocomDP residual that likely will not apply to hymetDP
+        # if ((is.null(datetime_format)) & (i != "attributes_observation.txt")) { # Default to observation table's datetime format specifier if no date time in ancillary tables. This prevents an EML schema validation error, where datetime attributes must have a format specified
+        #   use_i <- eal_inputs$x$template[["attributes_observation.txt"]]$content$dateTimeFormatString != ""
+        #   datetime_format <- eal_inputs$x$template[["attributes_observation.txt"]]$content$dateTimeFormatString[use_i]
+        # }
+
+        eal_inputs$x$template[[i]]$content$dateTimeFormatString[
+          eal_inputs$x$template[[i]]$content$attributeName == date_column[[j]]] <-
+          datetime_format
       }
-
-      eal_inputs$x$template[[i]]$content$dateTimeFormatString[
-        eal_inputs$x$template[[i]]$content$attributeName == date_column] <-
-        datetime_format
-
     }
   }
 
