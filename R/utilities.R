@@ -561,3 +561,28 @@ parse_datetime_frmt_from_vals <- function(vals) {
   return(frmt)
 }
 
+
+
+
+# Get attribute definitions from EML
+#
+# @param eml (xml_document, xml_node) EML metadata
+#
+# @return (named list) Definitions
+#
+# @note Duplicate names are dropped.
+#
+get_attr_defs <- function(eml) {
+  nodes <- attrs <- xml2::xml_find_all(eml, ".//dataTable")
+  nmes <- xml2::xml_text(xml2::xml_find_all(nodes, ".//attribute/attributeName"))
+  defs <- xml2::xml_text(xml2::xml_find_all(nodes, ".//attribute/attributeDefinition"))
+  dups <- duplicated(nmes)
+  if (any(dups)) {
+    # warning("Duplicate attribute names were found in the parent EML when looking up definitions for attributes of this dataset. Dropping these attributes: ", paste(nmes[dups], collapse = ", "), call. = FALSE)
+    nmes <- nmes[!dups]
+    defs <- defs[!dups]
+  }
+  res <- defs
+  names(res) <- nmes
+  return(res)
+}
