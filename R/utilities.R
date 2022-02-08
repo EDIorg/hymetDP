@@ -520,3 +520,44 @@ validate_file_names <- function(path, data.files){
   data_files_out
 
 }
+
+
+
+
+
+# Parse datetime format from values
+#
+# @param vals (character) Vector of datetimes
+#
+# @details Only works for \code{vals} of the format "YYYY-MM-DD hh:mm:ss" and subsets thereof. Values in other formats will return errant formats (e.g. "07/20/2021" returns "YYYY-MM-DD hh").
+#
+# @return (character) Datetime format string of \code{vals}
+#
+parse_datetime_frmt_from_vals <- function(vals) {
+  # Modify inputs for processing
+  vals <- as.character(vals)
+  # Best match has the fewest coercions
+  na_start <- sum(is.na(vals))
+  na_end <- suppressWarnings(
+    c(sum(is.na(lubridate::parse_date_time(vals, "ymdHMS"))),
+      sum(is.na(lubridate::parse_date_time(vals, "ymdHM"))),
+      sum(is.na(lubridate::parse_date_time(vals, "ymdH"))),
+      sum(is.na(lubridate::parse_date_time(vals, "ymd"))),
+      sum(is.na(lubridate::parse_date_time(vals, "y")))))
+  na_coerced <- na_end - na_start
+  if (stats::var(na_coerced) == 0) {    # When format of vals are NA or unsupported
+    frmt <- NULL
+  } else {                       # When format of vals are supported
+    best_match <- which(na_coerced == min(na_coerced))[1]
+    frmt <- c("YYYY-MM-DD hh:mm:ss",
+              "YYYY-MM-DD hh:mm",
+              "YYYY-MM-DD hh",
+              "YYYY-MM-DD",
+              "YYYY")[best_match]
+    if (min(na_coerced) != 0) {  # When the best match doesn't represent all vals
+      warning("The best match '", frmt, "' may not describe all datetimes")
+    }
+  }
+  return(frmt)
+}
+
