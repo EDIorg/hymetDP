@@ -307,122 +307,126 @@ create_eml <- function(path,
   # serves as a map from tables of this L1 to the boilerplate annotations
   # which are compiled here.
 
-  annotations_map <- eal_inputs$x$template$annotations.txt$content
-  annotations <- annotations_map[0, ]
-  # TODO this adds the "ecological community" is_about to every dataset
-  # TODO remove the ecological community annotation
-  # TODO only take user defined dataset annotations. Come back to the question later of is there a good dataset option for everything.
-  annotations <- rbind(
-    annotations,
-    annotations_map[annotations_map$context %in% "eml", ])
-  if (!is.null(is_about)) {
-    additional_dataset_annotations <- data.frame(
-      id = "/dataset",
-      element = "/dataset",
-      context = "eml",
-      subject = "dataset",
-      predicate_label = "is about",
-      predicate_uri = "http://purl.obolibrary.org/obo/IAO_0000136",
-      object_label = names(is_about),
-      object_uri = unname(is_about),
-      stringsAsFactors = FALSE)
-    annotations <- rbind(annotations, additional_dataset_annotations)
-  }
+  # TODO everything below involves annotations/variable mapping and should be added back!
 
-  # TODO i wonder if there is a better object than analysis code. Processing code?
-  other_entity_annotations <- data.frame(
-    id = paste0("/", script),
-    element = "/otherEntity",
-    context = "dataset",
-    subject = script,
-    predicate_label = "is about",
-    predicate_uri = "http://purl.obolibrary.org/obo/IAO_0000136",
-    object_label = "analysis code",
-    object_uri = "http://purl.dataone.org/odo/ECSO_00002489",
-    stringsAsFactors = FALSE)
-  annotations <- rbind(annotations, other_entity_annotations)
+  # annotations_map <- eal_inputs$x$template$annotations.txt$content
+  # annotations <- annotations_map[0, ]
+  # # TODO this adds the "ecological community" is_about to every dataset
+  # # TODO remove the ecological community annotation
+  # # TODO only take user defined dataset annotations. Come back to the question later of is there a good dataset option for everything.
+  # annotations <- rbind(
+  #   annotations,
+  #   annotations_map[annotations_map$context %in% "eml", ])
+  # if (!is.null(is_about)) {
+  #   additional_dataset_annotations <- data.frame(
+  #     id = "/dataset",
+  #     element = "/dataset",
+  #     context = "eml",
+  #     subject = "dataset",
+  #     predicate_label = "is about",
+  #     predicate_uri = "http://purl.obolibrary.org/obo/IAO_0000136",
+  #     object_label = names(is_about),
+  #     object_uri = unname(is_about),
+  #     stringsAsFactors = FALSE)
+  #   annotations <- rbind(annotations, additional_dataset_annotations)
+  # }
+  #
+  # # TODO i wonder if there is a better object than analysis code. Processing code?
+  # other_entity_annotations <- data.frame(
+  #   id = paste0("/", script),
+  #   element = "/otherEntity",
+  #   context = "dataset",
+  #   subject = script,
+  #   predicate_label = "is about",
+  #   predicate_uri = "http://purl.obolibrary.org/obo/IAO_0000136",
+  #   object_label = "analysis code",
+  #   object_uri = "http://purl.dataone.org/odo/ECSO_00002489",
+  #   stringsAsFactors = FALSE)
+  # annotations <- rbind(annotations, other_entity_annotations)
+  #
+  # # TODO the entire annotation map needs to be remade. See the inst/extdata dir
+  #
+  # for (i in data.table) {
+  #   table <- stringr::str_remove(i, "\\.[:alpha:]*$")
+  #   annotations_subset <- dplyr::filter(
+  #     annotations_map,
+  #     subject %in% table | context %in% table)
+  #   table_annotations <- annotations_subset[
+  #     annotations_subset$subject %in%
+  #       c(colnames(eal_inputs$x$data.table[[i]]$content), table), ]
+  #   table_annotations$id <- stringr::str_replace(
+  #     table_annotations$id,
+  #     paste0("(?<=/)", table, "(?=$|/)"),
+  #     i)
+  #   table_annotations$context <- stringr::str_replace(
+  #     table_annotations$context, table, i)
+  #   table_annotations$subject <- stringr::str_replace(
+  #     table_annotations$subject, paste0("^", table, "$"), i)
+  #   annotations <- rbind(annotations, table_annotations)
+  # }
+  #
+  # # TODO there currently is no variable_mapping, though I think this would be a nice touch.
+  #
+  # variable_mapping <- stringr::str_subset(
+  #   names(eal_inputs$x$data.table),
+  #   "variable_mapping")
+  # if (length(variable_mapping) != 0) {
+  #   tblnms_varmap <- eal_inputs$x$data.table[[variable_mapping]]$content$table_name # remove missing tables from variable_mapping
+  #   tblnms_input <- tools::file_path_sans_ext(data.table)
+  #   tbls2keep <- tblnms_varmap %in% tblnms_input
+  #   eal_inputs$x$data.table[[variable_mapping]]$content <- eal_inputs$x$data.table[[variable_mapping]]$content[tbls2keep, ]
+  #   variable_mappings_annotations <- lapply(
+  #     unique(eal_inputs$x$data.table[[variable_mapping]]$content$table_name),
+  #     function(table) {
+  #       variable_mapping_subset <- dplyr::filter(
+  #         eal_inputs$x$data.table[[variable_mapping]]$content,
+  #         table_name == table)
+  #       file_name <- stringr::str_subset(
+  #         names(eal_inputs$x$data.table),
+  #         paste0(table, "\\.[:alpha:]*$"))
+  #
+  #       if (!is.null(variable_mapping_subset$mapped_label)) { # Handle missing columns
+  #         objlbl <- variable_mapping_subset$mapped_label
+  #       } else {
+  #         objlbl <- ""
+  #       }
+  #       if (!is.null(variable_mapping_subset$mapped_id)) {
+  #         objuri <- variable_mapping_subset$mapped_id
+  #       } else {
+  #         objuri <- ""
+  #       }
+  #
+  #       annotation <- data.frame(
+  #         id = paste0("/", file_name, "/variable_name"),
+  #         element = "/dataTable/attribute",
+  #         context = file_name,
+  #         subject = "variable_name",
+  #         predicate_label = "is about",
+  #         predicate_uri = "http://purl.obolibrary.org/obo/IAO_0000136",
+  #         object_label = objlbl,
+  #         object_uri = objuri,
+  #         stringsAsFactors = FALSE)
+  #       # Remove duplicate annotations or the variable_name attribute (a column
+  #       # containing multiple variables as apart of a "long" table) will have
+  #       # more than one of the same annotation
+  #       annotation <- dplyr::distinct(
+  #         annotation,
+  #         object_label,
+  #         object_uri,
+  #         .keep_all = TRUE)
+  #       return(annotation)
+  #     })
+  #   annotations <- rbind(
+  #     annotations,
+  #     data.table::rbindlist(variable_mappings_annotations))
+  # }
+  #
+  # annotations[annotations == ""] <- NA_character_
+  # annotations <- annotations[stats::complete.cases(annotations), ]
+  #
+  # eal_inputs$x$template$annotations.txt$content <- annotations
 
-  # TODO the entire annotation map needs to be remade. See the inst/extdata dir
-
-  for (i in data.table) {
-    table <- stringr::str_remove(i, "\\.[:alpha:]*$")
-    annotations_subset <- dplyr::filter(
-      annotations_map,
-      subject %in% table | context %in% table)
-    table_annotations <- annotations_subset[
-      annotations_subset$subject %in%
-        c(colnames(eal_inputs$x$data.table[[i]]$content), table), ]
-    table_annotations$id <- stringr::str_replace(
-      table_annotations$id,
-      paste0("(?<=/)", table, "(?=$|/)"),
-      i)
-    table_annotations$context <- stringr::str_replace(
-      table_annotations$context, table, i)
-    table_annotations$subject <- stringr::str_replace(
-      table_annotations$subject, paste0("^", table, "$"), i)
-    annotations <- rbind(annotations, table_annotations)
-  }
-
-  # TODO there currently is no variable_mapping, though I think this would be a nice touch.
-
-  variable_mapping <- stringr::str_subset(
-    names(eal_inputs$x$data.table),
-    "variable_mapping")
-  if (length(variable_mapping) != 0) {
-    tblnms_varmap <- eal_inputs$x$data.table[[variable_mapping]]$content$table_name # remove missing tables from variable_mapping
-    tblnms_input <- tools::file_path_sans_ext(data.table)
-    tbls2keep <- tblnms_varmap %in% tblnms_input
-    eal_inputs$x$data.table[[variable_mapping]]$content <- eal_inputs$x$data.table[[variable_mapping]]$content[tbls2keep, ]
-    variable_mappings_annotations <- lapply(
-      unique(eal_inputs$x$data.table[[variable_mapping]]$content$table_name),
-      function(table) {
-        variable_mapping_subset <- dplyr::filter(
-          eal_inputs$x$data.table[[variable_mapping]]$content,
-          table_name == table)
-        file_name <- stringr::str_subset(
-          names(eal_inputs$x$data.table),
-          paste0(table, "\\.[:alpha:]*$"))
-
-        if (!is.null(variable_mapping_subset$mapped_label)) { # Handle missing columns
-          objlbl <- variable_mapping_subset$mapped_label
-        } else {
-          objlbl <- ""
-        }
-        if (!is.null(variable_mapping_subset$mapped_id)) {
-          objuri <- variable_mapping_subset$mapped_id
-        } else {
-          objuri <- ""
-        }
-
-        annotation <- data.frame(
-          id = paste0("/", file_name, "/variable_name"),
-          element = "/dataTable/attribute",
-          context = file_name,
-          subject = "variable_name",
-          predicate_label = "is about",
-          predicate_uri = "http://purl.obolibrary.org/obo/IAO_0000136",
-          object_label = objlbl,
-          object_uri = objuri,
-          stringsAsFactors = FALSE)
-        # Remove duplicate annotations or the variable_name attribute (a column
-        # containing multiple variables as apart of a "long" table) will have
-        # more than one of the same annotation
-        annotation <- dplyr::distinct(
-          annotation,
-          object_label,
-          object_uri,
-          .keep_all = TRUE)
-        return(annotation)
-      })
-    annotations <- rbind(
-      annotations,
-      data.table::rbindlist(variable_mappings_annotations))
-  }
-
-  annotations[annotations == ""] <- NA_character_
-  annotations <- annotations[stats::complete.cases(annotations), ]
-
-  eal_inputs$x$template$annotations.txt$content <- annotations
+  # TODO everything above involves annotations/variable mapping and should be added back!
 
   # Only include metadata for existing columns (attributes)
   for (i in data.table) {
