@@ -490,7 +490,7 @@ create_eml <- function(path,
 
   message("    <title>")
   eml_L0$dataset$title <- paste(
-    eml_L0$dataset$title, "(Reformatted to the ecocomDP Design Pattern)")
+    eml_L0$dataset$title, "(Reformatted to the hymetDP Design Pattern)")
 
   # Update <pubDate> ----------------------------------------------------------
 
