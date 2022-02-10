@@ -1,32 +1,3 @@
-
-Skip to content
-Pull requests
-Issues
-Marketplace
-Explore
-@kzollove
-EDIorg /
-  ecocomDP
-
-Code
-Issues 28
-Pull requests
-Discussions
-Actions
-Projects 8
-Wiki 0
-Settings
-
-Releases3
-
-More
-ecocomDP/R/EAL_make_eml.R
-@clnsmth
-clnsmth Prevent namespace clash w/taxonomyCleanr
-Latest commit c72a88f on Jul 23, 2021
-History
-1 contributor
-1400 lines (1245 sloc) 54.1 KB
 # Make EML metadata
 #
 # @description
@@ -1427,17 +1398,3 @@ EAL_make_eml <- function(
   }
 
 }
-
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-
-Loading complete
