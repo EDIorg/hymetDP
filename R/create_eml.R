@@ -210,7 +210,7 @@ create_eml <- function(path,
 
         datetime_format <- parse_datetime_frmt_from_vals(datetime)
 
-        # TODO ecocomDP residual that likely will not apply to hymetDP
+        # TODO ecocomDP residual that likely will not apply to hymetDP (delete later)
         # if ((is.null(datetime_format)) & (i != "attributes_observation.txt")) { # Default to observation table's datetime format specifier if no date time in ancillary tables. This prevents an EML schema validation error, where datetime attributes must have a format specified
         #   use_i <- eal_inputs$x$template[["attributes_observation.txt"]]$content$dateTimeFormatString != ""
         #   datetime_format <- eal_inputs$x$template[["attributes_observation.txt"]]$content$dateTimeFormatString[use_i]
