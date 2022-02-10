@@ -837,3 +837,16 @@ is_prov <- function(nodeset) {
   res <- !is_empty_nodeset(dasource)
   return(res)
 }
+
+
+
+# Is empty nodeset?
+#
+# @param nodeset (xml_nodeset) Any nodeset returned by the xml2 library
+#
+# @return (logical) TRUE if nodeset length = 0
+#
+is_empty_nodeset <- function(nodeset) {
+  res <- length(nodeset) == 0
+  return(res)
+}
