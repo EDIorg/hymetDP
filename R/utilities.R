@@ -676,3 +676,83 @@ remove_empty_templates <- function(x) {
   }
   x
 }
+
+
+
+
+# Get end of line (EOL) character
+#
+# @description
+#     Get EOL character of input file(s).
+#
+# @param path
+#     (character) A path to the target file directory.
+# @param file.name
+#     (character) The target file name.
+# @param os
+#     (character) The operating system in which this function is called
+#     called. Valid options are generated from \code{detect_os}.
+#
+# @return
+#     A character string representation of the EOL character.
+#
+get_eol <- function(path, file.name, os){
+
+  # Validate file.name
+
+  file_name <- validate_file_names(path, file.name)
+
+  # Detect end of line character
+
+  if (os == 'mac'){ # Macintosh OS
+
+    command <- paste0(
+      'od -c "',
+      path,
+      '/',
+      file.name,
+      '"'
+    )
+
+    output <- system(
+      command,
+      intern = T
+    )
+
+    use_i <- stringr::str_detect(
+      output,
+      '\\\\r  \\\\n'
+    )
+
+    if (sum(use_i) > 0){
+      eol <- '\\r\\n'
+    } else {
+      use_i <- stringr::str_detect(
+        output,
+        '\\\\n'
+      )
+      if (sum(use_i) > 0){
+        eol <- '\\n'
+      } else {
+        eol <- '\\r'
+      }
+    }
+
+  } else if ((os == 'win') | (os == 'lin')){ # Windows & Linux OS
+
+    output <- readChar(
+      paste0(
+        path,
+        '/',
+        file.name
+      ),
+      nchars = 10000
+    )
+
+    eol <- parse_delim(output)
+
+  }
+
+  eol
+
+}
