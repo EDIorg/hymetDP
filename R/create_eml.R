@@ -531,15 +531,16 @@ create_eml <- function(path,
                                    eml_L1$dataset$keywordSet)
   }
 
-  # Add Darwin Core basisOfRecord
-  if (!is.null(basis_of_record)) {
-    eml_L0$dataset$keywordSet <- c(
-      eml_L0$dataset$keywordSet,
-      list(
-        list(
-          keywordThesaurus = "Darwin Core Terms",
-          keyword = as.list(paste0("basisOfRecord: ", basis_of_record)))))
-  }
+  # TODO no reason to keep DwC stuff (delete later)
+  # # Add Darwin Core basisOfRecord
+  # if (!is.null(basis_of_record)) {
+  #   eml_L0$dataset$keywordSet <- c(
+  #     eml_L0$dataset$keywordSet,
+  #     list(
+  #       list(
+  #         keywordThesaurus = "Darwin Core Terms",
+  #         keyword = as.list(paste0("basisOfRecord: ", basis_of_record)))))
+  # }
 
   # Update <intellectualRights> -----------------------------------------------
 
@@ -552,26 +553,28 @@ create_eml <- function(path,
 
   # Update <taxonomicCoverage> ------------------------------------------------
 
-  # Combine taxonomic coverage of L0 and L1. While this may provide redundant
-  # information, there isn't any harm in this.
+  #TODO more taxonomic coverage that can probably be deleted later
 
-  # Two options for combining taxonomic classifications, because of variation
-  # in the return from EML::read_eml() (i.e. lists nodes when length > 1, and
-  # unlists when length = 1).
-
-  if (!is.null(names(eml_L0$dataset$coverage$taxonomicCoverage$taxonomicClassification))) {
-    eml_L0$dataset$coverage$taxonomicCoverage$taxonomicClassification <- c(
-      list(eml_L0$dataset$coverage$taxonomicCoverage$taxonomicClassification),
-      eml_L1$dataset$coverage$taxonomicCoverage$taxonomicClassification)
-  } else {
-    eml_L0$dataset$coverage$taxonomicCoverage$taxonomicClassification <- c(
-      eml_L0$dataset$coverage$taxonomicCoverage$taxonomicClassification,
-      eml_L1$dataset$coverage$taxonomicCoverage$taxonomicClassification)
-  }
+  # # Combine taxonomic coverage of L0 and L1. While this may provide redundant
+  # # information, there isn't any harm in this.
+  #
+  # # Two options for combining taxonomic classifications, because of variation
+  # # in the return from EML::read_eml() (i.e. lists nodes when length > 1, and
+  # # unlists when length = 1).
+  #
+  # if (!is.null(names(eml_L0$dataset$coverage$taxonomicCoverage$taxonomicClassification))) {
+  #   eml_L0$dataset$coverage$taxonomicCoverage$taxonomicClassification <- c(
+  #     list(eml_L0$dataset$coverage$taxonomicCoverage$taxonomicClassification),
+  #     eml_L1$dataset$coverage$taxonomicCoverage$taxonomicClassification)
+  # } else {
+  #   eml_L0$dataset$coverage$taxonomicCoverage$taxonomicClassification <- c(
+  #     eml_L0$dataset$coverage$taxonomicCoverage$taxonomicClassification,
+  #     eml_L1$dataset$coverage$taxonomicCoverage$taxonomicClassification)
+  # }
 
   # Update <contact> ----------------------------------------------------------
 
-  # Add ecocomDP creator to list of contacts
+  # Add hymetDP creator to list of contacts
 
   message("    <contact>")
 
