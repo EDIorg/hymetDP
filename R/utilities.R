@@ -632,3 +632,47 @@ api_get_provenance_metadata <- function(package.id, environment = 'production'){
   output
 
 }
+
+
+
+
+
+remove_empty_templates <- function(x) {
+  # Removes empty templates (NULL, data frames with 0 rows, or TextType of 0
+  # characters) from the list object created by template_arguments().
+  # x = template_arguments()$x
+  attr_tmp <- read_template_attributes()
+  use_i <- rep(F, length(x$template))
+  for (i in 1:length(x$template)) {
+    if (is.null(x$template[[i]]$content)) {
+      use_i[i] <- T
+    } else {
+      if (any(attr_tmp$template_name ==
+              tools::file_path_sans_ext(names(x$template[i])))) {
+        if ((attr_tmp$type[
+          attr_tmp$template_name ==
+          tools::file_path_sans_ext(names(x$template[i]))]) == "text") {
+          if (sum(nchar(unlist(x$template[[i]]))) == 0) {
+            use_i[i] <- T
+          }
+        } else if ((attr_tmp$type[
+          attr_tmp$template_name ==
+          tools::file_path_sans_ext(names(x$template[i]))]) == "xml") {
+          if (length(x$template[[i]]$content$taxonomicClassification) == 0) {
+            use_i[i] <- T
+          }
+        } else {
+          if (nrow(x$template[[i]]$content) == 0) {
+            use_i[i] <- T
+          }
+        }
+      }
+    }
+  }
+  if (all(use_i)) {
+    x["template"] <-list(NULL)
+  } else {
+    x$template[use_i] <- NULL
+  }
+  x
+}
