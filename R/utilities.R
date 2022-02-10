@@ -782,3 +782,41 @@ detect_os <- function(){
   }
   os
 }
+
+
+
+
+
+# Detect field delimiter of file
+#
+# @param path (character) Path in which \code{data.files} are found
+# @param data.files (character) File names
+# @param os (character) Return from \code{detect_os()}.
+#
+# @details Parses the verbose return from \code{data.table::fread()} to
+# get the delimiter value. If this fails, then a secondary function is called utilizing the suggested \code{reader} package. If this secondary approach fails, then a default "," is returned.
+#
+# @return (character) Field delimiter of \code{data.files}
+#
+detect_delimiter <- function(path, data.files, os) {
+  f <- paste0(path, "/", data.files)
+  msg <- utils::capture.output(data.table::fread(f, verbose = TRUE) %>% {NULL}) # primary method
+  seps <- stringr::str_extract_all(msg, "(?<=(sep=')).+(?='[:blank:])")
+  sep <- unique(unlist(seps))
+  if (length(sep) == 1) {
+    return(sep)
+  } else {
+    warning("Could not detect field delimiter for ", f, ". Trying alternate ",
+            "method.", call. = FALSE)
+    if (!requireNamespace("reader", quietly = TRUE)) {                   # default value
+      warning("Package 'reader' is required for the alternate field delimiter",
+              " detection method but is not installed.", call. = FALSE)
+      warning("Could not detect field delimiter for ", f, ". Defaulting to ",
+              "','.", call. = FALSE)
+      return(",")
+    } else {                                                             # secondary method
+      res <- detect_delimiter_method_2(path, data.files, detect_os())
+      return(res)
+    }
+  }
+}
