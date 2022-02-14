@@ -1,91 +1,91 @@
-table	column	class	required	primary_key	foreign_key	composite_key	globally_unique	cv
-Sources	NA	NA	TRUE	NA	NA	NA	NA	NA
-Sources	SourceCode	character	TRUE	TRUE	FALSE	TRUE	TRUE	NA
-Sources	Organization	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-Sources	SourceDescription	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-Sources	SourceLink	character	FALSE	FALSE	FALSE	FALSE	FALSE	NA
-Sources	ContactName	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-Sources	Phone	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-Sources	Email	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-Sources	Address	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-Sources	City	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-Sources	State	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-Sources	ZipCode	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-Sources	Citation	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-DataValues	NA	NA	TRUE	NA	NA	NA	NA	NA
-DataValues	ValueID	character	TRUE	TRUE	FALSE	TRUE	TRUE	NA
-DataValues	DataValue	numeric	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-DataValues	ValueAccuracy	numeric	FALSE	FALSE	FALSE	FALSE	FALSE	NA
-DataValues	LocalDateTime	Date	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-DataValues	UTCOffset	numeric	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-DataValues	DateTimeUTC	Date	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-DataValues	SiteCode	character	TRUE	FALSE	TRUE	FALSE	TRUE	NA
-DataValues	VariableCode	character	TRUE	FALSE	TRUE	FALSE	TRUE	NA
-DataValues	OffsetValue	numeric	FALSE	FALSE	FALSE	FALSE	FALSE	NA
-DataValues	OffsetTypeCode	character	FALSE	FALSE	TRUE	FALSE	TRUE	NA
-DataValues	CensorCode	character	FALSE	FALSE	TRUE	FALSE	TRUE	CensorCodeCV
-DataValues	QualifierCode	character	FALSE	FALSE	TRUE	FALSE	TRUE	NA
-DataValues	MethodCode	character	TRUE	FALSE	TRUE	FALSE	TRUE	NA
-DataValues	SourceCode	character	TRUE	FALSE	TRUE	FALSE	TRUE	NA
-DataValues	QualityControlLevelCode	character	TRUE	FALSE	TRUE	FALSE	TRUE	NA
-Methods	NA	NA	TRUE	NA	NA	NA	NA	NA
-Methods	MethodCode	character	TRUE	TRUE	FALSE	TRUE	TRUE	NA
-Methods	MethodDescription	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-Methods	MethodLink	character	FALSE	FALSE	FALSE	FALSE	FALSE	NA
-Variables	NA	NA	TRUE	NA	NA	NA	NA	NA
-Variables	VariableCode	character	TRUE	TRUE	FALSE	TRUE	TRUE	NA
-Variables	VariableName	character	TRUE	FALSE	FALSE	FALSE	FALSE	VariableNameCV
-Variables	VariableUnitsName	character	TRUE	FALSE	FALSE	FALSE	FALSE	UnitsCV
-Variables	SampleMedium	character	TRUE	FALSE	FALSE	FALSE	FALSE	SampleMediumCV
-Variables	ValueType	character	TRUE	FALSE	FALSE	FALSE	FALSE	ValueTypeCV
-Variables	IsRegular	boolean	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-Variables	TimeSupport	numeric	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-Variables	TimeUnitsName	character	TRUE	FALSE	FALSE	FALSE	FALSE	UnitsCV
-Variables	DataType	character	TRUE	FALSE	FALSE	FALSE	FALSE	DataTypeCV
-Variables	GeneralCategory	character	TRUE	FALSE	FALSE	FALSE	FALSE	GeneralCategoryCV
-Variables	NoDataValue	numeric	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-Sites	NA	NA	TRUE	NA	NA	NA	NA	NA
-Sites	SiteCode	character	TRUE	TRUE	FALSE	TRUE	TRUE	NA
-Sites	SiteName	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-Sites	Latitude	numeric	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-Sites	Longitude	numeric	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-Sites	LatLongDatumSRSName	character	TRUE	FALSE	FALSE	FALSE	FALSE	SpatialReferencesCV
-Sites	Elevation_m	numeric	FALSE	FALSE	FALSE	FALSE	FALSE	NA
-Sites	VerticalDatum	character	FALSE	FALSE	FALSE	FALSE	FALSE	NA
-Sites	LocalX	numeric	FALSE	FALSE	FALSE	FALSE	FALSE	NA
-Sites	LocalY	numeric	FALSE	FALSE	FALSE	FALSE	FALSE	NA
-Sites	LocalProjectionSRSName	character	FALSE	FALSE	FALSE	FALSE	FALSE	SpatialReferencesCV
-Sites	PosAccuracy_m	numeric	FALSE	FALSE	FALSE	FALSE	FALSE	NA
-Sites	State	character	FALSE	FALSE	FALSE	FALSE	FALSE	NA
-Sites	County	character	FALSE	FALSE	FALSE	FALSE	FALSE	NA
-Sites	Comments	character	FALSE	FALSE	FALSE	FALSE	FALSE	NA
-Sites	SiteType	character	TRUE	FALSE	FALSE	FALSE	FALSE	SiteTypeCV
-QualityControlLevels	NA	NA	TRUE	NA	NA	NA	NA	NA
-QualityControlLevels	QualityControlLevelCode	character	TRUE	TRUE	FALSE	TRUE	TRUE	NA
-QualityControlLevels	Definition	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-QualityControlLevels	Explanation	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-SeriesCatalog	NA	NA	TRUE	NA	NA	NA	NA	NA
-SeriesCatalog	SeriesID	numeric	TRUE	TRUE	TRUE	TRUE	TRUE	NA
-SeriesCatalog	SiteCode	character	TRUE	FALSE	TRUE	TRUE	TRUE	NA
-SeriesCatalog	SiteName	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-SeriesCatalog	VariableCode	character	TRUE	FALSE	TRUE	TRUE	TRUE	NA
-SeriesCatalog	VariableName	character	TRUE	FALSE	FALSE	FALSE	FALSE	VariableNameCV
-SeriesCatalog	VariableUnitsName	character	TRUE	FALSE	FALSE	FALSE	FALSE	UnitsCV
-SeriesCatalog	SampleMedium	character	TRUE	FALSE	FALSE	FALSE	FALSE	SampleMediumCV
-SeriesCatalog	ValueType	character	TRUE	FALSE	FALSE	FALSE	FALSE	ValueTypeCV
-SeriesCatalog	TimeSupport	numeric	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-SeriesCatalog	TimeUnitsName	character	TRUE	FALSE	FALSE	FALSE	FALSE	UnitsCV
-SeriesCatalog	DataType	character	TRUE	FALSE	FALSE	FALSE	FALSE	DataTypeCV
-SeriesCatalog	GeneralCategory	character	TRUE	FALSE	FALSE	FALSE	FALSE	GeneralCategoryCV
-SeriesCatalog	MethodCode	character	TRUE	FALSE	TRUE	TRUE	TRUE	NA
-SeriesCatalog	MethodDescription	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-SeriesCatalog	SourceCode	character	TRUE	FALSE	TRUE	TRUE	TRUE	NA
-SeriesCatalog	Organization	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-SeriesCatalog	SourceDescription	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-SeriesCatalog	Citation	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-SeriesCatalog	QualityControlLevelCode	character	TRUE	FALSE	TRUE	TRUE	TRUE	NA
-SeriesCatalog	BeginDateTime	Date	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-SeriesCatalog	EndDateTime	Date	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-SeriesCatalog	BeginDateTimeUTC	Date	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-SeriesCatalog	EndDateTimeUTC	Date	TRUE	FALSE	FALSE	FALSE	FALSE	NA
-SeriesCatalog	ValueCount	numeric	TRUE	FALSE	FALSE	FALSE	FALSE	NA
+table	column	class	required	primary_key	foreign_key	composite_key	globally_unique	cv	catalog
+Sources	NA	NA	TRUE	NA	NA	NA	NA	NA	NA
+Sources	SourceCode	character	TRUE	TRUE	FALSE	TRUE	TRUE	NA	TRUE
+Sources	Organization	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA	TRUE
+Sources	SourceDescription	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA	TRUE
+Sources	SourceLink	character	FALSE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+Sources	ContactName	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+Sources	Phone	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+Sources	Email	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+Sources	Address	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+Sources	City	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+Sources	State	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+Sources	ZipCode	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+Sources	Citation	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA	TRUE
+DataValues	NA	NA	TRUE	NA	NA	NA	NA	NA	NA
+DataValues	ValueID	character	TRUE	TRUE	FALSE	TRUE	TRUE	NA	TRUE
+DataValues	DataValue	numeric	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+DataValues	ValueAccuracy	numeric	FALSE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+DataValues	LocalDateTime	Date	TRUE	FALSE	FALSE	FALSE	FALSE	NA	TRUE
+DataValues	UTCOffset	numeric	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+DataValues	DateTimeUTC	Date	TRUE	FALSE	FALSE	FALSE	FALSE	NA	TRUE
+DataValues	SiteCode	character	TRUE	FALSE	TRUE	FALSE	TRUE	NA	FALSE
+DataValues	VariableCode	character	TRUE	FALSE	TRUE	FALSE	TRUE	NA	FALSE
+DataValues	OffsetValue	numeric	FALSE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+DataValues	OffsetTypeCode	character	FALSE	FALSE	TRUE	FALSE	TRUE	NA	FALSE
+DataValues	CensorCode	character	FALSE	FALSE	TRUE	FALSE	TRUE	CensorCodeCV	FALSE
+DataValues	QualifierCode	character	FALSE	FALSE	TRUE	FALSE	TRUE	NA	FALSE
+DataValues	MethodCode	character	TRUE	FALSE	TRUE	FALSE	TRUE	NA	FALSE
+DataValues	SourceCode	character	TRUE	FALSE	TRUE	FALSE	TRUE	NA	FALSE
+DataValues	QualityControlLevelCode	character	TRUE	FALSE	TRUE	FALSE	TRUE	NA	FALSE
+Methods	NA	NA	TRUE	NA	NA	NA	NA	NA	NA
+Methods	MethodCode	character	TRUE	TRUE	FALSE	TRUE	TRUE	NA	TRUE
+Methods	MethodDescription	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA	TRUE
+Methods	MethodLink	character	FALSE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+Variables	NA	NA	TRUE	NA	NA	NA	NA	NA	NA
+Variables	VariableCode	character	TRUE	TRUE	FALSE	TRUE	TRUE	NA	TRUE
+Variables	VariableName	character	TRUE	FALSE	FALSE	FALSE	FALSE	VariableNameCV	TRUE
+Variables	VariableUnitsName	character	TRUE	FALSE	FALSE	FALSE	FALSE	UnitsCV	TRUE
+Variables	SampleMedium	character	TRUE	FALSE	FALSE	FALSE	FALSE	SampleMediumCV	TRUE
+Variables	ValueType	character	TRUE	FALSE	FALSE	FALSE	FALSE	ValueTypeCV	TRUE
+Variables	IsRegular	boolean	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+Variables	TimeSupport	numeric	TRUE	FALSE	FALSE	FALSE	FALSE	NA	TRUE
+Variables	TimeUnitsName	character	TRUE	FALSE	FALSE	FALSE	FALSE	UnitsCV	TRUE
+Variables	DataType	character	TRUE	FALSE	FALSE	FALSE	FALSE	DataTypeCV	TRUE
+Variables	GeneralCategory	character	TRUE	FALSE	FALSE	FALSE	FALSE	GeneralCategoryCV	TRUE
+Variables	NoDataValue	numeric	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+Sites	NA	NA	TRUE	NA	NA	NA	NA	NA	NA
+Sites	SiteCode	character	TRUE	TRUE	FALSE	TRUE	TRUE	NA	TRUE
+Sites	SiteName	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA	TRUE
+Sites	Latitude	numeric	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+Sites	Longitude	numeric	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+Sites	LatLongDatumSRSName	character	TRUE	FALSE	FALSE	FALSE	FALSE	SpatialReferencesCV	FALSE
+Sites	Elevation_m	numeric	FALSE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+Sites	VerticalDatum	character	FALSE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+Sites	LocalX	numeric	FALSE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+Sites	LocalY	numeric	FALSE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+Sites	LocalProjectionSRSName	character	FALSE	FALSE	FALSE	FALSE	FALSE	SpatialReferencesCV	FALSE
+Sites	PosAccuracy_m	numeric	FALSE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+Sites	State	character	FALSE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+Sites	County	character	FALSE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+Sites	Comments	character	FALSE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+Sites	SiteType	character	TRUE	FALSE	FALSE	FALSE	FALSE	SiteTypeCV	FALSE
+QualityControlLevels	NA	NA	TRUE	NA	NA	NA	NA	NA	NA
+QualityControlLevels	QualityControlLevelCode	character	TRUE	TRUE	FALSE	TRUE	TRUE	NA	TRUE
+QualityControlLevels	Definition	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+QualityControlLevels	Explanation	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+SeriesCatalog	NA	NA	TRUE	NA	NA	NA	NA	NA	NA
+SeriesCatalog	SeriesID	numeric	TRUE	TRUE	TRUE	TRUE	TRUE	NA	FALSE
+SeriesCatalog	SiteCode	character	TRUE	FALSE	TRUE	TRUE	TRUE	NA	FALSE
+SeriesCatalog	SiteName	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+SeriesCatalog	VariableCode	character	TRUE	FALSE	TRUE	TRUE	TRUE	NA	FALSE
+SeriesCatalog	VariableName	character	TRUE	FALSE	FALSE	FALSE	FALSE	VariableNameCV	FALSE
+SeriesCatalog	VariableUnitsName	character	TRUE	FALSE	FALSE	FALSE	FALSE	UnitsCV	FALSE
+SeriesCatalog	SampleMedium	character	TRUE	FALSE	FALSE	FALSE	FALSE	SampleMediumCV	FALSE
+SeriesCatalog	ValueType	character	TRUE	FALSE	FALSE	FALSE	FALSE	ValueTypeCV	FALSE
+SeriesCatalog	TimeSupport	numeric	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+SeriesCatalog	TimeUnitsName	character	TRUE	FALSE	FALSE	FALSE	FALSE	UnitsCV	FALSE
+SeriesCatalog	DataType	character	TRUE	FALSE	FALSE	FALSE	FALSE	DataTypeCV	FALSE
+SeriesCatalog	GeneralCategory	character	TRUE	FALSE	FALSE	FALSE	FALSE	GeneralCategoryCV	FALSE
+SeriesCatalog	MethodCode	character	TRUE	FALSE	TRUE	TRUE	TRUE	NA	FALSE
+SeriesCatalog	MethodDescription	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+SeriesCatalog	SourceCode	character	TRUE	FALSE	TRUE	TRUE	TRUE	NA	FALSE
+SeriesCatalog	Organization	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+SeriesCatalog	SourceDescription	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+SeriesCatalog	Citation	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+SeriesCatalog	QualityControlLevelCode	character	TRUE	FALSE	TRUE	TRUE	TRUE	NA	FALSE
+SeriesCatalog	BeginDateTime	Date	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+SeriesCatalog	EndDateTime	Date	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+SeriesCatalog	BeginDateTimeUTC	Date	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+SeriesCatalog	EndDateTimeUTC	Date	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+SeriesCatalog	ValueCount	numeric	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE

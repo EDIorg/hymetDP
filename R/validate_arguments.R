@@ -108,9 +108,56 @@ validate_arguments <- function(fun.name, fun.args) {
       }
 
     }
+
+    if (fun.name == 'create_series_catalog') {
+
+      required_tables <- c("Sources", "Methods", "Variables", "Sites", "QualityControlLevels", "DataValues")
+
+      # Confirm that all mandatory tables are present, error message about missing tables
+
+      missing_tables <- lapply(required_tables, function(x) if(is.null(get(x))) c(missing_tables, x))
+
+      if (!is.null(unlist(missing_tables))) stop(paste0("This function requires all mandatory tables to create the SeriesCatalog. The following tables were not found: ", knitr::combine_words(unlist(missing_tables)), "."))
+
+      # Confirm that all necessary columns are present
+
+      missing_cols <- lapply(required_tables, function(x) {
+
+        # get required columns from criteria table
+
+        cols <- dplyr::filter(criteria, table == x, catalog == TRUE)$column
+
+        if (!all(cols %in% names(get(x)))) x = cols[!cols %in% names(get(x))]
+      })
+
+      if(!is.null(unlist(missing_cols))) {
+
+        errors <- c()
+
+        for (i in seq_along(required_tables)) {
+
+          if (!is.null(missing_cols[[i]])) {
+
+            table <- required_tables[[i]]
+            cols <- knitr::combine_words(missing_cols[[i]])
+
+            msg <- paste0("The ", table, " table is missing the following: ", cols, '.\n')
+
+            errors <- c(errors, msg)
+          }
+        }
+
+        stop(paste0("The following tables are missing columns:\n", stringr::str_flatten(errors)))
+      }
+
+
+
+    }
+
+
+
+
   }
-
-
 
 
 
