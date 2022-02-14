@@ -82,13 +82,13 @@ create_data_values <- function( # TODO change the "Code used by the organization
   # add missing columns
 
   if (is.null(ValueAccuracy)) {
-    res$ValueAccuracy <- NA
+    res$ValueAccuracy <- NA_real_
   }
   if (is.null(OffsetValue)) {
-    res$OffsetValue <- NA
+    res$OffsetValue <- NA_real_
   }
   if (is.null(OffsetTypeCode)) {
-    res$OffsetCode <- NA_character_
+    res$OffsetTypeCode <- NA_character_
   }
   if (is.null(QualifierCode)) {
     res$QualifierCode <- NA_character_
