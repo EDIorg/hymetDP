@@ -210,7 +210,7 @@ create_eml <- function(path,
 
         datetime_format <- parse_datetime_frmt_from_vals(datetime)
 
-        # TODO ecocomDP residual that likely will not apply to hymetDP (delete later)
+        # TODO hymetDP residual that likely will not apply to hymetDP (delete later)
         # if ((is.null(datetime_format)) & (i != "attributes_observation.txt")) { # Default to observation table's datetime format specifier if no date time in ancillary tables. This prevents an EML schema validation error, where datetime attributes must have a format specified
         #   use_i <- eal_inputs$x$template[["attributes_observation.txt"]]$content$dateTimeFormatString != ""
         #   datetime_format <- eal_inputs$x$template[["attributes_observation.txt"]]$content$dateTimeFormatString[use_i]
@@ -270,9 +270,9 @@ create_eml <- function(path,
   eal_inputs$x$template <- c(eal_inputs$x$template, r)
 
 
-  # TODO ecocomDP residual likely no relevance to hymet
+  # TODO hymetDP residual likely no relevance to hymet
   # Create the taxonomic_coverage template used by EAL_make_eml()
-  # from the taxon table of ecocomDP.
+  # from the taxon table of hymetDP.
 
   # f <- stringr::str_subset(
   #   names(eal_inputs$x$data.table),
@@ -486,7 +486,7 @@ create_eml <- function(path,
 
   # Update <title> ------------------------------------------------------------
 
-  # Add notification the user that this is an ecocomDP data package
+  # Add notification the user that this is an hymetDP data package
 
   message("    <title>")
   eml_L0$dataset$title <- paste(
@@ -517,7 +517,7 @@ create_eml <- function(path,
 
   # Update <keywordSet> -------------------------------------------------------
 
-  # Add ecocomDP specific keywords to the L0 keywords
+  # Add hymetDP specific keywords to the L0 keywords
 
   message("    <keywordSet>")
   # Two options for combining keyword sets, because of variation in the return
@@ -590,7 +590,7 @@ create_eml <- function(path,
 
   # Update <methods> ----------------------------------------------------------
 
-  # Update parent methods with ecocomDP creation process and provenance
+  # Update parent methods with hymetDP creation process and provenance
   # metadata to provide the user with a full understanding of how these data
   # were created
 
