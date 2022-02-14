@@ -90,7 +90,8 @@ validate_arguments <- function(fun.name, fun.args) {
 
       if (is.null(fun.args$Organization)) stop("A source Organization must be provided.")
 
-      if (all(class(eml) == c("xml_document", "xml_node")) & is.null(fun.args$SourceDescription)) stop("A valid EML document or a SourceDescription must be provided.")
+      # TODO not sure why this was here, consider deleting
+      #if (all(class(eml) == c("xml_document", "xml_node")) & is.null(fun.args$SourceDescription)) stop("A valid EML document or a SourceDescription must be provided.")
 
       var_lengths <- c(length(fun.args$ContactName), length(fun.args$Phone), length(fun.args$Email), length(fun.args$Address), length(fun.args$City), length(fun.args$State), length(fun.args$ZipCode))
       if (length(fun.args$Organization) > 1) {

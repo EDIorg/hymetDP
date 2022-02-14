@@ -639,3 +639,18 @@ validate_elevation <- function(data.list) {
 }
 
 
+
+
+validate_controlled_vocabulary_terms <- function(data.list) {
+
+  message ("  ODM Controlled Vocabulary terms")
+
+  r <- invisible(
+    lapply(
+      # TODO give a list of colnames that require CV terms
+
+    )
+  )
+}
+
+

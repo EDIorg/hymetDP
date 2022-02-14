@@ -7,7 +7,7 @@ create_eml <- function(path,
                        contact,
                        user_id,
                        user_domain,
-                       basis_of_record = NULL,
+                       basis_of_record = NULL, # This is a DwC thing... maybe remove
                        url = NULL) {
 
   message("Creating EML for derived data package (" , derived_id, ")")
