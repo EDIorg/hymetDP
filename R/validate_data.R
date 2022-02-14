@@ -640,17 +640,101 @@ validate_elevation <- function(data.list) {
 
 
 
-
+# TODO this needs unit tests and to be tried in general
 validate_controlled_vocabulary_terms <- function(data.list) {
 
   message ("  ODM Controlled Vocabulary terms")
 
   r <- invisible(
     lapply(
-      # TODO give a list of colnames that require CV terms
+      names(data.list),
+      function(x) {
+        lapply(
+          colnames(data.list[[x]]),
+          function(k) {
+            cv_cols <- criteria[!is.na(criteria$cv)]
+            if (k %in% cv_cols) {
+              cv_to_check <- cv_cols$cv[
+                (cv_cols$table %in% "SeriesCatalog")
+                  (cv_cols$column %in% "DataType")]
+              detected <- unique(data.list[[x]][[k]])
+              for (t in detected) {
+                if (cv_to_check == "UnitsCV") {
+                  if (!t %in% UnitsCV$UnitsName) {
+                    issues <- list(column = k, bad_term = t)
+                  }
+                } else if (cv_to_check == "SpatialReferencesCV") {
+                  if (!t %in% SpatialReferencesCV$SRSName) {
+                    issues <- list(column = k, bad_term = t)
+                  }
+                } else {
+                  this_cv <- get(cv_to_check)
+                  if (!t %in% this_cv[["Term"]]) {
+                    issues <- list(column = k, bad_term = t)
+                  }
+                }
+              }
+              if (exists("issues", inherits = FALSE)) {
+                paste0(
+                  "Controlled Vocabulary terms. The column ", k, " in the table ",
+                  x, " contains the term ", bad_term, " which is not a term in the ",
+                  cv_to_check, " ODM Controlled Vocabulary.")
+              }
+            }
+          })
+      }))
+  unlist(r)
+}
 
-    )
-  )
+validate_column_classes <- function(data.list) {
+
+  message("  Column classes")
+
+  # Parameterize
+
+  criteria <- read_criteria()
+
+  # Validate
+
+  r <- invisible(
+    lapply(
+      names(data.list),
+      function(x) {
+        lapply(
+          colnames(data.list[[x]]),
+          function(k) {
+            if (k %in% criteria$column) {
+              expected <- criteria$class[
+                (criteria$table %in% x) &
+                  !is.na(criteria$column) &
+                  (criteria$column %in% k)]
+              detected <- class(data.list[[x]][[k]])
+              if (expected == "numeric") {
+                if ((detected != "integer") &
+                    (detected != "integer64") &
+                    (detected != "double") &
+                    (detected != "numeric")) {
+                  issues <- list(
+                    column = k, expected = expected, detected = detected)
+                }
+              } else if (expected == "character") {
+                if (detected != "character") {
+                  issues <- list(
+                    column = k, expected = expected, detected = detected)
+                }
+              }
+              if (exists("issues", inherits = FALSE)) {
+                paste0(
+                  "Column classes. The column ", k, " in the table ",
+                  x, " has a class of ", detected, " but a class of ",
+                  expected, " is expected.")
+              }
+            }
+          })
+      }))
+
+  unlist(r)
+
 }
 
 
