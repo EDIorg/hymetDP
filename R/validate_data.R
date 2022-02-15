@@ -254,8 +254,10 @@ validate_datetime <- function(data.list) {
                 as.character(v[start: end])
               })
             split_v[[n + 1]] <-  as.character(v[(1000000*(n)+1): length(v)])
+
+            v <- unlist(split_v)
+
           }
-          v <- unlist(split_v)
           v <- stringr::str_remove_all(v, "(Z|z).+$") # prepare datetimes for parsing
           v <- stringr::str_replace(v, "T", " ")
           # Check different date time formats to see if one matches the data
