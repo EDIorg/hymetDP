@@ -118,10 +118,10 @@ create_series_catalog <- function(
                QualityControlLevelCode == res$QualityControlLevelCode[[i]])
 
            dplyr::tibble(
-             BeginDateTime = min(dv_comp$LocalDateTime),
-             EndDateTime = max(dv_comp$LocalDateTime),
-             BeginDateTimeUTC = min(dv_comp$DateTimeUTC),
-             EndDateTimeUTC = max(dv_comp$DateTimeUTC),
+             BeginDateTime = min(dv_comp$LocalDateTime, na.rm = T),
+             EndDateTime = max(dv_comp$LocalDateTime, na.rm = T),
+             BeginDateTimeUTC = min(dv_comp$DateTimeUTC, na.rm = T),
+             EndDateTimeUTC = max(dv_comp$DateTimeUTC, na.rm = T),
              ValueCount = nrow(dv_comp))
 
          }) %>%
