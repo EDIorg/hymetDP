@@ -243,7 +243,19 @@ validate_datetime <- function(data.list) {
         for (col in datetime_column) {
           v <- data.list[[x]][[col]]
           na_count_raw <- sum(is.na(v))               # count NAs in datetime field
-          v <- as.character(v)                        # coerce to character
+          #v <- as.character(v)                        # coerce to character
+          if (length(v) > (1000000-1)) {
+            n = length(v) %/% 1000000
+            split_v <- lapply(
+              seq(n),
+              function(x) {
+                start = (1000000*(x-1)+1)
+                end = 1000000*x
+                as.character(v[start: end])
+              })
+            split_v[[n + 1]] <-  as.character(v[(1000000*(n)+1): length(v)])
+          }
+          v <- unlist(split_v)
           v <- stringr::str_remove_all(v, "(Z|z).+$") # prepare datetimes for parsing
           v <- stringr::str_replace(v, "T", " ")
           # Check different date time formats to see if one matches the data
