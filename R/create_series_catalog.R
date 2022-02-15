@@ -32,15 +32,14 @@ create_series_catalog <- function(
   # TODO require either DataValues table OR flat table...
   # TODO if flat is NULL, then ALL tables are required
   # All columns come from main tables
+
   # TODO if flat is not NULL and DataValues is NULL, use flat for:
   # creating combinations
   # creating dv_comp
+
   # TODO if flat is not NULL and other values are,
   # check that columns from missing tables exist in flat
   # use columns from the flat table
-
-  # TODO move this to validate arguments
-  # TODO provide the list of columns each table should contain (this could be moved to validate_arguments)
 
   criteria <- read_criteria()
 
@@ -60,10 +59,12 @@ create_series_catalog <- function(
   res <- unique(combinations[composite_key]) %>%
     mutate(across(everything(), as.character))
 
-  # TODO Gather columns
+  #  Gather columns
 
-  # This looper should go through the required tables list,
-  # get the required cols, get the table, extract cols from table, and join to the res
+  # Go through the required tables list, get the required cols
+  # get the table, extract cols from table, and join to the res
+
+  # TODO this section should be optimized (figure out a better way to filter + join)
 
   res <- lapply(
     required_tables[required_tables != "DataValues"],
@@ -105,6 +106,7 @@ create_series_catalog <- function(
 
   # filter data values for each composite key combo in res
 
+  # TODO this section should be optimized (filter, maybe bind rows and cols, tibble)
 
   res <- lapply(1:nrow(res),
          function(i) {
