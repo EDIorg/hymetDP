@@ -31,8 +31,6 @@ validate_data <- function(
   # provides the user more information for trouble shooting and assessment than
   # only seeing the first issue encountered.
 
-  # TODO leverage the controlled vocabularies in some novel validations.
-
   message("Validating ", id, ":")
   issues_table_presence <- validate_table_presence(d)
   issues_column_names <- validate_column_names(d)
@@ -47,6 +45,7 @@ validate_data <- function(
   issues_validate_latitude_longitude_range <-
     validate_latitude_longitude_range(d)
   issues_validate_elevation <- validate_elevation(d)
+  issues_odm_cv_terms <- validate_controlled_vocabulary_terms(d)
 
   # Report validation issues
 
@@ -64,7 +63,8 @@ validate_data <- function(
       issues_referential_integrity,
       issues_validate_latitude_longitude_format,
       issues_validate_latitude_longitude_range,
-      issues_validate_elevation))
+      issues_validate_elevation,
+      issues_odm_cv_terms))
 
   if (length(validation_issues) != 0) {
     warning("  Validation issues found for ", id, call. = FALSE)
@@ -686,55 +686,6 @@ validate_controlled_vocabulary_terms <- function(data.list) {
   unlist(r)
 }
 
-validate_column_classes <- function(data.list) {
 
-  message("  Column classes")
-
-  # Parameterize
-
-  criteria <- read_criteria()
-
-  # Validate
-
-  r <- invisible(
-    lapply(
-      names(data.list),
-      function(x) {
-        lapply(
-          colnames(data.list[[x]]),
-          function(k) {
-            if (k %in% criteria$column) {
-              expected <- criteria$class[
-                (criteria$table %in% x) &
-                  !is.na(criteria$column) &
-                  (criteria$column %in% k)]
-              detected <- class(data.list[[x]][[k]])
-              if (expected == "numeric") {
-                if ((detected != "integer") &
-                    (detected != "integer64") &
-                    (detected != "double") &
-                    (detected != "numeric")) {
-                  issues <- list(
-                    column = k, expected = expected, detected = detected)
-                }
-              } else if (expected == "character") {
-                if (detected != "character") {
-                  issues <- list(
-                    column = k, expected = expected, detected = detected)
-                }
-              }
-              if (exists("issues", inherits = FALSE)) {
-                paste0(
-                  "Column classes. The column ", k, " in the table ",
-                  x, " has a class of ", detected, " but a class of ",
-                  expected, " is expected.")
-              }
-            }
-          })
-      }))
-
-  unlist(r)
-
-}
 
 
