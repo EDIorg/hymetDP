@@ -56,7 +56,7 @@ create_series_catalog <- function(
 
   combinations <- DataValues %>% select(all_of(composite_key))
 
-  res <- unique(combinations[composite_key]) %>%
+  res <- kit::funique(combinations[composite_key]) %>%
     mutate(across(everything(), as.character))
 
   #  Gather columns
@@ -67,7 +67,7 @@ create_series_catalog <- function(
   # TODO this section should be optimized (figure out a better way to filter + join)
 
   res <- lapply(
-    required_tables[required_tables != "DataValues"],
+    c("Sources", "Methods", "Variables", "Sites"),
     function(t) {
      cols <- dplyr::filter(criteria, table == t, catalog == TRUE)$column
 
@@ -75,7 +75,7 @@ create_series_catalog <- function(
 
      res %>%
        dplyr::left_join(unique(t[cols]))
-   }) %>%
+   }) #%>%
     purrr::reduce(left_join, by = composite_key)
 
 

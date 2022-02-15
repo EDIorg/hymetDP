@@ -25,4 +25,5 @@ Imports:
     dplyr,
     rlang,
     xml2,
-    knitr (>= 1.36)
+    knitr (>= 1.36),
+    kit
