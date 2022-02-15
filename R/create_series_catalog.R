@@ -64,19 +64,17 @@ create_series_catalog <- function(
   # Go through the required tables list, get the required cols
   # get the table, extract cols from table, and join to the res
 
-  # TODO this section should be optimized (figure out a better way to filter + join)
-
   res <- lapply(
-    c("Sources", "Methods", "Variables", "Sites"),
+    c("Sources", "Methods", "Variables", "Sites", "QualityControlLevels"),
     function(t) {
      cols <- dplyr::filter(criteria, table == t, catalog == TRUE)$column
 
      t <- get(t)
 
      res %>%
-       dplyr::left_join(unique(t[cols]))
-   }) #%>%
-    purrr::reduce(left_join, by = composite_key)
+       dplyr::left_join(kit::funique(t[cols]))
+   }) %>%
+    purrr::reduce(dplyr::left_join, by = composite_key)
 
 
   # TODO extract from flat
@@ -141,10 +139,15 @@ create_series_catalog <- function(
     dplyr::pull(column)
 
 
-  res <- res %>% dplyr::select(final_cols)
+  res <- res %>% dplyr::select(all_of(final_cols))
 
   # coerce classes
-  res <- coerce_table_classes(res, "SeriesCatalog", class(L0_flat))
+  # accommodate user coming from outside of scripted workflow
+  if (exists('L0_flat')) {
+    res <- coerce_table_classes(res, "SeriesCatalog", class(L0_flat))
+  } else {
+    res <- coerce_table_classes(res, "SeriesCatalog", c("tbl_df", "tbl", "data.frame"))
+  }
   return(res)
 }
 
