@@ -1,3 +1,50 @@
+#' Validate tables against the model
+#'
+#' @param dataset (list) A dataset of the structure returned by \code{read_data()}.
+#' @param path (character) Path to a directory containing hymetDP tables as files.
+#'
+#' @note This function is used by hymetDP creators (to ensure what has been created is valid), maintainers (to improve the quality of archived hymetDP datasets), and users (to ensure the data being used is free of error).
+#'
+#' @return (list) If any checks fail, then a list of validation issues are returned along with a warning. If no issues are found then NULL is returned.
+#'
+#' @details
+#'    Validation checks:
+#'    \itemize{
+#'        \item File names - File names are the hymetDP table names.
+#'        \item Table presence - Required tables are present.
+#'        \item Column names - Column names of all tables match the model.
+#'        \item Column presence - Required columns are present.
+#'        \item Column classes - Column classes match the model specification.
+#'        \item Datetime format - Date and time formats follow the model specification.
+#'        \item Primary keys - Primary keys of tables are unique.
+#'        \item Composite keys - Composite keys (unique constraints) of each table are unique.
+#'        \item Referential integrity - Foreign keys have a corresponding primary key.
+#'        \item Coordinate format - Values are in decimal degree format.
+#'        \item Coordinate range - Values are within -90 to 90 and -180 to 180.
+#'        \item Elevation - Values are less than Mount Everest (8848 m) and greater than Mariana Trench (-10984 m).
+#'        \item CV Terms - Terms used are valid ODM controlled vocabulary terms, when required.
+#'    }
+#'
+#' @export
+#'
+#'
+#' @examples
+#'
+#' \dontrun{
+#' # Write a set of hymetDP tables to file for validation
+#' TODO come back to this when there is an example dataset
+#' mydir <- paste0(tempdir(), "/dataset")
+#' dir.create(mydir)
+#' write_tables(
+#'   path = mydir)
+#'
+#' # Validate
+#' validate_data(path = mydir)
+#'
+#' # Clean up
+#' unlink(mydir, recursive = TRUE)
+#' }
+#'
 validate_data <- function(
   dataset = NULL,
   path = NULL) {
