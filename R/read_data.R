@@ -1,9 +1,52 @@
+#' Read published data
+#'
+#' @param id (character) Identifier of dataset to read. Identifiers are listed in the "id" column of the \code{search_data()} output. Older versions of datasets can be read, but a warning is issued.
+#' @param parse_datetime (logical) Parse datetime values if TRUE, otherwise return as character strings.
+#' @param unique_keys (logical) Whether to create globally unique primary keys (and associated foreign keys). Useful in maintaining referential integrity when working with multiple datasets. If TRUE, \code{id} is appended to each table's primary key and associated foreign key. Default is FALSE.
+#' @param from (character) Full path of file to be read (if .rds), or path to directory containing saved datasets (if .csv).
+#' @param format (character) Format of returned object, which can be: "new" (the new implementation) or "old" (the original implementation; deprecated). In the new format, the top most level of nesting containing the "id" field has been moved to the same level as the "tables", "metadata", and "validation_issues" fields.
+#'
+#' @return (list) A dataset with the structure:
+#' \itemize{
+#'   \item id - Dataset identifier
+#'   \item metadata - List of info about the dataset. NOTE: This object is underdevelopment and content may change in future releases.
+#'   \item tables - List of dataset tables as data.frames.
+#'   \item validation_issues - List of validation issues. If the dataset fails any validation checks, then descriptions of each issue are listed here.
+#' }
+#'
+#' @note This function may not work between 01:00 - 03:00 UTC on Wednesdays due to regular maintenance of the EDI Data Repository.
+#'
+#' @details
+#'     Validation checks are applied to each dataset ensuring it complies with the hymetDP model. A warning is issued when any validation checks fail. All datasets are returned, even if they fail validation.
+#'
+#'     Column classes are coerced to those defined in the hymetDP specification.
+#'
+#'     Validation happens each time files are read, from source APIs or local environments.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Read from EDI
+#' TODO update these example
+#' dataset <- read_data("edi.193.5")
+#' str(dataset, max.level = 2)
+#'
+#' # Read with datetimes as character
+#' dataset <- read_data("edi.193.5", parse_datetime = FALSE)
+#' is.character(dataset$tables$observation$datetime)
+#'
+#' # Read from saved .rds
+#' save_data(dataset, tempdir())
+#' dataset <- read_data(from = paste0(tempdir(), "/dataset.rds"))
+#'
+#' # Read from saved .csv
+#' save_data(dataset, tempdir(), type = ".csv")# Save as .csv
+#' dataset <- read_data(from = tempdir())
+#' }
+#'
 read_data <- function(id = NULL, parse_datetime = TRUE,
-                      unique_keys = FALSE, site = "all",
-                      startdate = NA, enddate = NA, package = "basic",
-                      check.size = FALSE, nCores = 1, forceParallel = FALSE,
-                      token = NA, neon.data.save.dir = NULL,
-                      neon.data.read.path = NULL, ..., from = NULL,
+                      unique_keys = FALSE, from = NULL,
                       format = "new") {
 
   # Validate input arguments --------------------------------------------------
@@ -22,22 +65,8 @@ read_data <- function(id = NULL, parse_datetime = TRUE,
   if (is.null(from)) { # From API
     if (stringr::str_detect(            # EDI
       id,
-      "(^knb-lter-[:alpha:]+\\.[:digit:]+\\.[:digit:]+)|(^[:alpha:]+\\.[:digit:]+\\.[:digit:]+)") &&
-      !grepl("^neon\\.", id)) {
+      "(^knb-lter-[:alpha:]+\\.[:digit:]+\\.[:digit:]+)|(^[:alpha:]+\\.[:digit:]+\\.[:digit:]+)")) {
       d <- read_data_edi(id, parse_datetime)
-    } else if (grepl("^neon\\.", id)) { # NEON
-      d <- map_neon_data_to_ecocomDP(
-        id = id,
-        site = site,
-        startdate = startdate,
-        enddate = enddate,
-        check.size = check.size,
-        nCores = nCores,
-        forceParallel = forceParallel,
-        token = token,
-        neon.data.save.dir = neon.data.save.dir,
-        neon.data.read.path = neon.data.read.path,
-        ...)
     }
     d <- list(d = d)
     names(d) <- id
