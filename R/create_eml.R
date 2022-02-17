@@ -116,7 +116,15 @@ create_eml <- function(path,
       stringr::str_replace_all(source_id, "\\.", "/"))
   }
 
-  eml_L0 <- EML::read_eml(url_parent)
+  # TODO accesses EDI
+  eml_L0 <- tryCatch({EML::read_eml(url_parent)},
+                     error = function(e) {
+                       stop("The EDI Repository is down for regular maintenance (Wednesday 01:00",
+                            " - 03:00 UTC). If you have reached this message outside maintenance",
+                            " hours, then there is an unexpected issue that will be resolved ",
+                            "shortly. Our apologies for the inconvenience. Please try again ",
+                            "later.", call. = FALSE)
+                     })
   xml_L0 <- suppressMessages(read_eml(source_id))
 
   # Remove L0 elements that should not be inherited by the L1
