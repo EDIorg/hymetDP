@@ -245,29 +245,65 @@ validate_datetime <- function(data.list) {
           na_count_raw <- sum(is.na(v))               # count NAs in datetime field
           #v <- as.character(v)                        # coerce to character
           if (length(v) > (1000000-1)) {
+            print("iffy")
             n = length(v) %/% 1000000
-            split_v <- lapply(
+            use_i <- lapply(
               seq(n),
               function(x) {
                 start = (1000000*(x-1)+1)
                 end = 1000000*x
-                as.character(v[start: end])
+                #v_char <- stringr::str_replace(stringr::str_remove_all(as.character(v[start: end]), "(Z|z).+$"), "T", " ")
+
+                v_char <- as.character(v[start: end])
+                v_char <- stringr::str_remove_all(v_char, "(Z|z).+$") # prepare datetimes for parsing
+                v_char <- stringr::str_replace(v_char, "T", " ")
+
+                use_i <- suppressWarnings(
+                  list(
+                    lubridate::parse_date_time(v_char, "ymd HMS"),
+                    lubridate::parse_date_time(v_char, "ymd HM"),
+                    lubridate::parse_date_time(v_char, "ymd H"),
+                    lubridate::parse_date_time(v_char, "ymd")))
               })
-            split_v[[n + 1]] <-  as.character(v[(1000000*(n)+1): length(v)])
+            v_last <- stringr::str_replace(stringr::str_remove_all(as.character(v[(1000000*(n)+1): length(v)]), "(Z|z).+$"), "T", " ")
 
-            v <- unlist(split_v)
+            use_i[[n + 1]] <- suppressWarnings(
+              list(
+                lubridate::parse_date_time(v_last, "ymd HMS"),
+                lubridate::parse_date_time(v_last, "ymd HM"),
+                lubridate::parse_date_time(v_last, "ymd H"),
+                lubridate::parse_date_time(v_last, "ymd")))
 
+            #use_i <- lapply(use_i, unlist)
+            a1 <- list()
+            a2 <- list()
+            a3 <- list()
+            a4 <- list()
+            for (i in seq_along(use_i)) {
+              a1 <- c(a1, use_i[[i]][[1]])
+              a2 <- c(a2, use_i[[i]][[2]])
+              a3 <- c(a3, use_i[[i]][[3]])
+              a4 <- c(a4, use_i[[i]][[4]])
+            }
+            use_i <- list(
+              unlist(a1),
+              unlist(a2),
+              unlist(a3),
+              unlist(a4))
+          } else {
+            print("elsey")
+            v <- as.character(v)                        # coerce to character
+            v <- stringr::str_remove_all(v, "(Z|z).+$") # prepare datetimes for parsing
+            v <- stringr::str_replace(v, "T", " ")
+            # Check different date time formats to see if one matches the data
+            # Difference in NA count induced by coercion indicates a non-valid format
+            use_i <- suppressWarnings(
+              list(
+                lubridate::parse_date_time(v, "ymd HMS"),
+                lubridate::parse_date_time(v, "ymd HM"),
+                lubridate::parse_date_time(v, "ymd H"),
+                lubridate::parse_date_time(v, "ymd")))
           }
-          v <- stringr::str_remove_all(v, "(Z|z).+$") # prepare datetimes for parsing
-          v <- stringr::str_replace(v, "T", " ")
-          # Check different date time formats to see if one matches the data
-          # Difference in NA count induced by coercion indicates a non-valid format
-          use_i <- suppressWarnings(
-            list(
-              lubridate::parse_date_time(v, "ymd HMS"),
-              lubridate::parse_date_time(v, "ymd HM"),
-              lubridate::parse_date_time(v, "ymd H"),
-              lubridate::parse_date_time(v, "ymd")))
           # count NAs for each attempt to parse datetime
           na_count_parsed <- unlist(
             lapply(
@@ -659,6 +695,10 @@ validate_controlled_vocabulary_terms <- function(data.list) {
 
   message ("  ODM Controlled Vocabulary terms")
 
+  # Parameterize
+
+  criteria <- read_criteria()
+
   r <- invisible(
     lapply(
       names(data.list),
@@ -666,7 +706,7 @@ validate_controlled_vocabulary_terms <- function(data.list) {
         lapply(
           colnames(data.list[[x]]),
           function(k) {
-            cv_cols <- criteria[!is.na(criteria$cv)]
+            cv_cols <- criteria$cv[!is.na(criteria$cv)]
             if (k %in% cv_cols) {
               cv_to_check <- cv_cols$cv[
                 (cv_cols$table %in% "SeriesCatalog")

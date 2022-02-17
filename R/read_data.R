@@ -159,6 +159,13 @@ read_data <- function(id = NULL, parse_datetime = TRUE,
   # Validate ------------------------------------------------------------------
 
   callstack <- as.character(sys.calls())
+
+  #TODO remove these comments
+  #TODO remove these comments
+  #TODO remove these comments
+  #TODO remove these comments
+  #TODO remove these comments
+
   if (!any(stringr::str_detect(callstack, "validate_data\\("))) { # don't validate if read_data() is called from validate()
     if (format == "new") {
       if (detect_data_type(d) == "dataset")  {
