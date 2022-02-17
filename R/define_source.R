@@ -219,14 +219,27 @@ define_source <- function(
 #'
 #' @examples
 #'
+#'
+#'
 create_citation <- function(eml = eml) {
-
+  # TODO this could possibly be replaced by EDI Cite
   creator_firsts <- xml2::xml_text(xml2::xml_find_all(eml, './/creator/individualName/givenName'))
   creator_lasts <- xml2::xml_text(xml2::xml_find_all(eml, './/creator/individualName/surName'))
   names <- knitr::combine_words(paste(substr(creator_firsts, 0, 1), creator_lasts, sep = ". "))
   pid <- xml2::xml_attr(eml, 'packageId')
-  quality_report <- xml2::xml_ns_strip(read_data_package_report(pid))
-  creation_year <- substr(xml2::xml_text(xml2::xml_find_all(quality_report, 'creationDate')), 0, 4)
+
+  quality_report <- tryCatch({xml2::xml_ns_strip(read_data_package_report(pid))},
+                             error = function (e) {warning("The EDI Repository is down for regular maintenance (Wednesday 01:00",
+                                              " - 03:00 UTC). If you have reached this message outside maintenance",
+                                              " hours, then there is an unexpected issue that will be resolved ",
+                                              "shortly. Our apologies for the inconvenience. Please try again ",
+                                              "later. This may affect the accuracy of the creation year in the citation.", call. = FALSE)}) # this line accesses  EDI
+
+  if (exists('qualityReport')){
+    creation_year <- substr(xml2::xml_text(xml2::xml_find_all(quality_report, 'creationDate')), 0, 4)
+  } else {
+      creation_year = substr(xml2::xml_text(xml2::xml_find_all(eml, './/dataset/pubDate')), 0, 4)
+  }
   title <- xml2::xml_text(xml2::xml_find_all(eml, './/dataset/title'))
   versioned_title <- paste0(title, " ver ", parse_packageId(pid)$rev)
   full_doi <- xml2::xml_text(xml2::xml_find_first(eml, './/alternateIdentifier'))
