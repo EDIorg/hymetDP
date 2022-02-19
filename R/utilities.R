@@ -539,11 +539,11 @@ parse_datetime_frmt_from_vals <- function(vals) {
   # Best match has the fewest coercions
   na_start <- sum(is.na(vals))
   na_end <- suppressWarnings(
-    c(sum(is.na(lubridate::parse_date_time2(vals, "ymdHMS"))),
-      sum(is.na(lubridate::parse_date_time2(vals, "ymdHM"))),
-      sum(is.na(lubridate::parse_date_time2(vals, "ymdH"))),
-      sum(is.na(lubridate::parse_date_time2(vals, "ymd"))),
-      sum(is.na(lubridate::parse_date_time2(vals, "y")))))
+    c(sum(is.na(lubridate::parse_date_time(vals, "ymdHMS"))),
+      sum(is.na(lubridate::parse_date_time(vals, "ymdHM"))),
+      sum(is.na(lubridate::parse_date_time(vals, "ymdH"))),
+      sum(is.na(lubridate::parse_date_time(vals, "ymd"))),
+      sum(is.na(lubridate::parse_date_time(vals, "y")))))
   na_coerced <- na_end - na_start
   if (stats::var(na_coerced) == 0) {    # When format of vals are NA or unsupported
     frmt <- NULL
