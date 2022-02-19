@@ -1,0 +1,30 @@
+---
+title: "optimize_validate_datetime"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{optimize_validate_datetime}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(pryr)
+library(microbenchmark)
+```
+
+# validate_datetime
+
+## Overview
+
+The `validate_datetime()` function is part of the suite of functions that comprise `validate_data()`, the function which is used to validate a set of hymetDP tables.
+
+Through testing, it has become apparent that `validate_datetime()`, and functionally similar `parse_datetime_frmt_from_vals()` which is called from `create_eml()`, create speed and memory bottlenecks for a typical `create_hymetDP()` call. This was likely not addressed in ecocomDP because the volume of community ecology data rarely approaches the magnitude of hydrological or meteorlogical data. Since it is highly plausible that potential L0 datasets will contain tables larger than a gigabyte, resulting in intermediate flat tables with greater than one million rows, it is necessary to handle this road block now.
+
+
