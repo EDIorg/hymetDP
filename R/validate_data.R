@@ -83,7 +83,7 @@ validate_data <- function(
   issues_column_names <- validate_column_names(d)
   issues_column_presence <- validate_column_presence(d)
   issues_column_classes <- validate_column_classes(d)
-  issues_datetime <- validate_datetime(d)
+  issues_datetime <- validate_datetime2(d)
   issues_primary_keys <- validate_primary_keys(d)
   issues_composite_keys <- validate_composite_keys(d)
   issues_referential_integrity <- validate_referential_integrity(d)
@@ -375,8 +375,6 @@ validate_datetime <- function(data.list) {
     })
   return(unlist(r))
 }
-
-
 
 
 

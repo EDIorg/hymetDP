@@ -110,6 +110,7 @@ read_data <- function(id = NULL, parse_datetime = TRUE,
         detected <- class(d[[x]]$tables[[y]][[z]])
         expected <- attr_tbl$class[(attr_tbl$table == y) & (attr_tbl$column == z)]
         if (any(detected %in% c("POSIXct", "POSIXt", "Date", "IDate"))) {
+
           detected <- "Date" # so downstream logic doesn't throw length() > 1 warnings
         }
         if (isTRUE(parse_datetime) & (expected == "Date") & (detected == "character" | detected == "logical")) { # NAs should be datetime for consistency
@@ -194,31 +195,31 @@ read_data <- function(id = NULL, parse_datetime = TRUE,
   #TODO remove these comments
   #TODO remove these comments
   #TODO remove these comments
-
-  if (!any(stringr::str_detect(callstack, "validate_data\\("))) { # don't validate if read_data() is called from validate()
-    if (format == "new") {
-      if (detect_data_type(d) == "dataset")  {
-        d$validation_issues <- validate_data(dataset = d)
-      } else if (detect_data_type(d) == "list_of_datasets") {
-        for (i in 1:length(d)) {
-          d[[i]]$validation_issues <- validate_data(dataset = d[[i]])
-        }
-      }
-    } else if (format == "old") {
-      # Validation only runs on the new format, so fake it and assign issues to the return object
-      # TODO: Remove this 2022-10-18
-      if (detect_data_type(d) == "dataset_old")  {
-        mock_new <- d
-        mock_new[[1]]$id <- names(d)
-        mock_new <- mock_new[[1]]
-        d[[1]]$validation_issues <- validate_data(dataset = mock_new)
-      } else if (detect_data_type(d) == "list_of_datasets_old") {
-        for (i in 1:length(d)) {
-          d[[i]]$validation_issues <- validate_data(dataset = d[[i]])
-        }
-      }
-    }
-  }
+#
+#   if (!any(stringr::str_detect(callstack, "validate_data\\("))) { # don't validate if read_data() is called from validate()
+#     if (format == "new") {
+#       if (detect_data_type(d) == "dataset")  {
+#         d$validation_issues <- validate_data(dataset = d)
+#       } else if (detect_data_type(d) == "list_of_datasets") {
+#         for (i in 1:length(d)) {
+#           d[[i]]$validation_issues <- validate_data(dataset = d[[i]])
+#         }
+#       }
+#     } else if (format == "old") {
+#       # Validation only runs on the new format, so fake it and assign issues to the return object
+#       # TODO: Remove this 2022-10-18
+#       if (detect_data_type(d) == "dataset_old")  {
+#         mock_new <- d
+#         mock_new[[1]]$id <- names(d)
+#         mock_new <- mock_new[[1]]
+#         d[[1]]$validation_issues <- validate_data(dataset = mock_new)
+#       } else if (detect_data_type(d) == "list_of_datasets_old") {
+#         for (i in 1:length(d)) {
+#           d[[i]]$validation_issues <- validate_data(dataset = d[[i]])
+#         }
+#       }
+#     }
+#   }
 
   # Return --------------------------------------------------------------------
 
@@ -403,8 +404,9 @@ read_dir <- function(paths) {
             list.files(path),
             paste0("(?<=.{0,10000})", x, "(?=\\.[:alnum:]*$)"))
           if (any(hymetDP_table)) {
-            res <- data.table::fread(
-              paste0(path, "/", list.files(path)[hymetDP_table]))
+
+              res <- data.table::fread(
+                paste0(path, "/", list.files(path)[hymetDP_table]))
             # parse datetime
             if ("datetime" %in% colnames(res)) {
               frmt <- parse_datetime_frmt_from_vals(res$datetime)
