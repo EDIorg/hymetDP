@@ -534,6 +534,9 @@ validate_file_names <- function(path, data.files){
 # @return (character) Datetime format string of \code{vals}
 #
 parse_datetime_frmt_from_vals <- function(vals) {
+  if (length(vals) > 500000) {
+    vals <- sample(vals, size = 500000)
+  }
   # Modify inputs for processing
   vals <- as.character(vals)
   # Best match has the fewest coercions
@@ -850,3 +853,4 @@ is_empty_nodeset <- function(nodeset) {
   res <- length(nodeset) == 0
   return(res)
 }
+
