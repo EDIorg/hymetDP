@@ -289,8 +289,10 @@ validate_datetime <- function(data.list) {
         # TODO loop this to run for every datetime column
         for (col in datetime_column) {
           v <- data.list[[x]][[col]]
+          sampled = FALSE
           if (length(v) > 1000000) {
             v <- sample(v, 1000000)
+            sampled = TRUE
             }
           na_count_raw <- sum(is.na(v))               # count NAs in datetime field
           v <- as.character(v)                        # coerce to character
@@ -313,16 +315,31 @@ validate_datetime <- function(data.list) {
                 sum(is.na(k))
               }))
           # return info on datetime problems
-          if (min(na_count_parsed) > na_count_raw) {
-            use_i <- seq(
-              length(v))[
-                is.na(
-                  use_i[[
-                    (which(na_count_parsed %in% min(na_count_parsed)))[1]]])]
-            paste0(
-              "Datetime format. The ", col, "column, in the ", x, " table has unsupported ",
-              "datetime formats in rows: ",
-              paste(use_i, collapse = ' '))
+          if (sampled) {
+            if (min(na_count_parsed) > na_count_raw) {
+
+              paste0(
+                "Datetime format. The ", col, "column, in the ", x, " table has unsupported ",
+                "datetime formats in some rows. Please verify all datetime formats are correct")
+            } else {
+              paste0(
+                "Datetime format. No datetime format issues were detected in the ",
+                col, "column, in the ", x, " table. Due to the size of the datetime column, only",
+                "1M random values (out of ", length(v), " total values), were examined.")
+            }
+          } else {
+
+            if (min(na_count_parsed) > na_count_raw) {
+              use_i <- seq(
+                length(v))[
+                  is.na(
+                    use_i[[
+                      (which(na_count_parsed %in% min(na_count_parsed)))[1]]])]
+              paste0(
+                "Datetime format. The ", col, "column, in the ", x, " table has unsupported ",
+                "datetime formats in rows: ",
+                paste(use_i, collapse = ' '))
+            }
           }
         }
       }
