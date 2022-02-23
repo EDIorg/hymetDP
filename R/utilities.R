@@ -709,8 +709,15 @@ get_eol <- function(path, file.name, os){
 
   if (os == 'mac'){ # Macintosh OS
 
+    # command <- paste0(
+    #   'od -c "',
+    #   path,
+    #   '/',
+    #   file.name,
+    #   '"'
+    # )
     command <- paste0(
-      'od -c "',
+      'cat -e "',
       path,
       '/',
       file.name,
@@ -724,7 +731,7 @@ get_eol <- function(path, file.name, os){
 
     use_i <- stringr::str_detect(
       output,
-      '\\\\r  \\\\n'
+      '^M$'
     )
 
     if (sum(use_i) > 0){
@@ -732,7 +739,7 @@ get_eol <- function(path, file.name, os){
     } else {
       use_i <- stringr::str_detect(
         output,
-        '\\\\n'
+        '$'
       )
       if (sum(use_i) > 0){
         eol <- '\\n'
@@ -740,6 +747,24 @@ get_eol <- function(path, file.name, os){
         eol <- '\\r'
       }
     }
+    # use_i <- stringr::str_detect(
+    #   output,
+    #   '\\\\r  \\\\n'
+    # )
+    #
+    # if (sum(use_i) > 0){
+    #   eol <- '\\r\\n'
+    # } else {
+    #   use_i <- stringr::str_detect(
+    #     output,
+    #     '\\\\n'
+    #   )
+    #   if (sum(use_i) > 0){
+    #     eol <- '\\n'
+    #   } else {
+    #     eol <- '\\r'
+    #   }
+    # }
 
   } else if ((os == 'win') | (os == 'lin')){ # Windows & Linux OS
 
