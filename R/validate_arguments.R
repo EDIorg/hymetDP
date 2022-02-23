@@ -113,11 +113,20 @@ validate_arguments <- function(fun.name, fun.args) {
 
       required_tables <- c("Sources", "Methods", "Variables", "Sites", "QualityControlLevels", "DataValues")
 
-      # # Confirm that all mandatory tables are present, error message about missing tables
-      #
-      # missing_tables <- lapply(required_tables, function(x) if(!exists(x)) c(missing_tables, x))
-      #
-      # if (!is.null(unlist(missing_tables))) stop(paste0("This function requires all mandatory tables to create the SeriesCatalog. The following tables were not found: ", knitr::combine_words(unlist(missing_tables)), "."))
+      # Confirm that all mandatory tables are present, error message about missing tables
+
+      Sources = fun.args$Sources
+      Methods = fun.args$Methods
+      Variables = fun.args$Variables
+      Sites = fun.args$Sites
+      QualityControlLevels = fun.args$QualityControlLevels
+      DataValues = fun.args$DataValues
+
+      missing_tables <- c()
+
+      missing_tables <- lapply(required_tables, function(x) if(!is.null(x)) c(missing_tables, x))
+
+      if (!is.null(unlist(missing_tables))) stop(paste0("This function requires all mandatory tables to create the SeriesCatalog. The following tables were not found: ", knitr::combine_words(unlist(missing_tables)), "."))
 
       # Confirm that all necessary columns are present
 
