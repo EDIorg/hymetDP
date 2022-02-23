@@ -65,13 +65,13 @@ create_data_values <- function( # TODO change the "Code used by the organization
                       SourceCode,
                       QualityControlLevelCode)
 
+  L0_flat$DataValue <-  coalesce(L0_flat$DataValue, L0_flat$NoDataValue)
+
   res <- L0_flat %>%
     dplyr::select(all_of(cols_to_gather)) %>%
-    dplyr::mutate(DataValue = as.numeric(DataValue)) %>%
-    dplyr::mutate(DataValue = ifelse(is.na(DataValue), NoDataValue, DataValue)) %>%
     dplyr::arrange(ValueID, VariableCode)
 
-  # TODO add UTC time
+    # TODO add UTC time
 
   if (is.null(DateTimeUTC)) {
     # TODO Calculate from Local and UTCOFfset
