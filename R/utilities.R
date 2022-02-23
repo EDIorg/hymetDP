@@ -854,3 +854,29 @@ is_empty_nodeset <- function(nodeset) {
   return(res)
 }
 
+# Parse delimiter from string
+parse_delim <- function(x){
+
+  use_i <- stringr::str_detect(
+    x,
+    '\\r\\n'
+  )
+
+  if (sum(use_i) > 0){
+    eol <- '\\r\\n'
+  } else {
+    use_i <- stringr::str_detect(
+      x,
+      '\\n'
+    )
+    if (sum(use_i) > 0){
+      eol <- '\\n'
+    } else {
+      eol <- '\\r'
+    }
+  }
+
+  eol
+
+}
+
