@@ -1,6 +1,6 @@
 attributeName	attributeDefinition	class	unit	dateTimeFormatString	missingValueCode	missingValueCodeExplanation
 ValueID	Unique identifier for a data value.	character			NA	Not available
-DataValue	"The numeric value of the observation. For Categorical variables, a number is stored here."	numeric	dimensionless		<NoDataValue>	Not available
+DataValue	"The numeric value of the observation. For Categorical variables, a number is stored here."	numeric	dimensionless		<NoDataValue>	NoData
 ValueAccuracy	"Numeric value that describes the measurement accuracy of the data value. If not given, it is interpreted as unknown."	numeric	dimensionless		NA	Not available
 LocalDateTime	Local date and time at which the data value was observed.	Date		YYYY-MM-DD hh:mm:ss	NA	Not available
 UTCOffset	Offset in hours from UTC time of the corresponding LocalDateTime value.	numeric	hour		NA	Not available

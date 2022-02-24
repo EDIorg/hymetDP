@@ -193,6 +193,17 @@ create_eml <- function(path,
   eal_inputs$x$template[
     names(eal_inputs$x$template) %in% unused_attribute_templates] <- NULL
 
+  # TODO change TimeSupport in Variables attributes
+
+  # Change <NoDataValue> in DataValues Missing value attributes template with
+  # the value specified in Variable table column NoDataValue
+
+  # TODO how to handle multiple missing values
+
+  eal_inputs$x$template$attributes_DataValues.txt$content$missingValueCode[
+    eal_inputs$x$template$attributes_DataValues.txt$content$missingValueCode == "<NoDataValue>"] <- unique(eal_inputs$x$data.table$Variables.csv$content$NoDataValue)
+
+
   # Detect date and time format string directly from each table and add to the
   # corresponding data table attributes template as required by
   # EAL_make_eml().
