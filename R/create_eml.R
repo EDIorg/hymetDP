@@ -193,7 +193,15 @@ create_eml <- function(path,
   eal_inputs$x$template[
     names(eal_inputs$x$template) %in% unused_attribute_templates] <- NULL
 
-  # TODO change TimeSupport in Variables attributes
+
+
+# Update attributes_* templates ----------------------------------------------
+  # Change unit of TimeSupport in Variables attributes
+
+  # TODO how to handle multiple units? Impossible?
+
+  eal_inputs$x$template$attributes_Variables.txt$content$unit[
+    eal_inputs$x$template$attributes_Variables.txt$content$attributeName == "TimeUnitsName"] <- unique(eal_inputs$x$data.table$Variables.csv$content$TimeUnitsName)
 
   # Change <NoDataValue> in DataValues Missing value attributes template with
   # the value specified in Variable table column NoDataValue
