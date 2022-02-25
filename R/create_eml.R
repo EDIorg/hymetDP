@@ -201,7 +201,7 @@ create_eml <- function(path,
   # TODO how to handle multiple units? Impossible?
 
   eal_inputs$x$template$attributes_Variables.txt$content$unit[
-    eal_inputs$x$template$attributes_Variables.txt$content$attributeName == "TimeUnitsName"] <- unique(eal_inputs$x$data.table$Variables.csv$content$TimeUnitsName)
+    eal_inputs$x$template$attributes_Variables.txt$content$attributeName == "TimeSupport"] <- unique(eal_inputs$x$data.table$Variables.csv$content$TimeUnitsName)
 
   # Change <NoDataValue> in DataValues Missing value attributes template with
   # the value specified in Variable table column NoDataValue
@@ -261,38 +261,49 @@ create_eml <- function(path,
 
   defs <- get_attr_defs(xml_L0)
 
+# Add ODM CV terms as cat vars --------------------------------------------
+
+  cv_tbls <- subset(attr_tbl, !is.na(attr_tbl$cv))
+
   r <- lapply(
     # for each data table
-    names(eal_inputs$x$data.table),
+    unique(cv_tbls$table),
     function(tbl) {
-      # Does it have the "variable name" column (for hymet this would be: does it have a column that requires CV term?
-      # TODO list of all columns that require CV
-      has_varname <- "variable_name" %in% colnames(eal_inputs$x$data.table[[tbl]]$content)
-      if (has_varname) {
-        # get unique names from variable name column
-        univars <- unique(eal_inputs$x$data.table[[tbl]]$content$variable_name)
-        # THis matches L0 def to the variable name attr. This has no relevance to hymet
-        # TODO This where the CV lookup would occur
-        unidefs <- defs[names(defs) %in% univars]
-        if (length(unidefs) == 0) { # FIXME sometimes there's no match, but could use variable_mapping vals if exists
-          unidefs <- rep("NA", length(univars))
+
+      lapply(
+        cv_tbls$column[cv_tbls$table == tbl],
+        function(col) {
+          univars <- unique(eal_inputs$x$data.table[[paste0(tbl, '.csv')]]$content[[col]])
+          unidefs <- lapply(
+            univars,
+            function(var) {
+              cv <- cv_tbls$cv[cv_tbls$table == tbl & cv_tbls$column == col]
+
+              if (cv == "UnitsCV") {
+                t <- get(cv)
+                paste0("Unit: ",
+                    t$UnitsName[t$UnitsName == var],
+                    " (", t$UnitsAbbreviation[t$UnitsName == var], "); UnitType: ",
+                    t$UnitsType[t$UnitsName == var]
+                    )
+              } else if (cv == "SpatialReferencesCV") {
+                paste0("Spatial Reference System: ", var)
+              } else {
+                t <- get(cv)
+                t$Definition[t$Term == var]
+              }
+            })
+
           catvars_template <- data.frame(
-            attributeName = "variable_name",
+            attributeName = col,
             code = univars,
-            definition = unname(unidefs),
-            stringsAsFactors = FALSE)
-          return(list(content = catvars_template))
-        } else {
-          catvars_template <- data.frame(
-            attributeName = "variable_name",
-            code = names(unidefs),
-            definition = unname(unidefs),
+            definition = unlist(unidefs),
             stringsAsFactors = FALSE)
           return(list(content = catvars_template))
         }
-      }
+      )
     })
-  names(r) <- paste0("catvars_", tools::file_path_sans_ext(names(eal_inputs$x$data.table)), ".txt")
+  names(r) <- paste0("catvars_", unique(cv_tbls$table), ".txt")
   r <- Filter(Negate(is.null), r)
   eal_inputs$x$template <- c(eal_inputs$x$template, r)
 
