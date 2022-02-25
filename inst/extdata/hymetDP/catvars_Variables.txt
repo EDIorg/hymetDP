@@ -1,3 +1,0 @@
-attributeName	code	definition
-IsRegular	TRUE	Data values are from a regularly sampled time series
-IsRegular	FALSE	Data values are not from a regularly sampled time series

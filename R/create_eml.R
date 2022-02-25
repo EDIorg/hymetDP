@@ -270,7 +270,7 @@ create_eml <- function(path,
     unique(cv_tbls$table),
     function(tbl) {
 
-      lapply(
+      cont <- lapply(
         cv_tbls$column[cv_tbls$table == tbl],
         function(col) {
           univars <- unique(eal_inputs$x$data.table[[paste0(tbl, '.csv')]]$content[[col]])
@@ -300,11 +300,22 @@ create_eml <- function(path,
             definition = unlist(unidefs),
             stringsAsFactors = FALSE)
           return(list(content = catvars_template))
-        }
-      )
+        })
+
+      # Manually add in the isRegular code and definition to catvars_Variables
+      if (tbl == 'Variables') {
+        cont[[8]] <-  list(content = data.frame(
+          attributeName = "IsRegular",
+          code = c("TRUE", "FALSE"),
+          definition = c("Data values are from a regularly sampled time series", "Data values are not from a regularly sampled time series"),
+          stringsAsFactors = FALSE))
+      }
+
+      return(dplyr::bind_rows(cont))
     })
   names(r) <- paste0("catvars_", unique(cv_tbls$table), ".txt")
   r <- Filter(Negate(is.null), r)
+
   eal_inputs$x$template <- c(eal_inputs$x$template, r)
 
 
