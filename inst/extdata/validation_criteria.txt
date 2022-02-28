@@ -89,3 +89,6 @@ SeriesCatalog	EndDateTime	Date	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
 SeriesCatalog	BeginDateTimeUTC	Date	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
 SeriesCatalog	EndDateTimeUTC	Date	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
 SeriesCatalog	ValueCount	numeric	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
+Qualifiers	NA	NA	FALSE	NA	NA	NA	NA	NA	NA
+Qualifiers	QualifierCode	character	TRUE	TRUE	FALSE	TRUE	TRUE	NA	FALSE
+Qualifiers	QualifierDescription	character	TRUE	FALSE	FALSE	FALSE	FALSE	NA	FALSE
