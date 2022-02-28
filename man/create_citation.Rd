@@ -7,15 +7,16 @@
 create_citation(eml = eml)
 }
 \arguments{
-\item{Citation}{(character) If anything other than NULL is passed to this function, a citation will not be generated}
+\item{eml}{(character) An EML document from which a valid EDI package identifier can be extracted.}
 }
 \value{
-(character) An EDI data package citation
+(character) An EDI data package citation.
 }
 \description{
 Create an EDI data package citation from EML hosted on the EDI Data Portal
 }
 \examples{
+
 
 
 
