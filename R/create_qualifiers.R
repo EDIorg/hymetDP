@@ -24,7 +24,8 @@ create_qualifiers <- function(
 
   res <- L0_flat %>%
     dplyr::select(all_of(cols_to_gather)) %>%
-    dplyr::distinct()
+    dplyr::distinct() %>%
+    tidyr::drop_na()
 
   # reorder
   res <- res %>%

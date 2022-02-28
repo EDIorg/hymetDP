@@ -707,7 +707,7 @@ get_eol <- function(path, file.name, os){
 
   # Detect end of line character
 
-  if (os == 'mac'){ # Macintosh OS
+  # if (os == 'mac'){ # Macintosh OS
 
     # command <- paste0(
     #   'od -c "',
@@ -716,37 +716,37 @@ get_eol <- function(path, file.name, os){
     #   file.name,
     #   '"'
     # )
-    command <- paste0(
-      'cat -e "',
-      path,
-      '/',
-      file.name,
-      '"'
-    )
-
-    output <- system(
-      command,
-      intern = T
-    )
-
-    use_i <- stringr::str_detect(
-      output,
-      '^M$'
-    )
-
-    if (sum(use_i) > 0){
-      eol <- '\\r\\n'
-    } else {
-      use_i <- stringr::str_detect(
-        output,
-        '$'
-      )
-      if (sum(use_i) > 0){
-        eol <- '\\n'
-      } else {
-        eol <- '\\r'
-      }
-    }
+    # command <- paste0(
+    #   'cat -e "',
+    #   path,
+    #   '/',
+    #   file.name,
+    #   '"'
+    # )
+    #
+    # output <- system(
+    #   command,
+    #   intern = T
+    # )
+    #
+    # use_i <- stringr::str_detect(
+    #   output,
+    #   '^M$'
+    # )
+    #
+    # if (sum(use_i) > 0){
+    #   eol <- '\\r\\n'
+    # } else {
+    #   use_i <- stringr::str_detect(
+    #     output,
+    #     '$'
+    #   )
+    #   if (sum(use_i) > 0){
+    #     eol <- '\\n'
+    #   } else {
+    #     eol <- '\\r'
+    #   }
+    # }
     # use_i <- stringr::str_detect(
     #   output,
     #   '\\\\r  \\\\n'
@@ -766,7 +766,7 @@ get_eol <- function(path, file.name, os){
     #   }
     # }
 
-  } else if ((os == 'win') | (os == 'lin')){ # Windows & Linux OS
+  # } else if ((os == 'win') | (os == 'lin')){ # Windows & Linux OS
 
     output <- readChar(
       paste0(
@@ -779,7 +779,7 @@ get_eol <- function(path, file.name, os){
 
     eol <- parse_delim(output)
 
-  }
+  # }
 
   eol
 
