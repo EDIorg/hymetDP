@@ -237,12 +237,6 @@ create_eml <- function(path,
 
         datetime_format <- parse_datetime_frmt_from_vals(datetime)
 
-        # TODO ecocomDP residual that likely will not apply to hymetDP (delete later)
-        # if ((is.null(datetime_format)) & (i != "attributes_observation.txt")) { # Default to observation table's datetime format specifier if no date time in ancillary tables. This prevents an EML schema validation error, where datetime attributes must have a format specified
-        #   use_i <- eal_inputs$x$template[["attributes_observation.txt"]]$content$dateTimeFormatString != ""
-        #   datetime_format <- eal_inputs$x$template[["attributes_observation.txt"]]$content$dateTimeFormatString[use_i]
-        # }
-
         eal_inputs$x$template[[i]]$content$dateTimeFormatString[
           eal_inputs$x$template[[i]]$content$attributeName == date_column[[j]]] <-
           datetime_format
@@ -251,15 +245,6 @@ create_eml <- function(path,
   }
 
   # Get table attributes and definitions from EML then create catvars templates for each data table of this dataset
-
-  # TODO is this getting the attributes from the L0 eml? If so, then this would be a good point to rerout
-  # functionality from EML to ODM CV
-
-  # TODO for every column that requires something from a CV,
-  # TODO loop through the values in the column, look up term, get definition
-  # TODO this will depend on the columns already having been validated for CV
-
-  defs <- get_attr_defs(xml_L0)
 
 # Add ODM CV terms as cat vars --------------------------------------------
 
@@ -317,40 +302,6 @@ create_eml <- function(path,
   r <- Filter(Negate(is.null), r)
 
   eal_inputs$x$template <- c(eal_inputs$x$template, r)
-
-
-  # TODO hymetDP residual likely no relevance to hymet
-  # Create the taxonomic_coverage template used by EAL_make_eml()
-  # from the taxon table of hymetDP.
-
-  # f <- stringr::str_subset(
-  #   names(eal_inputs$x$data.table),
-  #   "taxon\\.[:alpha:]*$")
-  # taxon <- eal_inputs$x$data.table[[f]]$content
-  #
-  # # Handle exceptions
-  # if (!is.null(taxon$authority_system)) { # Default to taxonRankValue if missing authority cols
-  #   authsys <- taxon$authority_system
-  # } else {
-  #   authsys <- NA_character_
-  # }
-  # if (!is.null(taxon$authority_taxon_id)) {
-  #   authid <- taxon$authority_taxon_id
-  # } else {
-  #   authid <- NA_character_
-  # }
-  # authsys <- ifelse(is.na(authid), NA_character_, authsys) # Default to taxonRankValue if missing any required authority values
-  # authid <- ifelse(is.na(authsys), NA_character_, authid)
-  #
-  # taxonomic_coverage <- data.frame(
-  #   name = taxon$taxon_name,
-  #   name_type = "scientific",
-  #   name_resolved = taxon$taxon_name,
-  #   authority_system = authsys,
-  #   authority_id = authid,
-  #   stringsAsFactors = FALSE)
-  #
-  # eal_inputs$x$template$taxonomic_coverage.txt$content <- taxonomic_coverage
 
   # The annotations template read in with EAL_template_arguments()
   # serves as a map from tables of this L1 to the boilerplate annotations
@@ -580,17 +531,6 @@ create_eml <- function(path,
                                    eml_L1$dataset$keywordSet)
   }
 
-  # TODO no reason to keep DwC stuff (delete later)
-  # # Add Darwin Core basisOfRecord
-  # if (!is.null(basis_of_record)) {
-  #   eml_L0$dataset$keywordSet <- c(
-  #     eml_L0$dataset$keywordSet,
-  #     list(
-  #       list(
-  #         keywordThesaurus = "Darwin Core Terms",
-  #         keyword = as.list(paste0("basisOfRecord: ", basis_of_record)))))
-  # }
-
   # Update <intellectualRights> -----------------------------------------------
 
   # Use parent intellectual rights or CC0 if none exists
@@ -599,27 +539,6 @@ create_eml <- function(path,
     message("    <intellectualRights>")
     eml_L0$dataset$intellectualRights <- eml_L2$dataset$intellectualRights
   }
-
-  # Update <taxonomicCoverage> ------------------------------------------------
-
-  #TODO more taxonomic coverage that can probably be deleted later
-
-  # # Combine taxonomic coverage of L0 and L1. While this may provide redundant
-  # # information, there isn't any harm in this.
-  #
-  # # Two options for combining taxonomic classifications, because of variation
-  # # in the return from EML::read_eml() (i.e. lists nodes when length > 1, and
-  # # unlists when length = 1).
-  #
-  # if (!is.null(names(eml_L0$dataset$coverage$taxonomicCoverage$taxonomicClassification))) {
-  #   eml_L0$dataset$coverage$taxonomicCoverage$taxonomicClassification <- c(
-  #     list(eml_L0$dataset$coverage$taxonomicCoverage$taxonomicClassification),
-  #     eml_L1$dataset$coverage$taxonomicCoverage$taxonomicClassification)
-  # } else {
-  #   eml_L0$dataset$coverage$taxonomicCoverage$taxonomicClassification <- c(
-  #     eml_L0$dataset$coverage$taxonomicCoverage$taxonomicClassification,
-  #     eml_L1$dataset$coverage$taxonomicCoverage$taxonomicClassification)
-  # }
 
   # Update <contact> ----------------------------------------------------------
 
