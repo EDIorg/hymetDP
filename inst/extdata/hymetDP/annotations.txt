@@ -1,62 +1,96 @@
 id	element	context	subject	predicate_label	predicate_uri	object_label	object_uri
-/dataset	/dataset	eml	dataset	is about	http://purl.obolibrary.org/obo/IAO_0000136	ecological community	http://purl.obolibrary.org/obo/PCO_0000002
-/location	/dataTable	dataset	location	is about	http://purl.obolibrary.org/obo/IAO_0000136	study location identifier	http://purl.dataone.org/odo/ECSO_00002767
-/location/location_id	/dataTable/attribute	location	location_id	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	study location identifier	http://purl.dataone.org/odo/ECSO_00002767
-/location/location_name	/dataTable/attribute	location	location_name	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	study location name	http://purl.dataone.org/odo/ECSO_00002768
-/location/latitude	/dataTable/attribute	location	latitude	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	latitude coordinate	http://purl.dataone.org/odo/ECSO_00002130
-/location/longitude	/dataTable/attribute	location	longitude	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	longitude coordinate	http://purl.dataone.org/odo/ECSO_00002132
-/location/elevation	/dataTable/attribute	location	elevation	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	elevation	http://purl.dataone.org/odo/ECSO_00001567
-/location/parent_location_id	/dataTable/attribute	location	parent_location_id	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	study location identifier	http://purl.dataone.org/odo/ECSO_00002767
-/taxon	/dataTable	dataset	taxon	is about	http://purl.obolibrary.org/obo/IAO_0000136	Organism	http://purl.dataone.org/odo/ECSO_00000312
-/taxon/taxon_id	/dataTable/attribute	taxon	taxon_id	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/taxon/taxon_rank	/dataTable/attribute	taxon	taxon_rank	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	taxonomic classification	http://purl.dataone.org/odo/ECSO_00002730
-/taxon/taxon_name	/dataTable/attribute	taxon	taxon_name	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	taxonomic classification	http://purl.dataone.org/odo/ECSO_00002730
-/taxon/authority_system	/dataTable/attribute	taxon	authority_system	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/taxon/authority_taxon_id	/dataTable/attribute	taxon	authority_taxon_id	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	taxon code	http://purl.dataone.org/odo/ECSO_00002608
-/observation	/dataTable	dataset	observation	is about	http://purl.obolibrary.org/obo/IAO_0000136		
-/observation/observation_id	/dataTable/attribute	observation	observation_id	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/observation/event_id	/dataTable/attribute	observation	event_id	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/observation/package_id	/dataTable/attribute	observation	package_id	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/observation/location_id	/dataTable/attribute	observation	location_id	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	study location identifier	http://purl.dataone.org/odo/ECSO_00002767
-/observation/datetime	/dataTable/attribute	observation	datetime	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	date and time of measurement	http://purl.dataone.org/odo/ECSO_00002043
-/observation/taxon_id	/dataTable/attribute	observation	taxon_id	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/observation/variable_name	/dataTable/attribute	observation	variable_name	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/observation/value	/dataTable/attribute	observation	value	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/observation/unit	/dataTable/attribute	observation	unit	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/location_ancillary	/dataTable	dataset	location_ancillary	is about	http://purl.obolibrary.org/obo/IAO_0000136		
-/location_ancillary/location_ancillary_id	/dataTable/attribute	location_ancillary	location_ancillary_id	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/location_ancillary/location_id	/dataTable/attribute	location_ancillary	location_id	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	study location identifier	http://purl.dataone.org/odo/ECSO_00002767
-/location_ancillary/datetime	/dataTable/attribute	location_ancillary	datetime	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	date and time of measurement	http://purl.dataone.org/odo/ECSO_00002043
-/location_ancillary/variable_name	/dataTable/attribute	location_ancillary	variable_name	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/location_ancillary/value	/dataTable/attribute	location_ancillary	value	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/location_ancillary/unit	/dataTable/attribute	location_ancillary	unit	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/taxon_ancillary	/dataTable	dataset	taxon_ancillary	is about	http://purl.obolibrary.org/obo/IAO_0000136		
-/taxon_ancillary/taxon_ancillary_id	/dataTable/attribute	taxon_ancillary	taxon_ancillary_id	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/taxon_ancillary/taxon_id	/dataTable/attribute	taxon_ancillary	taxon_id	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/taxon_ancillary/datetime	/dataTable/attribute	taxon_ancillary	datetime	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	date and time of measurement	http://purl.dataone.org/odo/ECSO_00002043
-/taxon_ancillary/variable_name	/dataTable/attribute	taxon_ancillary	variable_name	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/taxon_ancillary/value	/dataTable/attribute	taxon_ancillary	value	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/taxon_ancillary/unit	/dataTable/attribute	taxon_ancillary	unit	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/taxon_ancillary/author	/dataTable/attribute	taxon_ancillary	author	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	observer name	http://purl.dataone.org/odo/ECSO_00002451
-/observation_ancillary	/dataTable	dataset	observation_ancillary	is about	http://purl.obolibrary.org/obo/IAO_0000136		
-/observation_ancillary/observation_ancillary_id	/dataTable/attribute	observation_ancillary	observation_ancillary_id	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/observation_ancillary/observation_id	/dataTable/attribute	observation_ancillary	observation_id	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/observation_ancillary/variable_name	/dataTable/attribute	observation_ancillary	variable_name	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/observation_ancillary/value	/dataTable/attribute	observation_ancillary	value	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/observation_ancillary/unit	/dataTable/attribute	observation_ancillary	unit	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/dataset_summary	/dataTable	dataset	dataset_summary	is about	http://purl.obolibrary.org/obo/IAO_0000136		
-/dataset_summary/package_id	/dataTable/attribute	dataset_summary	package_id	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/dataset_summary/original_package_id	/dataTable/attribute	dataset_summary	original_package_id	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	data source	http://purl.dataone.org/odo/ECSO_00002744
-/dataset_summary/length_of_survey_years	/dataTable/attribute	dataset_summary	length_of_survey_years	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	number of years	http://purl.dataone.org/odo/ECSO_00001636
-/dataset_summary/number_of_years_sampled	/dataTable/attribute	dataset_summary	number_of_years_sampled	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	number of years	http://purl.dataone.org/odo/ECSO_00001636
-/dataset_summary/std_dev_interval_betw_years	/dataTable/attribute	dataset_summary	std_dev_interval_betw_years	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/dataset_summary/max_num_taxa	/dataTable/attribute	dataset_summary	max_num_taxa	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/dataset_summary/geo_extent_bounding_box_m2	/dataTable/attribute	dataset_summary	geo_extent_bounding_box_m2	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	Sampling Site Area	http://purl.dataone.org/odo/ECSO_00001152
-/variable_mapping	/dataTable	dataset	variable_mapping	is about	http://purl.obolibrary.org/obo/IAO_0000136		
-/variable_mapping/variable_mapping_id	/dataTable/attribute	variable_mapping	variable_mapping_id	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/variable_mapping/table_name	/dataTable/attribute	variable_mapping	table_name	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/variable_mapping/variable_name	/dataTable/attribute	variable_mapping	variable_name	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/variable_mapping/mapped_system	/dataTable/attribute	variable_mapping	mapped_system	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/variable_mapping/mapped_id	/dataTable/attribute	variable_mapping	mapped_id	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
-/variable_mapping/mapped_label	/dataTable/attribute	variable_mapping	mapped_label	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType		
+/dataset	/dataset	eml	dataset	is about	http://purl.obolibrary.org/obo/IAO_0000136	hydrological process	http://purl.obolibrary.org/obo/ENVO_02500031
+/Sites	/dataTable	dataset	Sites	is about	http://purl.obolibrary.org/obo/IAO_0000136	study location identifier	http://purl.dataone.org/odo/ECSO_00002767
+/Sites/SiteCode	/dataTable/attribute	Sites	SiteCode	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	study location identifier	http://purl.dataone.org/odo/ECSO_00002767
+/Sites/SiteName	/dataTable/attribute	Sites	SiteName	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	study location name	http://purl.dataone.org/odo/ECSO_00002768
+/Sites/Latitude	/dataTable/attribute	Sites	Latitude	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	latitude coordinate	http://purl.dataone.org/odo/ECSO_00002130
+/Sites/Longitude	/dataTable/attribute	Sites	Longitude	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	longitude coordinate	http://purl.dataone.org/odo/ECSO_00002132
+/Sites/LatLongDatumSRSName	/dataTable/attribute	Sites	LatLongDatumSRSName				
+/Sites/Elevation_m	/dataTable/attribute	Sites	Elevation_m	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	elevation	http://purl.dataone.org/odo/ECSO_00001567
+/Sites/VerticalDatum	/dataTable/attribute	Sites	VerticalDatum				
+/Sites/LocalX	/dataTable/attribute	Sites	LocalX				
+/Sites/LocalY	/dataTable/attribute	Sites	LocalY				
+/Sites/LocalProjectionSRSName	/dataTable/attribute	Sites	LocalProjectionSRSName				
+/Sites/PosAccuracy_m	/dataTable/attribute	Sites	PosAccuracy_m				
+/Sites/State	/dataTable/attribute	Sites	State				
+/Sites/County	/dataTable/attribute	Sites	County				
+/Sites/Comments	/dataTable/attribute	Sites	Comments				
+/Sites/SiteType	/dataTable/attribute	Sites	SiteType				
+/Variables	/dataTable	dataset	Variables	is about	http://purl.obolibrary.org/obo/IAO_0000136		
+/Variables/VariableCode	/dataTable/attribute	Variables	VariableCode				
+/Variables/VariableName	/dataTable/attribute	Variables	VariableName				
+/Variables/VariableUnitsName	/dataTable/attribute	Variables	VariableUnitsName				
+/Variables/SampleMedium	/dataTable/attribute	Variables	SampleMedium				
+/Variables/ValueType	/dataTable/attribute	Variables	ValueType				
+/Variables/IsRegular	/dataTable/attribute	Variables	IsRegular				
+/Variables/TimeSupport	/dataTable/attribute	Variables	TimeSupport				
+/Variables/TimeUnitsName	/dataTable/attribute	Variables	TimeUnitsName				
+/Variables/DataType	/dataTable/attribute	Variables	DataType				
+/Variables/GeneralCategory	/dataTable/attribute	Variables	GeneralCategory				
+/Variables/NoDataValue	/dataTable/attribute	Variables	NoDataValue				
+/Methods	/dataTable	dataset	Methods				
+/Methods/MethodCode	/dataTable/attribute	Methods	MethodCode				
+/Methods/MethodDescription	/dataTable/attribute	Methods	MethodDescription				
+/Methods/MethodLink	/dataTable/attribute	Methods	MethodLink				
+/Sources	/dataTable	dataset	Sources				
+/Sources/SourceCode	/dataTable/attribute	Sources	SourceCode				
+/Sources/Organization	/dataTable/attribute	Sources	Organization				
+/Sources/SourceDescription	/dataTable/attribute	Sources	SourceDescription	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	data source	http://purl.dataone.org/odo/ECSO_00002744
+/Sources/SourceLink	/dataTable/attribute	Sources	SourceLink	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	data source	http://purl.dataone.org/odo/ECSO_00002744
+/Sources/ContactName	/dataTable/attribute	Sources	ContactName				
+/Sources/Phone	/dataTable/attribute	Sources	Phone				
+/Sources/Email	/dataTable/attribute	Sources	Email				
+/Sources/Address	/dataTable/attribute	Sources	Address				
+/Sources/City	/dataTable/attribute	Sources	City				
+/Sources/State	/dataTable/attribute	Sources	State				
+/Sources/ZipCode	/dataTable/attribute	Sources	ZipCode				
+/Sources/Citation	/dataTable/attribute	Sources	Citation	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	data source	http://purl.dataone.org/odo/ECSO_00002744
+/QualityControlLevels	/dataTable	dataset	QualityControlLevels				
+/QualityControlLevels/QualityControlLevelCode	/dataTable/attribute	QualityControlLevels	QualityControlLevelCode				
+/QualityControlLevels/Definition	/dataTable/attribute	QualityControlLevels	Definition				
+/QualityControlLevels/Explanation	/dataTable/attribute	QualityControlLevels	Explanation				
+/DataValues	/dataTable	dataset	DataValues				
+/DataValues/ValueID	/dataTable/attribute	DataValues	ValueID				
+/DataValues/DataValue	/dataTable/attribute	DataValues	DataValue				
+/DataValues/ValueAccuracy	/dataTable/attribute	DataValues	ValueAccuracy				
+/DataValues/LocalDateTime	/dataTable/attribute	DataValues	LocalDateTime	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	date and time of measurement	http://purl.dataone.org/odo/ECSO_00002043
+/DataValues/UTCOffset	/dataTable/attribute	DataValues	UTCOffset				
+/DataValues/DateTimeUTC	/dataTable/attribute	DataValues	DateTimeUTC	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	date and time of measurement	http://purl.dataone.org/odo/ECSO_00002043
+/DataValues/SiteCode	/dataTable/attribute	DataValues	SiteCode				
+/DataValues/VariableCode	/dataTable/attribute	DataValues	VariableCode				
+/DataValues/OffsetValue	/dataTable/attribute	DataValues	OffsetValue				
+/DataValues/OffsetTypeCode	/dataTable/attribute	DataValues	OffsetTypeCode				
+/DataValues/CensorCode	/dataTable/attribute	DataValues	CensorCode				
+/DataValues/QualifierCode	/dataTable/attribute	DataValues	QualifierCode				
+/DataValues/MethodCode	/dataTable/attribute	DataValues	MethodCode				
+/DataValues/SourceCode	/dataTable/attribute	DataValues	SourceCode				
+/DataValues/QualityControlLevelCode	/dataTable/attribute	DataValues	QualityControlLevelCode				
+/SeriesCatalog	/dataTable	dataset	SeriesCatalog				
+/SeriesCatalog/SeriesID	/dataTable/attribute	SeriesCatalog	SeriesID				
+/SeriesCatalog/SiteCode	/dataTable/attribute	SeriesCatalog	SiteCode				
+/SeriesCatalog/SiteName	/dataTable/attribute	SeriesCatalog	SiteName				
+/SeriesCatalog/VariableCode	/dataTable/attribute	SeriesCatalog	VariableCode				
+/SeriesCatalog/VariableName	/dataTable/attribute	SeriesCatalog	VariableName				
+/SeriesCatalog/VariableUnitsName	/dataTable/attribute	SeriesCatalog	VariableUnitsName				
+/SeriesCatalog/SampleMedium	/dataTable/attribute	SeriesCatalog	SampleMedium				
+/SeriesCatalog/ValueType	/dataTable/attribute	SeriesCatalog	ValueType				
+/SeriesCatalog/TimeSupport	/dataTable/attribute	SeriesCatalog	TimeSupport				
+/SeriesCatalog/TimeUnitsName	/dataTable/attribute	SeriesCatalog	TimeUnitsName				
+/SeriesCatalog/DataType	/dataTable/attribute	SeriesCatalog	DataType				
+/SeriesCatalog/GeneralCategory	/dataTable/attribute	SeriesCatalog	GeneralCategory				
+/SeriesCatalog/MethodCode	/dataTable/attribute	SeriesCatalog	MethodCode				
+/SeriesCatalog/MethodDescription	/dataTable/attribute	SeriesCatalog	MethodDescription				
+/SeriesCatalog/SourceCode	/dataTable/attribute	SeriesCatalog	SourceCode				
+/SeriesCatalog/Organization	/dataTable/attribute	SeriesCatalog	Organization				
+/SeriesCatalog/SourceDescription	/dataTable/attribute	SeriesCatalog	SourceDescription				
+/SeriesCatalog/Citation	/dataTable/attribute	SeriesCatalog	Citation				
+/SeriesCatalog/QualityControlLevelCode	/dataTable/attribute	SeriesCatalog	QualityControlLevelCode				
+/SeriesCatalog/BeginDateTime	/dataTable/attribute	SeriesCatalog	BeginDateTime	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	date and time of measurement	http://purl.dataone.org/odo/ECSO_00002043
+/SeriesCatalog/EndDateTime	/dataTable/attribute	SeriesCatalog	EndDateTime	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	date and time of measurement	http://purl.dataone.org/odo/ECSO_00002043
+/SeriesCatalog/BeginDateTimeUTC	/dataTable/attribute	SeriesCatalog	BeginDateTimeUTC	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	date and time of measurement	http://purl.dataone.org/odo/ECSO_00002043
+/SeriesCatalog/EndDateTimeUTC	/dataTable/attribute	SeriesCatalog	EndDateTimeUTC	contains measurements of type	http://ecoinformatics.org/oboe/oboe.1.2/oboe-core.owl#containsMeasurementsOfType	date and time of measurement	http://purl.dataone.org/odo/ECSO_00002043
+/SeriesCatalog/ValueCount	/dataTable/attribute	SeriesCatalog	ValueCount				
+/Qualifiers	/dataTable	dataset	Qualifiers				
+/Qualifiers/QualifierCode	/dataTable/attribute	Qualifiers	QualifierCode				
+/Qualifiers/QualifierDescription	/dataTable/attribute	Qualifiers	QualifierDescription				
 /script	/otherEntity	dataset	script	is about	http://purl.obolibrary.org/obo/IAO_0000136	analysis code	http://purl.dataone.org/odo/ECSO_00002489

@@ -309,64 +309,58 @@ create_eml <- function(path,
 
   # TODO everything below involves annotations/variable mapping and should be added back!
 
-  # annotations_map <- eal_inputs$x$template$annotations.txt$content
-  # annotations <- annotations_map[0, ]
-  # # TODO this adds the "ecological community" is_about to every dataset
-  # # TODO remove the ecological community annotation
-  # # TODO only take user defined dataset annotations. Come back to the question later of is there a good dataset option for everything.
-  # annotations <- rbind(
-  #   annotations,
-  #   annotations_map[annotations_map$context %in% "eml", ])
-  # if (!is.null(is_about)) {
-  #   additional_dataset_annotations <- data.frame(
-  #     id = "/dataset",
-  #     element = "/dataset",
-  #     context = "eml",
-  #     subject = "dataset",
-  #     predicate_label = "is about",
-  #     predicate_uri = "http://purl.obolibrary.org/obo/IAO_0000136",
-  #     object_label = names(is_about),
-  #     object_uri = unname(is_about),
-  #     stringsAsFactors = FALSE)
-  #   annotations <- rbind(annotations, additional_dataset_annotations)
-  # }
-  #
-  # # TODO i wonder if there is a better object than analysis code. Processing code?
-  # other_entity_annotations <- data.frame(
-  #   id = paste0("/", script),
-  #   element = "/otherEntity",
-  #   context = "dataset",
-  #   subject = script,
-  #   predicate_label = "is about",
-  #   predicate_uri = "http://purl.obolibrary.org/obo/IAO_0000136",
-  #   object_label = "analysis code",
-  #   object_uri = "http://purl.dataone.org/odo/ECSO_00002489",
-  #   stringsAsFactors = FALSE)
-  # annotations <- rbind(annotations, other_entity_annotations)
-  #
-  # # TODO the entire annotation map needs to be remade. See the inst/extdata dir
-  #
-  # for (i in data.table) {
-  #   table <- stringr::str_remove(i, "\\.[:alpha:]*$")
-  #   annotations_subset <- dplyr::filter(
-  #     annotations_map,
-  #     subject %in% table | context %in% table)
-  #   table_annotations <- annotations_subset[
-  #     annotations_subset$subject %in%
-  #       c(colnames(eal_inputs$x$data.table[[i]]$content), table), ]
-  #   table_annotations$id <- stringr::str_replace(
-  #     table_annotations$id,
-  #     paste0("(?<=/)", table, "(?=$|/)"),
-  #     i)
-  #   table_annotations$context <- stringr::str_replace(
-  #     table_annotations$context, table, i)
-  #   table_annotations$subject <- stringr::str_replace(
-  #     table_annotations$subject, paste0("^", table, "$"), i)
-  #   annotations <- rbind(annotations, table_annotations)
-  # }
-  #
-  # # TODO there currently is no variable_mapping, though I think this would be a nice touch.
-  #
+  annotations_map <- eal_inputs$x$template$annotations.txt$content
+  annotations <- annotations_map[0, ]
+
+  annotations <- rbind(
+    annotations,
+    annotations_map[annotations_map$context %in% "eml", ])
+  if (!is.null(is_about)) {
+    additional_dataset_annotations <- data.frame(
+      id = "/dataset",
+      element = "/dataset",
+      context = "eml",
+      subject = "dataset",
+      predicate_label = "is about",
+      predicate_uri = "http://purl.obolibrary.org/obo/IAO_0000136",
+      object_label = names(is_about),
+      object_uri = unname(is_about),
+      stringsAsFactors = FALSE)
+    annotations <- rbind(annotations, additional_dataset_annotations)
+  }
+
+  # TODO i wonder if there is a better object than analysis code. Processing code?
+  other_entity_annotations <- data.frame(
+    id = paste0("/", script),
+    element = "/otherEntity",
+    context = "dataset",
+    subject = script,
+    predicate_label = "is about",
+    predicate_uri = "http://purl.obolibrary.org/obo/IAO_0000136",
+    object_label = "analysis code",
+    object_uri = "http://purl.dataone.org/odo/ECSO_00002489",
+    stringsAsFactors = FALSE)
+  annotations <- rbind(annotations, other_entity_annotations)
+
+  for (i in data.table) {
+    table <- stringr::str_remove(i, "\\.[:alpha:]*$")
+    annotations_subset <- dplyr::filter(
+      annotations_map,
+      subject %in% table | context %in% table)
+    table_annotations <- annotations_subset[
+      annotations_subset$subject %in%
+        c(colnames(eal_inputs$x$data.table[[i]]$content), table), ]
+    table_annotations$id <- stringr::str_replace(
+      table_annotations$id,
+      paste0("(?<=/)", table, "(?=$|/)"),
+      i)
+    table_annotations$context <- stringr::str_replace(
+      table_annotations$context, table, i)
+    table_annotations$subject <- stringr::str_replace(
+      table_annotations$subject, paste0("^", table, "$"), i)
+    annotations <- rbind(annotations, table_annotations)
+  }
+
   # variable_mapping <- stringr::str_subset(
   #   names(eal_inputs$x$data.table),
   #   "variable_mapping")
@@ -420,13 +414,11 @@ create_eml <- function(path,
   #     annotations,
   #     data.table::rbindlist(variable_mappings_annotations))
   # }
-  #
-  # annotations[annotations == ""] <- NA_character_
-  # annotations <- annotations[stats::complete.cases(annotations), ]
-  #
-  # eal_inputs$x$template$annotations.txt$content <- annotations
 
-  # TODO everything above involves annotations/variable mapping and should be added back!
+  annotations[annotations == ""] <- NA_character_
+  annotations <- annotations[stats::complete.cases(annotations), ]
+
+  eal_inputs$x$template$annotations.txt$content <- annotations
 
   # Only include metadata for existing columns (attributes)
   for (i in data.table) {
