@@ -193,6 +193,25 @@ create_eml <- function(path,
   eal_inputs$x$template[
     names(eal_inputs$x$template) %in% unused_attribute_templates] <- NULL
 
+
+
+# Update attributes_* templates ----------------------------------------------
+  # Change unit of TimeSupport in Variables attributes
+
+  # TODO how to handle multiple units? Impossible?
+
+  eal_inputs$x$template$attributes_Variables.txt$content$unit[
+    eal_inputs$x$template$attributes_Variables.txt$content$attributeName == "TimeSupport"] <- unique(eal_inputs$x$data.table$Variables.csv$content$TimeUnitsName)
+
+  # Change <NoDataValue> in DataValues Missing value attributes template with
+  # the value specified in Variable table column NoDataValue
+
+  # TODO how to handle multiple missing values
+
+  eal_inputs$x$template$attributes_DataValues.txt$content$missingValueCode[
+    eal_inputs$x$template$attributes_DataValues.txt$content$missingValueCode == "<NoDataValue>"] <- unique(eal_inputs$x$data.table$Variables.csv$content$NoDataValue)
+
+
   # Detect date and time format string directly from each table and add to the
   # corresponding data table attributes template as required by
   # EAL_make_eml().
@@ -218,12 +237,6 @@ create_eml <- function(path,
 
         datetime_format <- parse_datetime_frmt_from_vals(datetime)
 
-        # TODO ecocomDP residual that likely will not apply to hymetDP (delete later)
-        # if ((is.null(datetime_format)) & (i != "attributes_observation.txt")) { # Default to observation table's datetime format specifier if no date time in ancillary tables. This prevents an EML schema validation error, where datetime attributes must have a format specified
-        #   use_i <- eal_inputs$x$template[["attributes_observation.txt"]]$content$dateTimeFormatString != ""
-        #   datetime_format <- eal_inputs$x$template[["attributes_observation.txt"]]$content$dateTimeFormatString[use_i]
-        # }
-
         eal_inputs$x$template[[i]]$content$dateTimeFormatString[
           eal_inputs$x$template[[i]]$content$attributeName == date_column[[j]]] <-
           datetime_format
@@ -233,83 +246,62 @@ create_eml <- function(path,
 
   # Get table attributes and definitions from EML then create catvars templates for each data table of this dataset
 
-  # TODO is this getting the attributes from the L0 eml? If so, then this would be a good point to rerout
-  # functionality from EML to ODM CV
+# Add ODM CV terms as cat vars --------------------------------------------
 
-  # TODO for every column that requires something from a CV,
-  # TODO loop through the values in the column, look up term, get definition
-  # TODO this will depend on the columns already having been validated for CV
-
-  defs <- get_attr_defs(xml_L0)
+  cv_tbls <- subset(attr_tbl, !is.na(attr_tbl$cv))
 
   r <- lapply(
     # for each data table
-    names(eal_inputs$x$data.table),
+    unique(cv_tbls$table),
     function(tbl) {
-      # Does it have the "variable name" column (for hymet this would be: does it have a column that requires CV term?
-      # TODO list of all columns that require CV
-      has_varname <- "variable_name" %in% colnames(eal_inputs$x$data.table[[tbl]]$content)
-      if (has_varname) {
-        # get unique names from variable name column
-        univars <- unique(eal_inputs$x$data.table[[tbl]]$content$variable_name)
-        # THis matches L0 def to the variable name attr. This has no relevance to hymet
-        # TODO This where the CV lookup would occur
-        unidefs <- defs[names(defs) %in% univars]
-        if (length(unidefs) == 0) { # FIXME sometimes there's no match, but could use variable_mapping vals if exists
-          unidefs <- rep("NA", length(univars))
+
+      cont <- lapply(
+        cv_tbls$column[cv_tbls$table == tbl],
+        function(col) {
+          univars <- unique(eal_inputs$x$data.table[[paste0(tbl, '.csv')]]$content[[col]])
+          unidefs <- lapply(
+            univars,
+            function(var) {
+              cv <- cv_tbls$cv[cv_tbls$table == tbl & cv_tbls$column == col]
+
+              if (cv == "UnitsCV") {
+                t <- get(cv)
+                paste0("Unit: ",
+                    t$UnitsName[t$UnitsName == var],
+                    " (", t$UnitsAbbreviation[t$UnitsName == var], "); UnitType: ",
+                    t$UnitsType[t$UnitsName == var]
+                    )
+              } else if (cv == "SpatialReferencesCV") {
+                paste0("Spatial Reference System: ", var)
+              } else {
+                t <- get(cv)
+                t$Definition[t$Term == var]
+              }
+            })
+
           catvars_template <- data.frame(
-            attributeName = "variable_name",
+            attributeName = col,
             code = univars,
-            definition = unname(unidefs),
+            definition = unlist(unidefs),
             stringsAsFactors = FALSE)
           return(list(content = catvars_template))
-        } else {
-          catvars_template <- data.frame(
-            attributeName = "variable_name",
-            code = names(unidefs),
-            definition = unname(unidefs),
-            stringsAsFactors = FALSE)
-          return(list(content = catvars_template))
-        }
+        })
+
+      # Manually add in the isRegular code and definition to catvars_Variables
+      if (tbl == 'Variables') {
+        cont[[8]] <-  list(content = data.frame(
+          attributeName = "IsRegular",
+          code = c("TRUE", "FALSE"),
+          definition = c("Data values are from a regularly sampled time series", "Data values are not from a regularly sampled time series"),
+          stringsAsFactors = FALSE))
       }
+
+      return(dplyr::bind_rows(cont))
     })
-  names(r) <- paste0("catvars_", tools::file_path_sans_ext(names(eal_inputs$x$data.table)), ".txt")
+  names(r) <- paste0("catvars_", unique(cv_tbls$table), ".txt")
   r <- Filter(Negate(is.null), r)
+
   eal_inputs$x$template <- c(eal_inputs$x$template, r)
-
-
-  # TODO hymetDP residual likely no relevance to hymet
-  # Create the taxonomic_coverage template used by EAL_make_eml()
-  # from the taxon table of hymetDP.
-
-  # f <- stringr::str_subset(
-  #   names(eal_inputs$x$data.table),
-  #   "taxon\\.[:alpha:]*$")
-  # taxon <- eal_inputs$x$data.table[[f]]$content
-  #
-  # # Handle exceptions
-  # if (!is.null(taxon$authority_system)) { # Default to taxonRankValue if missing authority cols
-  #   authsys <- taxon$authority_system
-  # } else {
-  #   authsys <- NA_character_
-  # }
-  # if (!is.null(taxon$authority_taxon_id)) {
-  #   authid <- taxon$authority_taxon_id
-  # } else {
-  #   authid <- NA_character_
-  # }
-  # authsys <- ifelse(is.na(authid), NA_character_, authsys) # Default to taxonRankValue if missing any required authority values
-  # authid <- ifelse(is.na(authsys), NA_character_, authid)
-  #
-  # taxonomic_coverage <- data.frame(
-  #   name = taxon$taxon_name,
-  #   name_type = "scientific",
-  #   name_resolved = taxon$taxon_name,
-  #   authority_system = authsys,
-  #   authority_id = authid,
-  #   stringsAsFactors = FALSE)
-  #
-  # eal_inputs$x$template$taxonomic_coverage.txt$content <- taxonomic_coverage
 
   # The annotations template read in with EAL_template_arguments()
   # serves as a map from tables of this L1 to the boilerplate annotations
@@ -317,64 +309,58 @@ create_eml <- function(path,
 
   # TODO everything below involves annotations/variable mapping and should be added back!
 
-  # annotations_map <- eal_inputs$x$template$annotations.txt$content
-  # annotations <- annotations_map[0, ]
-  # # TODO this adds the "ecological community" is_about to every dataset
-  # # TODO remove the ecological community annotation
-  # # TODO only take user defined dataset annotations. Come back to the question later of is there a good dataset option for everything.
-  # annotations <- rbind(
-  #   annotations,
-  #   annotations_map[annotations_map$context %in% "eml", ])
-  # if (!is.null(is_about)) {
-  #   additional_dataset_annotations <- data.frame(
-  #     id = "/dataset",
-  #     element = "/dataset",
-  #     context = "eml",
-  #     subject = "dataset",
-  #     predicate_label = "is about",
-  #     predicate_uri = "http://purl.obolibrary.org/obo/IAO_0000136",
-  #     object_label = names(is_about),
-  #     object_uri = unname(is_about),
-  #     stringsAsFactors = FALSE)
-  #   annotations <- rbind(annotations, additional_dataset_annotations)
-  # }
-  #
-  # # TODO i wonder if there is a better object than analysis code. Processing code?
-  # other_entity_annotations <- data.frame(
-  #   id = paste0("/", script),
-  #   element = "/otherEntity",
-  #   context = "dataset",
-  #   subject = script,
-  #   predicate_label = "is about",
-  #   predicate_uri = "http://purl.obolibrary.org/obo/IAO_0000136",
-  #   object_label = "analysis code",
-  #   object_uri = "http://purl.dataone.org/odo/ECSO_00002489",
-  #   stringsAsFactors = FALSE)
-  # annotations <- rbind(annotations, other_entity_annotations)
-  #
-  # # TODO the entire annotation map needs to be remade. See the inst/extdata dir
-  #
-  # for (i in data.table) {
-  #   table <- stringr::str_remove(i, "\\.[:alpha:]*$")
-  #   annotations_subset <- dplyr::filter(
-  #     annotations_map,
-  #     subject %in% table | context %in% table)
-  #   table_annotations <- annotations_subset[
-  #     annotations_subset$subject %in%
-  #       c(colnames(eal_inputs$x$data.table[[i]]$content), table), ]
-  #   table_annotations$id <- stringr::str_replace(
-  #     table_annotations$id,
-  #     paste0("(?<=/)", table, "(?=$|/)"),
-  #     i)
-  #   table_annotations$context <- stringr::str_replace(
-  #     table_annotations$context, table, i)
-  #   table_annotations$subject <- stringr::str_replace(
-  #     table_annotations$subject, paste0("^", table, "$"), i)
-  #   annotations <- rbind(annotations, table_annotations)
-  # }
-  #
-  # # TODO there currently is no variable_mapping, though I think this would be a nice touch.
-  #
+  annotations_map <- eal_inputs$x$template$annotations.txt$content
+  annotations <- annotations_map[0, ]
+
+  annotations <- rbind(
+    annotations,
+    annotations_map[annotations_map$context %in% "eml", ])
+  if (!is.null(is_about)) {
+    additional_dataset_annotations <- data.frame(
+      id = "/dataset",
+      element = "/dataset",
+      context = "eml",
+      subject = "dataset",
+      predicate_label = "is about",
+      predicate_uri = "http://purl.obolibrary.org/obo/IAO_0000136",
+      object_label = names(is_about),
+      object_uri = unname(is_about),
+      stringsAsFactors = FALSE)
+    annotations <- rbind(annotations, additional_dataset_annotations)
+  }
+
+  # TODO i wonder if there is a better object than analysis code. Processing code?
+  other_entity_annotations <- data.frame(
+    id = paste0("/", script),
+    element = "/otherEntity",
+    context = "dataset",
+    subject = script,
+    predicate_label = "is about",
+    predicate_uri = "http://purl.obolibrary.org/obo/IAO_0000136",
+    object_label = "analysis code",
+    object_uri = "http://purl.dataone.org/odo/ECSO_00002489",
+    stringsAsFactors = FALSE)
+  annotations <- rbind(annotations, other_entity_annotations)
+
+  for (i in data.table) {
+    table <- stringr::str_remove(i, "\\.[:alpha:]*$")
+    annotations_subset <- dplyr::filter(
+      annotations_map,
+      subject %in% table | context %in% table)
+    table_annotations <- annotations_subset[
+      annotations_subset$subject %in%
+        c(colnames(eal_inputs$x$data.table[[i]]$content), table), ]
+    table_annotations$id <- stringr::str_replace(
+      table_annotations$id,
+      paste0("(?<=/)", table, "(?=$|/)"),
+      i)
+    table_annotations$context <- stringr::str_replace(
+      table_annotations$context, table, i)
+    table_annotations$subject <- stringr::str_replace(
+      table_annotations$subject, paste0("^", table, "$"), i)
+    annotations <- rbind(annotations, table_annotations)
+  }
+
   # variable_mapping <- stringr::str_subset(
   #   names(eal_inputs$x$data.table),
   #   "variable_mapping")
@@ -428,13 +414,11 @@ create_eml <- function(path,
   #     annotations,
   #     data.table::rbindlist(variable_mappings_annotations))
   # }
-  #
-  # annotations[annotations == ""] <- NA_character_
-  # annotations <- annotations[stats::complete.cases(annotations), ]
-  #
-  # eal_inputs$x$template$annotations.txt$content <- annotations
 
-  # TODO everything above involves annotations/variable mapping and should be added back!
+  annotations[annotations == ""] <- NA_character_
+  annotations <- annotations[stats::complete.cases(annotations), ]
+
+  eal_inputs$x$template$annotations.txt$content <- annotations
 
   # Only include metadata for existing columns (attributes)
   for (i in data.table) {
@@ -539,17 +523,6 @@ create_eml <- function(path,
                                    eml_L1$dataset$keywordSet)
   }
 
-  # TODO no reason to keep DwC stuff (delete later)
-  # # Add Darwin Core basisOfRecord
-  # if (!is.null(basis_of_record)) {
-  #   eml_L0$dataset$keywordSet <- c(
-  #     eml_L0$dataset$keywordSet,
-  #     list(
-  #       list(
-  #         keywordThesaurus = "Darwin Core Terms",
-  #         keyword = as.list(paste0("basisOfRecord: ", basis_of_record)))))
-  # }
-
   # Update <intellectualRights> -----------------------------------------------
 
   # Use parent intellectual rights or CC0 if none exists
@@ -558,27 +531,6 @@ create_eml <- function(path,
     message("    <intellectualRights>")
     eml_L0$dataset$intellectualRights <- eml_L2$dataset$intellectualRights
   }
-
-  # Update <taxonomicCoverage> ------------------------------------------------
-
-  #TODO more taxonomic coverage that can probably be deleted later
-
-  # # Combine taxonomic coverage of L0 and L1. While this may provide redundant
-  # # information, there isn't any harm in this.
-  #
-  # # Two options for combining taxonomic classifications, because of variation
-  # # in the return from EML::read_eml() (i.e. lists nodes when length > 1, and
-  # # unlists when length = 1).
-  #
-  # if (!is.null(names(eml_L0$dataset$coverage$taxonomicCoverage$taxonomicClassification))) {
-  #   eml_L0$dataset$coverage$taxonomicCoverage$taxonomicClassification <- c(
-  #     list(eml_L0$dataset$coverage$taxonomicCoverage$taxonomicClassification),
-  #     eml_L1$dataset$coverage$taxonomicCoverage$taxonomicClassification)
-  # } else {
-  #   eml_L0$dataset$coverage$taxonomicCoverage$taxonomicClassification <- c(
-  #     eml_L0$dataset$coverage$taxonomicCoverage$taxonomicClassification,
-  #     eml_L1$dataset$coverage$taxonomicCoverage$taxonomicClassification)
-  # }
 
   # Update <contact> ----------------------------------------------------------
 

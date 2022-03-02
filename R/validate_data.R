@@ -289,68 +289,24 @@ validate_datetime <- function(data.list) {
         # TODO loop this to run for every datetime column
         for (col in datetime_column) {
           v <- data.list[[x]][[col]]
-          na_count_raw <- sum(is.na(v))               # count NAs in datetime field
-          #v <- as.character(v)                        # coerce to character
-          if (length(v) > (1000000-1)) {
-            print("iffy")
-            n = length(v) %/% 1000000
-            use_i <- lapply(
-              seq(n),
-              function(x) {
-                start = (1000000*(x-1)+1)
-                end = 1000000*x
-                #v_char <- stringr::str_replace(stringr::str_remove_all(as.character(v[start: end]), "(Z|z).+$"), "T", " ")
-
-                v_char <- as.character(v[start: end])
-                v_char <- stringr::str_remove_all(v_char, "(Z|z).+$") # prepare datetimes for parsing
-                v_char <- stringr::str_replace(v_char, "T", " ")
-
-                use_i <- suppressWarnings(
-                  list(
-                    lubridate::parse_date_time(v_char, "ymd HMS"),
-                    lubridate::parse_date_time(v_char, "ymd HM"),
-                    lubridate::parse_date_time(v_char, "ymd H"),
-                    lubridate::parse_date_time(v_char, "ymd")))
-              })
-            v_last <- stringr::str_replace(stringr::str_remove_all(as.character(v[(1000000*(n)+1): length(v)]), "(Z|z).+$"), "T", " ")
-
-            use_i[[n + 1]] <- suppressWarnings(
-              list(
-                lubridate::parse_date_time(v_last, "ymd HMS"),
-                lubridate::parse_date_time(v_last, "ymd HM"),
-                lubridate::parse_date_time(v_last, "ymd H"),
-                lubridate::parse_date_time(v_last, "ymd")))
-
-            #use_i <- lapply(use_i, unlist)
-            a1 <- list()
-            a2 <- list()
-            a3 <- list()
-            a4 <- list()
-            for (i in seq_along(use_i)) {
-              a1 <- c(a1, use_i[[i]][[1]])
-              a2 <- c(a2, use_i[[i]][[2]])
-              a3 <- c(a3, use_i[[i]][[3]])
-              a4 <- c(a4, use_i[[i]][[4]])
+          sampled = FALSE
+          if (length(v) > 1000000) {
+            v <- sample(v, 1000000)
+            sampled = TRUE
             }
-            use_i <- list(
-              unlist(a1),
-              unlist(a2),
-              unlist(a3),
-              unlist(a4))
-          } else {
-            print("elsey")
-            v <- as.character(v)                        # coerce to character
-            v <- stringr::str_remove_all(v, "(Z|z).+$") # prepare datetimes for parsing
-            v <- stringr::str_replace(v, "T", " ")
-            # Check different date time formats to see if one matches the data
-            # Difference in NA count induced by coercion indicates a non-valid format
-            use_i <- suppressWarnings(
-              list(
-                lubridate::parse_date_time(v, "ymd HMS"),
-                lubridate::parse_date_time(v, "ymd HM"),
-                lubridate::parse_date_time(v, "ymd H"),
-                lubridate::parse_date_time(v, "ymd")))
-          }
+          na_count_raw <- sum(is.na(v))               # count NAs in datetime field
+          v <- as.character(v)                        # coerce to character
+          v <- stringr::str_remove_all(v, "(Z|z).+$") # prepare datetimes for parsing
+          v <- stringr::str_replace(v, "T", " ")
+          # Check different date time formats to see if one matches the data
+          # Difference in NA count induced by coercion indicates a non-valid format
+          use_i <- suppressWarnings(
+            list(
+              lubridate::parse_date_time(v, "ymd HMS"),
+              lubridate::parse_date_time(v, "ymd HM"),
+              lubridate::parse_date_time(v, "ymd H"),
+              lubridate::parse_date_time(v, "ymd")))
+
           # count NAs for each attempt to parse datetime
           na_count_parsed <- unlist(
             lapply(
@@ -359,16 +315,31 @@ validate_datetime <- function(data.list) {
                 sum(is.na(k))
               }))
           # return info on datetime problems
-          if (min(na_count_parsed) > na_count_raw) {
-            use_i <- seq(
-              length(v))[
-                is.na(
-                  use_i[[
-                    (which(na_count_parsed %in% min(na_count_parsed)))[1]]])]
-            paste0(
-              "Datetime format. The ", col, "column, in the ", x, " table has unsupported ",
-              "datetime formats in rows: ",
-              paste(use_i, collapse = ' '))
+          if (sampled) {
+            if (min(na_count_parsed) > na_count_raw) {
+
+              paste0(
+                "Datetime format. The ", col, "column, in the ", x, " table has unsupported ",
+                "datetime formats in some rows. Please verify all datetime formats are correct")
+            } else {
+              paste0(
+                "Datetime format. No datetime format issues were detected in the ",
+                col, "column, in the ", x, " table. Due to the size of the datetime column, only",
+                "1M random values (out of ", length(v), " total values), were examined.")
+            }
+          } else {
+
+            if (min(na_count_parsed) > na_count_raw) {
+              use_i <- seq(
+                length(v))[
+                  is.na(
+                    use_i[[
+                      (which(na_count_parsed %in% min(na_count_parsed)))[1]]])]
+              paste0(
+                "Datetime format. The ", col, "column, in the ", x, " table has unsupported ",
+                "datetime formats in rows: ",
+                paste(use_i, collapse = ' '))
+            }
           }
         }
       }
