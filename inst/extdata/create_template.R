@@ -14,16 +14,12 @@ create_hymetDP <- function(path,
 
   eml <- EDIutils::read_metadata(source_id)
 
-  entity_names <- EDIutils::read_data_entity_names(source_id)
-
-  entity_id <- c("")
-
-  tables <- lapply(
-    entity_id,
-    function(x) {
-      raw <- read_data_entity(source_id, x)
-      readr::read_csv(file = raw)
-    })
+  tables <- read_tables(
+    eml = eml,
+    strip.white = TRUE,
+    na.strings = "",
+    convert.missing.value = TRUE,
+    add.units = TRUE)
 
   # Join and flatten the source dataset ---------------------------------------
 
