@@ -65,7 +65,7 @@ create_data_values <- function( # TODO change the "Code used by the organization
                       SourceCode,
                       QualityControlLevelCode)
 
-  L0_flat$DataValue <-  coalesce(L0_flat$DataValue, L0_flat$NoDataValue)
+  L0_flat$DataValue <-  coalesce(as.numeric(L0_flat$DataValue), L0_flat$NoDataValue)
 
   res <- L0_flat %>%
     dplyr::select(all_of(cols_to_gather)) %>%
