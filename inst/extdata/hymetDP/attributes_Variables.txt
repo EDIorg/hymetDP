@@ -5,7 +5,7 @@ VariableUnitsName	The name of units of the data values associated with a variabl
 SampleMedium	The medium in which the sample or observation was taken or made.	categorical			NA	Not available
 ValueType	Indicates how the data value was generated.	categorical			NA	Not available
 IsRegular	Value indicates whether the data values are from a regularly sampled time series. (TRUE or FALSE)	categorical			NA	Not available
-TimeSupport	Numerical value that indicates the time support (or temporal footprint) of the data values. 0 is used to indicate data values that are instantaneous. Other values indicate the time over which the data values are implicitly or explicitly averaged or aggregated. The Timesupport goes along with TimeUnitsName if IsRegular = TRUE. 	numeric	hour		NA	Not available
+TimeSupport	Numerical value that indicates the time support (or temporal footprint) of the data values. 0 is used to indicate data values that are instantaneous. Other values indicate the time over which the data values are implicitly or explicitly averaged or aggregated. The Timesupport goes along with TimeUnitsName if IsRegular = TRUE. 	numeric	minute		NA	Not available
 TimeUnitsName	The name of units of the time support.	categorical			NA	Not available
 DataType	Indicates how the value applies over a time interval.	categorical			NA	Not available
 GeneralCategory	General category of data.	categorical			NA	Not available

@@ -74,7 +74,7 @@ create_hymetDP <- function(path,
     value_type = "",
     is_regular = TRUE,
     time_support = 10,
-    time_units = "",
+    time_units = "minute",
     data_type = "",
     general_category = "",
     no_data = -9999)
