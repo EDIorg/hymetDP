@@ -33,6 +33,14 @@ create_hymetDP <- function(path,
 
   # rm('table')
 
+  # Specify timezone/offset
+
+  wide$LocalDateTime <- lubridate::force_tz(wide$"<ENTERDATETIMECOLNAME>", "<ENTERTIMEZONE>")
+
+  wide$UTCOffset <- "<ENTEROFFSET>"
+
+  wide$DateTimeUTC <- lubridate::with_tz(wide$LocalDateTime, "Etc/UTC")
+
   # Flatten ----------------------------------------------------------------
 
   # Create a flat table: similar to the wide table but gathered on core variables
