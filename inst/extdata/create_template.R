@@ -14,16 +14,12 @@ create_hymetDP <- function(path,
 
   eml <- EDIutils::read_metadata(source_id)
 
-  entity_names <- EDIutils::read_data_entity_names(source_id)
-
-  entity_id <- c("")
-
-  tables <- lapply(
-    entity_id,
-    function(x) {
-      raw <- read_data_entity(source_id, x)
-      readr::read_csv(file = raw)
-    })
+  tables <- read_tables(
+    eml = eml,
+    strip.white = TRUE,
+    na.strings = "",
+    convert.missing.value = TRUE,
+    add.units = TRUE)
 
   # Join and flatten the source dataset ---------------------------------------
 
@@ -32,6 +28,14 @@ create_hymetDP <- function(path,
   wide <-
 
   # rm('table')
+
+  # Specify timezone/offset
+
+  wide$LocalDateTime <- lubridate::force_tz(wide$"<ENTERDATETIMECOLNAME>", "<ENTERTIMEZONE>")
+
+  wide$UTCOffset <- "<ENTEROFFSET>"
+
+  wide$DateTimeUTC <- lubridate::with_tz(wide$LocalDateTime, "Etc/UTC")
 
   # Flatten ----------------------------------------------------------------
 
@@ -49,12 +53,12 @@ create_hymetDP <- function(path,
 
   # Define variables using the ODM Controlled vocabularies
 
-  View(VariableNameCV)              # variable_name
-  View(UnitsCV)                     # variable_units and time_units
-  View(SampleMediumCV)              # sample_medium
-  View(ValueTypeCV)                 # value_type
-  View(DataTypeCV)                  # data_type
-  View(GeneralCategoryCV)           # general_category
+  # View(VariableNameCV)              # variable_name
+  # View(UnitsCV)                     # variable_units and time_units
+  # View(SampleMediumCV)              # sample_medium
+  # View(ValueTypeCV)                 # value_type
+  # View(DataTypeCV)                  # data_type
+  # View(GeneralCategoryCV)           # general_category
 
   flat <- hymetDP::define_variable(
     L0_flat = flat,
@@ -66,7 +70,7 @@ create_hymetDP <- function(path,
     value_type = "",
     is_regular = TRUE,
     time_support = 10,
-    time_units = "",
+    time_units = "minute",
     data_type = "",
     general_category = "",
     no_data = -9999)
@@ -117,8 +121,8 @@ create_hymetDP <- function(path,
 
   # create a Sites table
 
-  View(SpatialReferencesCV) # LatLongDatumSRSName
-  View(SiteTypeCV)          # SiteType
+  # View(SpatialReferencesCV) # LatLongDatumSRSName
+  # View(SiteTypeCV)          # SiteType
 
   geo_table <- tibble::tibble(
     SiteCode = unlist(lapply(seq_along(site_name), as.numeric)),
