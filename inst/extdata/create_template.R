@@ -53,12 +53,12 @@ create_hymetDP <- function(path,
 
   # Define variables using the ODM Controlled vocabularies
 
-  View(VariableNameCV)              # variable_name
-  View(UnitsCV)                     # variable_units and time_units
-  View(SampleMediumCV)              # sample_medium
-  View(ValueTypeCV)                 # value_type
-  View(DataTypeCV)                  # data_type
-  View(GeneralCategoryCV)           # general_category
+  # View(VariableNameCV)              # variable_name
+  # View(UnitsCV)                     # variable_units and time_units
+  # View(SampleMediumCV)              # sample_medium
+  # View(ValueTypeCV)                 # value_type
+  # View(DataTypeCV)                  # data_type
+  # View(GeneralCategoryCV)           # general_category
 
   flat <- hymetDP::define_variable(
     L0_flat = flat,
@@ -121,8 +121,8 @@ create_hymetDP <- function(path,
 
   # create a Sites table
 
-  View(SpatialReferencesCV) # LatLongDatumSRSName
-  View(SiteTypeCV)          # SiteType
+  # View(SpatialReferencesCV) # LatLongDatumSRSName
+  # View(SiteTypeCV)          # SiteType
 
   geo_table <- tibble::tibble(
     SiteCode = unlist(lapply(seq_along(site_name), as.numeric)),
