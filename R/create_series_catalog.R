@@ -54,10 +54,10 @@ create_series_catalog <- function(
   # TODO vvvvvv everything below vvvvvv belongs in the "if flat is null OR all columns provided" section
   # TODO still to create is "if flat is not null AND not all columns provided"
 
-  combinations <- DataValues %>% select(all_of(composite_key))
+  combinations <- DataValues %>% dplyr::select(all_of(composite_key))
 
   res <- kit::funique(combinations[composite_key]) %>%
-    mutate(across(everything(), as.character))
+    dplyr::mutate(across(everything(), as.character))
 
   #  Gather columns
 
