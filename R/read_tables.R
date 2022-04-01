@@ -132,10 +132,13 @@ read_tables <- function(eml,
 #' @return Vector of values with \code{code} replaced by NA in the class of \code{type}
 #'
 convert_missing_value <- function(v, code, type) {
+
+  code <- unlist(lapply(code, function(x) if (x %in% c(".")) {x = paste0("\\", x)} else x))
+
   if (type == "character") {
-    res <- stringr::str_replace_all(as.character(v), paste(code, collapse = "|"), NA_character_)
+    res <- stringr::str_replace_all(as.character(v), paste(paste0("^", code, "$"), collapse = "|"), NA_character_)
   } else if (type == "numeric") {
-    res <- stringr::str_replace_all(as.character(v), paste(code, collapse = "|"), NA_character_)
+    res <- stringr::str_replace_all(as.character(v), paste(paste0("^", code, "$"), collapse = "|"), NA_character_)
     res <- as.numeric(res)
   } else if (type == "datetime") {
     # TODO: Parse datetime according to date time format specifier
