@@ -13,7 +13,8 @@ write_tables(
   Sources = NULL,
   Sites = NULL,
   QualityControlLevels = NULL,
-  SeriesCatalog = NULL
+  SeriesCatalog = NULL,
+  Qualifiers = NULL
 )
 }
 \arguments{

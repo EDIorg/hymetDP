@@ -177,7 +177,7 @@ coerce_table_classes <- function(tbl, name, cls) {
 write_tables <- function(
   path, sep = ",", DataValues = NULL, Variables = NULL,
   Methods = NULL, Sources = NULL, Sites = NULL,
-  QualityControlLevels = NULL, SeriesCatalog = NULL) {
+  QualityControlLevels = NULL, SeriesCatalog = NULL, Qualifiers = NULL) {
 
   # Validate arguments
 
@@ -235,6 +235,12 @@ write_tables <- function(
     message("  SeriesCatalog")
     f <- paste0(path, "/", paste0("SeriesCatalog", suffix))
     data.table::fwrite(x = SeriesCatalog, file = f, sep = sep, na = "NA")
+  }
+
+  if (!is.null(Qualifiers)) {
+    message("  Qualifiers")
+    f <- paste0(path, "/", paste0("Qualifiers", suffix))
+    data.table::fwrite(x = Qualifiers, file = f, sep = sep, na = "NA")
   }
 
 }
