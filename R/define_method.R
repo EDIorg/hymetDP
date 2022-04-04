@@ -3,7 +3,7 @@
 #' @param L0_flat (tbl_df, tbl, data.frame) The fully joined source L0 dataset, in "flat" format (see details).
 #' @param local_variable_column (character) Column in \code{L0_flat} table containing the L0 variable name.
 #' @param local_variable (character) Reference to a value (or values) in the \code{local_variable_column} from the \code{L0_flat} table to which the new hymetDP method refers.
-#' @param VariableCode (character) The auto-generated primary key for a variable (from column \code{VariableCode}). Another way to link a method to a value (or values). Takes priority over \code{local_variable}.
+#' @param VariableCode (character) The auto-generated primary key for a variable (from column \code{VariableCode}). Another way to link a method to a value (or values). Takes priority over \code{local_variable}. Provide one or multiple codes.
 #' @param MethodDescription (character) Text description of the method.
 #' @param MethodLink (character) Optional. Link to additional reference material on the method. Should be a single valid URL.
 #'

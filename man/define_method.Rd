@@ -20,7 +20,7 @@ define_method(
 
 \item{local_variable}{(character) Reference to a value (or values) in the \code{local_variable_column} from the \code{L0_flat} table to which the new hymetDP method refers.}
 
-\item{VariableCode}{(character) The auto-generated primary key for a variable (from column \code{VariableCode}). Another way to link a method to a value (or values). Takes priority over \code{local_variable}.}
+\item{VariableCode}{(character) The auto-generated primary key for a variable (from column \code{VariableCode}). Another way to link a method to a value (or values). Takes priority over \code{local_variable}. Provide one or multiple codes.}
 
 \item{MethodDescription}{(character) Text description of the method.}
 
