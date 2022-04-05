@@ -1,4 +1,24 @@
-create_USGS_hymet <- function(site, param, start, end, write_file = F, path) {
+#' Create a USGS hymetDP-formatted dataset
+#'
+#' @param site (character) A USGS site code or list of site codes. Discover site codes with `dataRetrieval::whatNWISsites()`.
+#' @param param (character) A USGS parameter code or list of parameter codes. Discover parameter codes with `dataRetrieval::whatNWISdata()`.
+#' @param start (character) Starting datetime for data query. Format date strings as YYYY-MM-DD, datetime strings as YYYY-MM-DDThh:mm:ssZ. Format must match `end` parameter format.
+#' @param end (character) Ending datetime for data query. Format date strings as YYYY-MM-DD,
+#'
+#' @return A list of hymetDP tables
+#'
+#' @examples
+#'
+#' site <- c("06879650", "50065500")
+#' param <- c("00060")
+#' start <- c("2020-06-01T12:30:00Z")
+#' end <- c("2021-01-01T12:30:00Z")
+#'
+#' usgs_hymet <- create_usgs_hymet(site, param, start, end)
+#'
+#' @export
+#'
+create_USGS_hymet <- function(site, param, start, end) {
 
   if (length(param) != length(site) & length(param) != 1) stop("Parameter list must be same length as site list or singular.")
   if (length(start) != length(site) & length(start) != 1) stop("Start date list must be same length as site list or singular.")
