@@ -253,6 +253,12 @@ create_usgs_flat_fragment <- function(param, site, start, end, index) {
 
 }
 
+#' Get USGS site type
+#'
+#' @param s (character) USGS site type code \code{site_type_cd}
+#'
+#' @return Site type
+#'
 get_usgs_sitetype <- function(s) {
   t <- rvest::read_html('https://help.waterdata.usgs.gov/site_tp_cd') %>%
     rvest::html_element("table") %>%
@@ -264,6 +270,12 @@ get_usgs_sitetype <- function(s) {
 }
 
 
+#' Get USGS variable information
+#'
+#' @param p (character) USGS parameter code \code{param}
+#'
+#' @return Information associated with a USGS variable
+#'
 get_usgs_variable <- function(p) {
   res <- data.table::fread(
     system.file('extdata', 'usgs_parameters.txt', package = 'hymetDP'), colClasses = 'character')
