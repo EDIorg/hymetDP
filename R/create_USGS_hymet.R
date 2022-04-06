@@ -133,6 +133,17 @@ create_USGS_hymet <- function(site, param, start, end) {
     Sites = Sites,
     QualityControlLevels = QualityControlLevels,
     DataValues = DataValues)
+
+  res <- list(
+    Sources = Sources,
+    Methods = Methods,
+    Variables = Variables,
+    Sites = Sites,
+    QualityControlLevels = QualityControlLevels,
+    DataValues = DataValues,
+    SeriesCatalog = SeriesCatalog)
+
+  return(res)
 }
 
 create_usgs_flat_fragment <- function(param, site, start, end, index) {
