@@ -14,7 +14,7 @@
 #' start <- c("2020-06-01T12:30:00Z")
 #' end <- c("2021-01-01T12:30:00Z")
 #'
-#' usgs_hymet <- create_usgs_hymet(site, param, start, end)
+#' usgs_hymet <- create_USGS_hymet(site, param, start, end)
 #'
 #' @export
 #'
@@ -39,6 +39,8 @@ create_USGS_hymet <- function(site, param, start, end) {
       flat_part <- create_usgs_flat_fragment(param, site, start, end, i)
 
     }, x=usgs_args)
+
+  message("Generating hymetDP tables...")
 
   flat <- dplyr::bind_rows(flat_list)
 
@@ -134,6 +136,8 @@ create_USGS_hymet <- function(site, param, start, end) {
 }
 
 create_usgs_flat_fragment <- function(param, site, start, end, index) {
+
+  message(paste0("Downloading data from USGS site ", site, ", parameter ", param))
 
   usgs_data <- dataRetrieval::readNWISdata(sites=site, service="iv", parameterCd=param, startDate=start, endDate=end)
 
