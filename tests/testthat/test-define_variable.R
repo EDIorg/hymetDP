@@ -74,20 +74,25 @@ testthat::test_that("Conflicting units are handled correctly", {
 
   on.exit(flat, add = TRUE)
 
-  res <- expect_warning(define_variable(
+  res <- suppressWarnings(define_variable(
     L0_flat = flat,
     local_variable = 'test_var',
-    variable_name = 'Temperature'),
-    regexp = "Multiple units found for variable \"test_var\". Defaulting to first option: degree celsius")
+    variable_name = 'Temperature'))
 
   expected_cols <- c(
     "datetime", "variable_name", "value", "unit", "VariableCode", "VariableName",
     "VariableUnitsName", "SampleMedium", "ValueType", "IsRegular", "TimeSupport",
     "TimeUnitsName", "DataType", "GeneralCategory", "NoDataValue")
 
-  expect_true(all(expected_cols %in% names(res)))
+  testthat::expect_warning(define_variable(
+    L0_flat = flat,
+    local_variable = 'test_var',
+    variable_name = 'Temperature'),
+    regexp = "Multiple units found for variable \"test_var\". Defaulting to first option: degree celsius")
 
-  expect_true(length(unique(res$unit)) == 2)
+  testthat::expect_true(all(expected_cols %in% names(res)))
 
-  expect_true(length(unique(res$VariableUnitsName)) == 1)
+  testthat::expect_true(length(unique(res$unit)) == 2)
+
+  testthat::expect_true(length(unique(res$VariableUnitsName)) == 1)
 })
