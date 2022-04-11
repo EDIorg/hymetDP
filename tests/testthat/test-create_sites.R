@@ -16,7 +16,7 @@ testthat::test_that("Standard L1 column inputs", {
       SiteName = "SiteName",
       Latitude = "Latitude",
       Longitude = "Longitude",
-      LatLongDatumSRSName = "LatLongDatumSRSName",
+      LatLongDatumSRSName = NULL,
       Elevation_m = NULL,
       VerticalDatum = NULL,
       LocalX = NULL,
