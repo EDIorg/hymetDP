@@ -45,7 +45,7 @@ Sites <- hymetDP::create_sites(
   SiteName = "SiteName",
   Latitude = "Latitude",
   Longitude = "Longitude",
-  LatLongDatumSRSName = "LatLongDatumSRSName",
+  LatLongDatumSRSName = NULL,
   Elevation_m = NULL,
   VerticalDatum = NULL,
   LocalX = NULL,

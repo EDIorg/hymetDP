@@ -193,7 +193,6 @@ create_hymet_L0_flat <- function(path = NULL,
   flat$Latitude <- lat
   flat$Longitude <- lon
   flat$Elevation_m <- elev
-  flat$LatLongDatumSRSName <- ""
   flat$SiteType <- "Stream"
 
   # Add columns for the Sources table ---------------------------------------
