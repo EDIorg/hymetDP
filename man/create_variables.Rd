@@ -20,29 +20,52 @@ create_variables(
 )
 }
 \arguments{
-\item{L0_flat}{(tbl_df, tbl, data.frame) The fully joined source L0 dataset, in "flat" format (see details).}
+\item{L0_flat}{(tbl_df, tbl, data.frame) The fully joined source L0 dataset,
+in "flat" format (see details).}
 
-\item{VariableCode}{(character) Column in \code{L0_flat} containing the user or organization-defined code to describe the variable.}
+\item{VariableCode}{(character) Column in \code{L0_flat} containing the user
+or organization-defined code to describe the variable.}
 
-\item{VariableName}{(character) Column in \code{L0_flat} containing the full text name of the variable that was measured, observed, modeled, etc. Must be from the ODM CV (see \code{VariableNameCV})}
+\item{VariableName}{(character) Column in \code{L0_flat} containing the full
+text name of the variable that was measured, observed, modeled, etc. Must
+be from the ODM CV (see \code{VariableNameCV})}
 
-\item{VariableUnitsName}{(character) Column in \code{L0_flat} containing the name of units of the data values associated with a variable. Must be from the ODM CV (see \code{UnitsCV})}
+\item{VariableUnitsName}{(character) Column in \code{L0_flat} containing the
+name of units of the data values associated with a variable. Must be from
+the ODM CV (see \code{UnitsCV})}
 
-\item{SampleMedium}{(character) Column in \code{L0_flat} containing the medium in which the sample or observation was taken or made. Must be from the ODM CV (see \code{SampleMediumCV})}
+\item{SampleMedium}{(character) Column in \code{L0_flat} containing the
+medium in which the sample or observation was taken or made. Must be from
+the ODM CV (see \code{SampleMediumCV})}
 
-\item{ValueType}{(character) Column in \code{L0_flat} that indicates how the data value was generated. Must be from the ODM CV (see \code{ValueTypeCV})}
+\item{ValueType}{(character) Column in \code{L0_flat} that indicates how the
+data value was generated. Must be from the ODM CV (see \code{ValueTypeCV})}
 
-\item{IsRegular}{(character) Column in \code{L0_flat} that indicates whether the data values are from a regularly sampled time series.}
+\item{IsRegular}{(character) Column in \code{L0_flat} that indicates whether
+the data values are from a regularly sampled time series.}
 
-\item{TimeSupport}{(character) Column in \code{L0_flat} containing the numerical value that indicates the time support (or temporal footprint) of the data values. 0 is used to indicate data values that are instantaneous. Other values indicate the time over which the data values are implicitly or explicitly averaged or aggregated.}
+\item{TimeSupport}{(character) Column in \code{L0_flat} containing the
+numerical value that indicates the time support (or temporal footprint) of
+the data values. 0 is used to indicate data values that are instantaneous.
+Other values indicate the time over which the data values are implicitly or
+explicitly averaged or aggregated.}
 
-\item{TimeUnitsName}{(character) Column in \code{L0_flat} containing the name of units of the time support. If TimeSupport is 0, indicating an instantaneous observation, a unit needs to still be given for completeness, although it is arbitrary. Must be from the ODM CV (see \code{UnitsCV})}
+\item{TimeUnitsName}{(character) Column in \code{L0_flat} containing the name
+of units of the time support. If TimeSupport is 0, indicating an
+instantaneous observation, a unit needs to still be given for completeness,
+although it is arbitrary. Must be from the ODM CV (see \code{UnitsCV})}
 
-\item{DataType}{(character) Column in \code{L0_flat} that indicates how the value applies over a time interval. Must be from the ODM CV (see \code{DataTypeCV})}
+\item{DataType}{(character) Column in \code{L0_flat} that indicates how the
+value applies over a time interval. Must be from the ODM CV (see
+\code{DataTypeCV})}
 
-\item{GeneralCategory}{(character) Column in \code{L0_flat} containing the general category of data. Must be from the ODM CV (see \code{GeneralCategoryCV})}
+\item{GeneralCategory}{(character) Column in \code{L0_flat} containing the
+general category of data. Must be from the ODM CV (see
+\code{GeneralCategoryCV})}
 
-\item{NoDataValue}{(character) Column in \code{L0_flat} containing the numeric value used to encode when a data value is not available for this variable.}
+\item{NoDataValue}{(character) Column in \code{L0_flat} containing the
+numeric value used to encode when a data value is not available for this
+variable.}
 }
 \value{
 (tbl_df, tbl, data.frame) The Variables table.
@@ -51,10 +74,44 @@ create_variables(
 Create the Variables table
 }
 \details{
-This function appends columns to the \code{L0_flat} table and returns the augmented table.
+This function appends columns to the \code{L0_flat} table and
+returns the augmented table.
 
-"flat" format refers to the fully joined source L0 dataset in "wide" form with the exception of the core observation variables, which are in "long" form (i.e. using the variable_name, value, unit columns of the observation table). This "flat" format is the "widest" an L1 hymetDP dataset can be consistently spread due to the frequent occurrence of L0 source datasets with > 1 core observation variable.
+"flat" format refers to the fully joined source L0 dataset in "wide" form
+with the exception of the core observation variables, which are in "long"
+form (i.e. using the variable_name, value, unit columns of the observation
+table). This "flat" format is the "widest" an L1 hymetDP dataset can be
+consistently spread due to the frequent occurrence of L0 source datasets
+with > 1 core observation variable.
 }
 \examples{
 
+flat <- hymet_L0_flat
+
+  Variables <- hymetDP::create_variables(
+    L0_flat = flat,
+    VariableCode = "VariableCode",
+    VariableName = "VariableName",
+    VariableUnitsName = "VariableUnitsName",
+    SampleMedium = "SampleMedium",
+    ValueType = "ValueType",
+    IsRegular = "IsRegular",
+    TimeSupport = "TimeSupport",
+    TimeUnitsName = "TimeUnitsName",
+    DataType = "DataType",
+    GeneralCategory = "GeneralCategory",
+    NoDataValue = "NoDataValue")
+
+  Variables
+
 }
+\seealso{
+Other create required tables: 
+\code{\link{create_data_values}()},
+\code{\link{create_methods}()},
+\code{\link{create_quality_control}()},
+\code{\link{create_series_catalog}()},
+\code{\link{create_sites}()},
+\code{\link{create_sources}()}
+}
+\concept{create required tables}

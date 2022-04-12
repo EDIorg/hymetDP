@@ -15,7 +15,8 @@ create_series_catalog(
 )
 }
 \arguments{
-\item{L0_flat}{(tbl_df, tbl, data.frame) The fully joined source L0 dataset, in "flat" format (see details).}
+\item{L0_flat}{(tbl_df, tbl, data.frame) The fully joined source L0 dataset,
+in "flat" format (see details).}
 
 \item{Sources}{(tbl_df, tbl, data.frame) The Sources table.}
 
@@ -25,7 +26,8 @@ create_series_catalog(
 
 \item{Sites}{(tbl_df, tbl, data.frame) The Sites table.}
 
-\item{QualityControlLevels}{(tbl_df, tbl, data.frame) The QualityControlLevels table.}
+\item{QualityControlLevels}{(tbl_df, tbl, data.frame) The
+QualityControlLevels table.}
 
 \item{DataValues}{(tbl_df, tbl, data.frame) The DataValues table.}
 }
@@ -36,10 +38,115 @@ create_series_catalog(
 Create the SeriesCatalog table
 }
 \details{
-This function appends columns to the \code{L0_flat} table and returns the augmented table.
+This function appends columns to the \code{L0_flat} table and
+returns the augmented table.
 
-"flat" format refers to the fully joined source L0 dataset in "wide" form with the exception of the core observation variables, which are in "long" form (i.e. using the variable_name, value, unit columns of the observation table). This "flat" format is the "widest" an L1 hymetDP dataset can be consistently spread due to the frequent occurrence of L0 source datasets with > 1 core observation variable.
+"flat" format refers to the fully joined source L0 dataset in "wide" form
+with the exception of the core observation variables, which are in "long"
+form (i.e. using the variable_name, value, unit columns of the observation
+table). This "flat" format is the "widest" an L1 hymetDP dataset can be
+consistently spread due to the frequent occurrence of L0 source datasets
+with > 1 core observation variable.
 }
 \examples{
 
+flat <- hymet_L0_flat
+
+Sources <- hymetDP::create_sources(
+  L0_flat = flat,
+  SourceCode = "SourceCode",
+  Organization = "Organization",
+  SourceDescription = "SourceDescription",
+  SourceLink = "SourceLink",
+  ContactName = "ContactName",
+  Phone = "Phone",
+  Email = "Email",
+  Address = "Address",
+  City = "City",
+  State = "State",
+  ZipCode = "ZipCode",
+  Citation = "Citation")
+
+Methods <- hymetDP::create_methods(
+  L0_flat = flat,
+  MethodCode = "MethodCode",
+  MethodDescription = "MethodDescription")
+
+Variables <- hymetDP::create_variables(
+  L0_flat = flat,
+  VariableCode = "VariableCode",
+  VariableName = "VariableName",
+  VariableUnitsName = "VariableUnitsName",
+  SampleMedium = "SampleMedium",
+  ValueType = "ValueType",
+  IsRegular = "IsRegular",
+  TimeSupport = "TimeSupport",
+  TimeUnitsName = "TimeUnitsName",
+  DataType = "DataType",
+  GeneralCategory = "GeneralCategory",
+  NoDataValue = "NoDataValue")
+
+Sites <- hymetDP::create_sites(
+  L0_flat = flat,
+  SiteCode = "SiteCode",
+  SiteName = "SiteName",
+  Latitude = "Latitude",
+  Longitude = "Longitude",
+  LatLongDatumSRSName = NULL,
+  Elevation_m = NULL,
+  VerticalDatum = NULL,
+  LocalX = NULL,
+  LocalY = NULL,
+  LocalProjectionSRSName = NULL,
+  PosAccuracy_m = NULL,
+  State = NULL,
+  County = NULL,
+  Comments = NULL,
+  SiteType = "SiteType")
+
+QualityControlLevels <- hymetDP::create_quality_control(
+  L0_flat = flat,
+  QualityControlLevelCode = "QualityControlLevelCode",
+  Definition = "Definition",
+  Explanation = "Explanation")
+
+DataValues <- hymetDP::create_data_values(
+  L0_flat = flat,
+  ValueID = "ValueID",
+  DataValue = "DataValue",
+  ValueAccuracy = NULL,
+  LocalDateTime = "LocalDateTime",
+  UTCOffset = "UTCOffset",
+  DateTimeUTC = "DateTimeUTC",
+  SiteCode = "SiteCode",
+  VariableCode = "VariableCode",
+  OffsetValue = NULL,
+  OffsetTypeCode = NULL,
+  CensorCode = NULL,
+  QualifierCode = NULL,
+  MethodCode = "MethodCode",
+  QualityControlLevelCode = "QualityControlLevelCode",
+  SourceCode = "SourceCode",
+  NoDataValue = "NoDataValue")
+
+SeriesCatalog <- hymetDP::create_series_catalog(
+  Sources = Sources,
+  Methods = Methods,
+  Variables = Variables,
+  Sites = Sites,
+  QualityControlLevels = QualityControlLevels,
+  DataValues = DataValues)
+
+SeriesCatalog
+
 }
+\seealso{
+Other create required tables: 
+\code{\link{create_data_values}()},
+\code{\link{create_methods}()},
+\code{\link{create_quality_control}()},
+\code{\link{create_sites}()},
+\code{\link{create_sources}()},
+\code{\link{create_variables}()}
+}
+\concept{create required tables}

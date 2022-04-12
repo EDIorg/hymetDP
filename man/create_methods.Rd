@@ -12,13 +12,18 @@ create_methods(
 )
 }
 \arguments{
-\item{L0_flat}{(tbl_df, tbl, data.frame) The fully joined source L0 dataset, in "flat" format (see details).}
+\item{L0_flat}{(tbl_df, tbl, data.frame) The fully joined source L0 dataset,
+in "flat" format (see details).}
 
-\item{MethodCode}{(character) Column in \code{L0_flat} containing the code used by the organization that collects the data to identify the Method.}
+\item{MethodCode}{(character) Column in \code{L0_flat} containing the code
+used by the organization that collects the data to identify the Method.}
 
-\item{MethodDescription}{(character) Column in \code{L0_flat} containing the text description of each method.}
+\item{MethodDescription}{(character) Column in \code{L0_flat} containing the
+text description of each method.}
 
-\item{MethodLink}{(character) Optional. Column in \code{L0_flat} containing a link to additional reference material on the method. Should be a single valid URL.}
+\item{MethodLink}{(character) Optional. Column in \code{L0_flat} containing a
+link to additional reference material on the method. Should be a single
+valid URL.}
 }
 \value{
 (tbl_df, tbl, data.frame) The Methods table.
@@ -27,10 +32,35 @@ create_methods(
 Create the Methods table
 }
 \details{
-This function appends columns to the \code{L0_flat} table and returns the augmented table.
+This function appends columns to the \code{L0_flat} table and
+returns the augmented table.
 
-"flat" format refers to the fully joined source L0 dataset in "wide" form with the exception of the core observation variables, which are in "long" form (i.e. using the variable_name, value, unit columns of the observation table). This "flat" format is the "widest" an L1 hymetDP dataset can be consistently spread due to the frequent occurrence of L0 source datasets with > 1 core observation variable.
+"flat" format refers to the fully joined source L0 dataset in "wide" form
+with the exception of the core observation variables, which are in "long"
+form (i.e. using the variable_name, value, unit columns of the observation
+table). This "flat" format is the "widest" an L1 hymetDP dataset can be
+consistently spread due to the frequent occurrence of L0 source datasets
+with > 1 core observation variable.
 }
 \examples{
 
+flat <- hymet_L0_flat
+
+ Methods <- hymetDP::create_methods(
+   L0_flat = flat,
+   MethodCode = "MethodCode",
+   MethodDescription = "MethodDescription")
+
+ Methods
+
 }
+\seealso{
+Other create required tables: 
+\code{\link{create_data_values}()},
+\code{\link{create_quality_control}()},
+\code{\link{create_series_catalog}()},
+\code{\link{create_sites}()},
+\code{\link{create_sources}()},
+\code{\link{create_variables}()}
+}
+\concept{create required tables}

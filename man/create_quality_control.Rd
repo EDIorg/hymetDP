@@ -12,13 +12,19 @@ create_quality_control(
 )
 }
 \arguments{
-\item{L0_flat}{(tbl_df, tbl, data.frame) The fully joined source L0 dataset, in "flat" format (see details).}
+\item{L0_flat}{(tbl_df, tbl, data.frame) The fully joined source L0 dataset,
+in "flat" format (see details).}
 
-\item{QualityControlLevelCode}{(character) Column in \code{L0_flat} containing the code used to identify the level of quality control to which data values have been subjected.}
+\item{QualityControlLevelCode}{(character) Column in \code{L0_flat}
+containing the code used to identify the level of quality control to which
+data values have been subjected.}
 
-\item{Definition}{(character) Column in \code{L0_flat} containing the definition of Quality Control Level. Examples: Raw Data, Quality Controlled Data. This is not to be confused with data qualifiers.}
+\item{Definition}{(character) Column in \code{L0_flat} containing the
+definition of Quality Control Level. Examples: Raw Data, Quality Controlled
+Data. This is not to be confused with data qualifiers.}
 
-\item{Explanation}{(character) Column in \code{L0_flat} containing the explanation of Quality Control Level.}
+\item{Explanation}{(character) Column in \code{L0_flat} containing the
+explanation of Quality Control Level.}
 }
 \value{
 
@@ -27,10 +33,36 @@ create_quality_control(
 Create the QualityControlLevels table
 }
 \details{
-This function appends columns to the \code{L0_flat} table and returns the augmented table.
+This function appends columns to the \code{L0_flat} table and
+returns the augmented table.
 
-"flat" format refers to the fully joined source L0 dataset in "wide" form with the exception of the core observation variables, which are in "long" form (i.e. using the variable_name, value, unit columns of the observation table). This "flat" format is the "widest" an L1 hymetDP dataset can be consistently spread due to the frequent occurrence of L0 source datasets with > 1 core observation variable.
+"flat" format refers to the fully joined source L0 dataset in "wide" form
+with the exception of the core observation variables, which are in "long"
+form (i.e. using the variable_name, value, unit columns of the observation
+table). This "flat" format is the "widest" an L1 hymetDP dataset can be
+consistently spread due to the frequent occurrence of L0 source datasets
+with > 1 core observation variable.
 }
 \examples{
 
+flat <- hymet_L0_flat
+
+  QualityControlLevels <- hymetDP::create_quality_control(
+    L0_flat = flat,
+    QualityControlLevelCode = "QualityControlLevelCode",
+    Definition = "Definition",
+    Explanation = "Explanation")
+
+  QualityControlLevels
+
 }
+\seealso{
+Other create required tables: 
+\code{\link{create_data_values}()},
+\code{\link{create_methods}()},
+\code{\link{create_series_catalog}()},
+\code{\link{create_sites}()},
+\code{\link{create_sources}()},
+\code{\link{create_variables}()}
+}
+\concept{create required tables}

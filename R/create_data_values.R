@@ -1,30 +1,83 @@
 #' Create the DataValues table
 #'
-#' @param L0_flat (tbl_df, tbl, data.frame) The fully joined source L0 dataset, in "flat" format (see details).
-#' @param ValueID (character) Column in \code{L0_flat} containing the identifier assigned to each unique data value.
-#' @param DataValue (character) Column in \code{L0_flat} containing the numeric value of the observation.
-#' @param ValueAccuracy (character) Optional. Column in \code{L0_flat} containing the umeric value that describes the measurement accuracy of the data value.
-#' @param LocalDateTime (character) Column in \code{L0_flat} containing local date and time at which the data value was observed.
-#' @param UTCOffset (character) Column in \code{L0_flat} containing offset in hours from UTC time of the corresponding LocalDateTime value.
-#' @param DateTimeUTC (character) Column in \code{L0_flat} containing UTC date and time at which the data value was observed.
-#' @param SiteCode (character) Column in \code{L0_flat} containing code used by organization that collects the data to identify the site.
-#' @param VariableCode (character) Column in \code{L0_flat} containing code used by the organization that collects the data to identify the variable.
-#' @param OffsetValue (character) Optional. Column in \code{L0_flat} containing distance from a datum or control point to the point at which a data value was observed.
-#' @param OffsetTypeCodeMandatory (character) if OffsetValue is used. Column in \code{L0_flat} containing code used by the organization that collects the data to identify the OffsetType.
-#' @param CensorCode (character) Column in \code{L0_flat} containing text indication of whether the data value is censored. Defaults to "nc" (Not Censored).
-#' @param QualifierCode (character) Optional. Column in \code{L0_flat} containing a flag indicating a peculiarity with a particular data value.
-#' @param MethodCode (character) Column in \code{L0_flat} containing the code used by the organization that collects the data to identify the Method.
-#' @param QualityControlLevelCode (character) Column in \code{L0_flat} containing the code which identifies the level of quality control that the value has been subjected to.
-#' @param SourceCode (character) Column in \code{L0_flat} containing the code which identifies the organization that created the data.
-#' @param NoDataValue (character) Column in \code{L0_flat} containing numeric value used to encode when a data value is not available for this variable.
+#' @param L0_flat (tbl_df, tbl, data.frame) The fully joined source L0 dataset,
+#'   in "flat" format (see details).
+#' @param ValueID (character) Column in \code{L0_flat} containing the identifier
+#'   assigned to each unique data value.
+#' @param DataValue (character) Column in \code{L0_flat} containing the numeric
+#'   value of the observation.
+#' @param ValueAccuracy (character) Optional. Column in \code{L0_flat}
+#'   containing the umeric value that describes the measurement accuracy of the
+#'   data value.
+#' @param LocalDateTime (character) Column in \code{L0_flat} containing local
+#'   date and time at which the data value was observed.
+#' @param UTCOffset (character) Column in \code{L0_flat} containing offset in
+#'   hours from UTC time of the corresponding LocalDateTime value.
+#' @param DateTimeUTC (character) Column in \code{L0_flat} containing UTC date
+#'   and time at which the data value was observed.
+#' @param SiteCode (character) Column in \code{L0_flat} containing code used by
+#'   organization that collects the data to identify the site.
+#' @param VariableCode (character) Column in \code{L0_flat} containing code used
+#'   by the organization that collects the data to identify the variable.
+#' @param OffsetValue (character) Optional. Column in \code{L0_flat} containing
+#'   distance from a datum or control point to the point at which a data value
+#'   was observed.
+#' @param OffsetTypeCodeMandatory (character) if OffsetValue is used. Column in
+#'   \code{L0_flat} containing code used by the organization that collects the
+#'   data to identify the OffsetType.
+#' @param CensorCode (character) Column in \code{L0_flat} containing text
+#'   indication of whether the data value is censored. Defaults to "nc" (Not
+#'   Censored).
+#' @param QualifierCode (character) Optional. Column in \code{L0_flat}
+#'   containing a flag indicating a peculiarity with a particular data value.
+#' @param MethodCode (character) Column in \code{L0_flat} containing the code
+#'   used by the organization that collects the data to identify the Method.
+#' @param QualityControlLevelCode (character) Column in \code{L0_flat}
+#'   containing the code which identifies the level of quality control that the
+#'   value has been subjected to.
+#' @param SourceCode (character) Column in \code{L0_flat} containing the code
+#'   which identifies the organization that created the data.
+#' @param NoDataValue (character) Column in \code{L0_flat} containing numeric
+#'   value used to encode when a data value is not available for this variable.
 #'
-#' @details This function appends columns to the \code{L0_flat} table and returns the augmented table.
+#' @details This function appends columns to the \code{L0_flat} table and
+#'   returns the augmented table.
 #'
-#' "flat" format refers to the fully joined source L0 dataset in "wide" form with the exception of the core observation variables, which are in "long" form (i.e. using the variable_name, value, unit columns of the observation table). This "flat" format is the "widest" an L1 hymetDP dataset can be consistently spread due to the frequent occurrence of L0 source datasets with > 1 core observation variable.
+#'   "flat" format refers to the fully joined source L0 dataset in "wide" form
+#'   with the exception of the core observation variables, which are in "long"
+#'   form (i.e. using the variable_name, value, unit columns of the observation
+#'   table). This "flat" format is the "widest" an L1 hymetDP dataset can be
+#'   consistently spread due to the frequent occurrence of L0 source datasets
+#'   with > 1 core observation variable.
+#'
+#' @family create required tables
 #'
 #' @return (tbl_df, tbl, data.frame) The DataValues table.
 #'
 #' @examples
+#'
+#' flat <- hymet_L0_flat
+#'
+#'   DataValues <- hymetDP::create_data_values(
+#'     L0_flat = flat,
+#'     ValueID = "ValueID",
+#'     DataValue = "DataValue",
+#'     ValueAccuracy = NULL,
+#'     LocalDateTime = "LocalDateTime",
+#'     UTCOffset = "UTCOffset",
+#'     DateTimeUTC = "DateTimeUTC",
+#'     SiteCode = "SiteCode",
+#'     VariableCode = "VariableCode",
+#'     OffsetValue = NULL,
+#'     OffsetTypeCode = NULL,
+#'     CensorCode = NULL,
+#'     QualifierCode = NULL,
+#'     MethodCode = "MethodCode",
+#'     QualityControlLevelCode = "QualityControlLevelCode",
+#'     SourceCode = "SourceCode",
+#'     NoDataValue = "NoDataValue")
+#'
+#'   DataValues
 #'
 #' @export
 #'

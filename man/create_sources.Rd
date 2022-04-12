@@ -21,31 +21,45 @@ create_sources(
 )
 }
 \arguments{
-\item{L0_flat}{(tbl_df, tbl, data.frame) The fully joined source L0 dataset, in "flat" format (see details).}
+\item{L0_flat}{(tbl_df, tbl, data.frame) The fully joined source L0 dataset,
+in "flat" format (see details).}
 
-\item{SourceCode}{(character) Column in \code{L0_flat} containing the code which identifies the organization that created the data.}
+\item{SourceCode}{(character) Column in \code{L0_flat} containing the code
+which identifies the organization that created the data.}
 
-\item{Organization}{(character) Column in \code{L0_flat} containing the name of the organization that collected the data.}
+\item{Organization}{(character) Column in \code{L0_flat} containing the name
+of the organization that collected the data.}
 
-\item{SourceDescription}{(character) Column in \code{L0_flat} containing the full text description of the source of the data.}
+\item{SourceDescription}{(character) Column in \code{L0_flat} containing the
+full text description of the source of the data.}
 
-\item{SourceLink}{(character) Column in \code{L0_flat} containing the link to the original data file of the data source.}
+\item{SourceLink}{(character) Column in \code{L0_flat} containing the link to
+the original data file of the data source.}
 
-\item{ContactName}{(character) Column in \code{L0_flat} containing the name of the contact person for the data source.}
+\item{ContactName}{(character) Column in \code{L0_flat} containing the name
+of the contact person for the data source.}
 
-\item{Phone}{(character) Column in \code{L0_flat} containing the phone number for the contact person.}
+\item{Phone}{(character) Column in \code{L0_flat} containing the phone number
+for the contact person.}
 
-\item{Email}{(character) Column in \code{L0_flat} containing the email address for the contact person.}
+\item{Email}{(character) Column in \code{L0_flat} containing the email
+address for the contact person.}
 
-\item{Address}{(character) Column in \code{L0_flat} containing the street address for the contact person.}
+\item{Address}{(character) Column in \code{L0_flat} containing the street
+address for the contact person.}
 
-\item{City}{(character) Column in \code{L0_flat} containing the city in which the contact person is located.}
+\item{City}{(character) Column in \code{L0_flat} containing the city in which
+the contact person is located.}
 
-\item{State}{(character) Column in \code{L0_flat} containing the state in which the contact person is located.}
+\item{State}{(character) Column in \code{L0_flat} containing the state in
+which the contact person is located.}
 
-\item{ZipCode}{(character) Column in \code{L0_flat} containing the US Zip Code or country postal code.}
+\item{ZipCode}{(character) Column in \code{L0_flat} containing the US Zip
+Code or country postal code.}
 
-\item{Citation}{(character) Column in \code{L0_flat} containing the Text string that gives the citation to be used when the data from each source are referenced.}
+\item{Citation}{(character) Column in \code{L0_flat} containing the Text
+string that gives the citation to be used when the data from each source
+are referenced.}
 }
 \value{
 (tbl_df, tbl, data.frame) The Sources table.
@@ -54,10 +68,45 @@ create_sources(
 Create the Sources table
 }
 \details{
-This function appends columns to the \code{L0_flat} table and returns the augmented table.
+This function appends columns to the \code{L0_flat} table and
+returns the augmented table.
 
-"flat" format refers to the fully joined source L0 dataset in "wide" form with the exception of the core observation variables, which are in "long" form (i.e. using the variable_name, value, unit columns of the observation table). This "flat" format is the "widest" an L1 hymetDP dataset can be consistently spread due to the frequent occurrence of L0 source datasets with > 1 core observation variable.#'
+"flat" format refers to the fully joined source L0 dataset in "wide" form
+with the exception of the core observation variables, which are in "long"
+form (i.e. using the variable_name, value, unit columns of the observation
+table). This "flat" format is the "widest" an L1 hymetDP dataset can be
+consistently spread due to the frequent occurrence of L0 source datasets
+with > 1 core observation variable.#'
 }
 \examples{
 
+flat <- hymet_L0_flat
+
+  Sources <- hymetDP::create_sources(
+    L0_flat = flat,
+    SourceCode = "SourceCode",
+    Organization = "Organization",
+    SourceDescription = "SourceDescription",
+    SourceLink = "SourceLink",
+    ContactName = "ContactName",
+    Phone = "Phone",
+    Email = "Email",
+    Address = "Address",
+    City = "City",
+    State = "State",
+    ZipCode = "ZipCode",
+    Citation = "Citation")
+
+  Sources
+
 }
+\seealso{
+Other create required tables: 
+\code{\link{create_data_values}()},
+\code{\link{create_methods}()},
+\code{\link{create_quality_control}()},
+\code{\link{create_series_catalog}()},
+\code{\link{create_sites}()},
+\code{\link{create_variables}()}
+}
+\concept{create required tables}
