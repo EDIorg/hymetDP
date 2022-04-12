@@ -92,13 +92,13 @@ testthat::test_that("Standard L1 column inputs", {
       SourceCode = "SourceCode",
       NoDataValue = "NoDataValue")
 
-    res <- suppressMessages(hymetDP::create_series_catalog(
+    res <- hymetDP::create_series_catalog(
       Sources = Sources,
       Methods = Methods,
       Variables = Variables,
       Sites = Sites,
       QualityControlLevels = QualityControlLevels,
-      DataValues = DataValues))
+      DataValues = DataValues)
 
     # Has expected columns
 

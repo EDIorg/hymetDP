@@ -171,9 +171,12 @@ create_series_catalog <- function(
      t <- get(t)
 
      res %>%
-       dplyr::left_join(kit::funique(t[cols]))
+       dplyr::left_join(kit::funique(t[cols])) %>%
+       suppressMessages()
+
    }) %>%
     purrr::reduce(dplyr::left_join, by = composite_key)
+
 
 
   # TODO extract from flat
