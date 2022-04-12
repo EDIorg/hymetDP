@@ -138,7 +138,7 @@ create_hymetDP <- function(path,
   flat$SiteName <- site_name
   flat$Latitude <- lat
   flat$Longitude <- lon
-  flat$LatLongDatumSRSName <- ""
+  flat$LatLongDatumSRSName <- "Unknown"
   flat$SiteType <- ""
 
 
