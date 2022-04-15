@@ -30,3 +30,4 @@ Imports:
     kit,
     lutz
 VignetteBuilder: knitr
+URL: https://kzollove.github.io/hymetDP/
