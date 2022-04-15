@@ -19,7 +19,7 @@ Use [GitHub Issues](https://github.com/kzollove/hymetDP/issues) for bug reportin
 
 # Contributing
 
-Community contributions are welcome! Please reference our contributing guidelines for details.
+Community contributions are welcome! Please reference our [contributing guidelines](https://github.com/kzollove/hymetDP/blob/master/CONTRIBUTING.md) for details.
 
 ---
 
