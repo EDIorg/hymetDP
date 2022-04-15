@@ -1,123 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/404.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/index.html</loc>
   </url>
   <url>
-    <loc>/reference/DataTypeCV.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/DataTypeCV.html</loc>
   </url>
   <url>
-    <loc>/reference/GeneralCategoryCV.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/GeneralCategoryCV.html</loc>
   </url>
   <url>
-    <loc>/reference/SampleMediumCV.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/SampleMediumCV.html</loc>
   </url>
   <url>
-    <loc>/reference/UnitsCV.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/UnitsCV.html</loc>
   </url>
   <url>
-    <loc>/reference/ValueTypeCV.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/ValueTypeCV.html</loc>
   </url>
   <url>
-    <loc>/reference/VariableNameCV.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/VariableNameCV.html</loc>
   </url>
   <url>
-    <loc>/reference/check_odm_cv.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/check_odm_cv.html</loc>
   </url>
   <url>
-    <loc>/reference/convert_missing_value.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/convert_missing_value.html</loc>
   </url>
   <url>
-    <loc>/reference/create_USGS_hymet.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/create_USGS_hymet.html</loc>
   </url>
   <url>
-    <loc>/reference/create_citation.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/create_citation.html</loc>
   </url>
   <url>
-    <loc>/reference/create_data_values.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/create_data_values.html</loc>
   </url>
   <url>
-    <loc>/reference/create_methods.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/create_methods.html</loc>
   </url>
   <url>
-    <loc>/reference/create_qualifiers.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/create_qualifiers.html</loc>
   </url>
   <url>
-    <loc>/reference/create_quality_control.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/create_quality_control.html</loc>
   </url>
   <url>
-    <loc>/reference/create_series_catalog.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/create_series_catalog.html</loc>
   </url>
   <url>
-    <loc>/reference/create_sites.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/create_sites.html</loc>
   </url>
   <url>
-    <loc>/reference/create_sources.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/create_sources.html</loc>
   </url>
   <url>
-    <loc>/reference/create_variables.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/create_variables.html</loc>
   </url>
   <url>
-    <loc>/reference/define_method.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/define_method.html</loc>
   </url>
   <url>
-    <loc>/reference/define_source.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/define_source.html</loc>
   </url>
   <url>
-    <loc>/reference/define_variable.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/define_variable.html</loc>
   </url>
   <url>
-    <loc>/reference/get_usgs_sitetype.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/get_usgs_sitetype.html</loc>
   </url>
   <url>
-    <loc>/reference/get_usgs_variable.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/get_usgs_variable.html</loc>
   </url>
   <url>
-    <loc>/reference/hymet_L0_flat.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/hymet_L0_flat.html</loc>
   </url>
   <url>
-    <loc>/reference/hymet_L1.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/hymet_L1.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/pipe.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>/reference/read_data.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/read_data.html</loc>
   </url>
   <url>
-    <loc>/reference/read_data_package_report.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/read_data_package_report.html</loc>
   </url>
   <url>
-    <loc>/reference/read_tables.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/read_tables.html</loc>
   </url>
   <url>
-    <loc>/reference/return_close.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/return_close.html</loc>
   </url>
   <url>
-    <loc>/reference/validate_arguments.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/validate_arguments.html</loc>
   </url>
   <url>
-    <loc>/reference/validate_data.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/validate_data.html</loc>
   </url>
   <url>
-    <loc>/reference/validate_odm_terms.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/validate_odm_terms.html</loc>
   </url>
   <url>
-    <loc>/reference/write_tables.html</loc>
+    <loc>https://kzollove.github.io/hymetDP/reference/write_tables.html</loc>
   </url>
 </urlset>

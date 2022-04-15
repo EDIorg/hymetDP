@@ -2,5 +2,8 @@ pandoc: 2.14.0.3
 pkgdown: 2.0.2
 pkgdown_sha: ~
 articles: {}
-last_built: 2022-04-15T18:51Z
+last_built: 2022-04-15T19:34Z
+urls:
+  reference: https://kzollove.github.io/hymetDP/reference
+  article: https://kzollove.github.io/hymetDP/articles
 
