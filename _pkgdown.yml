@@ -1,4 +1,4 @@
 url: https://kzollove.github.io/hymetDP/
 template:
-  bootstrap: 5
+  bootswatch: spacelab
 
