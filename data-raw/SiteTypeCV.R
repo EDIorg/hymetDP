@@ -13,3 +13,4 @@ SiteTypeCV <- rvest::read_html("http://his.cuahsi.org/mastercvreg/edit_cv11.aspx
 
 # Save to /data
 usethis::use_data(SiteTypeCV, overwrite = TRUE)
+

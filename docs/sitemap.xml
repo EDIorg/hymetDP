@@ -22,6 +22,9 @@
     <loc>https://kzollove.github.io/hymetDP/index.html</loc>
   </url>
   <url>
+    <loc>https://kzollove.github.io/hymetDP/reference/CensorCodeCV.html</loc>
+  </url>
+  <url>
     <loc>https://kzollove.github.io/hymetDP/reference/DataTypeCV.html</loc>
   </url>
   <url>
@@ -31,6 +34,12 @@
     <loc>https://kzollove.github.io/hymetDP/reference/SampleMediumCV.html</loc>
   </url>
   <url>
+    <loc>https://kzollove.github.io/hymetDP/reference/SiteTypeCV.html</loc>
+  </url>
+  <url>
+    <loc>https://kzollove.github.io/hymetDP/reference/SpatialReferencesCV.html</loc>
+  </url>
+  <url>
     <loc>https://kzollove.github.io/hymetDP/reference/UnitsCV.html</loc>
   </url>
   <url>
@@ -38,6 +47,9 @@
   </url>
   <url>
     <loc>https://kzollove.github.io/hymetDP/reference/VariableNameCV.html</loc>
+  </url>
+  <url>
+    <loc>https://kzollove.github.io/hymetDP/reference/VerticalDatumCV.html</loc>
   </url>
   <url>
     <loc>https://kzollove.github.io/hymetDP/reference/check_odm_cv.html</loc>

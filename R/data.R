@@ -72,6 +72,19 @@
 "hymet_L1"
 
 
+#' Allowed Censor Codes
+#'
+#' A data frame representation of the CUAHSI ODM 1.1 Controlled Vocabulary for Censor Codes
+#'
+#' @format A data frame with 6 rows and 2 variables:
+#' \describe{
+#'   \item{Term}{Controlled Vocabulary term}
+#'   \item{Definition}{Definition of Controlled Vocabulary term}
+#' }
+#' @source \url{http://his.cuahsi.org/mastercvreg/edit_cv11.aspx?tbl=CensorCodeCV}
+"CensorCodeCV"
+
+
 
 #' Allowed Data Types
 #'
@@ -116,6 +129,34 @@
 #' @source \url{http://his.cuahsi.org/mastercvreg/edit_cv11.aspx?tbl=SampleMediumCV}
 "SampleMediumCV"
 
+
+#' Allowed Site Types
+#'
+#' A data frame representation of the CUAHSI ODM 1.1 Controlled Vocabulary for Site Types
+#'
+#' @format A data frame with 62 rows and 2 variables:
+#' \describe{
+#'   \item{Term}{Controlled Vocabulary term}
+#'   \item{Definition}{Definition of Controlled Vocabulary term}
+#' }
+#' @source \url{http://his.cuahsi.org/mastercvreg/edit_cv11.aspx?tbl=SiteTypeCV}
+"SiteTypeCV"
+
+
+#' Allowed Spatial References
+#'
+#' A data frame representation of the CUAHSI ODM 1.1 Controlled Vocabulary for Spatial References
+#'
+#' @format A data frame with 343 rows and 5 variables:
+#' \describe{
+#'   \item{SpatialReferencesID}{Integer identifier}
+#'   \item{SRSID}{Spatial Reference System identifier}
+#'   \item{SRSName}{Spatial Reference System name}
+#'   \item{IsGeographic}{Boolean}
+#'   \item{Notes}{Spatial Reference System notes}
+#' }
+#' @source \url{http://his.cuahsi.org/mastercvreg/edit_cv11.aspx?tbl=SpatialReferences}
+"SpatialReferencesCV"
 
 
 
@@ -163,5 +204,16 @@
 "VariableNameCV"
 
 
+#' Allowed Vertical Datum
+#'
+#' A data frame representation of the CUAHSI ODM 1.1 Controlled Vocabulary for Vertical Datum
+#'
+#' @format A data frame with 5 rows and 2 variables:
+#' \describe{
+#'   \item{Term}{Controlled Vocabulary term}
+#'   \item{Definition}{Definition of Controlled Vocabulary term}
+#' }
+#' @source \url{http://his.cuahsi.org/mastercvreg/edit_cv11.aspx?tbl=VerticalDatumCV}
+"VerticalDatumCV"
 
 

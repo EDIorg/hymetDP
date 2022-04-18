@@ -1,3 +1,80 @@
+#' Create EML metadata
+#'
+#' @param path (character) Path to the directory containing hymetDP tables, conversion script, and where EML metadata will be written.
+#' @param source_id (character) Identifier of a data package published in a supported repository. Currently, the EDI Data Repository is supported.
+#' @param derived_id (character) Identifier of the dataset being created.
+#' @param script (character) Name of file used to convert \code{source_id} to \code{derived_id}.
+#' @param script_description (character) Description of \code{script}.
+#' @param is_about (named character) An optional argument for specifying dataset level annotations describing what this dataset "is about".
+#' @param contact (data.frame) Contact information for the person that created this hymetDP dataset, containing these columns:
+#'    \itemize{
+#'        \item givenName
+#'        \item surName
+#'        \item organizationName
+#'        \item electronicMailAddress
+#'    }
+#' @param user_id (character) Identifier of user associated with \code{user_domain}.
+#' @param user_domain (character) Domain (data repository) the \code{user_id} belongs to. Currently, EDI is supported.
+#' @param url (character) URL to the publicly accessible directory containing hymetDP tables, conversion script, and EML metadata. This argument supports direct download of the data entities by a data repository and is used for automated revisioning and publication.
+#'
+#' @return An EML metadata file.
+#'
+#' @details This function creates an EML record for a hymetDP dataset by combining metadata from \code{source_id} with boiler-plate metadata describing the hymetDP model. Changes to the \code{source_id} EML include:
+#'     \itemize{
+#'         \item \strong{<access>} Adds \code{user_id} to the list of principals granted read and write access to the hymetDP data package this EML describes.
+#'         \item \strong{<title>} Adds a note that this is a derived data package in the hymetDP format.
+#'         \item \strong{<pubDate>} Adds the date this EML was created.
+#'         \item \strong{<abstract>} Adds a note that this is a derived data package in the hymetDP format.
+#'         \item \strong{<keywordSet>} Adds the "hymetDP" keyword to enable search and discovery of all hymetDP data packages in the data repository it is published.
+#'         \item \strong{<intellectualRights>} Keeps intact the original intellectual rights license \code{source_id} was released under, or uses \href{https://creativecommons.org/publicdomain/zero/1.0/legalcode}{CCO} if missing.
+#'         \item \strong{<contact>} Adds the hymetDP creator as a point of contact.
+#'         \item \strong{<methodStep>} Adds a note that this data package was created by the \code{script}, and adds provenance metadata noting that this is a derived dataset and describes where the \code{source_id} can be accessed.
+#'         \item \strong{<dataTables>} Replaces the \code{source_id} table metadata with descriptions of the the hymetDP tables.
+#'         \item \strong{<otherEntity>} Adds \code{script} and \code{script_description}. otherEntities of \code{source_id} are removed.
+#'         \item \strong{<annotations>} Adds boilerplate annotations describing the hymetDP at the dataset, entity, and entity attribute levels.
+#'     }
+#'
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Create directory with hymetDP tables for create_eml()
+#' mypath <- paste0(tempdir(), "/data")
+#' dir.create(mypath)
+#' inpts <- c(hymet_L1$tables, path = mypath)
+#' do.call(write_tables, inpts)
+#' file.copy(system.file("extdata", "create_hymetDP.R", package = "hymetDP"), mypath)
+#' dir(mypath)
+#'
+#' # Add self as contact information incase questions arise
+#' additional_contact <- data.frame(
+#'   givenName = 'Kyle',
+#'   surName = 'Zollo-Venecek',
+#'   organizationName = 'Environmental Data Initiative',
+#'   electronicMailAddress = 'hymetdp@gmail.com',
+#'   stringsAsFactors = FALSE)
+#'
+#' # Create EML
+#' eml <- create_eml(
+#'   path = mypath,
+#'   source_id = "knb-lter-mcm.9003.11",
+#'   derived_id = "edi.10101.1",
+#'   is_about = dataset_annotations,
+#'   script = "create_ecocomDP.R",
+#'   script_description = "A function for converting knb-lter-mcm.9003 to hymetDP",
+#'   contact = additional_contact,
+#'   user_id = 'hymetdp',
+#'   user_domain = 'EDI',
+#'   basis_of_record = "MachineObservation")
+#'
+#' dir(mypath)
+#' View(eml)
+#'
+#' # Clean up
+#' unlink(mypath, recursive = TRUE)
+#' }
+#'
 create_eml <- function(path,
                        source_id = NULL,
                        derived_id,
@@ -7,7 +84,6 @@ create_eml <- function(path,
                        contact,
                        user_id,
                        user_domain,
-                       basis_of_record = NULL, # This is a DwC thing... maybe remove
                        url = NULL) {
 
   message("Creating EML for derived data package (" , derived_id, ")")

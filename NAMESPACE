@@ -3,6 +3,7 @@
 export("%>%")
 export(create_USGS_hymet)
 export(create_data_values)
+export(create_eml)
 export(create_methods)
 export(create_qualifiers)
 export(create_quality_control)

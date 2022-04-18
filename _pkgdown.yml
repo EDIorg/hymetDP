@@ -41,7 +41,7 @@ reference:
     - UnitsCV
     - ValueTypeCV
     - VariableNameCV
-    - VerticalDatum CV
+    - VerticalDatumCV
   - title: Example Data
     desc: Example Data
     contents:

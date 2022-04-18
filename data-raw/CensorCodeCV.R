@@ -13,3 +13,4 @@ CensorCodeCV <- rvest::read_html("http://his.cuahsi.org/mastercvreg/edit_cv11.as
 
 # Save to /data
 usethis::use_data(CensorCodeCV, overwrite = TRUE)
+
