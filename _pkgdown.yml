@@ -1,5 +1,59 @@
+title: hymetDP
+
 url: https://kzollove.github.io/hymetDP/
+
 template:
   bootstrap: 5
   bootswatch: spacelab
+
+reference:
+  - title: Create
+    desc: Define variables, create tables, validate, and write metadata
+    contents:
+    - create_data_values
+    - create_methods
+    - create_qualifiers
+    - create_quality_control
+    - create_series_catalog
+    - create_sites
+    - create_sources
+    - create_variables
+    - create_USGS_hymet
+    - define_method
+    - define_source
+    - define_variable
+    - write_tables
+    - validate_data
+    - create_eml
+  - title: Use
+    desc: Search, read, manipulate, plot, and save validate_data
+    contents:
+    - read_data
+  - title: Controlled Vocabularies
+    desc: CUAHSI ODM Controlled Vocabularies
+    contents:
+    - CensorCodeCV
+    - DataTypeCV
+    - GeneralCategoryCV
+    - SampleMediumCV
+    - SiteTypeCV
+    - SpatialReferencesCV
+    - UnitsCV
+    - ValueTypeCV
+    - VariableNameCV
+    - VerticalDatum CV
+  - title: Example Data
+    desc: Example Data
+    contents:
+     - hymet_L0_flat
+     - hymet_L1
+
+navbar:
+  title: ~
+  type: default
+  left:
+    - text: Functions
+      href: reference/index.html
+
+
 
