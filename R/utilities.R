@@ -21,6 +21,8 @@
 #' qualityReport <- read_data_package_report("knb-lter-knz.260.4", frmt = "char")
 #' # writeLines(qualityReport, "./data/report.txt"))
 #'
+#' @keywords internal
+#'
 read_data_package_report <- function(packageId,
                                      frmt = "xml",
                                      env = "production") {

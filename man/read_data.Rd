@@ -47,23 +47,5 @@ Validation happens each time files are read, from source APIs or local environme
 This function may not work between 01:00 - 03:00 UTC on Wednesdays due to regular maintenance of the EDI Data Repository.
 }
 \examples{
-\dontrun{
-# Read from EDI
-TODO update these example
-dataset <- read_data("edi.193.5")
-str(dataset, max.level = 2)
-
-# Read with datetimes as character
-dataset <- read_data("edi.193.5", parse_datetime = FALSE)
-is.character(dataset$tables$observation$datetime)
-
-# Read from saved .rds
-save_data(dataset, tempdir())
-dataset <- read_data(from = paste0(tempdir(), "/dataset.rds"))
-
-# Read from saved .csv
-save_data(dataset, tempdir(), type = ".csv")# Save as .csv
-dataset <- read_data(from = tempdir())
-}
 
 }

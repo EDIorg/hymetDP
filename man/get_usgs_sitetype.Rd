@@ -15,3 +15,4 @@ Site type
 \description{
 Get USGS site type
 }
+\keyword{internal}

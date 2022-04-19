@@ -19,3 +19,4 @@ Vector of values with \code{code} replaced by NA in the class of \code{type}
 \description{
 Convert missing value codes to NA
 }
+\keyword{internal}

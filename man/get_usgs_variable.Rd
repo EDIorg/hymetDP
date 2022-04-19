@@ -15,3 +15,4 @@ Information associated with a USGS variable
 \description{
 Get USGS variable information
 }
+\keyword{internal}

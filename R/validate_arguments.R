@@ -13,6 +13,8 @@
 #' @details
 #'     Validation checks are function specific.
 #'
+#' @keywords internal
+#'
 validate_arguments <- function(fun.name, fun.args) {
 
 

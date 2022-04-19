@@ -17,7 +17,7 @@
 #'
 #' @export
 #'
-#' @examples
+#' @keywords internal
 #'
 read_tables <- function(eml,
                         strip.white = FALSE,
@@ -130,6 +130,8 @@ read_tables <- function(eml,
 #' @param type (character) Type (class) \code{v} should be. Supported types are: "character", "numeric", "datetime"
 #'
 #' @return Vector of values with \code{code} replaced by NA in the class of \code{type}
+#'
+#' @keywords internal
 #'
 convert_missing_value <- function(v, code, type) {
 

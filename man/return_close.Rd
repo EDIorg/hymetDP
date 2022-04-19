@@ -17,3 +17,4 @@ return_close(term, cv)
 \description{
 Return values from the CV that may be close to users' term
 }
+\keyword{internal}

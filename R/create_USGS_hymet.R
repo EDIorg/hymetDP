@@ -259,6 +259,8 @@ create_usgs_flat_fragment <- function(param, site, start, end, index) {
 #'
 #' @return Site type
 #'
+#' @keywords internal
+#'
 get_usgs_sitetype <- function(s) {
   t <- rvest::read_html('https://help.waterdata.usgs.gov/site_tp_cd') %>%
     rvest::html_element("table") %>%
@@ -275,6 +277,8 @@ get_usgs_sitetype <- function(s) {
 #' @param p (character) USGS parameter code \code{param}
 #'
 #' @return Information associated with a USGS variable
+#'
+#' @keywords internal
 #'
 get_usgs_variable <- function(p) {
   res <- data.table::fread(

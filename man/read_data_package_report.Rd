@@ -33,3 +33,4 @@ qualityReport <- read_data_package_report("knb-lter-knz.260.4", frmt = "char")
 # writeLines(qualityReport, "./data/report.txt"))
 
 }
+\keyword{internal}

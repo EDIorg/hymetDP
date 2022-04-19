@@ -210,7 +210,7 @@ define_source <- function(
 #'
 #' @examples
 #'
-#'
+#' @keywords internal
 #'
 #'
 

@@ -13,6 +13,8 @@
 #' @details
 #'     Validation checks are function specific.
 #'
+#' @keywords internal
+#'
 
 validate_odm_terms <- function(fun.name, fun.args) {
 
@@ -79,6 +81,9 @@ validate_odm_terms <- function(fun.name, fun.args) {
 #' @param cv (character) The "Term" column of the corresponding CV
 #'
 #' @return (logical) \code{TRUE} if there is an exact match in the CV, otherwise \code{FALSE}
+#'
+#' @keywords internal
+#'
 check_odm_cv <- function(term, cv) {term %in% cv}
 
 
@@ -88,4 +93,7 @@ check_odm_cv <- function(term, cv) {term %in% cv}
 #' @param cv (character) The "Term" column of the corresponding CV
 #'
 #' @return (list) Named list with any CV entries that contain the string
+#'
+#' @keywords internal
+#'
 return_close <- function(term, cv) cv[!is.na(cv %>% stringr::str_extract(paste0('(?i)', term)))]
