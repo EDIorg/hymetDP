@@ -16,15 +16,15 @@
 #'
 #' @examples
 #'
-#' flat <- <insert_test_flat_table_here>
+#' flat <- hymet_L0_flat[1:19]
 #'
-#' flat <- define_variable(
+#' flat <- hymetDP::define_method(
 #'   L0_flat = flat,
 #'   local_variable_column = "variable_name",
-#'   local_variable = NULL,
-#'   variable_code = NULL,
-#'   method_description = NULL,
-#'   method_link = NULL)
+#'   local_variable = "DSCHRGE_RATE",
+#'   VariableCode = c(1,2,3),
+#'   MethodDescription = "Campbell CR10 dataloggers were used to record stream stage, water temperature, and conductivity in a network of stream gages. Stage is monitored with pressure transducers; PSS-1 and PS-2 models form Paroscientific Corporation, and Accubars from Sutron Corporation. The pressure transducers measure the backpressure in orifice lines set into or above controls in the stream channel. In addition, some of the sites monitor water temperature and conductivity with either USGS minimonitor probes, or Campbell temperature/conductivity probes. Ratings are developed for the stage/discharge relationship at each site by measuring streamflow with current meters or portable flumes, according to standard USGS methods. Datum corrections to the stage are determined by periodically surveying the elevation of the orifice line to the control and nearby reference marks. Calibrations for the temperature and conductivity are assessed by measuring these parameters with portable field meters while simultaneously noting the readings from the gage probes. Data is downloaded into Campbell storage modules, and retrieved into pcs. From there, the data is sent to a USGS computer, where time discrepancies are resolved, and the data is loaded into ADAPS, a database system developed in the USGS for maintaining and processing water data. A determination for each site as to when the stream was flowing and when it was not is made. For water temperature and conductivity, bad data is deleted. Variable shifts are determined based on field calibration measurements, and other indicators. The shifts are applied to the remaining good data inside of ADAPS. The data is pulled out of ADAPS, and reformatted for input into ORACLE. Cases of water temperature below reasonable values are set to lower limits. A quality code is assigned to every value. The resulting data is uploaded into the ORACLE and the McMurdo database. Before 2011, For stage/discharge, bad data is deleted. Survey data is reviewed to compute weir elevations an datum corrections. A rating curve is developed graphically, based on available data, and entered into ADAPS. All applicable shifts and datum corrections are entered into ADAPS. All corrections and ratings are run against the good stage data to compute the discharge at each recording interval. The data is pulled out of ADAPS, and reformatted for input into ORACLE. A quality code is assigned to every value. The resulting data is uploaded into ORACLE and the McMurdo database. ADAPS deprecated in favor of Aquarius software in 2012. Similar procedure is used in Aquarius to convert and curate the data. Metadata was enhanced in 2013 and 2014 by Inigo San Gil. In March 2021, data from the 2016-17 field season was replaced to correct a previously published error, in which discharge was reported in cubicFeetPerSecond (CFS) instead of litersPerSecond (l/s).",
+#'   MethodLink = NULL)
 #'
 #'
 #' @export

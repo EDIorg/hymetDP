@@ -23,21 +23,21 @@
 #'
 #' @examples
 #'
-#' flat <- <insert_test_flat_table_here>
+#' flat <- hymet_L0_flat[1:9]
 #'
-#' flat <- define_variable(
+#' flat <- hymetDP::define_variable(
 #'   L0_flat = flat,
 #'   local_variable_column = "variable_name",
-#'   local_variable = NULL,
-#'   variable_name = local_variable,
-#'   variable_units = NULL,
-#'   sample_medium = "Unknown",
-#'   value_type = "Unknown",
-#'   is_regular = FALSE,
-#'   time_support = 0,
-#'   time_units = "hour",
-#'   data_type = "Unknown",
-#'   general_category = "Unknown",
+#'   local_variable = "DSCHRGE_RATE",
+#'   variable_name = "Discharge",
+#'   variable_units = "liters per second",
+#'   sample_medium = "Surface water",
+#'   value_type = "Derived Value",
+#'   is_regular = TRUE,
+#'   time_support = 15,
+#'   time_units = "minute",
+#'   data_type = "Continuous",
+#'   general_category = "Hydrology",
 #'   no_data = -9999)
 #'
 #' @export

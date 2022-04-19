@@ -32,11 +32,19 @@
 #'
 #' \dontrun{
 #' # Write a set of hymetDP tables to file for validation
-#' TODO come back to this when there is an example dataset
+#'
 #' mydir <- paste0(tempdir(), "/dataset")
 #' dir.create(mydir)
 #' write_tables(
-#'   path = mydir)
+#'   path = mydir,
+#'   DataValues = hymet_L1$tables$DataValues,
+#'   Methods = hymet_L1$tables$Methods,
+#'   Variables = hymet_L1$tables$Variables,
+#'   Sources = hymet_L1$tables$Sources,
+#'   Sites = hymet_L1$tables$Sites,
+#'   QualityControlLevels = hymet_L1$tables$QualityControlLevels,
+#'   Qualifiers = hymet_L1$tables$Qualifiers,
+#'   SeriesCatalog = hymet_L1$tables$SeriesCatalog)
 #'
 #' # Validate
 #' validate_data(path = mydir)

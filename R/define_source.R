@@ -22,22 +22,13 @@
 #'
 #' @examples
 #'
-#' flat <- <insert_test_flat_table_here>
+#' flat <- hymet_L0_flat[1:30]
+#'
+#' eml <- EDIutils::read_metadata('knb-lter-mcm.9003.11')
 #'
 #' flat <- define_source(
 #'   L0_flat = flat,
-#'   eml = eml,
-#'   Organization = NULL,
-#'   SourceDescription = NULL,
-#'   SourceLink = NULL,
-#'   ContactName = NULL,
-#'   Phone = NULL,
-#'   Email = NULL,
-#'   Address = NULL,
-#'   City = NULL,
-#'   State = NULL,
-#'   ZipCode = NULL,
-#'   Citation = NULL)
+#'   eml = eml)
 #'
 #' @export
 #'
