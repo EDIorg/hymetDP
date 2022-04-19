@@ -17,7 +17,18 @@
 #'
 #' @export
 #'
-#' @keywords internal
+#' @examples
+#'
+#' eml <- EDIutils::read_metadata('knb-lter-mcm.9003.11')
+#'
+#' tables <- read_tables(
+#'   eml = eml,
+#'   strip.white = TRUE,
+#'   na.strings = "",
+#'   convert.missing.value = TRUE,
+#'   add.units = TRUE)
+#'
+#'
 #'
 read_tables <- function(eml,
                         strip.white = FALSE,
