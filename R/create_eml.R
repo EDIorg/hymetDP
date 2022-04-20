@@ -65,8 +65,7 @@
 #'   script_description = "A function for converting knb-lter-mcm.9003 to hymetDP",
 #'   contact = additional_contact,
 #'   user_id = 'hymetdp',
-#'   user_domain = 'EDI',
-#'   basis_of_record = "MachineObservation")
+#'   user_domain = 'EDI')
 #'
 #' dir(mypath)
 #' View(eml)
@@ -131,7 +130,7 @@ create_eml <- function(path,
 
   fext <- unique(tools::file_ext(data.table))
   preferred_order <- c("Variables", "Methods", "Sites", "Sources",
-                       "QualityControlLevels", "DataValues", "SeriesCatalog")
+                       "QualityControlLevels", "Qualifiers", "DataValues", "SeriesCatalog")
 
   use_i <- preferred_order %in% tools::file_path_sans_ext(data.table)
   data.table <- paste0(preferred_order[use_i], ".", fext)

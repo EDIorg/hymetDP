@@ -1,0 +1,3 @@
+attributeName	attributeDefinition	class	unit	dateTimeFormatString	missingValueCode	missingValueCodeExplanation
+QualifierCode	User or organization-defined code that collects the data to identify the qualifier used for measurement.	character			NA	Not available
+QualifierDescription	Text description of each qualifier.	character			NA	Not available

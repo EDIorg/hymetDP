@@ -123,7 +123,7 @@ create_sites <- function(
 
   # add default values
 
-  if (is.null(LatLongDatumSRSName) | length(LatLongDatumSRSName) == 0) {
+  if (is.null(LatLongDatumSRSName) | res$LatLongDatumSRSName == "") {
     res$LatLongDatumSRSName <- "Unknown"
   }
   if (is.null(VerticalDatum)) {
