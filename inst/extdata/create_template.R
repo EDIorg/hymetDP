@@ -320,7 +320,6 @@ create_hymetDP <- function(path,
       "A function for converting <pid> to hymetDP",
     contact = additional_contact,
     user_id = '',
-    user_domain = '',
-    basis_of_record = "MachineObservation")
+    user_domain = '')
 
 }
