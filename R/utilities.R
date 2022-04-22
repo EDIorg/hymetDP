@@ -135,7 +135,7 @@ coerce_table_classes <- function(tbl, name, cls) {
     stats::na.omit()
   for (col in colnames(tbl)) {
     colclass <- crit$class[crit$column == col]
-    if (colclass == "character") {
+    if (colclass == "character" | colclass == "Date") {
       tbl[[col]] <- as.character(tbl[[col]])
     } else if (colclass == "numeric") {
       tbl[[col]] <- as.numeric(tbl[[col]])
