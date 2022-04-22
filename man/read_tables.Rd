@@ -35,4 +35,17 @@ Read data tables of a data package from the EML metadata.
 Default settings preserve the form the data were originally published in.
 }
 }
-\keyword{internal}
+\examples{
+
+eml <- EDIutils::read_metadata('knb-lter-mcm.9003.11')
+
+tables <- read_tables(
+  eml = eml,
+  strip.white = TRUE,
+  na.strings = "",
+  convert.missing.value = TRUE,
+  add.units = TRUE)
+
+
+
+}
