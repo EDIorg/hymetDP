@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# hymetDP <img src="man/figures/logo.png" align="right" alt="hymetDP logo" width="480" />
+# hymetDP <img src="man/figures/logo.png" align="right" alt="hymetDP logo" width="240" />
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -41,3 +41,11 @@ for details.
 Please note that this project is released with a [Contributor Code of
 Conduct](https://github.com/kzollove/hymetDP/blob/master/CODE_OF_CONDUCT.md).
 By participating in this project you agree to abide by its terms.
+
+#### Logo
+
+[Original photograph](https://www.flickr.com/photos/michalo/2437693238/)
+by [Michal Osmenda](https://www.flickr.com/people/97006177@N00). This
+file is licensed under the Creative Commons [Attribution-Share Alike 2.0
+Generic](https://creativecommons.org/licenses/by-sa/2.0/deed.en)
+license.
