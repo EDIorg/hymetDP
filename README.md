@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# hymetDP <img src="man/figures/logo.png" align="right" alt="hymetDP logo" width="240" />
+# hymetDP <img src="man/figures/logo.png" align="right" alt="hymetDP logo" height="300" style="float:right; height:300px;" />
 
 <!-- badges: start -->
 <!-- badges: end -->

@@ -8,12 +8,12 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "man/figures/README-",
+  fig.path = "README-",
   out.width = "100%"
 )
 ```
 
-# hymetDP <img src="man/figures/logo.png" align="right" alt="hymetDP logo" width="240" />
+# hymetDP <img src="man/figures/logo.png" align="right" alt="hymetDP logo" height="300" style="float:right; height:300px;" />
 
 <!-- badges: start -->
 <!-- badges: end -->

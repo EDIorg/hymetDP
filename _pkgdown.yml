@@ -22,6 +22,7 @@ reference:
     - define_method
     - define_source
     - define_variable
+    - read_tables
     - write_tables
     - validate_data
     - create_eml
