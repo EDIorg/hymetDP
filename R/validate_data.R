@@ -242,7 +242,6 @@ validate_column_presence <- function(data.list){
           !is.na(criteria$column) &
           (criteria$required == TRUE)]
 
-      # TODO Something like this should be replicated for OffsetValues/Qualifiers and all other optional tables
       if ((x == "DataValues") & ("OffsetTypes" %in% names(data.list))) {
         expected <- c(expected, "OffsetValue", "OffsetTypeCode")
       }

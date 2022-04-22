@@ -31,9 +31,9 @@ create_hymetDP <- function(path,
 
   # Specify timezone/offset
 
-  wide$LocalDateTime <- lubridate::force_tz(wide$"<ENTERDATETIMECOLNAME>", "<ENTERTIMEZONE>")
+  wide$LocalDateTime <- lubridate::force_tz(wide$"<ENTERDATETIMECOLNAME>", "<ENTERLOCALTIMEZONE>")
 
-  wide$UTCOffset <- "<ENTEROFFSET>"
+  wide$UTCOffset <- lutz::tz_offset(wide$LocalDateTime, "<ENTERLOCALTIMEZONE>")$utc_offset_h
 
   wide$DateTimeUTC <- lubridate::with_tz(wide$LocalDateTime, "Etc/UTC")
 
