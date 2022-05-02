@@ -1,3 +1,19 @@
+#' Template create_hymetDP.R script
+#'
+#' @param path (character) Path to where a new directory should be created
+#' @param dir.name (character) Name of the new directory which will contain the create_hymetDP.R script
+#'
+#' @return
+#'
+#' Empty create_hymetDP.R script.
+#'
+#' @examples
+#' \dontrun{
+#' template_hymet(tempdir(), 'my_hymet')
+#' }
+#'
+#' @export
+#'
 template_hymet <- function(path, dir.name) {
   # Stop if directory exists
 
