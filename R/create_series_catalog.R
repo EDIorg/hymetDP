@@ -153,10 +153,10 @@ create_series_catalog <- function(
   # TODO vvvvvv everything below vvvvvv belongs in the "if flat is null OR all columns provided" section
   # TODO still to create is "if flat is not null AND not all columns provided"
 
-  combinations <- DataValues %>% dplyr::select(all_of(composite_key))
+  combinations <- DataValues %>% dplyr::select(dplyr::all_of(composite_key))
 
   res <- kit::funique(combinations[composite_key]) %>%
-    dplyr::mutate(across(everything(), as.character))
+    dplyr::mutate(dplyr::across(dplyr::everything(), as.character))
 
   #  Gather columns
 
@@ -241,14 +241,16 @@ create_series_catalog <- function(
     dplyr::pull(column)
 
 
-  res <- res %>% dplyr::select(all_of(final_cols))
+  res <- res %>% dplyr::select(dplyr::all_of(final_cols))
 
   # coerce classes
   # accommodate user coming from outside of scripted workflow
   if (exists('L0_flat')) {
     res <- coerce_table_classes(res, "SeriesCatalog", class(L0_flat))
   } else {
-    res <- coerce_table_classes(res, "SeriesCatalog", c("tbl_df", "tbl", "data.frame"))
+    res <- coerce_table_classes(res,
+                                "SeriesCatalog",
+                                c("tbl_df", "tbl", "data.frame"))
   }
   return(res)
 }

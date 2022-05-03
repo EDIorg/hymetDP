@@ -4,7 +4,7 @@
 \alias{create_qualifiers}
 \title{Create the Qualifiers table}
 \usage{
-create_qualifiers(L0_flat = flat, QualifierCode, QualifierDescription)
+create_qualifiers(L0_flat, QualifierCode, QualifierDescription)
 }
 \arguments{
 \item{L0_flat}{(tbl_df, tbl, data.frame) The fully joined source L0 dataset,

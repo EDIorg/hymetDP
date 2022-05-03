@@ -4,12 +4,7 @@
 \alias{create_methods}
 \title{Create the Methods table}
 \usage{
-create_methods(
-  L0_flat = flat,
-  MethodCode,
-  MethodDescription,
-  MethodLink = NULL
-)
+create_methods(L0_flat, MethodCode, MethodDescription, MethodLink = NULL)
 }
 \arguments{
 \item{L0_flat}{(tbl_df, tbl, data.frame) The fully joined source L0 dataset,

@@ -46,6 +46,3 @@ Validation happens each time files are read, from source APIs or local environme
 \note{
 This function may not work between 01:00 - 03:00 UTC on Wednesdays due to regular maintenance of the EDI Data Repository.
 }
-\examples{
-
-}

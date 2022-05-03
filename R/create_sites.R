@@ -14,7 +14,7 @@
 #'   the The spatial reference system of the latitude and longitude coordinates.
 #'   Choose an SRSName where IsGeographic=True from \code{SpatialReferencesCV}.
 #'   View possible options with
-#'   \code{SpatialReferencesCV$SRSName[SpatialReferencesCV$IsGeographic]}
+#'   \code{`SpatialReferencesCV$SRSName[SpatialReferencesCV$IsGeographic]`}
 #' @param Elevation_m (character) Column in \code{L0_flat} containing the
 #'   elevation of the sampling location in meters.
 #' @param VerticalDatum (character) Column in \code{L0_flat} containing the
@@ -53,7 +53,7 @@
 #'
 #' @family create required tables
 #'
-#' @return
+#' @return (tbl_df, tbl, data.frame) The Sites table.
 #'
 #' @examples
 #'
@@ -82,7 +82,7 @@
 #' @export
 #'
 create_sites <- function(
-  L0_flat = flat,
+  L0_flat,
   SiteCode,
   SiteName,
   Latitude,
@@ -118,7 +118,7 @@ create_sites <- function(
                       SiteType)
 
   res <- L0_flat %>%
-    dplyr::select(all_of(cols_to_gather)) %>%
+    dplyr::select(dplyr::all_of(cols_to_gather)) %>%
     dplyr::distinct()
 
   # add default values

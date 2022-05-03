@@ -66,7 +66,7 @@
 #' @export
 #'
 create_sources <- function(
-  L0_flat = flat,
+  L0_flat,
   SourceCode,
   Organization,
   SourceDescription,
@@ -80,12 +80,15 @@ create_sources <- function(
   ZipCode,
   Citation) {
 
-  validate_arguments(fun.name = "create_sources", fun.args = as.list(environment()))
+  validate_arguments(fun.name = "create_sources",
+                     fun.args = as.list(environment()))
 
-  cols_to_gather <- c(SourceCode, Organization, SourceDescription, SourceLink, ContactName, Phone, Email, Address, City, State, ZipCode, Citation)
+  cols_to_gather <- c(SourceCode, Organization, SourceDescription, SourceLink,
+                      ContactName, Phone, Email, Address, City, State,
+                      ZipCode, Citation)
 
   res <- L0_flat %>%
-    dplyr::select(all_of(cols_to_gather)) %>%
+    dplyr::select(dplyr::all_of(cols_to_gather)) %>%
     dplyr::distinct()
 
   # add missing columns
@@ -96,7 +99,9 @@ create_sources <- function(
 
   # reorder
   res <- res %>%
-    dplyr::select(SourceCode, Organization, SourceDescription, SourceLink, ContactName, Phone, Email, Address, City, State, ZipCode, Citation)
+    dplyr::select(SourceCode, Organization, SourceDescription, SourceLink,
+                  ContactName, Phone, Email, Address, City, State,
+                  ZipCode, Citation)
 
   # coerce classes
   res <- coerce_table_classes(res, "Sources", class(L0_flat))

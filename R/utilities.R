@@ -164,17 +164,11 @@ coerce_table_classes <- function(tbl, name, cls) {
 #' @param Sites (tbl_df, tbl, data.frame) The Sites table.
 #' @param QualityControlLevels (tbl_df, tbl, data.frame) The QualityControlLevels table.
 #' @param SeriesCatalog (tbl_df, tbl, data.frame) The SeriesCatalog table.
+#' @param Qualifiers (tbl_df, tbl, data.frame) The Qualifiers table.
 #'
 #' @return hymetDP tables as \code{sep} delimited files
 #'
 #' @export
-#'
-#' @examples
-#'
-#'
-#'
-#'
-#'
 #'
 write_tables <- function(
   path, sep = ",", DataValues = NULL, Variables = NULL,
@@ -776,6 +770,110 @@ detect_delimiter <- function(path, data.files, os) {
 }
 
 
+# Get field delimiters of input files (method 2)
+#
+# @description
+#     Detect and return field delimiters of input files (tables).
+#
+# @param path
+#     (character) Path to files.
+# @param data.files
+#     (character) File names.
+# @param os
+#     (character) Operating system. Valid options are returned from
+#     \code{EDIutils::detect_os}.
+#
+# @return
+#     (character) Field delimiters of input files.
+#     \item{"\\t"}{tab}
+#     \item{","}{comma}
+#     \item{";"}{semi-colon}
+#     \item{"|"}{pipe}
+#
+detect_delimiter_method_2 <- function(path, data.files, os){
+
+  # Check for suggested package
+  if (!requireNamespace("reader", quietly = TRUE)) {
+    warning("Package 'reader' is required for delimiter detection but is not installed", call. = FALSE)
+  }
+
+  # Validate data tables
+
+  data_files <- validate_file_names(path, data.files)
+
+  # Detect field delimiters
+  # Loop through each table using reader::get.delim() to return the field
+  # delimiter. Note: reader::get.delim() performance seems to be operating
+  # system specific.
+
+  delim_guess <- c()
+  data_path <- c()
+
+  for (i in seq_along(data_files)){
+
+    # Initialize output vector
+
+    data_path[i] <- paste0(path, '/', data_files[i])
+
+    if (os == "mac"){
+
+      # Detect delimiter for table in Mac OS
+
+      delim_guess[i] <- suppressWarnings(
+        try(
+          reader::get.delim(
+            data_path[i],
+            n = 1,
+            delims = c('\t', ',', ';', '|')
+          ),
+          silent = T
+        )
+      )
+
+    } else if (os == "win"){
+
+      # Detect delimiter for table in Windows OS
+
+      delim_guess[i] <- suppressWarnings(
+        try(
+          reader::get.delim(
+            data_path[i],
+            n = 1,
+            delims = c('\t', ',', ';', '|')
+          ),
+          silent = T
+        )
+      )
+
+    } else if (os == 'lin'){
+
+      # Detect delimiter for table in Linux OS
+
+      delim_guess[i] <- suppressWarnings(
+        try(
+          reader::get.delim(
+            data_path[i],
+            n = 1,
+            delims = c('\t', ',', ';', '|')
+          ),
+          silent = T
+        )
+      )
+
+    }
+
+  }
+
+  # Return
+
+  delim_guess
+
+}
+
+
+
+
+
 
 
 # Is provenance node?
@@ -821,3 +919,188 @@ parse_delim <- function(x){
   return(eol)
 }
 
+
+
+
+
+#' Parse the evaluate quality report to a character string
+#'
+#' @param qualityReport (xml_document) Evaluate quality report document
+#' @param full (logical) Return the full report if TRUE, otherwise return only
+#' warnings and errors.
+#' @param env (character) Repository environment. Can be: "production",
+#' "staging", or "development".
+#'
+#' @return (character) A parsed evaluate quality report
+#'
+#' @details A utility function for \code{read_evaluate_report()} and
+#' \code{summarize_evalute_report()}
+#'
+#' @note User authentication is required (see \code{login()})
+#'
+#' @noRd
+#'
+report2char <- function(qualityReport, full = TRUE, env) {
+  xml2::xml_ns_strip(qualityReport)
+
+  # A helper for summarizing the report
+  parse_summary <- function(qualityReport) {
+    status <- xml2::xml_text(xml2::xml_find_all(qualityReport, ".//status"))
+    n_valid <- sum(status == "valid")
+    n_warn <- sum(status == "warn")
+    n_error <- sum(status == "error")
+    n_info <- sum(status == "info")
+    creation_date <- xml2::xml_text(
+      xml2::xml_find_first(qualityReport, ".//creationDate")
+    )
+    package_id <- xml2::xml_text(
+      xml2::xml_find_first(qualityReport, ".//packageId")
+    )
+    res <- paste0(
+      "\n===================================================\n",
+      " EVALUATION REPORT\n",
+      "===================================================\n\n",
+      "PackageId: ", package_id, "\n",
+      "Report Date/Time: ", creation_date, "\n",
+      "Total Quality Checks: ", length(status), "\n",
+      "Valid: ", n_valid, "\n",
+      "Info: ", n_info, "\n",
+      "Warn: ", n_warn, "\n",
+      "Error: ", n_error, "\n\n"
+    )
+    return(res)
+  }
+
+  # A helper for parsing quality checks
+  parse_check <- function(check) {
+    children <- xml2::xml_children(check)
+    nms <- xml2::xml_name(children) # names
+    values <- xml2::xml_text(children)
+    descs <- paste0(toupper(nms), ": ", values) # descriptions
+    res <- paste0(paste(descs, collapse = "\n"), "\n")
+    return(res)
+  }
+
+  # A helper for parsing reports (dataset & entity)
+  parse_report <- function(report) {
+    entity_name <- xml2::xml_text(xml2::xml_find_all(report, "entityName"))
+    if (length(entity_name) > 0) {
+      header <- paste0(
+        "---------------------------------------------------\n",
+        " ENTITY REPORT: ", entity_name, "\n",
+        "---------------------------------------------------\n"
+      )
+    } else {
+      header <- paste0(
+        "---------------------------------------------------\n",
+        " DATASET REPORT\n",
+        "---------------------------------------------------\n"
+      )
+    }
+    checks <- xml2::xml_find_all(report, ".//qualityCheck")
+    parsed <- lapply(checks, parse_check)
+    if (length(parsed) > 0) {
+      res <- paste0(paste(c(header, parsed), collapse = "\n"), "\n")
+      return(res)
+    } else {
+      return("")
+    }
+  }
+
+  # Summarize, then remove any unwanted nodes
+  overview <- parse_summary(qualityReport)
+  checks <- xml2::xml_find_all(qualityReport, ".//qualityCheck")
+  status <- xml2::xml_find_all(qualityReport, ".//status")
+  if (full == FALSE) {
+    i <- xml2::xml_text(status) %in% c("warn", "error")
+    xml2::xml_remove(checks[!i])
+  }
+
+  # Parse reports, combine, and return
+  dataset_report <- xml2::xml_find_all(qualityReport, ".//datasetReport")
+  dataset_report <- lapply(dataset_report, parse_report)
+  entity_reports <- xml2::xml_find_all(qualityReport, ".//entityReport")
+  entity_reports <- lapply(entity_reports, parse_report)
+  res <- c(overview, dataset_report, entity_reports)
+  return(as.character(res))
+}
+
+
+
+
+
+# Resolve terms to a controlled vocabulary
+#
+# @description
+#     Resolve terms to a controlled vocabulary.
+#
+# @param x
+#     (character) Term(s) to resolve to a controlled vocabulary. Can be a
+#     vector of terms.
+# @param cv
+#     (character) A controlled vocabulary to search. Valid options are:
+#     \itemize{
+#         \item lter - The LTER Controlled Vocabulary (http://vocab.lternet.edu/vocab/vocab/index.php)
+#     }
+# @param messages
+#     (logical) Display diagnostic messages, e.g. alternative spelling options.
+# @param interactive
+#     (logical) Query user to select from alternative terms and returns back
+#     selection.
+#
+# @return
+#     (character) Controlled vocabulary names corresponding to successfully
+#     resolved terms.
+#
+vocab_resolve_terms <- function(x, cv, messages = FALSE, interactive = FALSE){
+
+  # Check arguments
+
+  if (is.character(x) != T){
+    stop('Input argument "x" is not of class "character"!')
+  }
+  if (cv != 'lter'){
+    stop('Input argument "cv" is not one of the allowed vocabularies!')
+  }
+  if (!missing(messages) & isTRUE(messages) & !missing(interactive) & isTRUE(interactive)){
+    stop('Both arguments "messages" & "interactive" can not be used at the same time. Please select one or the other.')
+  }
+
+  # Initialize output
+
+  output <- data.frame(
+    term = x,
+    controlled_vocabulary = character(length(x)),
+    stringsAsFactors = F)
+
+  # Call specified vocabularies
+
+  if (cv == 'lter'){
+
+    if (!missing(messages) & isTRUE(messages)){
+      # Messages
+      use_i <- unlist(lapply(x, FUN = vocab_lter_term, messages = T))
+      output[use_i, 'controlled_vocabulary'] <- 'LTER Controlled Vocabulary'
+    } else if (!missing(interactive) & isTRUE(interactive)){
+      # Interactive
+      alternative_terms <- unlist(lapply(x, FUN = vocab_lter_term, interactive = T))
+      use_i <- ((alternative_terms == 'NONE OF THE ABOVE') | (is.na(alternative_terms)))
+      output[!use_i, 'term'] <- alternative_terms[!use_i]
+      output$term[output$term == 'TRUE'] <- x[output$term == 'TRUE']
+      output[!use_i, 'controlled_vocabulary'] <- 'LTER Controlled Vocabulary'
+      use_i <- output$term == FALSE
+      output$term[use_i] <- x[use_i]
+      output$controlled_vocabulary[use_i] <- ''
+    } else {
+      # Automatic
+      use_i <- unlist(lapply(x, FUN = vocab_lter_term))
+      output[use_i, 'controlled_vocabulary'] <- 'LTER Controlled Vocabulary'
+    }
+
+  }
+
+  # Return output
+
+  output
+
+}

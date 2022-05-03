@@ -33,17 +33,18 @@
 #' @export
 #'
 create_qualifiers <- function(
-  L0_flat = flat,
+  L0_flat,
   QualifierCode,
   QualifierDescription) {
 
-  validate_arguments(fun.name = "create_qualifiers", fun.args = as.list(environment()))
+  validate_arguments(fun.name = "create_qualifiers",
+                     fun.args = as.list(environment()))
 
   cols_to_gather <- c(QualifierCode,
                       QualifierDescription)
 
   res <- L0_flat %>%
-    dplyr::select(all_of(cols_to_gather)) %>%
+    dplyr::select(dplyr::all_of(cols_to_gather)) %>%
     dplyr::distinct() %>%
     tidyr::drop_na()
 

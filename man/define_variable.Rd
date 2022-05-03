@@ -5,7 +5,7 @@
 \title{Define a hymetDP variable}
 \usage{
 define_variable(
-  L0_flat = flat,
+  L0_flat,
   local_variable_column = "variable_name",
   local_variable = NULL,
   variable_name = local_variable,
@@ -21,46 +21,80 @@ define_variable(
 )
 }
 \arguments{
-\item{L0_flat}{(tbl_df, tbl, data.frame) The fully joined source L0 dataset, in "flat" format (see details).}
+\item{L0_flat}{(tbl_df, tbl, data.frame) The fully joined source L0 dataset,
+in "flat" format (see details).}
 
-\item{local_variable_column}{(character) Column in \code{L0_flat} table containing the L0 variable name.}
+\item{local_variable_column}{(character) Column in \code{L0_flat} table
+containing the L0 variable name.}
 
-\item{local_variable}{(character) Reference to a value in the \code{local_variable_column} from the \code{L0_flat} table to which the new hymetDP variable refers.}
+\item{local_variable}{(character) Reference to a value in the
+\code{local_variable_column} from the \code{L0_flat} table to which the new
+hymetDP variable refers.}
 
-\item{variable_name}{(character) The CUAHSI ODM Controlled Vocabulary name for the variable that was measured, observed, modeled, etc. Defaults to the \code{local_variable} value.}
+\item{variable_name}{(character) The CUAHSI ODM Controlled Vocabulary name
+for the variable that was measured, observed, modeled, etc. Defaults to the
+\code{local_variable} value.}
 
-\item{variable_units}{(character) The CUAHSI ODM Controlled Vocabulary name of units of the data values associated with a variable. Defaults to a column \code{unit} from the \code{L0_flat} table if left unspecified.}
+\item{variable_units}{(character) The CUAHSI ODM Controlled Vocabulary name
+of units of the data values associated with a variable. Defaults to a
+column \code{unit} from the \code{L0_flat} table if left unspecified.}
 
-\item{sample_medium}{(character) The CUAHSI ODM Controlled Vocabulary name of the medium in which the sample or observation was taken or made.}
+\item{sample_medium}{(character) The CUAHSI ODM Controlled Vocabulary name of
+the medium in which the sample or observation was taken or made.}
 
-\item{value_type}{(character) The CUAHSI ODM Controlled Vocabulary value that indicates how the data value was generated.}
+\item{value_type}{(character) The CUAHSI ODM Controlled Vocabulary value that
+indicates how the data value was generated.}
 
-\item{is_regular}{(boolean) Value indicates whether the data values are from a regularly sampled time series. Choose \code{TRUE} or \code{FALSE}.}
+\item{is_regular}{(boolean) Value indicates whether the data values are from
+a regularly sampled time series. Choose \code{TRUE} or \code{FALSE}.}
 
-\item{time_support}{(numeric) Numerical value that indicates the time support (or temporal footprint) of the data values. 0 is used to indicate data values that are instantaneous. Other values indicate the time over which the data values are implicitly or explicitly averaged or aggregated. Goes along with \code{time_units} if \code{is_regular == TRUE}.}
+\item{time_support}{(numeric) Numerical value that indicates the time support
+(or temporal footprint) of the data values. 0 is used to indicate data
+values that are instantaneous. Other values indicate the time over which
+the data values are implicitly or explicitly averaged or aggregated. Goes
+along with \code{time_units} if \code{is_regular == TRUE}.}
 
-\item{time_units}{(character) The CUAHSI ODM Controlled Vocabulary name of units of the time support. If \code{time_support == 0}, indicating an instantaneous observation, a unit needs to still be given for completeness, although it is arbitrary.}
+\item{time_units}{(character) The CUAHSI ODM Controlled Vocabulary name of
+units of the time support. If \code{time_support == 0}, indicating an
+instantaneous observation, a unit needs to still be given for completeness,
+although it is arbitrary.}
 
-\item{data_type}{(character) The CUAHSI ODM Controlled Vocabulary value that indicates how the value applies over a time interval.}
+\item{data_type}{(character) The CUAHSI ODM Controlled Vocabulary value that
+indicates how the value applies over a time interval.}
 
-\item{general_category}{(character) The CUAHSI ODM Controlled Vocabulary value for general category of the data  (i.e. Hydrology).}
+\item{general_category}{(character) The CUAHSI ODM Controlled Vocabulary
+value for general category of the data  (i.e. Hydrology).}
 
-\item{no_data}{(numeric) Numeric value used to encode when a data value is not available for this variable. DataValues will be reformatted to match this value.}
+\item{no_data}{(numeric) Numeric value used to encode when a data value is
+not available for this variable. DataValues will be reformatted to match
+this value.}
 }
 \value{
-(tbl_df, tbl, data.frame) An augmented version of the original flat table, with all of the original columns plus one for each of the specified variable values (i.e. variable_name, variable_units, etc.), plus the VariableCode column, with an auto-generated integer value that will become the primary key of the Variables table. Columns are only added the first time the function is run. Subsequent runs append values to the existing columns.
+(tbl_df, tbl, data.frame) An augmented version of the original flat
+table, with all of the original columns plus one for each of the specified
+variable values (i.e. variable_name, variable_units, etc.), plus the
+VariableCode column, with an auto-generated integer value that will become
+the primary key of the Variables table. Columns are only added the first
+time the function is run. Subsequent runs append values to the existing
+columns.
 }
 \description{
 Define a hymetDP variable
 }
 \details{
-This function appends columns to the \code{L0_flat} table and returns the augmented table.
+This function appends columns to the \code{L0_flat} table and
+returns the augmented table.
 
-"flat" format refers to the fully joined source L0 dataset in "wide" form with the exception of the core observation variables, which are in "long" form (i.e. using the variable_name, value, unit columns of the observation table). This "flat" format is the "widest" an L1 hymetDP dataset can be consistently spread due to the frequent occurrence of L0 source datasets with > 1 core observation variable.
+"flat" format refers to the fully joined source L0 dataset in "wide" form
+with the exception of the core observation variables, which are in "long"
+form (i.e. using the variable_name, value, unit columns of the observation
+table). This "flat" format is the "widest" an L1 hymetDP dataset can be
+consistently spread due to the frequent occurrence of L0 source datasets
+with > 1 core observation variable.
 }
 \examples{
 
-flat <- hymet_L0_flat[1:9]
+flat <- hymet_L0_flat[1:8]
 
 flat <- hymetDP::define_variable(
   L0_flat = flat,

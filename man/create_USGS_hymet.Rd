@@ -22,12 +22,14 @@ A list of hymetDP tables
 Create a USGS hymetDP-formatted dataset
 }
 \examples{
-
+\dontrun{
 site <- c("06879650", "50065500")
 param <- c("00060")
 start <- c("2020-06-01T12:30:00Z")
 end <- c("2021-01-01T12:30:00Z")
 
 usgs_hymet <- create_USGS_hymet(site, param, start, end)
+
+}
 
 }

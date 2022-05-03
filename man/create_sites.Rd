@@ -5,7 +5,7 @@
 \title{Create the Sites table}
 \usage{
 create_sites(
-  L0_flat = flat,
+  L0_flat,
   SiteCode,
   SiteName,
   Latitude,
@@ -43,7 +43,7 @@ longitude in decimal degrees.}
 the The spatial reference system of the latitude and longitude coordinates.
 Choose an SRSName where IsGeographic=True from \code{SpatialReferencesCV}.
 View possible options with
-\code{SpatialReferencesCV$SRSName[SpatialReferencesCV$IsGeographic]}}
+\code{`SpatialReferencesCV$SRSName[SpatialReferencesCV$IsGeographic]`}}
 
 \item{Elevation_m}{(character) Column in \code{L0_flat} containing the
 elevation of the sampling location in meters.}
@@ -81,7 +81,7 @@ related to the site.}
 of site. Choose a Term from \code{SiteTypeCV}.}
 }
 \value{
-
+(tbl_df, tbl, data.frame) The Sites table.
 }
 \description{
 Create the Sites table

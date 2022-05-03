@@ -8,7 +8,7 @@
 #' @return A list of hymetDP tables
 #'
 #' @examples
-#'
+#'\dontrun{
 #' site <- c("06879650", "50065500")
 #' param <- c("00060")
 #' start <- c("2020-06-01T12:30:00Z")
@@ -16,9 +16,15 @@
 #'
 #' usgs_hymet <- create_USGS_hymet(site, param, start, end)
 #'
+#'}
+#'
 #' @export
 #'
 create_USGS_hymet <- function(site, param, start, end) {
+
+  if (!requireNamespace("dataRetrieval", quietly = TRUE)) {
+    warning("Package 'dataRetrieval' is required for to access USGS data but is not installed", call. = FALSE)
+  }
 
   if (length(param) != length(site) & length(param) != 1) stop("Parameter list must be same length as site list or singular.")
   if (length(start) != length(site) & length(start) != 1) stop("Start date list must be same length as site list or singular.")
@@ -163,7 +169,7 @@ create_usgs_flat_fragment <- function(param, site, start, end, index) {
 
   SiteType <- get_usgs_sitetype(site_info$site_tp_cd)
 
-  tzLib <- setNames(c("America/Puerto_Rico",
+  tzLib <- stats::setNames(c("America/Puerto_Rico",
                       "America/New_York","America/New_York",
                       "America/Chicago","America/Chicago",
                       "America/Denver","America/Denver",
@@ -262,6 +268,11 @@ create_usgs_flat_fragment <- function(param, site, start, end, index) {
 #' @keywords internal
 #'
 get_usgs_sitetype <- function(s) {
+
+  if (!requireNamespace("rvest", quietly = TRUE)) {
+    warning("Package 'rvest' is required for determining USGS Site Type but is not installed", call. = FALSE)
+  }
+
   t <- rvest::read_html('https://help.waterdata.usgs.gov/site_tp_cd') %>%
     rvest::html_element("table") %>%
     rvest::html_table()

@@ -35,18 +35,12 @@ write_tables(
 \item{QualityControlLevels}{(tbl_df, tbl, data.frame) The QualityControlLevels table.}
 
 \item{SeriesCatalog}{(tbl_df, tbl, data.frame) The SeriesCatalog table.}
+
+\item{Qualifiers}{(tbl_df, tbl, data.frame) The Qualifiers table.}
 }
 \value{
 hymetDP tables as \code{sep} delimited files
 }
 \description{
 Write tables to file
-}
-\examples{
-
-
-
-
-
-
 }

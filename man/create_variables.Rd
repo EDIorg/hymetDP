@@ -5,7 +5,7 @@
 \title{Create the Variables table}
 \usage{
 create_variables(
-  L0_flat = flat,
+  L0_flat,
   VariableCode,
   VariableName,
   VariableUnitsName,

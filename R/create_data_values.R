@@ -22,7 +22,7 @@
 #' @param OffsetValue (character) Optional. Column in \code{L0_flat} containing
 #'   distance from a datum or control point to the point at which a data value
 #'   was observed.
-#' @param OffsetTypeCodeMandatory (character) if OffsetValue is used. Column in
+#' @param OffsetTypeCode (character) if OffsetValue is used. Column in
 #'   \code{L0_flat} containing code used by the organization that collects the
 #'   data to identify the OffsetType.
 #' @param CensorCode (character) Column in \code{L0_flat} containing text
@@ -82,7 +82,7 @@
 #' @export
 #'
 create_data_values <- function( # TODO change the "Code used by the organization" in the roxygen to something more accurate.
-  L0_flat = flat,
+  L0_flat,
   ValueID,
   DataValue,
   ValueAccuracy = NULL,
@@ -118,10 +118,11 @@ create_data_values <- function( # TODO change the "Code used by the organization
                       SourceCode,
                       QualityControlLevelCode)
 
-  L0_flat$DataValue <-  dplyr::coalesce(as.numeric(L0_flat$DataValue), as.numeric(L0_flat$NoDataValue))
+  L0_flat$DataValue <-  dplyr::coalesce(as.numeric(L0_flat$DataValue),
+                                        as.numeric(L0_flat$NoDataValue))
 
   res <- L0_flat %>%
-    dplyr::select(all_of(cols_to_gather)) %>%
+    dplyr::select(dplyr::all_of(cols_to_gather)) %>%
     dplyr::arrange(ValueID, VariableCode)
 
     # TODO add UTC time

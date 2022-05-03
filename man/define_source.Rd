@@ -5,7 +5,7 @@
 \title{Define a hymetDP source}
 \usage{
 define_source(
-  L0_flat = flat,
+  L0_flat,
   eml = eml,
   Organization = NULL,
   SourceDescription = NULL,

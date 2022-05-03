@@ -5,7 +5,7 @@
 \title{Create the Sources table}
 \usage{
 create_sources(
-  L0_flat = flat,
+  L0_flat,
   SourceCode,
   Organization,
   SourceDescription,

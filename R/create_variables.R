@@ -73,7 +73,7 @@
 #' @export
 #'
 create_variables <- function(
-  L0_flat = flat,
+  L0_flat,
   VariableCode,
   VariableName,
   VariableUnitsName,
@@ -86,7 +86,8 @@ create_variables <- function(
   GeneralCategory,
   NoDataValue) {
 
-  validate_arguments(fun.name = "create_variables", fun.args = as.list(environment()))
+  validate_arguments(fun.name = "create_variables",
+                     fun.args = as.list(environment()))
 
   cols_to_gather <- c(VariableCode,
                       VariableName,
@@ -101,7 +102,7 @@ create_variables <- function(
                       NoDataValue)
 
   res <- L0_flat %>%
-    dplyr::select(all_of(cols_to_gather)) %>%
+    dplyr::select(dplyr::all_of(cols_to_gather)) %>%
     dplyr::distinct()
 
   # coerce classes

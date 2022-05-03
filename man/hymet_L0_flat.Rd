@@ -10,10 +10,10 @@ A data frame with 30,000 rows and 45 variables:
 \item{LocalDateTime}{Local datetime}
 \item{UTCOffset}{Local timezone offset from UTC}
 \item{DateTimeUTC}{Datetime in UTC}
-\item{Variable_name}{Variable name from the L0 dataset}
+\item{variable_name}{Variable name from the L0 dataset}
 \item{DataValue}{Numeric value of the observation}
 \item{Qualifier}{Code of a qualifier (flag)}
-\item{Unit}{Unit name from the L0 dataset}
+\item{unit}{Unit name from the L0 dataset}
 \item{ValueID}{The data value ID}
 \item{VariableCode}{The variable ID}
 \item{VariableName}{The ODM CV variable name}
@@ -33,7 +33,6 @@ A data frame with 30,000 rows and 45 variables:
 \item{Latitude}{Latitude of site}
 \item{Longitude}{Longitude of site}
 \item{Elevation_m}{Elevation of site in meters}
-\item{LatLongDatumSRSName}{Spatial reference system of latitude and longitude coordinates}
 \item{SiteType}{The ODM CV site type}
 \item{Organization}{Name of organization that collected the data}
 \item{ContactName}{Name of contact person for the data source}

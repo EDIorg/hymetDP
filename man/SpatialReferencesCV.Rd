@@ -7,7 +7,7 @@
 \format{
 A data frame with 343 rows and 5 variables:
 \describe{
-\item{SpatialReferencesID}{Integer identifier}
+\item{SpatialReferenceID}{Integer identifier}
 \item{SRSID}{Spatial Reference System identifier}
 \item{SRSName}{Spatial Reference System name}
 \item{IsGeographic}{Boolean}

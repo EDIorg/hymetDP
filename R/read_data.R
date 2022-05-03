@@ -25,8 +25,6 @@
 #'
 #' @export
 #'
-#' @examples
-#'
 read_data <- function(id = NULL, parse_datetime = TRUE,
                       unique_keys = FALSE, from = NULL,
                       format = "new") {

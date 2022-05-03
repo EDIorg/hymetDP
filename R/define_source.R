@@ -33,7 +33,7 @@
 #' @export
 #'
 define_source <- function(
-  L0_flat = flat,
+  L0_flat,
   eml = eml,
   Organization = NULL,
   SourceDescription = NULL,
@@ -207,8 +207,6 @@ define_source <- function(
 #' @param eml (character) An EML document from which a valid EDI package identifier can be extracted.
 #'
 #' @return (character) An EDI data package citation.
-#'
-#' @examples
 #'
 #' @keywords internal
 #'

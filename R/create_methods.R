@@ -38,17 +38,18 @@
 #' @export
 #'
 create_methods <- function(
-  L0_flat = flat,
+  L0_flat,
   MethodCode,
   MethodDescription,
   MethodLink = NULL) {
 
-  validate_arguments(fun.name = "create_methods", fun.args = as.list(environment()))
+  validate_arguments(fun.name = "create_methods",
+                     fun.args = as.list(environment()))
 
   cols_to_gather <- c(MethodCode, MethodDescription, MethodLink)
 
   res <- L0_flat %>%
-    dplyr::select(all_of(cols_to_gather)) %>%
+    dplyr::select(dplyr::all_of(cols_to_gather)) %>%
     dplyr::distinct()
 
   # add missing columns

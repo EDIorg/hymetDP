@@ -15,7 +15,4 @@ create_citation(eml = eml)
 \description{
 Create an EDI data package citation from EML hosted on the EDI Data Portal
 }
-\examples{
-
-}
 \keyword{internal}

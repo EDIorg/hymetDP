@@ -18,31 +18,36 @@ create_eml(
 )
 }
 \arguments{
-\item{path}{(character) Path to the directory containing hymetDP tables, conversion script, and where EML metadata will be written.}
+\item{path}{(character) Path to the directory containing hymetDP tables,
+conversion script, and where EML metadata will be written.}
 
-\item{source_id}{(character) Identifier of a data package published in a supported repository. Currently, the EDI Data Repository is supported.}
+\item{source_id}{(character) Identifier of a data package published in a
+supported repository. Currently, the EDI Data Repository is supported.}
 
 \item{derived_id}{(character) Identifier of the dataset being created.}
 
-\item{script}{(character) Name of file used to convert \code{source_id} to \code{derived_id}.}
+\item{script}{(character) Name of file used to convert \code{source_id} to
+\code{derived_id}.}
 
 \item{script_description}{(character) Description of \code{script}.}
 
-\item{is_about}{(named character) An optional argument for specifying dataset level annotations describing what this dataset "is about".}
+\item{is_about}{(named character) An optional argument for specifying dataset
+level annotations describing what this dataset "is about".}
 
-\item{contact}{(data.frame) Contact information for the person that created this hymetDP dataset, containing these columns:
-\itemize{
-\item givenName
-\item surName
-\item organizationName
-\item electronicMailAddress
-}}
+\item{contact}{(data.frame) Contact information for the person that created
+this hymetDP dataset, containing these columns: \itemize{ \item givenName
+\item surName \item organizationName \item electronicMailAddress }}
 
-\item{user_id}{(character) Identifier of user associated with \code{user_domain}.}
+\item{user_id}{(character) Identifier of user associated with
+\code{user_domain}.}
 
-\item{user_domain}{(character) Domain (data repository) the \code{user_id} belongs to. Currently, EDI is supported.}
+\item{user_domain}{(character) Domain (data repository) the \code{user_id}
+belongs to. Currently, EDI is supported.}
 
-\item{url}{(character) URL to the publicly accessible directory containing hymetDP tables, conversion script, and EML metadata. This argument supports direct download of the data entities by a data repository and is used for automated revisioning and publication.}
+\item{url}{(character) URL to the publicly accessible directory containing
+hymetDP tables, conversion script, and EML metadata. This argument supports
+direct download of the data entities by a data repository and is used for
+automated revisioning and publication.}
 }
 \value{
 An EML metadata file.
@@ -51,20 +56,30 @@ An EML metadata file.
 Create EML metadata
 }
 \details{
-This function creates an EML record for a hymetDP dataset by combining metadata from \code{source_id} with boiler-plate metadata describing the hymetDP model. Changes to the \code{source_id} EML include:
-\itemize{
-\item \strong{<access>} Adds \code{user_id} to the list of principals granted read and write access to the hymetDP data package this EML describes.
-\item \strong{<title>} Adds a note that this is a derived data package in the hymetDP format.
-\item \strong{<pubDate>} Adds the date this EML was created.
-\item \strong{<abstract>} Adds a note that this is a derived data package in the hymetDP format.
-\item \strong{<keywordSet>} Adds the "hymetDP" keyword to enable search and discovery of all hymetDP data packages in the data repository it is published.
-\item \strong{<intellectualRights>} Keeps intact the original intellectual rights license \code{source_id} was released under, or uses \href{https://creativecommons.org/publicdomain/zero/1.0/legalcode}{CCO} if missing.
-\item \strong{<contact>} Adds the hymetDP creator as a point of contact.
-\item \strong{<methodStep>} Adds a note that this data package was created by the \code{script}, and adds provenance metadata noting that this is a derived dataset and describes where the \code{source_id} can be accessed.
-\item \strong{<dataTables>} Replaces the \code{source_id} table metadata with descriptions of the the hymetDP tables.
-\item \strong{<otherEntity>} Adds \code{script} and \code{script_description}. otherEntities of \code{source_id} are removed.
-\item \strong{<annotations>} Adds boilerplate annotations describing the hymetDP at the dataset, entity, and entity attribute levels.
-}
+This function creates an EML record for a hymetDP dataset by
+combining metadata from \code{source_id} with boiler-plate metadata
+describing the hymetDP model. Changes to the \code{source_id} EML include:
+\itemize{ \item \strong{\verb{<access>}} Adds \code{user_id} to the list of
+principals granted read and write access to the hymetDP data package this
+EML describes. \item \strong{\verb{<title>}} Adds a note that this is a derived
+data package in the hymetDP format. \item \strong{\verb{<pubDate>}} Adds the
+date this EML was created. \item \strong{\verb{<abstract>}} Adds a note that
+this is a derived data package in the hymetDP format. \item
+\strong{\verb{<keywordSet>}} Adds the "hymetDP" keyword to enable search and
+discovery of all hymetDP data packages in the data repository it is
+published. \item \strong{\verb{<intellectualRights>}} Keeps intact the original
+intellectual rights license \code{source_id} was released under, or uses
+\href{https://creativecommons.org/publicdomain/zero/1.0/legalcode}{CCO} if
+missing. \item \strong{\verb{<contact>}} Adds the hymetDP creator as a point of
+contact. \item \strong{\verb{<methodStep>}} Adds a note that this data package
+was created by the \code{script}, and adds provenance metadata noting that
+this is a derived dataset and describes where the \code{source_id} can be
+accessed. \item \strong{\verb{<dataTables>}} Replaces the \code{source_id} table
+metadata with descriptions of the the hymetDP tables. \item
+\strong{\verb{<otherEntity>}} Adds \code{script} and \code{script_description}.
+otherEntities of \code{source_id} are removed. \item
+\strong{\verb{<annotations>}} Adds boilerplate annotations describing the
+hymetDP at the dataset, entity, and entity attribute levels. }
 }
 \examples{
 \dontrun{

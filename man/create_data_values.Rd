@@ -5,7 +5,7 @@
 \title{Create the DataValues table}
 \usage{
 create_data_values(
-  L0_flat = flat,
+  L0_flat,
   ValueID,
   DataValue,
   ValueAccuracy = NULL,
@@ -57,6 +57,10 @@ by the organization that collects the data to identify the variable.}
 distance from a datum or control point to the point at which a data value
 was observed.}
 
+\item{OffsetTypeCode}{(character) if OffsetValue is used. Column in
+\code{L0_flat} containing code used by the organization that collects the
+data to identify the OffsetType.}
+
 \item{CensorCode}{(character) Column in \code{L0_flat} containing text
 indication of whether the data value is censored. Defaults to "nc" (Not
 Censored).}
@@ -76,10 +80,6 @@ which identifies the organization that created the data.}
 
 \item{NoDataValue}{(character) Column in \code{L0_flat} containing numeric
 value used to encode when a data value is not available for this variable.}
-
-\item{OffsetTypeCodeMandatory}{(character) if OffsetValue is used. Column in
-\code{L0_flat} containing code used by the organization that collects the
-data to identify the OffsetType.}
 }
 \value{
 (tbl_df, tbl, data.frame) The DataValues table.

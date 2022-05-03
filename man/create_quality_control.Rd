@@ -5,7 +5,7 @@
 \title{Create the QualityControlLevels table}
 \usage{
 create_quality_control(
-  L0_flat = flat,
+  L0_flat,
   QualityControlLevelCode,
   Definition,
   Explanation
@@ -27,7 +27,17 @@ Data. This is not to be confused with data qualifiers.}
 explanation of Quality Control Level.}
 }
 \value{
+(tbl_df, tbl, data.frame) The QualityControlLevels table.
 
+flat <- hymet_L0_flat
+
+QualityControlLevels <- hymetDP::create_quality_control(
+L0_flat = flat,
+QualityControlLevelCode = "QualityControlLevelCode",
+Definition = "Definition",
+Explanation = "Explanation")
+
+QualityControlLevels
 }
 \description{
 Create the QualityControlLevels table
@@ -42,19 +52,6 @@ form (i.e. using the variable_name, value, unit columns of the observation
 table). This "flat" format is the "widest" an L1 hymetDP dataset can be
 consistently spread due to the frequent occurrence of L0 source datasets
 with > 1 core observation variable.
-}
-\examples{
-
-flat <- hymet_L0_flat
-
-  QualityControlLevels <- hymetDP::create_quality_control(
-    L0_flat = flat,
-    QualityControlLevelCode = "QualityControlLevelCode",
-    Definition = "Definition",
-    Explanation = "Explanation")
-
-  QualityControlLevels
-
 }
 \seealso{
 Other create required tables: 
