@@ -56,6 +56,10 @@ navbar:
   left:
     - text: Functions
       href: reference/index.html
+    - text: Articles
+      menu:
+      - text: Create
+        href: articles/create.html
 
 
 

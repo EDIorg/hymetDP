@@ -1,0 +1,633 @@
+---
+title: "Create hymetDP Data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Create}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+Ideally, each hymetDP dataset (Level-1; L1) is created from a source dataset (Level-0; L0) by a unique processing function. Inputs are typically from the APIs of data repositories and monitoring networks, and outputs can be a list of R objects or a set of archivable files. The output form you choose may depend on multiple factors including the source data license (it may prohibit archive) and the overall processing time (on-demand processing may be prohibitively long). In either case, the derived hymetDP dataset is delivered to users in a consistent format by `read_data()` and the processing function provides a fully reproducible and automated routine for updating the derived dataset whenever a new version of the source data are released.
+
+Below is an example function that reads a source dataset from the Environmental Data Initiative (EDI) repository and converts it into a hymetDP dataset, which in turn is archived in EDI. For an example of creating a hymetDP dataset on-demand (i.e. not archived), see the create_USGS_hymet.R source code.
+
+```{r eval=FALSE}
+library(hymetDP)
+```
+
+## For archive in a data repository
+
+#### Example function:
+
+```{r eval=FALSE}
+# -----------------------------------------------------------------------------
+# This function converts source dataset "knb-lter-mcm.9003" (archived in the EDI
+# Data Repository) to hymetDP dataset "edi.10101"
+# 
+# Arguments:
+#
+# path        Where the hymetDP tables will be written
+# source_id   Identifier of the source dataset
+# derived_id  Identifier of the derived dataset
+# url         The URL by which the derived tables and metadata can be accessed 
+#             by a data repository. This argument is used when automating the 
+#             repository publication step, but not used when manually 
+#             publishing.
+#
+# Value:
+#
+# tables      (.csv) hymetDP tables
+# metadata    (.xml) EML metadata for tables
+# 
+# Details:
+#             This function facilitates automated updates to the derived 
+#             "edi.10101" whenever new data are added to the source 
+#             "knb-lter-mcm.9003". The framework executing this maintenance 
+#             routine is hosted on a remote server and jumps into action 
+#             whenever an update notification is received for 
+#             "knb-lter-mcm.9003". The maintenance routine parses the 
+#             notification to get the arguments to create_hymetDP().
+#
+# Landing page to source dataset "knb-lter-mcm.9003":
+# https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-mcm&identifier=9003
+# Landing page to derived dataset "edi.10101":
+# https://portal.edirepository.org/nis/mapbrowse?scope=edi&identifier=10101
+# -----------------------------------------------------------------------------
+# Libraries used by this function
+
+library(hymetDP)
+library(EDIutils)
+library(magrittr)
+library(dplyr)
+library(tidyr)
+library(lubridate)
+library(xml2)
+library(lutz)
+
+create_hymetDP <- function(path = NULL,
+                                 source_id = 'knb-lter-mcm.9003.11',
+                                 derived_id = 'edi.10101.1',
+                                 url = NULL) {
+
+  # Read source dataset -------------------------------------------------
+
+  # The source dataset contains seasonal high-frequency measurements of
+  # discharge, water temperature, and specific conductivity from a site in
+  # Antarctica. The dataset consists of a data table containing internal codes,
+  # datetimes, measurements, meaurement quality flags, and general comments. 
+  # Once the table is read in using the `read_tables()`, any missing values 
+  # will automatically be converted to `NA`, and columns for units will be added
+  
+  eml <- EDIutils::read_metadata(source_id)
+
+  tables <- read_tables(
+    eml = eml,
+    strip.white = TRUE,
+    na.strings = "",
+    convert.missing.value = TRUE,
+    add.units = TRUE)
+
+  # Join and flatten the source dataset ---------------------------------------
+
+  # Joining all source data and relevant metadata into one big flat table 
+  # simplifies parsing into hymetDP tables and facilitates referential 
+  # integrity in the process.
+  #
+  # The first step towards creating our "flat" table is to create a wide table
+  # that consists of all relevant tables from the dataset. Since our dataset
+  # only contains a single table, nothing special needs to happen to create the
+  # preliminary wide table
+  
+  wide <- tables$`mcmlter-strm-h1_andersen-15min-20210303.csv`
+  
+  # Before we transform our "wide" table into a "flat" table, we should add a
+  # few columns, drop the ones we won't need, and make a few other changes that
+  # are easier to implement to the wide table:
+
+  # Specify timezone/offset
+  
+  # Convert the datetime column to the ISO-8601 format, assign the timezone and
+  # UTCoffset, and create the hymetDP required date columns
+
+  wide$LocalDateTime <- wide$DATE_TIME %>% strptime(format = "%m/%d/%y %H:%M", tz = "Antarctica/McMurdo") %>% as.character() %>% lubridate::as_datetime(tz = "Antarctica/McMurdo")
+
+  wide$UTCOffset <- lutz::tz_offset(wide$LocalDateTime, "Antarctica/McMurdo")$utc_offset_h
+
+  wide$DateTimeUTC <- lubridate::with_tz(wide$LocalDateTime, "Etc/UTC")
+
+  # Remove columns that will not be used in the final hymetDP tables
+  
+  wide <- wide %>%
+    dplyr::select(
+      -DATASET_CODE,
+      -STRMGAGEID,
+      -DATE_TIME,
+      -COMMENTS)
+  
+  # Flatten ----------------------------------------------------------------
+
+  # Convert wide format to "flat" format. This is the wide form but gathered on 
+  # core observation variables, which are often > 1 in source datasets. This 
+  # "flat" table is the "widest" hymetDP datasets can be consistently returned 
+  # to by the hymetDP::flatten_data() function, and is the input format 
+  # required by the "create table" helpers we'll meet shortly.
+  #
+  # To make the transition from wide to flat, we need to rename columns to
+  # follow the scheme "columnType.columnValue". The unique columnTypes will
+  # become the names of new columns containing the columnValues. The
+  # columnValues will in turn be associated with their original values in the
+  # value column.
+  
+  wide <- wide %>%
+    dplyr::rename_with(
+      ~paste0("DataValue.", .),
+      .cols = c("DSCHRGE_RATE","WATER_TEMP","CONDUCTIVITY"))
+
+  wide <- wide %>%
+    dplyr::rename(
+      Qualifier.DSCHRGE_RATE = DSCHRGE_QLTY,
+      Qualifier.WATER_TEMP = WATER_TEMP_QLTY,
+      Qualifier.CONDUCTIVITY = CONDUCTIVITY_QLTY,
+      unit.DSCHRGE_RATE = unit_DSCHRGE_RATE,
+      unit.WATER_TEMP = unit_WATER_TEMP,
+      unit.CONDUCTIVITY = unit_CONDUCTIVITY)
+
+  flat <- tidyr::pivot_longer(
+    wide,
+    cols = dplyr::matches(c("DSCHRGE", "WATER_TEMP", "CONDUCTIVITY")),
+    names_to = c(".value", "variable_name"),
+    names_sep = "\\.")
+
+  # We're now in a good place to begin adding columns of the hymetDP tables we
+  # can create from this source dataset. We'll begin with the DataValues table.
+  
+  # Add columns for the data values table -----------------------------------
+
+  # Every row of the flat table represents a single data value in the hymetDP
+  # model. We assign a unique, integer ValueID to every entry:
+  
+  flat$ValueID <- seq(nrow(flat))
+
+  # Assign variable code, define variable code function ---------------------
+
+  # We need to create the entries for the Variables table. These will be added
+  # as columns to the flat table. To do this, we can take advantage of
+  # `define_variable()`, which gives us a convenient way to specify a variable
+  # by its name as it is listed in the flat table (i.e. "DSCHRGE_RATE").
+  #
+  # By specifying that we are working with the values "DSCHRGE_RATE" in the 
+  # column "variable_name" from the flat table, `define_variable()` will
+  # handle assigning unique VariableCodes and joining the provided information
+  # to its correct place in the flat table. 
+  #
+  # For fields that require an ODM Controlled Vocabulary term, use the *CV
+  # objects to find fitting terms. If a non-supported term is given, 
+  # `define_variable()` will throw a warning (and occasionally a hint).
+  
+  # Define variables using the ODM Controlled vocabularies
+
+  # View(VariableNameCV)              # variable_name
+  # View(UnitsCV)                     # variable_units and time_units
+  # View(SampleMediumCV)              # sample_medium
+  # View(ValueTypeCV)                 # value_type
+  # View(DataTypeCV)                  # data_type
+  # View(GeneralCategoryCV)           # general_category
+
+  flat <- hymetDP::define_variable(
+    L0_flat = flat,
+    local_variable_column = "variable_name",
+    local_variable = "DSCHRGE_RATE",
+    variable_name = "Discharge",
+    variable_units = "liters per second",
+    sample_medium = "Surface water",
+    value_type = "Derived Value",
+    is_regular = TRUE,
+    time_support = 15,
+    time_units = "minute",
+    data_type = "Continuous",
+    general_category = "Hydrology",
+    no_data = -9999)
+
+  flat <- hymetDP::define_variable(
+    L0_flat = flat,
+    local_variable_column = "variable_name",
+    local_variable = "WATER_TEMP",
+    variable_name = "Temperature",
+    variable_units = "degree celsius",
+    sample_medium = "Surface water",
+    value_type = "Field Observation",
+    is_regular = TRUE,
+    time_support = 15,
+    time_units = "minute",
+    data_type = "Continuous",
+    general_category = "Hydrology",
+    no_data = -9999)
+
+  flat <- hymetDP::define_variable(
+    L0_flat = flat,
+    local_variable_column = "variable_name",
+    local_variable = "CONDUCTIVITY",
+    variable_name = "Specific conductance",
+    variable_units = "microsiemens per centimeter",
+    sample_medium = "Surface water",
+    value_type = "Field Observation",
+    is_regular = TRUE,
+    time_support = 15,
+    time_units = "minute",
+    data_type = "Continuous",
+    general_category = "Hydrology",
+    no_data = -9999)
+
+  # define_methods ---------------------------------------------------------
+
+  # Define methods and link to specific variables (by code or by name)
+  
+  # Similar to `define_variable()`, there is a function for defining dataset
+  # methods. `define_method()` works under the assumption that each variable
+  # only has a single method associated with it. For this reason,
+  # `define_method()` lets you associate a MethodDescription to one or more 
+  # variables in the flat table by specifying the original variable name (i.e.
+  # "DSCHRGE_RATE") or by the variable's newly assigned VariableCode. If both
+  # parameters are specified, the VariableCode will take precedence.
+  #
+  # `define_method()` is a straightforward helper function unless it is 
+  # necessary to associate multiple methods with a single variable (i.e. methods
+  # change over time). When this is the case, a useful tactic can be to split 
+  # the flat table in pieces and running `define_method()` on the fragments,
+  # taking care to re-join the flat fragments and manually assign MethodCodes.
+
+  flat <- hymetDP::define_method(
+    L0_flat = flat,
+    local_variable_column = "variable_name",
+    local_variable = "DSCHRGE_RATE",
+    VariableCode = c(1,2,3),
+    MethodDescription = "Campbell CR10 dataloggers were used to record stream stage, water temperature, and conductivity in a network of stream gages. Stage is monitored with pressure transducers; PSS-1 and PS-2 models form Paroscientific Corporation, and Accubars from Sutron Corporation. The pressure transducers measure the backpressure in orifice lines set into or above controls in the stream channel. In addition, some of the sites monitor water temperature and conductivity with either USGS minimonitor probes, or Campbell temperature/conductivity probes. Ratings are developed for the stage/discharge relationship at each site by measuring streamflow with current meters or portable flumes, according to standard USGS methods. Datum corrections to the stage are determined by periodically surveying the elevation of the orifice line to the control and nearby reference marks. Calibrations for the temperature and conductivity are assessed by measuring these parameters with portable field meters while simultaneously noting the readings from the gage probes. Data is downloaded into Campbell storage modules, and retrieved into pcs. From there, the data is sent to a USGS computer, where time discrepancies are resolved, and the data is loaded into ADAPS, a database system developed in the USGS for maintaining and processing water data. A determination for each site as to when the stream was flowing and when it was not is made. For water temperature and conductivity, bad data is deleted. Variable shifts are determined based on field calibration measurements, and other indicators. The shifts are applied to the remaining good data inside of ADAPS. The data is pulled out of ADAPS, and reformatted for input into ORACLE. Cases of water temperature below reasonable values are set to lower limits. A quality code is assigned to every value. The resulting data is uploaded into the ORACLE and the McMurdo database. Before 2011, For stage/discharge, bad data is deleted. Survey data is reviewed to compute weir elevations an datum corrections. A rating curve is developed graphically, based on available data, and entered into ADAPS. All applicable shifts and datum corrections are entered into ADAPS. All corrections and ratings are run against the good stage data to compute the discharge at each recording interval. The data is pulled out of ADAPS, and reformatted for input into ORACLE. A quality code is assigned to every value. The resulting data is uploaded into ORACLE and the McMurdo database. ADAPS deprecated in favor of Aquarius software in 2012. Similar procedure is used in Aquarius to convert and curate the data. Metadata was enhanced in 2013 and 2014 by Inigo San Gil. In March 2021, data from the 2016-17 field season was replaced to correct a previously published error, in which discharge was reported in cubicFeetPerSecond (CFS) instead of litersPerSecond (l/s).",
+    MethodLink = NULL)
+
+  # Add columns for the sites table -----------------------------------
+
+  # Ideally, for datasets with multiple Sites, the source dataset would include
+  # latitude, longitude, and elevation for each Site. Since this dataset only
+  # has a single site, we only need to extract the single coordinate from the
+  # metadata.
+  
+  geo_cov <- eml %>%
+    xml2::xml_find_all('.//geographicCoverage')
+
+  site_name <- geo_cov %>%
+    xml2::xml_find_all('.//geographicDescription') %>%
+    xml2::xml_text() %>%
+    stringr::str_replace_all('\\n', '')
+
+  bounds <- geo_cov %>%
+    xml2::xml_find_all('.//boundingCoordinates')
+  lon <- lapply(bounds, function(x) {
+    mean(
+      xml_double(xml2::xml_find_all(x, './/westBoundingCoordinate')),
+      xml_double(xml2::xml_find_all(x, './/eastBoundingCoordinate')))
+  })
+
+  lat <- lapply(bounds, function(x) {
+    mean(
+      xml_double(xml2::xml_find_all(x, './/northBoundingCoordinate')),
+      xml_double(xml2::xml_find_all(x, './/southBoundingCoordinate')))
+  })
+
+
+  elev <- lapply(bounds, function(x) {
+    mean(
+      xml_double(xml2::xml_find_all(x, './/boundingAltitudes/altitudeMinimum')),
+      xml_double(xml2::xml_find_all(x, './/boundingAltitudes/altitudeMaximum')))
+  })
+
+  if (!is.na(elev) & xml_text(xml2::xml_find_all(bounds, './/boundingAltitudes/altitudeUnits')) != 'meter') warning("Altitude must be converted to meter for hymetDP")
+
+  # create a Sites table
+  
+  # We can now add the geographic information, and other required columns for
+  # the Sites table, to our flat table. For the columns that require a CV term,
+  # use the *CV objects with `View()` as demonstrated below.
+
+  # View(SpatialReferencesCV) # LatLongDatumSRSName
+  # View(SiteTypeCV)          # SiteType
+
+  flat$SiteCode <- 1
+  flat$SiteName <- site_name
+  flat$Latitude <- lat
+  flat$Longitude <- lon
+  flat$Elevation_m <- elev
+  flat$SiteType <- "Stream"
+
+  # Add columns for the Sources table ---------------------------------------
+
+  # Some information for the Sources table must be manually added to the flat 
+  # table. Other information, specifically, SourceDescription, SourceLink,
+  # Citation can be sourced automatically from the metadata.
+  
+  flat$Organization <- xml2::xml_text(xml2::xml_find_first(eml, './/metadataProvider/organizationName'))
+  flat$ContactName <- paste0(xml2::xml_text(xml2::xml_find_first(eml, './/contact/individualName/givenName')), ' ',
+                             xml2::xml_text(xml2::xml_find_first(eml, './/contact/individualName/surName')))
+  flat$Email <- xml2::xml_text(xml2::xml_find_first(eml, './/contact/electronicMailAddress'))
+  # flat$Address <- xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/deliveryPoint'))
+  # flat$City <- xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/city'))
+  # flat$State <- xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/administrativeArea'))
+  # flat$ZipCode <- xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/postalCode'))
+
+  flat <- define_source(L0_flat = flat,
+                        eml = eml)
+
+
+  # Add columns for the Quality Control Level table ----------------------------------------
+
+  # Assign and describe Quality Control information for the dataset. In this
+  # case, all of the data is considered "Quality controlled data"
+  
+  flat$QualityControlLevelCode <- 1
+  flat$Definition <- "Quality controlled data"
+  flat$Explanation <- "Quality controlled data that have passed quality assurance procedures such as routine estimation of timing and sensor calibration or visual inspection and removal of obvious errors. An example is USGS published streamflow records following parsing through USGS quality control procedures."
+
+  # Add columns for the optional tables -------------------------------------------
+
+  # Qualifiers
+  
+  # Adding columns for the optional table Qualifiers using the information
+  # from the Qualifier column of the flat table
+
+  # Clean up the codes in the table
+
+  flat$Qualifier <- flat$Qualifier %>% tolower()
+
+  flat$Qualifier[grepl("fair", flat$Qualifier, ignore.case=FALSE)] <- "fair"
+  flat$Qualifier[grepl("good", flat$Qualifier, ignore.case=FALSE)] <- "good"
+  flat$Qualifier[grepl("poor", flat$Qualifier, ignore.case=FALSE)] <- "poor"
+  flat$Qualifier[grepl("[^fair|good|missing|poor]", flat$Qualifier, ignore.case=FALSE)] <- NA_character_
+
+
+  flat <- dplyr::mutate(
+    flat,
+    QualifierCode = Qualifier
+  ) %>%
+    dplyr::left_join(
+      data.frame(
+        "QualifierCode" = c("good", "fair", "poor", "missing"),
+        "QualifierDescription" = c('most accurate within 10%',
+                                   'most data accurate within 25%',
+                                   'significant amounts of data may be >25% off',
+                                   "missing")),
+      by = 'QualifierCode'
+    )
+
+  # The hard work is done! The flat table contains all the source data and 
+  # more! We can now use the "create" functions to parse this table into the 
+  # hymetDP tables.
+  
+  # Parse flat into hymetDP required tables -------------------------------------------
+
+  # Each hymetDP table has an associated "create" function. Begin with the 
+  # core required tables.
+  
+  Sources <- hymetDP::create_sources(
+    L0_flat = flat,
+    SourceCode = "SourceCode",
+    Organization = "Organization",
+    SourceDescription = "SourceDescription",
+    SourceLink = "SourceLink",
+    ContactName = "ContactName",
+    Phone = "Phone",
+    Email = "Email",
+    Address = "Address",
+    City = "City",
+    State = "State",
+    ZipCode = "ZipCode",
+    Citation = "Citation")
+  
+  Methods <- hymetDP::create_methods(
+    L0_flat = flat,
+    MethodCode = "MethodCode",
+    MethodDescription = "MethodDescription")
+  
+  Variables <- hymetDP::create_variables(
+    L0_flat = flat,
+    VariableCode = "VariableCode",
+    VariableName = "VariableName",
+    VariableUnitsName = "VariableUnitsName",
+    SampleMedium = "SampleMedium",
+    ValueType = "ValueType",
+    IsRegular = "IsRegular",
+    TimeSupport = "TimeSupport",
+    TimeUnitsName = "TimeUnitsName",
+    DataType = "DataType",
+    GeneralCategory = "GeneralCategory",
+    NoDataValue = "NoDataValue")
+  
+  Sites <- hymetDP::create_sites(
+    L0_flat = flat,
+    SiteCode = "SiteCode",
+    SiteName = "SiteName",
+    Latitude = "Latitude",
+    Longitude = "Longitude",
+    LatLongDatumSRSName = NULL,
+    Elevation_m = NULL,
+    VerticalDatum = NULL,
+    LocalX = NULL,
+    LocalY = NULL,
+    LocalProjectionSRSName = NULL,
+    PosAccuracy_m = NULL,
+    State = NULL,
+    County = NULL,
+    Comments = NULL,
+    SiteType = "SiteType")
+  
+  QualityControlLevels <- hymetDP::create_quality_control(
+    L0_flat = flat,
+    QualityControlLevelCode = "QualityControlLevelCode",
+    Definition = "Definition",
+    Explanation = "Explanation"
+  )
+  
+  # Parse flat into hymetDP optional tables ---------------------------------
+  
+  # Create the optional hymetDP tables. These are optional, but should be 
+  # included if possible.
+  
+  Qualifiers <- hymetDP::create_qualifiers(
+    L0_flat = flat,
+    QualifierCode = "QualifierCode",
+    QualifierDescription = "QualifierDescription"
+  )
+  
+  # Parse flat into the DataValues table ------------------------------------
+  
+  # Create the DataValues table
+  
+  DataValues <- hymetDP::create_data_values(
+    L0_flat = flat,
+    ValueID = "ValueID",
+    DataValue = "DataValue",
+    ValueAccuracy = NULL,
+    LocalDateTime = "LocalDateTime",
+    UTCOffset = "UTCOffset",
+    DateTimeUTC = "DateTimeUTC",
+    SiteCode = "SiteCode",
+    VariableCode = "VariableCode",
+    OffsetValue = NULL,
+    OffsetTypeCode = NULL,
+    CensorCode = NULL,
+    QualifierCode = NULL,
+    MethodCode = "MethodCode",
+    QualityControlLevelCode = "QualityControlLevelCode",
+    SourceCode = "SourceCode",
+    NoDataValue = "NoDataValue")
+  
+  
+  # Create the SeriesCatalog table ------------------------------------------
+  
+  # Finally, create the SeriesCatalog table. This table summarizes information
+  # across several other required hymetDP tables. Since it takes the other, 
+  # finalized tables as input, it must be created last.
+  
+  SeriesCatalog <- hymetDP::create_series_catalog(
+    Sources = Sources,
+    Methods = Methods,
+    Variables = Variables,
+    Sites = Sites,
+    QualityControlLevels = QualityControlLevels,
+    DataValues = DataValues)
+  
+  # Write hymetDP tables ----------------------------------------------------
+
+  hymetDP::write_tables(
+    path = path,
+    DataValues = DataValues,
+    Variables = Variables,
+    Methods = Methods,
+    Sources = Sources,
+    Sites = Sites,
+    QualityControlLevels = QualityControlLevels,
+    Qualifiers = Qualifiers,
+    SeriesCatalog = SeriesCatalog)
+  
+  # Validate tables -----------------------------------------------------------
+  
+  # Validation checks ensure the derived set of tables comply with the hymetDP
+  # model. Any issues at this point should be addressed in the lines of code
+  # above, the tables rewritten, and another round of validation, to be certain
+  # the fix worked.
+
+  issues <- hymetDP::validate_data(path = path)
+  
+  # Create metadata -----------------------------------------------------------
+  
+  # Before publishing the derived hymetDP dataset, we need to describe it. The 
+  # create_eml() function does this all for us. It knows the structure of the 
+  # hymetDP model and applies standardized table descriptions and mixes in 
+  # important elements of the source dataset metadata for purposes of 
+  # communication and provenance tracking.
+  
+  # Add contact information for the author of this script and dataset
+
+  additional_contact <- data.frame(
+    givenName = 'Kyle',
+    surName = 'Zollo-Venecek',
+    organizationName = 'Environmental Data Initiative',
+    electronicMailAddress = 'zollovenecek@wisc.edu',
+    stringsAsFactors = FALSE)
+
+  eml <- hymetDP::create_eml(
+    path = path,
+    source_id = source_id,
+    derived_id = derived_id,
+    script = "create_hymetDP.R",
+    script_description =
+      "A function for converting knb-lter-mcm.9003 to hymetDP",
+    contact = additional_contact,
+    user_id = 'kzollovenecek',
+    user_domain = 'edi')
+}
+```
+
+#### Example function call:
+
+```{r eval=FALSE}
+
+# Create directory for tables and metadata
+
+mypath <- paste0(tempdir(), "/edi_10101")
+dir.create(mypath)
+
+# Create hymetDP dataset "edi.10101.1" from source dataset "knb-lter-mcm.9003.11"
+
+#> create_hymetDP(
+#>   path = mypath, 
+#>   source_id = "knb-lter-mcm.9003.11", 
+#>   derived_id = "edi.10101.1")
+#> 
+#>  [100%] Downloaded 11310035 bytes...
+#> SourceDescription added
+#> SourceLink added
+#> Citation added
+#> Contact Info Added
+#> Writing tables to file:
+#>   DataValues
+#>   Variables
+#>   Methods
+#>   Sources
+#>   Sites
+#>   QualityControlLevels
+#>   SeriesCatalog
+#>   Qualifiers
+#> Validating ed_10101:
+#>   Required tables
+#>   Column names
+#>   Required columns
+#>   Column classes
+#>   Datetime formats
+#>   Primary keys
+#>   Composite keys
+#>   Referential integrity
+#>   Latitude and Longitude format
+#>   Latitude and Longitude range
+#>   Elevation
+#>   ODM Controlled Vocabulary terms
+#> Creating EML for derived data package (edi.10101.1)
+#> Reading EML of L0 data package knb-lter-mcm.9003.11
+#> Creating EML of L1 data package edi.10101.1
+#> Updating:
+#> <eml>
+#>   <dataset>
+#>     <alternateIdentifier>
+#>     <title>
+#>     <pubDate>
+#>     <keywordSet>
+#>     <contact>
+#>     <methods>
+#>     <dataTable>
+#>     <otherEntity>
+#>     <annotations>
+#> </eml>
+#> Writing EML
+#> Validating EML
+#>   Validation passed :)
+#> Done.
+
+# The working directory contains a valid set of hymetDP tables and metadata, 
+# which is ready for upload to EDI (or any other EML based repository) 
+dir(mypath)
+#>  [1] "create_hymetDP.R"        
+#>  [2] "DataValues.csv"          
+#>  [3] "edi.10101.1.xml"         
+#>  [4] "Methods.csv"             
+#>  [5] "Qualifiers.csv"          
+#>  [6] "QualityControlLevels.csv"
+#>  [7] "SeriesCatalog.csv"       
+#>  [8] "Sites.csv"               
+#> [9] "Sources.csv"             
+#> [10] "Variables.csv"  
+
+```
