@@ -30,8 +30,7 @@ testthat::test_that("Creates valid EML", {
     script_description = "A function for converting knb-lter-mcm.9003 to hymetDP",
     contact = additional_contact,
     user_id = 'kzollovenecek',
-    user_domain = 'EDI',
-    basis_of_record = "MachineObservation")
+    user_domain = 'EDI')
 
   # Test
   expect_true(EML::eml_validate(eml))
