@@ -4,6 +4,8 @@
 # hymetDP <img src="man/figures/logo.png" align="right" alt="hymetDP logo" height="300" style="float:right; height:300px;" />
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/kzollove/hymetDP/workflows/R-CMD-check/badge.svg)](https://github.com/kzollove/hymetDP/actions)
 <!-- badges: end -->
 
 ## Overview
