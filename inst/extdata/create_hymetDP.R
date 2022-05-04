@@ -17,7 +17,7 @@ create_hymet_L0_flat <- function(path = NULL,
 
   # Read source dataset -------------------------------------------------
 
-  eml <- EDIutils::read_metadata(source_id)
+  eml <- read_metadata(source_id)
 
   tables <- read_tables(
     eml = eml,

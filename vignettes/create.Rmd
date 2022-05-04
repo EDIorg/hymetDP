@@ -84,7 +84,7 @@ create_hymetDP <- function(path = NULL,
   # Once the table is read in using the `read_tables()`, any missing values 
   # will automatically be converted to `NA`, and columns for units will be added
   
-  eml <- EDIutils::read_metadata(source_id)
+  eml <- read_metadata(source_id)
 
   tables <- read_tables(
     eml = eml,

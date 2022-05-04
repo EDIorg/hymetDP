@@ -34,7 +34,7 @@
 #'
 #' @examples
 #'\dontrun{
-#' eml <- EDIutils::read_metadata('knb-lter-mcm.9003.11')
+#' eml <- read_metadata('knb-lter-mcm.9003.11')
 #'
 #' tables <- read_tables(
 #'   eml = eml,

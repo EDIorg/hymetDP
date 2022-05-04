@@ -24,7 +24,7 @@
 #'
 #' flat <- hymet_L0_flat[1:30]
 #'
-#' eml <- EDIutils::read_metadata('knb-lter-mcm.9003.11')
+#' eml <- read_metadata('knb-lter-mcm.9003.11')
 #'
 #' flat <- define_source(
 #'   L0_flat = flat,

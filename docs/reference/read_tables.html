@@ -66,15 +66,30 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>eml</dt>
-<dd><p>(xml_document, xml_node) EML metadata returned from <code>read_eml()</code>.</p></dd>
+<dd><p>(xml_document, xml_node) EML metadata returned from
+<code>read_eml()</code>.</p></dd>
 <dt>strip.white</dt>
-<dd><p>(logical) Strips leading and trailing whitespaces of unquoted fields. Default if FALSE.</p></dd>
+<dd><p>(logical) Strips leading and trailing whitespaces of
+unquoted fields. Default if FALSE.</p></dd>
 <dt>na.strings</dt>
-<dd><p>(character) Strings to be interpreted as NA. Setting <code>na.strings = ""</code> converts "" to NA. By default, blank strings "" are read as is.</p></dd>
+<dd><p>(character) Strings to be interpreted as NA. Setting
+<code>na.strings = ""</code> converts "" to NA. By default, blank strings "" are
+read as is.</p></dd>
 <dt>convert.missing.value</dt>
-<dd><p>(logical) Converts all missing value codes specified in <code>eml</code> (e.g. "-99999", "NaN", "Not measured") to NA. Missing value codes vary across data packages and converting to a consistent form recognized by R makes downstream use simpler. However, care must be exercised when using this argument. The author of a dataset described by <code>eml</code> may have defined "missing value code" to mean something different than you expect (e.g. "below detection limit") therefore reviewing the authors missing value code definitions is a good idea. Default is FALSE.</p></dd>
+<dd><p>(logical) Converts all missing value codes
+specified in <code>eml</code> (e.g. "-99999", "NaN", "Not measured") to NA.
+Missing value codes vary across data packages and converting to a
+consistent form recognized by R makes downstream use simpler. However, care
+must be exercised when using this argument. The author of a dataset
+described by <code>eml</code> may have defined "missing value code" to mean
+something different than you expect (e.g. "below detection limit")
+therefore reviewing the authors missing value code definitions is a good
+idea. Default is FALSE.</p></dd>
 <dt>add.units</dt>
-<dd><p>(logical) If TRUE, a variable's unit of measurement will be added to the table in a separate column with a column name of the form: <code>&lt;unit&gt;_&lt;variable_name&gt;</code>. This argument is useful when gathering variables into a long (attribute-value) table.</p></dd>
+<dd><p>(logical) If TRUE, a variable's unit of measurement will be
+added to the table in a separate column with a column name of the form:
+<code>&lt;unit&gt;_&lt;variable_name&gt;</code>. This argument is useful when gathering
+variables into a long (attribute-value) table.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -82,18 +97,15 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    
-<div class="sourceCode"><pre><code>This function uses \code{data.table::fread()} and uses default argument values if the EML based values return an error.
-
-Default settings preserve the form the data were originally published in.
-</code></pre></div>
-
+    <p>This function uses <code><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">data.table::fread()</a></code> and uses default
+argument values if the EML based values return an error.</p>
+<p>Default settings preserve the form the data were originally published in.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">eml</span> <span class="op">&lt;-</span> <span class="fu">EDIutils</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/EDIutils/reference/read_metadata.html" class="external-link">read_metadata</a></span><span class="op">(</span><span class="st">'knb-lter-mcm.9003.11'</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="va">eml</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_metadata.html">read_metadata</a></span><span class="op">(</span><span class="st">'knb-lter-mcm.9003.11'</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">tables</span> <span class="op">&lt;-</span> <span class="fu">read_tables</span><span class="op">(</span></span>
 <span class="r-in">  eml <span class="op">=</span> <span class="va">eml</span>,</span>
@@ -101,6 +113,8 @@ Default settings preserve the form the data were originally published in.
 <span class="r-in">  na.strings <span class="op">=</span> <span class="st">""</span>,</span>
 <span class="r-in">  convert.missing.value <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span class="r-in">  add.units <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="op">}</span></span>
 <span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"></span>

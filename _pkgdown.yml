@@ -11,6 +11,7 @@ reference:
     desc: Define variables, create tables, validate, and write metadata
     contents:
     - template_hymet
+    - read_metadata
     - create_data_values
     - create_methods
     - create_qualifiers

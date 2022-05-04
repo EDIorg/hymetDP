@@ -12,7 +12,7 @@ create_hymetDP <- function(path,
 
   # Read source dataset -------------------------------------------------
 
-  eml <- EDIutils::read_metadata(source_id)
+  eml <- read_metadata(source_id)
 
   tables <- read_tables(
     eml = eml,
