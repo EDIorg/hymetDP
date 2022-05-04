@@ -79,7 +79,7 @@ read_data <- function(id = NULL, parse_datetime = TRUE,
     }
   }
 
-  # Coerce column classes to ecocomDP specifications. NOTE: This same
+  # Coerce column classes to hymetDP specifications. NOTE: This same
   # process is applied to read_from_files(). Any update here should be
   # duplicated there. A function is not used in order to minimize data object
   # copies.
@@ -223,7 +223,7 @@ read_data_edi <- function(id, parse_datetime = TRUE) {
     config.environment <- "production"
   }
 
-  # Get ecocomDP attributes for validation and coercion
+  # Get hymetDP attributes for validation and coercion
 
   attr_tbl <- read_criteria()
 

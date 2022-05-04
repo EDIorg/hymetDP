@@ -95,7 +95,7 @@
 #     (Environmental Data Initiative), "LTER" (Long-Term Ecological Research
 #     Network), "KNB" (The Knowledge Network for Biocomplexity), "ADC" (The
 #     Arctic Data Center). If you'd like your system supported please contact
-#     maintainers of the ecocomDP R package. If using more than one
+#     maintainers of the hymetDP R package. If using more than one
 #     \code{user.domain}, then enter as a vector of character strings (e.g.
 #     \code{c("user_domain_1", "user_domain_2")}) in the same order as
 #     corresponding \code{user.id}. If \code{user.domain} is missing then a

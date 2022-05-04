@@ -244,7 +244,7 @@ write_tables <- function(
 
 #' Detect the type of object input to the \code{data} parameter
 #'
-#' @description The \code{data} parameter, used by a few functions in the ecocomDP package, can accept different object types. \code{detect_data_type()} identifies the object type, which the calling function typically uses in some flow control logic.
+#' @description The \code{data} parameter, used by a few functions in the hymetDP package, can accept different object types. \code{detect_data_type()} identifies the object type, which the calling function typically uses in some flow control logic.
 #'
 #' @param data (list or tbl_df, tbl, data.frame) The dataset object returned by \code{read_data()}, a named list of tables containing the observation table, or a flat table containing columns of the observation table.
 #'

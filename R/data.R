@@ -65,7 +65,7 @@
 #' \describe{
 #'   \item{id}{The dataset identifier}
 #'   \item{metadata}{See source url for metadata}
-#'   \item{tables}{A list of data frames, each an ecocomDP table}
+#'   \item{tables}{A list of data frames, each a hymetDP table}
 #' }
 #' @source \code{hymet_L0_flat}
 "hymet_L1"

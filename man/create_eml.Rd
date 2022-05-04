@@ -105,7 +105,7 @@ eml <- create_eml(
   source_id = "knb-lter-mcm.9003.11",
   derived_id = "edi.10101.1",
   is_about = dataset_annotations,
-  script = "create_ecocomDP.R",
+  script = "create_hymetDP.R",
   script_description = "A function for converting knb-lter-mcm.9003 to hymetDP",
   contact = additional_contact,
   user_id = 'hymetdp',

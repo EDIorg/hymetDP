@@ -5,7 +5,7 @@ library(hymetDP)
 testthat::test_that("Creates valid EML", {
   testthat::skip_on_cran()
 
-  # Create directory with ecocomDP tables for create_eml()
+  # Create directory with hymetDP tables for create_eml()
   mypath <- paste0(tempdir(), "/data")
   dir.create(mypath)
   inpts <- c(hymet_L1$tables, path = mypath)

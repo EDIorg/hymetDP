@@ -29,7 +29,7 @@ This package already contains a large number of dependencies (imports and sugges
 
 ## General Development Goals & Guidelines
 
-1. Contribute code to create, use, and convert ecocomDP datasets.
+1. Contribute code to create, use, and convert hymetDP datasets.
 2. Maintain a consistent user-facing API.
 
 ## Attribution

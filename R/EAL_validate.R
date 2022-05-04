@@ -315,7 +315,7 @@ issues <- function() {
 
 read_template_attributes <- function() {
   data.table::fread(
-    system.file('extdata', 'template_characteristics.txt', package = 'ecocomDP'),
+    system.file('extdata', 'template_characteristics.txt', package = 'hymetDP'),
     fill = TRUE,
     blank.lines.skip = TRUE)
 }
