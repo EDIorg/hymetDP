@@ -21,6 +21,12 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Functions</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/create.html">Create</a>
+  </div>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -49,7 +55,7 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">define_variable</span><span class="op">(</span>
-  L0_flat <span class="op">=</span> <span class="va">flat</span>,
+  <span class="va">L0_flat</span>,
   local_variable_column <span class="op">=</span> <span class="st">"variable_name"</span>,
   local_variable <span class="op">=</span> <span class="cn">NULL</span>,
   variable_name <span class="op">=</span> <span class="va">local_variable</span>,
@@ -68,46 +74,80 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>L0_flat</dt>
-<dd><p>(tbl_df, tbl, data.frame) The fully joined source L0 dataset, in "flat" format (see details).</p></dd>
+<dd><p>(tbl_df, tbl, data.frame) The fully joined source L0 dataset,
+in "flat" format (see details).</p></dd>
 <dt>local_variable_column</dt>
-<dd><p>(character) Column in <code>L0_flat</code> table containing the L0 variable name.</p></dd>
+<dd><p>(character) Column in <code>L0_flat</code> table
+containing the L0 variable name.</p></dd>
 <dt>local_variable</dt>
-<dd><p>(character) Reference to a value in the <code>local_variable_column</code> from the <code>L0_flat</code> table to which the new hymetDP variable refers.</p></dd>
+<dd><p>(character) Reference to a value in the
+<code>local_variable_column</code> from the <code>L0_flat</code> table to which the new
+hymetDP variable refers.</p></dd>
 <dt>variable_name</dt>
-<dd><p>(character) The CUAHSI ODM Controlled Vocabulary name for the variable that was measured, observed, modeled, etc. Defaults to the <code>local_variable</code> value.</p></dd>
+<dd><p>(character) The CUAHSI ODM Controlled Vocabulary name
+for the variable that was measured, observed, modeled, etc. Defaults to the
+<code>local_variable</code> value.</p></dd>
 <dt>variable_units</dt>
-<dd><p>(character) The CUAHSI ODM Controlled Vocabulary name of units of the data values associated with a variable. Defaults to a column <code>unit</code> from the <code>L0_flat</code> table if left unspecified.</p></dd>
+<dd><p>(character) The CUAHSI ODM Controlled Vocabulary name
+of units of the data values associated with a variable. Defaults to a
+column <code>unit</code> from the <code>L0_flat</code> table if left unspecified.</p></dd>
 <dt>sample_medium</dt>
-<dd><p>(character) The CUAHSI ODM Controlled Vocabulary name of the medium in which the sample or observation was taken or made.</p></dd>
+<dd><p>(character) The CUAHSI ODM Controlled Vocabulary name of
+the medium in which the sample or observation was taken or made.</p></dd>
 <dt>value_type</dt>
-<dd><p>(character) The CUAHSI ODM Controlled Vocabulary value that indicates how the data value was generated.</p></dd>
+<dd><p>(character) The CUAHSI ODM Controlled Vocabulary value that
+indicates how the data value was generated.</p></dd>
 <dt>is_regular</dt>
-<dd><p>(boolean) Value indicates whether the data values are from a regularly sampled time series. Choose <code>TRUE</code> or <code>FALSE</code>.</p></dd>
+<dd><p>(boolean) Value indicates whether the data values are from
+a regularly sampled time series. Choose <code>TRUE</code> or <code>FALSE</code>.</p></dd>
 <dt>time_support</dt>
-<dd><p>(numeric) Numerical value that indicates the time support (or temporal footprint) of the data values. 0 is used to indicate data values that are instantaneous. Other values indicate the time over which the data values are implicitly or explicitly averaged or aggregated. Goes along with <code>time_units</code> if <code>is_regular == TRUE</code>.</p></dd>
+<dd><p>(numeric) Numerical value that indicates the time support
+(or temporal footprint) of the data values. 0 is used to indicate data
+values that are instantaneous. Other values indicate the time over which
+the data values are implicitly or explicitly averaged or aggregated. Goes
+along with <code>time_units</code> if <code>is_regular == TRUE</code>.</p></dd>
 <dt>time_units</dt>
-<dd><p>(character) The CUAHSI ODM Controlled Vocabulary name of units of the time support. If <code>time_support == 0</code>, indicating an instantaneous observation, a unit needs to still be given for completeness, although it is arbitrary.</p></dd>
+<dd><p>(character) The CUAHSI ODM Controlled Vocabulary name of
+units of the time support. If <code>time_support == 0</code>, indicating an
+instantaneous observation, a unit needs to still be given for completeness,
+although it is arbitrary.</p></dd>
 <dt>data_type</dt>
-<dd><p>(character) The CUAHSI ODM Controlled Vocabulary value that indicates how the value applies over a time interval.</p></dd>
+<dd><p>(character) The CUAHSI ODM Controlled Vocabulary value that
+indicates how the value applies over a time interval.</p></dd>
 <dt>general_category</dt>
-<dd><p>(character) The CUAHSI ODM Controlled Vocabulary value for general category of the data  (i.e. Hydrology).</p></dd>
+<dd><p>(character) The CUAHSI ODM Controlled Vocabulary
+value for general category of the data  (i.e. Hydrology).</p></dd>
 <dt>no_data</dt>
-<dd><p>(numeric) Numeric value used to encode when a data value is not available for this variable. DataValues will be reformatted to match this value.</p></dd>
+<dd><p>(numeric) Numeric value used to encode when a data value is
+not available for this variable. DataValues will be reformatted to match
+this value.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>(tbl_df, tbl, data.frame) An augmented version of the original flat table, with all of the original columns plus one for each of the specified variable values (i.e. variable_name, variable_units, etc.), plus the VariableCode column, with an auto-generated integer value that will become the primary key of the Variables table. Columns are only added the first time the function is run. Subsequent runs append values to the existing columns.</p>
+    <p>(tbl_df, tbl, data.frame) An augmented version of the original flat
+table, with all of the original columns plus one for each of the specified
+variable values (i.e. variable_name, variable_units, etc.), plus the
+VariableCode column, with an auto-generated integer value that will become
+the primary key of the Variables table. Columns are only added the first
+time the function is run. Subsequent runs append values to the existing
+columns.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>This function appends columns to the <code>L0_flat</code> table and returns the augmented table.</p>
-<p>"flat" format refers to the fully joined source L0 dataset in "wide" form with the exception of the core observation variables, which are in "long" form (i.e. using the variable_name, value, unit columns of the observation table). This "flat" format is the "widest" an L1 hymetDP dataset can be consistently spread due to the frequent occurrence of L0 source datasets with &gt; 1 core observation variable.</p>
+    <p>This function appends columns to the <code>L0_flat</code> table and
+returns the augmented table.</p>
+<p>"flat" format refers to the fully joined source L0 dataset in "wide" form
+with the exception of the core observation variables, which are in "long"
+form (i.e. using the variable_name, value, unit columns of the observation
+table). This "flat" format is the "widest" an L1 hymetDP dataset can be
+consistently spread due to the frequent occurrence of L0 source datasets
+with &gt; 1 core observation variable.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">flat</span> <span class="op">&lt;-</span> <span class="va">hymet_L0_flat</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span></span>
+<span class="r-in"><span class="va">flat</span> <span class="op">&lt;-</span> <span class="va">hymet_L0_flat</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">flat</span> <span class="op">&lt;-</span> <span class="fu">hymetDP</span><span class="fu">::</span><span class="fu">define_variable</span><span class="op">(</span></span>
 <span class="r-in">  L0_flat <span class="op">=</span> <span class="va">flat</span>,</span>
@@ -123,7 +163,6 @@
 <span class="r-in">  data_type <span class="op">=</span> <span class="st">"Continuous"</span>,</span>
 <span class="r-in">  general_category <span class="op">=</span> <span class="st">"Hydrology"</span>,</span>
 <span class="r-in">  no_data <span class="op">=</span> <span class="op">-</span><span class="fl">9999</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in loadNamespace(x):</span> there is no package called ‘data.table’</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

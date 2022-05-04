@@ -21,6 +21,12 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Functions</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/create.html">Create</a>
+  </div>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -54,9 +60,9 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>site</dt>
-<dd><p>(character) A USGS site code or list of site codes. Discover site codes with <code>dataRetrieval::whatNWISsites()</code>.</p></dd>
+<dd><p>(character) A USGS site code or list of site codes. Discover site codes with <code><a href="https://rdrr.io/pkg/dataRetrieval/man/whatNWISsites.html" class="external-link">dataRetrieval::whatNWISsites()</a></code>.</p></dd>
 <dt>param</dt>
-<dd><p>(character) A USGS parameter code or list of parameter codes. Discover parameter codes with <code>dataRetrieval::whatNWISdata()</code>.</p></dd>
+<dd><p>(character) A USGS parameter code or list of parameter codes. Discover parameter codes with <code><a href="https://rdrr.io/pkg/dataRetrieval/man/whatNWISdata.html" class="external-link">dataRetrieval::whatNWISdata()</a></code>.</p></dd>
 <dt>start</dt>
 <dd><p>(character) Starting datetime for data query. Format date strings as YYYY-MM-DD, datetime strings as YYYY-MM-DDThh:mm:ssZ. Format must match <code>end</code> parameter format.</p></dd>
 <dt>end</dt>
@@ -69,15 +75,15 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in"><span class="va">site</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"06879650"</span>, <span class="st">"50065500"</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">param</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"00060"</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">start</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2020-06-01T12:30:00Z"</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">end</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2021-01-01T12:30:00Z"</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">usgs_hymet</span> <span class="op">&lt;-</span> <span class="fu">create_USGS_hymet</span><span class="op">(</span><span class="va">site</span>, <span class="va">param</span>, <span class="va">start</span>, <span class="va">end</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Downloading data from USGS site 06879650, parameter 00060</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in loadNamespace(x):</span> there is no package called ‘dataRetrieval’</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="op">}</span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

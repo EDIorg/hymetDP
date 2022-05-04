@@ -21,6 +21,12 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Functions</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/create.html">Create</a>
+  </div>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -49,7 +55,7 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">create_quality_control</span><span class="op">(</span>
-  L0_flat <span class="op">=</span> <span class="va">flat</span>,
+  <span class="va">L0_flat</span>,
   <span class="va">QualityControlLevelCode</span>,
   <span class="va">Definition</span>,
   <span class="va">Explanation</span>
@@ -75,7 +81,14 @@ explanation of Quality Control Level.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    
+    <p>(tbl_df, tbl, data.frame) The QualityControlLevels table.
+flat &lt;- hymet_L0_flat
+QualityControlLevels &lt;- hymetDP::create_quality_control(
+L0_flat = flat,
+QualityControlLevelCode = "QualityControlLevelCode",
+Definition = "Definition",
+Explanation = "Explanation")
+QualityControlLevels</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -99,23 +112,6 @@ with &gt; 1 core observation variable.</p>
 <code><a href="create_variables.html">create_variables</a>()</code></p></div>
     </div>
 
-    <div class="section level2">
-    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">flat</span> <span class="op">&lt;-</span> <span class="va">hymet_L0_flat</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="va">QualityControlLevels</span> <span class="op">&lt;-</span> <span class="fu">hymetDP</span><span class="fu">::</span><span class="fu">create_quality_control</span><span class="op">(</span></span>
-<span class="r-in">    L0_flat <span class="op">=</span> <span class="va">flat</span>,</span>
-<span class="r-in">    QualityControlLevelCode <span class="op">=</span> <span class="st">"QualityControlLevelCode"</span>,</span>
-<span class="r-in">    Definition <span class="op">=</span> <span class="st">"Definition"</span>,</span>
-<span class="r-in">    Explanation <span class="op">=</span> <span class="st">"Explanation"</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in loadNamespace(x):</span> there is no package called ‘data.table’</span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="va">QualityControlLevels</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'QualityControlLevels' not found</span>
-<span class="r-in"></span>
-</code></pre></div>
-    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 

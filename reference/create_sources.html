@@ -21,6 +21,12 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Functions</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/create.html">Create</a>
+  </div>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -49,7 +55,7 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">create_sources</span><span class="op">(</span>
-  L0_flat <span class="op">=</span> <span class="va">flat</span>,
+  <span class="va">L0_flat</span>,
   <span class="va">SourceCode</span>,
   <span class="va">Organization</span>,
   <span class="va">SourceDescription</span>,
@@ -153,10 +159,14 @@ with &gt; 1 core observation variable.#'</p>
 <span class="r-in">    State <span class="op">=</span> <span class="st">"State"</span>,</span>
 <span class="r-in">    ZipCode <span class="op">=</span> <span class="st">"ZipCode"</span>,</span>
 <span class="r-in">    Citation <span class="op">=</span> <span class="st">"Citation"</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in loadNamespace(x):</span> there is no package called ‘data.table’</span>
 <span class="r-in"></span>
 <span class="r-in">  <span class="va">Sources</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'Sources' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 12</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   SourceCode Organization    SourceDescripti… SourceLink ContactName Phone Email</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 1          McMurdo Dry Va… As part of the … https://d… McMurdo Dr… Unkn… im@m…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 5 more variables: Address &lt;chr&gt;, City &lt;chr&gt;, State &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ZipCode &lt;chr&gt;, Citation &lt;chr&gt;</span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

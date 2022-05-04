@@ -21,6 +21,12 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Functions</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/create.html">Create</a>
+  </div>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -65,29 +71,39 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>path</dt>
-<dd><p>(character) Path to the directory containing hymetDP tables, conversion script, and where EML metadata will be written.</p></dd>
+<dd><p>(character) Path to the directory containing hymetDP tables,
+conversion script, and where EML metadata will be written.</p></dd>
 <dt>source_id</dt>
-<dd><p>(character) Identifier of a data package published in a supported repository. Currently, the EDI Data Repository is supported.</p></dd>
+<dd><p>(character) Identifier of a data package published in a
+supported repository. Currently, the EDI Data Repository is supported.</p></dd>
 <dt>derived_id</dt>
 <dd><p>(character) Identifier of the dataset being created.</p></dd>
 <dt>script</dt>
-<dd><p>(character) Name of file used to convert <code>source_id</code> to <code>derived_id</code>.</p></dd>
+<dd><p>(character) Name of file used to convert <code>source_id</code> to
+<code>derived_id</code>.</p></dd>
 <dt>script_description</dt>
 <dd><p>(character) Description of <code>script</code>.</p></dd>
 <dt>is_about</dt>
-<dd><p>(named character) An optional argument for specifying dataset level annotations describing what this dataset "is about".</p></dd>
+<dd><p>(named character) An optional argument for specifying dataset
+level annotations describing what this dataset "is about".</p></dd>
 <dt>contact</dt>
-<dd><p>(data.frame) Contact information for the person that created this hymetDP dataset, containing these columns:</p><ul><li><p>givenName</p></li>
+<dd><p>(data.frame) Contact information for the person that created
+this hymetDP dataset, containing these columns:</p><ul><li><p>givenName</p></li>
 <li><p>surName</p></li>
 <li><p>organizationName</p></li>
 <li><p>electronicMailAddress</p></li>
 </ul></dd>
 <dt>user_id</dt>
-<dd><p>(character) Identifier of user associated with <code>user_domain</code>.</p></dd>
+<dd><p>(character) Identifier of user associated with
+<code>user_domain</code>.</p></dd>
 <dt>user_domain</dt>
-<dd><p>(character) Domain (data repository) the <code>user_id</code> belongs to. Currently, EDI is supported.</p></dd>
+<dd><p>(character) Domain (data repository) the <code>user_id</code>
+belongs to. Currently, EDI is supported.</p></dd>
 <dt>url</dt>
-<dd><p>(character) URL to the publicly accessible directory containing hymetDP tables, conversion script, and EML metadata. This argument supports direct download of the data entities by a data repository and is used for automated revisioning and publication.</p></dd>
+<dd><p>(character) URL to the publicly accessible directory containing
+hymetDP tables, conversion script, and EML metadata. This argument supports
+direct download of the data entities by a data repository and is used for
+automated revisioning and publication.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -95,17 +111,36 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>This function creates an EML record for a hymetDP dataset by combining metadata from <code>source_id</code> with boiler-plate metadata describing the hymetDP model. Changes to the <code>source_id</code> EML include:</p><ul><li><p><strong>&lt;access&gt;</strong> Adds <code>user_id</code> to the list of principals granted read and write access to the hymetDP data package this EML describes.</p></li>
-<li><p><strong>&lt;title&gt;</strong> Adds a note that this is a derived data package in the hymetDP format.</p></li>
-<li><p><strong>&lt;pubDate&gt;</strong> Adds the date this EML was created.</p></li>
-<li><p><strong>&lt;abstract&gt;</strong> Adds a note that this is a derived data package in the hymetDP format.</p></li>
-<li><p><strong>&lt;keywordSet&gt;</strong> Adds the "hymetDP" keyword to enable search and discovery of all hymetDP data packages in the data repository it is published.</p></li>
-<li><p><strong>&lt;intellectualRights&gt;</strong> Keeps intact the original intellectual rights license <code>source_id</code> was released under, or uses <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode" class="external-link">CCO</a> if missing.</p></li>
-<li><p><strong>&lt;contact&gt;</strong> Adds the hymetDP creator as a point of contact.</p></li>
-<li><p><strong>&lt;methodStep&gt;</strong> Adds a note that this data package was created by the <code>script</code>, and adds provenance metadata noting that this is a derived dataset and describes where the <code>source_id</code> can be accessed.</p></li>
-<li><p><strong>&lt;dataTables&gt;</strong> Replaces the <code>source_id</code> table metadata with descriptions of the the hymetDP tables.</p></li>
-<li><p><strong>&lt;otherEntity&gt;</strong> Adds <code>script</code> and <code>script_description</code>. otherEntities of <code>source_id</code> are removed.</p></li>
-<li><p><strong>&lt;annotations&gt;</strong> Adds boilerplate annotations describing the hymetDP at the dataset, entity, and entity attribute levels.</p></li>
+    <p>This function creates an EML record for a hymetDP dataset by
+combining metadata from <code>source_id</code> with boiler-plate metadata
+describing the hymetDP model. Changes to the <code>source_id</code> EML include:</p><ul><li><p><strong><code>&lt;access&gt;</code></strong> Adds <code>user_id</code> to the list of
+principals granted read and write access to the hymetDP data package this
+EML describes.</p></li>
+<li><p><strong><code>&lt;title&gt;</code></strong> Adds a note that this is a derived
+data package in the hymetDP format.</p></li>
+<li><p><strong><code>&lt;pubDate&gt;</code></strong> Adds the
+date this EML was created.</p></li>
+<li><p><strong><code>&lt;abstract&gt;</code></strong> Adds a note that
+this is a derived data package in the hymetDP format.</p></li>
+<li><p><strong><code>&lt;keywordSet&gt;</code></strong> Adds the "hymetDP" keyword to enable search and
+discovery of all hymetDP data packages in the data repository it is
+published.</p></li>
+<li><p><strong><code>&lt;intellectualRights&gt;</code></strong> Keeps intact the original
+intellectual rights license <code>source_id</code> was released under, or uses
+<a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode" class="external-link">CCO</a> if
+missing.</p></li>
+<li><p><strong><code>&lt;contact&gt;</code></strong> Adds the hymetDP creator as a point of
+contact.</p></li>
+<li><p><strong><code>&lt;methodStep&gt;</code></strong> Adds a note that this data package
+was created by the <code>script</code>, and adds provenance metadata noting that
+this is a derived dataset and describes where the <code>source_id</code> can be
+accessed.</p></li>
+<li><p><strong><code>&lt;dataTables&gt;</code></strong> Replaces the <code>source_id</code> table
+metadata with descriptions of the the hymetDP tables.</p></li>
+<li><p><strong><code>&lt;otherEntity&gt;</code></strong> Adds <code>script</code> and <code>script_description</code>.
+otherEntities of <code>source_id</code> are removed.</p></li>
+<li><p><strong><code>&lt;annotations&gt;</code></strong> Adds boilerplate annotations describing the
+hymetDP at the dataset, entity, and entity attribute levels.</p></li>
 </ul></div>
 
     <div class="section level2">

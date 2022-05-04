@@ -21,6 +21,12 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Functions</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/create.html">Create</a>
+  </div>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -49,7 +55,7 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">define_method</span><span class="op">(</span>
-  L0_flat <span class="op">=</span> <span class="va">flat</span>,
+  <span class="va">L0_flat</span>,
   local_variable_column <span class="op">=</span> <span class="st">"variable_name"</span>,
   local_variable <span class="op">=</span> <span class="cn">NULL</span>,
   VariableCode <span class="op">=</span> <span class="cn">NULL</span>,
@@ -61,26 +67,45 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>L0_flat</dt>
-<dd><p>(tbl_df, tbl, data.frame) The fully joined source L0 dataset, in "flat" format (see details).</p></dd>
+<dd><p>(tbl_df, tbl, data.frame) The fully joined source L0 dataset,
+in "flat" format (see details).</p></dd>
 <dt>local_variable_column</dt>
-<dd><p>(character) Column in <code>L0_flat</code> table containing the L0 variable name.</p></dd>
+<dd><p>(character) Column in <code>L0_flat</code> table
+containing the L0 variable name.</p></dd>
 <dt>local_variable</dt>
-<dd><p>(character) Reference to a value (or values) in the <code>local_variable_column</code> from the <code>L0_flat</code> table to which the new hymetDP method refers.</p></dd>
+<dd><p>(character) Reference to a value (or values) in the
+<code>local_variable_column</code> from the <code>L0_flat</code> table to which the new
+hymetDP method refers.</p></dd>
 <dt>VariableCode</dt>
-<dd><p>(character) The auto-generated primary key for a variable (from column <code>VariableCode</code>). Another way to link a method to a value (or values). Takes priority over <code>local_variable</code>. Provide one or multiple codes.</p></dd>
+<dd><p>(character) The auto-generated primary key for a variable
+(from column <code>VariableCode</code>). Another way to link a method to a value
+(or values). Takes priority over <code>local_variable</code>. Provide one or
+multiple codes.</p></dd>
 <dt>MethodDescription</dt>
 <dd><p>(character) Text description of the method.</p></dd>
 <dt>MethodLink</dt>
-<dd><p>(character) Optional. Link to additional reference material on the method. Should be a single valid URL.</p></dd>
+<dd><p>(character) Optional. Link to additional reference material
+on the method. Should be a single valid URL.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>(tbl_df, tbl, data.frame) An augmented version of the original flat table, with all of the original columns plus one additional column for the method description (or two additional columns if a method link is defined). Column name includes the auto-generated MethodCode (i.e. MethodDescription_1), which will become the the primary key in the Methods table.</p>
+    <p>(tbl_df, tbl, data.frame) An augmented version of the original flat
+table, with all of the original columns plus one additional column for the
+method description (or two additional columns if a method link is defined).
+Column name includes the auto-generated MethodCode (i.e.
+MethodDescription_1), which will become the the primary key in the Methods
+table.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>This function appends columns to the <code>L0_flat</code> table and returns the augmented table.</p>
-<p>"flat" format refers to the fully joined source L0 dataset in "wide" form with the exception of the core observation variables, which are in "long" form (i.e. using the variable_name, value, unit columns of the observation table). This "flat" format is the "widest" an L1 hymetDP dataset can be consistently spread due to the frequent occurrence of L0 source datasets with &gt; 1 core observation variable.</p>
+    <p>This function appends columns to the <code>L0_flat</code> table and
+returns the augmented table.</p>
+<p>"flat" format refers to the fully joined source L0 dataset in "wide" form
+with the exception of the core observation variables, which are in "long"
+form (i.e. using the variable_name, value, unit columns of the observation
+table). This "flat" format is the "widest" an L1 hymetDP dataset can be
+consistently spread due to the frequent occurrence of L0 source datasets
+with &gt; 1 core observation variable.</p>
     </div>
 
     <div class="section level2">
@@ -93,9 +118,54 @@
 <span class="r-in">  local_variable_column <span class="op">=</span> <span class="st">"variable_name"</span>,</span>
 <span class="r-in">  local_variable <span class="op">=</span> <span class="st">"DSCHRGE_RATE"</span>,</span>
 <span class="r-in">  VariableCode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>,</span>
-<span class="r-in">  MethodDescription <span class="op">=</span> <span class="st">[2868 chars quoted with '"']</span>,</span>
+<span class="r-in">  MethodDescription <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span class="r-in">    <span class="st">"Campbell CR10 dataloggers were used to record stream stage, water"</span>,</span>
+<span class="r-in">    <span class="st">"temperature, and conductivity in a network of stream gages."</span>,</span>
+<span class="r-in">    <span class="st">"Stage is monitored with pressure transducers; PSS-1 and PS-2 models"</span>,</span>
+<span class="r-in">    <span class="st">"form Paroscientific Corporation, and Accubars from Sutron"</span>,</span>
+<span class="r-in">    <span class="st">"Corporation. The pressure transducers measure the backpressure in"</span>,</span>
+<span class="r-in">    <span class="st">"orifice lines set into or above controls in the stream channel. In"</span>,</span>
+<span class="r-in">    <span class="st">"addition, some of the sites monitor water temperature and"</span>,</span>
+<span class="r-in">    <span class="st">"conductivity with either USGS minimonitor probes, or Campbell"</span>,</span>
+<span class="r-in">    <span class="st">"temperature/conductivity probes. Ratings are developed for the"</span>,</span>
+<span class="r-in">    <span class="st">"stage/discharge relationship at each site by measuring streamflow"</span>,</span>
+<span class="r-in">    <span class="st">"with current meters or portable flumes, according to standard USGS"</span>,</span>
+<span class="r-in">    <span class="st">"methods. Datum corrections to the stage are determined by"</span>,</span>
+<span class="r-in">    <span class="st">"periodically surveying the elevation of the orifice line to the"</span>,</span>
+<span class="r-in">    <span class="st">"control and nearby reference marks. Calibrations for the"</span>,</span>
+<span class="r-in">    <span class="st">"temperature and conductivity are assessed by measuring these"</span>,</span>
+<span class="r-in">    <span class="st">"parameters with portable field meters while simultaneously noting"</span>,</span>
+<span class="r-in">    <span class="st">"the readings from the gage probes. Data is downloaded into Campbell"</span>,</span>
+<span class="r-in">    <span class="st">"storage modules, and retrieved into pcs. From there, the data is"</span>,</span>
+<span class="r-in">    <span class="st">"sent to a USGS computer, where time discrepancies are resolved, and"</span>,</span>
+<span class="r-in">    <span class="st">"the data is loaded into ADAPS, a database system developed in the"</span>,</span>
+<span class="r-in">    <span class="st">"USGS for maintaining and processing water data. A determination for"</span>,</span>
+<span class="r-in">    <span class="st">"each site as to when the stream was flowing and when it was not is"</span>,</span>
+<span class="r-in">    <span class="st">"made. For water temperature and conductivity, bad data is deleted."</span>,</span>
+<span class="r-in">    <span class="st">"Variable shifts are determined based on field calibration"</span>,</span>
+<span class="r-in">    <span class="st">"measurements, and other indicators. The shifts are applied to the"</span>,</span>
+<span class="r-in">    <span class="st">"remaining good data inside of ADAPS. The data is pulled out of"</span>,</span>
+<span class="r-in">    <span class="st">"ADAPS, and reformatted for input into ORACLE. Cases of water"</span>,</span>
+<span class="r-in">    <span class="st">"temperature below reasonable values are set to lower limits. A"</span>,</span>
+<span class="r-in">    <span class="st">"quality code is assigned to every value. The resulting data is"</span>,</span>
+<span class="r-in">    <span class="st">"uploaded into the ORACLE and the McMurdo database. Before 2011, For"</span>,</span>
+<span class="r-in">    <span class="st">"stage/discharge, bad data is deleted. Survey data is reviewed to"</span>,</span>
+<span class="r-in">    <span class="st">"compute weir elevations an datum corrections. A rating curve is"</span>,</span>
+<span class="r-in">    <span class="st">"developed graphically, based on available data, and entered into"</span>,</span>
+<span class="r-in">    <span class="st">"ADAPS. All applicable shifts and datum corrections are entered into"</span>,</span>
+<span class="r-in">    <span class="st">"ADAPS. All corrections and ratings are run against the good stage"</span>,</span>
+<span class="r-in">    <span class="st">"data to compute the discharge at each recording interval. The data"</span>,</span>
+<span class="r-in">    <span class="st">"is pulled out of ADAPS, and reformatted for input into ORACLE. A"</span>,</span>
+<span class="r-in">    <span class="st">"quality code is assigned to every value. The resulting data is"</span>,</span>
+<span class="r-in">    <span class="st">"uploaded into ORACLE and the McMurdo database. ADAPS deprecated in"</span>,</span>
+<span class="r-in">    <span class="st">"favor of Aquarius software in 2012. Similar procedure is used in"</span>,</span>
+<span class="r-in">    <span class="st">"Aquarius to convert and curate the data. Metadata was enhanced in"</span>,</span>
+<span class="r-in">    <span class="st">"2013 and 2014 by Inigo San Gil. In March 2021, data from the"</span>,</span>
+<span class="r-in">    <span class="st">"2016-17 field season was replaced to correct a previously published"</span>,</span>
+<span class="r-in">    <span class="st">"error, in which discharge was reported in cubicFeetPerSecond (CFS)"</span>,</span>
+<span class="r-in">    <span class="st">"instead of litersPerSecond (l/s)."</span></span>
+<span class="r-in">    <span class="op">)</span>,</span>
 <span class="r-in">  MethodLink <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in loadNamespace(x):</span> there is no package called ‘data.table’</span>
 <span class="r-in"></span>
 <span class="r-in"></span>
 </code></pre></div>
