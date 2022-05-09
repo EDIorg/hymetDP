@@ -292,10 +292,8 @@ get_usgs_sitetype <- function(s) {
 #' @keywords internal
 #'
 get_usgs_variable <- function(p) {
-  res <- data.table::fread(
-    system.file('extdata', 'usgs_parameters.txt', package = 'hymetDP'), colClasses = 'character')
 
-  res <- res[res$usgs_code==p]
+  res <- supported_USGS_params[supported_USGS_params$usgs_code==p]
 
   return(res)
 }
