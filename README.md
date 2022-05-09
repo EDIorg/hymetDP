@@ -5,7 +5,10 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/kzollove/hymetDP/workflows/R-CMD-check/badge.svg)](https://github.com/kzollove/hymetDP/actions)
+[![Project Status: WIP – Initial development is in progress, but there
+has not yet been a stable, usable release suitable for the
+public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![R-CMD-check](https://github.com/EDIorg/hymetDP/workflows/R-CMD-check/badge.svg)](https://github.com/EDIorg/hymetDP/actions)
 <!-- badges: end -->
 
 ## Overview
@@ -24,25 +27,25 @@ Get the latest development version:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("kzollove/hymetDP")
+remotes::install_github("EDIorg/hymetDP")
 ```
 
 ## Getting help
 
-Use [GitHub Issues](https://github.com/kzollove/hymetDP/issues) for bug
+Use [GitHub Issues](https://github.com/EDIorg/hymetDP/issues) for bug
 reporting, feature requests, and general questions/discussions. When
 filling bug reports, please include a minimal reproducible example.
 
 ## Contributing
 
 Community contributions are welcome! Please reference our [contributing
-guidelines](https://github.com/kzollove/hymetDP/blob/master/CONTRIBUTING.md)
+guidelines](https://github.com/EDIorg/hymetDP/blob/master/CONTRIBUTING.md)
 for details.
 
 ------------------------------------------------------------------------
 
 Please note that this project is released with a [Contributor Code of
-Conduct](https://github.com/kzollove/hymetDP/blob/master/CODE_OF_CONDUCT.md).
+Conduct](https://github.com/EDIorg/hymetDP/blob/master/CODE_OF_CONDUCT.md).
 By participating in this project you agree to abide by its terms.
 
 #### Logo

@@ -45,5 +45,5 @@ Imports:
     tidyr,
     uuid
 VignetteBuilder: knitr
-URL: https://github.com/kzollove/hymetDP
-BugReports: https://github.com/kzollove/hymetDP/issues
+URL: https://github.com/EDIorg/hymetDP
+BugReports: https://github.com/EDIorg/hymetDP/issues
