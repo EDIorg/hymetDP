@@ -1307,3 +1307,25 @@ read_data_entity_name <- function(packageId, entityId, env = "production") {
   httr::stop_for_status(resp, res)
   return(text2char(res))
 }
+
+
+
+
+#' Convert newline separated text to character vector
+#'
+#' @param txt (character) New line separated character string returned from
+#' \code{httr::content(resp, as = "text", encoding = "UTF-8")}
+#'
+#' @return (character) \code{txt} converted to character vector
+#'
+#' @noRd
+#'
+text2char <- function(txt) {
+  res <- utils::read.csv(
+    text = txt,
+    as.is = TRUE,
+    colClasses = "character",
+    header = FALSE
+  )[[1]]
+  return(res)
+}

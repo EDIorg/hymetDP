@@ -1,5 +1,5 @@
-search_data <- function(text, variable_name, sample_medium, time_support,
-                        general_category, starts_before, ends_after,
+search_data <- function(text, VariableName, SampleMedium, TimeSupport,
+                        GeneralCategory, starts_before, ends_after,
                         number_years, area, boolean = "AND") {
 
   # Validate arguments --------------------------------------------------------
@@ -48,10 +48,13 @@ search_data <- function(text, variable_name, sample_medium, time_support,
     list(
       list(
         text = F,
-        taxa = F,
-        num_taxa = F,
-        num_years = F,
-        sd_years = F,
+        VariableName = F,
+        SampleMedium = F,
+        TimeSupport = F,
+        GeneralCategory = F,
+        starts_before = F,
+        ends_after = F,
+        number_years = F,
         area = F)),
     length(d))
   names(use_i) <- names(d)
@@ -60,10 +63,13 @@ search_data <- function(text, variable_name, sample_medium, time_support,
     list(
       list(
         text = NA_character_,
-        taxa = NA_character_,
-        num_taxa = NA_character_,
-        num_years = NA_character_,
-        sd_years = NA_character_,
+        VariableName = NA_character_,
+        SampleMedium = NA_character_,
+        TimeSupport = NA_character_,
+        GeneralCategory = NA_character_,
+        starts_before = NA_character_,
+        ends_after = NA_character_,
+        number_years = NA_character_,
         area = NA_character_)),
     length(d))
   names(sites_i) <- names(d)
@@ -84,7 +90,6 @@ search_data <- function(text, variable_name, sample_medium, time_support,
             tolower(
               paste(
                 d[[i]]$title,
-                d[[i]]$description,
                 d[[i]]$abstract,
                 collapse = ", ")),
             tolower(text)))
@@ -93,7 +98,6 @@ search_data <- function(text, variable_name, sample_medium, time_support,
           tolower(
             paste(
               d[[i]]$title,
-              d[[i]]$description,
               d[[i]]$abstract,
               collapse = ", ")),
           tolower(paste(text, collapse = "|")))
@@ -106,55 +110,59 @@ search_data <- function(text, variable_name, sample_medium, time_support,
       sites_i[[i]]$text <- NULL
     }
 
-    # Search taxa
-    if (!missing(taxa)) {
-      taxa_i <- rep(F, length(d[[i]]$taxa))
-      for (k in 1:length(d[[i]]$taxa)) {
-        if (boolean == "AND") {
-          taxa_i[k] <- try(
-            all(
-              stringr::str_detect(
-                tolower(d[[i]]$taxa[[k]]$taxa),
-                tolower(taxa))),
-            silent = TRUE)
-          if (methods::is(taxa_i[k], "try-error")) {
-            # if (class(taxa_i[k]) == "try-error") {
-            taxa_i[k] <- FALSE
-          }
-        } else if (boolean == "OR") {
-          taxa_i[k] <- try(
-            stringr::str_detect(
-              tolower(d[[i]]$taxa[[k]]$taxa),
-              tolower(paste(taxa, collapse = "|"))),
-            silent = TRUE)
-          if (methods::is(taxa_i[k], "try-error")) {
-            taxa_i[k] <- FALSE
-          }
-        }
-      }
-      if (any(taxa_i, na.rm = T)) {
-        use_i[[i]]$taxa <- T
-        sites_i[[i]]$taxa <- names(d[[i]]$taxa)[taxa_i]
-      }
-    } else {
-      use_i[[i]]$taxa <- NULL
-      sites_i[[i]]$taxa <- NULL
-    }
+    # Search VariableName
+    # if (!missing(VariableName)) {
+    #   var_i <- rep(F, length(d[[i]]$VariableName))
+    #   for (k in 1:length(d[[i]]$VariableName)) {
+    #     if (boolean == "AND") {
+    #       var_i[k] <- try(
+    #         all(
+    #           stringr::str_detect(
+    #             tolower(d[[i]]$VariableName[[k]]),
+    #             tolower(VariableName))),
+    #         silent = TRUE)
+    #       if (methods::is(var_i[k], "try-error")) {
+    #         # if (class(var_i[k]) == "try-error") {
+    #         var_i[k] <- FALSE
+    #       }
+    #     } else if (boolean == "OR") {
+    #       var_i[k] <- try(
+    #         stringr::str_detect(
+    #           tolower(d[[i]]$VariableName[[k]]),
+    #           tolower(paste(VariableName, collapse = "|"))),
+    #         silent = TRUE)
+    #       if (methods::is(var_i[k], "try-error")) {
+    #         var_i[k] <- FALSE
+    #       }
+    #     }
+    #   }
+    #   if (any(var_i, na.rm = T)) {
+    #     use_i[[i]]$VariableName <- T
+    #     sites_i[[i]]$VariableName <- d[[i]]$VariableName[var_i]
+    #   }
+    # } else {
+    #   use_i[[i]]$VariableName <- NULL
+    #   sites_i[[i]]$VariableName <- NULL
+    # }
 
-    if (!missing(num_taxa)) {
-      num_taxa_i <- rep(F, length(d[[i]]$taxa))
-      for (k in 1:length(d[[i]]$taxa)) {
-        num_taxa_i[k] <- (d[[i]]$taxa[[k]]$unique_taxa >= num_taxa[1]) &
-          (d[[i]]$taxa[[k]]$unique_taxa <= num_taxa[2])
-      }
-      if (any(num_taxa_i, na.rm = T)) {
-        use_i[[i]]$num_taxa <- T
-        sites_i[[i]]$num_taxa <- names(d[[i]]$taxa)[num_taxa_i]
-      }
-    } else {
-      use_i[[i]]$num_taxa <- NULL
-      sites_i[[i]]$num_taxa <- NULL
-    }
+    i_list <- run_category_search('VariableName')
+
+    use_i <- return_use_i(i_list)
+    sites_i <- return_sites_i(i_list)
+
+
+    # Search SampleMedium
+    i_list <- run_category_search('SampleMedium')
+
+    use_i <- return_use_i(i_list)
+    sites_i <- return_sites_i(i_list)
+
+    # Search GeneralCategory
+    i_list <- run_category_search('GeneralCategory')
+
+    use_i <- return_use_i(i_list)
+    sites_i <- return_sites_i(i_list)
+
 
     # Search temporal coverage
 
@@ -303,4 +311,74 @@ search_data <- function(text, variable_name, sample_medium, time_support,
     return(output)
   }
 
+}
+
+
+run_category_search <- function(category_name) {
+
+  category <- try(get(category_name), silent = TRUE)
+
+  if (!methods::is(category, "try-error")) {
+    var_i <- rep(F, length(d[[i]][[category_name]]))
+    for (k in 1:length(d[[i]][[category_name]])) {
+      if (boolean == "AND") {
+        var_i[k] <- try(
+          all(
+            stringr::str_detect(
+              tolower(d[[i]][[category_name]][[k]]),
+              tolower(category))),
+          silent = TRUE)
+        if (methods::is(var_i[k], "try-error")) {
+          # if (class(var_i[k]) == "try-error") {
+          var_i[k] <- FALSE
+        }
+      } else if (boolean == "OR") {
+        var_i[k] <- try(
+          stringr::str_detect(
+            tolower(d[[i]][[category_name]][[k]]),
+            tolower(paste(category, collapse = "|"))),
+          silent = TRUE)
+        if (methods::is(var_i[k], "try-error")) {
+          var_i[k] <- FALSE
+        }
+      }
+    }
+    if (any(var_i, na.rm = T)) {
+      use_i[[i]][[category_name]] <- T
+      sites_i[[i]][[category_name]] <- d[[i]][[category_name]][var_i]
+    }
+  } else {
+    use_i[[i]][[category_name]] <- NULL
+    sites_i[[i]][[category_name]] <- NULL
+  }
+
+  return(list(use_i, sites_i))
+}
+
+
+
+# Return the use_i list
+#
+# @param l (list) list object returned from \code{run_category_search()}
+#
+# @details Simple helper function
+#
+# @return (list) the updated use_i list
+#
+return_use_i <- function(l) {
+  l[[1]]
+}
+
+
+
+# Return the sites_i list
+#
+# @param l (list) list object returned from \code{run_category_search()}
+#
+# @details Simple helper function
+#
+# @return (list) the updated sites_i list
+#
+return_sites_i <- function(l) {
+  l[[2]]
 }
