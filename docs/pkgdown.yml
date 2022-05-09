@@ -3,8 +3,8 @@ pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
   create: create.html
-last_built: 2022-05-04T20:19Z
+last_built: 2022-05-09T17:23Z
 urls:
-  reference: https://kzollove.github.io/hymetDP/reference
-  article: https://kzollove.github.io/hymetDP/articles
+  reference: https://EDIorg.github.io/hymetDP/reference
+  article: https://EDIorg.github.io/hymetDP/articles
 
