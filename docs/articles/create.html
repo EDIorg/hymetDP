@@ -58,7 +58,7 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/kzollove/hymetDP/" aria-label="github">
+  <a class="external-link nav-link" href="https://github.com/EDIorg/hymetDP/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -78,7 +78,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Create hymetDP Data</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/kzollove/hymetDP/blob/HEAD/vignettes/create.Rmd" class="external-link"><code>vignettes/create.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/EDIorg/hymetDP/blob/HEAD/vignettes/create.Rmd" class="external-link"><code>vignettes/create.Rmd</code></a></small>
       <div class="d-none name"><code>create.Rmd</code></div>
     </div>
 
@@ -87,7 +87,7 @@
 <p>Ideally, each hymetDP dataset (Level-1; L1) is created from a source dataset (Level-0; L0) by a unique processing function. Inputs are typically from the APIs of data repositories and monitoring networks, and outputs can be a list of R objects or a set of archivable files. The output form you choose may depend on multiple factors including the source data license (it may prohibit archive) and the overall processing time (on-demand processing may be prohibitively long). In either case, the derived hymetDP dataset is delivered to users in a consistent format by <code><a href="../reference/read_data.html">read_data()</a></code> and the processing function provides a fully reproducible and automated routine for updating the derived dataset whenever a new version of the source data are released.</p>
 <p>Below is an example function that reads a source dataset from the Environmental Data Initiative (EDI) repository and converts it into a hymetDP dataset, which in turn is archived in EDI. For an example of creating a hymetDP dataset on-demand (i.e. not archived), see the create_USGS_hymet.R source code.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/kzollove/hymetDP" class="external-link">hymetDP</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EDIorg/hymetDP" class="external-link">hymetDP</a></span><span class="op">)</span></code></pre></div>
 <div class="section level2">
 <h2 id="for-archive-in-a-data-repository">For archive in a data repository<a class="anchor" aria-label="anchor" href="#for-archive-in-a-data-repository"></a>
 </h2>
@@ -130,7 +130,7 @@
 <span class="co"># -----------------------------------------------------------------------------</span>
 <span class="co"># Libraries used by this function</span>
 
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/kzollove/hymetDP" class="external-link">hymetDP</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EDIorg/hymetDP" class="external-link">hymetDP</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/EDIutils" class="external-link">EDIutils</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
