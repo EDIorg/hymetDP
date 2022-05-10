@@ -1,2 +1,0 @@
-usgs_code	VariableName	VariableUnitsName	SampleMedium	ValueType	IsRegular	TimeSupport	TimeUnitsName	DataType	GeneralCategory	NoDataValue
-00060	Streamflow	cubic feet per second	Surface water	Derived Value	TRUE	15	minute	Continuous	Hydrology	-9999

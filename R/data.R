@@ -216,3 +216,24 @@
 "VerticalDatumCV"
 
 
+
+#' hymetDP Supported USGS parameters
+#'
+#' The USGS NWIS parameter codes that can be reformatted as hymetDP with `create_USGS_hymet()`
+#'
+#' @format A data frame with 1 row and 11 variables:
+#' \describe{
+#'   \item{usgs_code}{USGS Parameter Code}
+#'   \item{VariableName}{Corresponding hymetDP/ODM CV term for VariableName}
+#'   \item{VariableUnitsName}{Corresponding hymetDP/ODM CV term for VariableUnitsName}
+#'   \item{SampleMedium}{Corresponding hymetDP/ODM CV term for SampleMedium}
+#'   \item{ValueType}{Corresponding hymetDP/ODM CV term for ValueType}
+#'   \item{IsRegular}{Corresponding hymetDP/ODM CV term for IsRegular}
+#'   \item{TimeSupport}{Corresponding hymetDP/ODM CV term for TimeSupport}
+#'   \item{TimeUnitsName}{Corresponding hymetDP/ODM CV term for TimeUnitsName}
+#'   \item{DataType}{Corresponding hymetDP/ODM CV term for DataType}
+#'   \item{GeneralCategory}{Corresponding hymetDP/ODM CV term for GeneralCategory}
+#'   \item{NoDataValue}{Corresponding hymetDP/ODM CV term for NoDataValue}
+#' }
+"supported_USGS_params"
+
