@@ -1,0 +1,83 @@
+---
+title: "Create hymetDP Dataset from USGS Data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{usgs_create}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+Publicly available hydrological and meteorological data from USGS can be discovered and accessed from the National Water Infrastructure Service (NWIS). The NWIS can be accessed using USGS's R package, dataRetrieval. hymetDP offers users convenient dataRetrieval wrapper functions to simplify the integration of USGS data with published, hymetDP-formatted data packages.
+
+```{r}
+library(hymetDP)
+```
+# Create a hymetDP dataset from USGS data
+
+## Discover USGS sites
+
+To select specific sites using `create_USGS_hymet()`, you will need to know the site's USGS Site ID (.
+
+Use `dataRetrieval::whatNWISsites()` to discover USGS sites by State or area.
+
+We can get a table of all USGS stream sites that measure discharge:
+
+```{r}
+sites <- dataRetrieval::whatNWISsites(stateCd="PR", siteType="ST", parameterCd="00060")
+head(sites)
+```
+
+See [USGS Site Web Service](https://waterservices.usgs.gov/rest/Site-Service.html) for a complete list of argument options for `dataRetrieval::whatNWISsites()`
+
+## Select USGS parameters
+
+Inspect the `supported_USGS_params` to see which USGS parameters are currently supported for conversion to hymetDP.
+
+```{r eval=FALSE}
+View(supported_USGS_params)
+```
+
+## Create the hymetDP-formatted dataset from USGS data
+
+Specify USGS sites, parameter codes, and start and end dates as arguments to `create_USGS_hymet()` to compile and format data for the given parameters at the location and the time period.
+
+```{r}
+site <- c("06879650", "50065500")
+param <- c("00060")
+start <- c("2021-01-01T12:30:00Z")
+end <- c("2021-01-08T12:30:00Z")
+
+usgs_hymet <- hymetDP::create_USGS_hymet(site, param, start, end)
+
+str(usgs_hymet)
+```
+
+## Write hymetDP tables to file
+
+```{r}
+path = tempdir()
+
+hymetDP::write_tables(
+  path = path,
+  DataValues = usgs_hymet$DataValues,
+  Variables = usgs_hymet$Variables,
+  Methods = usgs_hymet$Methods,
+  Sources = usgs_hymet$Sources,
+  Sites = usgs_hymet$Sites,
+  QualityControlLevels = usgs_hymet$QualityControlLevels,
+  SeriesCatalog = usgs_hymet$SeriesCatalog)
+```
+
+## Create EML
+
+Create Ecological Metadata Language (EML) metadata for the derived dataset.
+
+```{r}
+# Coming soon!
+```

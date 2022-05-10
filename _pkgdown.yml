@@ -45,6 +45,10 @@ reference:
     - ValueTypeCV
     - VariableNameCV
     - VerticalDatumCV
+  - title: Supported External Parameters
+    desc: List of supported parameters from external create_sources
+    contents:
+    - supported_USGS_params
   - title: Example Data
     desc: Example Data
     contents:
@@ -61,6 +65,8 @@ navbar:
       menu:
       - text: Create
         href: articles/create.html
+      - text: Create from USGS Data
+        href: articles/use_usgs.html
 
 
 
