@@ -1,36 +1,38 @@
-#' Read data tables of a data package
+#'Read data tables of a data package
 #'
-#' @description Read data tables of a data package from the EML metadata.
+#'@description Read data tables of a data package from the EML metadata.
 #'
-#' @param eml (xml_document, xml_node) EML metadata returned from
-#'   \code{read_eml()}.
-#' @param strip.white (logical) Strips leading and trailing whitespaces of
-#'   unquoted fields. Default if FALSE.
-#' @param na.strings (character) Strings to be interpreted as NA. Setting
-#'   \code{na.strings = ""} converts "" to NA. By default, blank strings "" are
-#'   read as is.
-#' @param convert.missing.value (logical) Converts all missing value codes
-#'   specified in \code{eml} (e.g. "-99999", "NaN", "Not measured") to NA.
-#'   Missing value codes vary across data packages and converting to a
-#'   consistent form recognized by R makes downstream use simpler. However, care
-#'   must be exercised when using this argument. The author of a dataset
-#'   described by \code{eml} may have defined "missing value code" to mean
-#'   something different than you expect (e.g. "below detection limit")
-#'   therefore reviewing the authors missing value code definitions is a good
-#'   idea. Default is FALSE.
-#' @param add.units (logical) If TRUE, a variable's unit of measurement will be
-#'   added to the table in a separate column with a column name of the form:
-#'   \code{<unit>_<variable_name>}. This argument is useful when gathering
-#'   variables into a long (attribute-value) table.
+#'@param eml (xml_document, xml_node) EML metadata returned from
+#'  \code{read_eml()}.
+#'@param strip.white (logical) Strips leading and trailing whitespaces of
+#'  unquoted fields. Default if FALSE.
+#'@param na.strings (character) Strings to be interpreted as NA. Setting
+#'  \code{na.strings = ""} converts "" to NA. By default, blank strings "" are
+#'  read as is.
+#'@param convert.missing.value (logical) Converts all missing value codes
+#'  specified in \code{eml} (e.g. "-99999", "NaN", "Not measured") to NA.
+#'  Missing value codes vary across data packages and converting to a consistent
+#'  form recognized by R makes downstream use simpler. However, care must be
+#'  exercised when using this argument. The author of a dataset described by
+#'  \code{eml} may have defined "missing value code" to mean something different
+#'  than you expect (e.g. "below detection limit") therefore reviewing the
+#'  authors missing value code definitions is a good idea. Default is FALSE.
+#'@param add.units (logical) If TRUE, a variable's unit of measurement will be
+#'  added to the table in a separate column with a column name of the form:
+#'  \code{<unit>_<variable_name>}. This argument is useful when gathering
+#'  variables into a long (attribute-value) table.
 #'
-#' @return (list) List of named data frames
+#'@param table.names (character) Character vector of one or more table names
+#'  (\code{<objectName>} from EML) to selectively download tables.
 #'
-#' @details This function uses \code{data.table::fread()} and uses default
-#' argument values if the EML based values return an error.
+#'@return (list) List of named data frames
 #'
-#' Default settings preserve the form the data were originally published in.
+#'@details This function uses \code{data.table::fread()} and uses default
+#'  argument values if the EML based values return an error.
 #'
-#' @export
+#'  Default settings preserve the form the data were originally published in.
+#'
+#'@export
 #'
 #' @examples
 #'\dontrun{
@@ -51,9 +53,17 @@ read_tables <- function(eml,
                         strip.white = FALSE,
                         na.strings = NULL,
                         convert.missing.value = NULL,
-                        add.units = FALSE) {
+                        add.units = FALSE,
+                        table.names = NULL) {
+
 
   tbl_metadata <- xml2::xml_find_all(eml, ".//dataTable/physical")
+
+  # Use only selected tables
+  if (!is.null(table.names) & any(table.names %in% unlist(xml2::as_list(xml2::xml_find_all(eml, ".//dataTable/physical/objectName"))))) {
+    xp <- lapply(table.names, function(x) paste0("..//physical[objectName='",x,"']"))
+    tbl_metadata <- xml2::xml_find_all(tbl_metadata, paste(xp, collapse="|"))
+  }
 
   tbls <- lapply(
     tbl_metadata,
