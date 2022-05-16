@@ -60,7 +60,8 @@
   strip.white <span class="op">=</span> <span class="cn">FALSE</span>,
   na.strings <span class="op">=</span> <span class="cn">NULL</span>,
   convert.missing.value <span class="op">=</span> <span class="cn">NULL</span>,
-  add.units <span class="op">=</span> <span class="cn">FALSE</span>
+  add.units <span class="op">=</span> <span class="cn">FALSE</span>,
+  table.names <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -79,18 +80,20 @@ read as is.</p></dd>
 <dt>convert.missing.value</dt>
 <dd><p>(logical) Converts all missing value codes
 specified in <code>eml</code> (e.g. "-99999", "NaN", "Not measured") to NA.
-Missing value codes vary across data packages and converting to a
-consistent form recognized by R makes downstream use simpler. However, care
-must be exercised when using this argument. The author of a dataset
-described by <code>eml</code> may have defined "missing value code" to mean
-something different than you expect (e.g. "below detection limit")
-therefore reviewing the authors missing value code definitions is a good
-idea. Default is FALSE.</p></dd>
+Missing value codes vary across data packages and converting to a consistent
+form recognized by R makes downstream use simpler. However, care must be
+exercised when using this argument. The author of a dataset described by
+<code>eml</code> may have defined "missing value code" to mean something different
+than you expect (e.g. "below detection limit") therefore reviewing the
+authors missing value code definitions is a good idea. Default is FALSE.</p></dd>
 <dt>add.units</dt>
 <dd><p>(logical) If TRUE, a variable's unit of measurement will be
 added to the table in a separate column with a column name of the form:
 <code>&lt;unit&gt;_&lt;variable_name&gt;</code>. This argument is useful when gathering
 variables into a long (attribute-value) table.</p></dd>
+<dt>table.names</dt>
+<dd><p>(character) Character vector of one or more table names
+(<code>&lt;objectName&gt;</code> from EML) to selectively download tables.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
