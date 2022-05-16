@@ -19,7 +19,8 @@ create_hymetDP <- function(path,
     strip.white = TRUE,
     na.strings = "",
     convert.missing.value = TRUE,
-    add.units = TRUE)
+    add.units = TRUE,
+    table.names = NULL)
 
   # Join and flatten the source dataset ---------------------------------------
 
