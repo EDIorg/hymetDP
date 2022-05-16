@@ -4,9 +4,7 @@ pkgdown_sha: ~
 articles:
   create: create.html
   use_usgs: use_usgs.html
-
 last_built: 2022-05-13T16:37Z
-
 urls:
   reference: https://EDIorg.github.io/hymetDP/reference
   article: https://EDIorg.github.io/hymetDP/articles
