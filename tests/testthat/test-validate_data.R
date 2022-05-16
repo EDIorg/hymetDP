@@ -23,7 +23,7 @@ test_that("non-CV term gets caught", {
 
   expect_warning(issues <- hymetDP::validate_data(path = path))
 
-  expect_equal(unlist(issues), "Controlled Vocabulary terms. The column VariableName in the table Variables contains the term 'Flow' which is not a term in the VariableNameCV ODM Controlled Vocabulary. Choose a term from the VariableNameCV ODM Controlled Vocabulary.")
+  expect_equal(unlist(issues), "Controlled Vocabulary terms. The column VariableName in the table Variables contains the terms 'Flow' which are not terms in the VariableNameCV ODM Controlled Vocabulary. Choose terms from the VariableNameCV ODM Controlled Vocabulary.")
 })
 
 test_that("multiple non-CV terms get caught", {
@@ -31,7 +31,7 @@ test_that("multiple non-CV terms get caught", {
   test_tables <- hymet_L1$tables
 
   test_tables$Variables$VariableName[1] <- "Flow"
-  test_tables$Variables$VariableName[2] <- "Temperature"
+  test_tables$Variables$VariableName[2] <- "temp"
 
   hymetDP::write_tables(
     path = path,
@@ -46,5 +46,5 @@ test_that("multiple non-CV terms get caught", {
 
   expect_warning(issues <- hymetDP::validate_data(path = path))
 
-  expect_equal(unlist(issues), "Controlled Vocabulary terms. The column VariableName in the table Variables contains the term Flow which is not a term in the VariableNameCV ODM Controlled Vocabulary.")
+  expect_equal(unlist(issues), "Controlled Vocabulary terms. The column VariableName in the table Variables contains the terms 'Flow' and 'temp' which are not terms in the VariableNameCV ODM Controlled Vocabulary. Choose terms from the VariableNameCV ODM Controlled Vocabulary.")
 })
