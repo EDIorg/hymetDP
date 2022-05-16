@@ -729,11 +729,9 @@ validate_controlled_vocabulary_terms <- function(data.list) {
         lapply(
           colnames(data.list[[x]]),
           function(k) {
-            cv_cols <- criteria$cv[!is.na(criteria$cv)]
+            cv_cols <- criteria$column[!is.na(criteria$cv)]
             if (k %in% cv_cols) {
-              cv_to_check <- cv_cols$cv[
-                (cv_cols$table %in% "SeriesCatalog")
-                  (cv_cols$column %in% "DataType")]
+              cv_to_check <- na.omit(criteria$cv[criteria$column == k])[1]
               detected <- unique(data.list[[x]][[k]])
               for (t in detected) {
                 if (cv_to_check == "UnitsCV") {
@@ -754,7 +752,8 @@ validate_controlled_vocabulary_terms <- function(data.list) {
               if (exists("issues", inherits = FALSE)) {
                 paste0(
                   "Controlled Vocabulary terms. The column ", k, " in the table ",
-                  x, " contains the term ", bad_term, " which is not a term in the ",
+                  x, " contains the term '", issues$bad_term, "' which is not a term in the ",
+                  cv_to_check, " ODM Controlled Vocabulary. Choose a term from the ",
                   cv_to_check, " ODM Controlled Vocabulary.")
               }
             }
