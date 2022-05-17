@@ -752,8 +752,6 @@ validate_controlled_vocabulary_terms <- function(data.list) {
                   }
                 }
               }
-              print("now iffy")
-              print(paste('k',k))
               if (length(issues) == 1) {
                 paste0(
                   "Controlled Vocabulary terms. The column ", k, " in the table ",
