@@ -1,6 +1,6 @@
 search_data <- function(text, VariableName, SampleMedium, TimeSupport,
-                        GeneralCategory, starts_before, ends_after,
-                        number_years, area, boolean = "AND") {
+                        GeneralCategory, SiteType, starts_before, ends_after,
+                        num_years, area, boolean = "AND") {
 
   # Validate arguments --------------------------------------------------------
 
@@ -52,9 +52,10 @@ search_data <- function(text, VariableName, SampleMedium, TimeSupport,
         SampleMedium = F,
         TimeSupport = F,
         GeneralCategory = F,
+        SiteType = F,
         starts_before = F,
         ends_after = F,
-        number_years = F,
+        num_years = F,
         area = F)),
     length(d))
   names(use_i) <- names(d)
@@ -67,9 +68,10 @@ search_data <- function(text, VariableName, SampleMedium, TimeSupport,
         SampleMedium = NA_character_,
         TimeSupport = NA_character_,
         GeneralCategory = NA_character_,
+        SiteType = NA_character_,
         starts_before = NA_character_,
         ends_after = NA_character_,
-        number_years = NA_character_,
+        num_years = NA_character_,
         area = NA_character_)),
     length(d))
   names(sites_i) <- names(d)
@@ -163,6 +165,14 @@ search_data <- function(text, VariableName, SampleMedium, TimeSupport,
     use_i <- return_use_i(i_list)
     sites_i <- return_sites_i(i_list)
 
+    # Search SiteType
+    i_list <- run_category_search('SiteType')
+
+    use_i <- return_use_i(i_list)
+    sites_i <- return_sites_i(i_list)
+
+
+    # TODO Time Support (should be similar to num_years)
 
     # Search temporal coverage
 
@@ -178,17 +188,9 @@ search_data <- function(text, VariableName, SampleMedium, TimeSupport,
       sites_i[[i]]$num_years <- NULL
     }
 
-    if (!missing(sd_years)) {
-      sdyears_i <- (unname(unlist(d[[i]]$std_dev_interval_betw_years)) >= sd_years[1]) &
-        (unname(unlist(d[[i]]$std_dev_interval_betw_years)) <= sd_years[2])
-      if (any(sdyears_i, na.rm = T)) {
-        use_i[[i]]$sd_years <- T
-        sites_i[[i]]$sd_years <- names(d[[i]]$std_dev_interval_betw_years)[sdyears_i]
-      }
-    } else {
-      use_i[[i]]$sd_years <- NULL
-      sites_i[[i]]$sd_years <- NULL
-    }
+
+    # TODO starts_before
+    # TODO ends_after
 
     # Search geographic coverage - Methods support point locations (location
     # falls within the area defined by area) and areas (overlap
