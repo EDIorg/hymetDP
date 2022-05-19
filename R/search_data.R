@@ -1,4 +1,4 @@
-search_data <- function(text, VariableName, SampleMedium, TimeSupport,
+search_data <- function(text = NULL, VariableName, SampleMedium, TimeSupport,
                         GeneralCategory, SiteType, starts_before, ends_after,
                         num_years, area, boolean = "AND") {
 
@@ -226,8 +226,9 @@ search_data <- function(text, VariableName, SampleMedium, TimeSupport,
     # If no arguments are specified, then return the full list of sites for
     # each dataset
 
-    if (missing(text) & missing(taxa) & missing(num_taxa) & missing(num_years) &
-        missing(sd_years) & missing(area)) {
+    if (missing(text) & missing(VariableName) & missing(SampleMedium) &
+        missing(GeneralCategory) & missing(SiteType) & missing(num_years) &
+        missing(area)) {
       sites_i <- lapply(
         names(d),
         function(x) {
@@ -246,6 +247,7 @@ search_data <- function(text, VariableName, SampleMedium, TimeSupport,
 
   }
 
+
   # Return results ------------------------------------------------------------
 
   d <- d[unname(unlist(use_i))]
@@ -254,41 +256,31 @@ search_data <- function(text, VariableName, SampleMedium, TimeSupport,
     lapply(
       names(d),
       function(x) {
-        # sites - EDI data are inconsistent in the representation of "sites"
-        # (in contrast to NEON) therefore these values are set to NA
-        if (d[[x]]$source == "EDI") {
-          sites <- NA_character_
-        } else {
-          sites <- paste(Reduce(intersect, sites_i[[x]]), collapse = ",")
-        }
+        # # sites - EDI data are inconsistent in the representation of "sites"
+        # # (in contrast to NEON) therefore these values are set to NA
+        # if (d[[x]]$source == "EDI") {
+        #   sites <- NA_character_
+        # } else {
+        #   sites <- paste(Reduce(intersect, sites_i[[x]]), collapse = ",")
+        # }
+
         # num_years - Report as a single value (EDI) or range (NEON)
-        if (length(d[[x]]$number_of_years_sampled) == 1) {
-          num_years <- unlist(d[[x]]$number_of_years_sampled)
-        } else {
-          num_years <- paste0(
-            "min = ", min(unlist(d[[x]]$number_of_years_sampled)), ", ",
-            "max = ", max(unlist(d[[x]]$number_of_years_sampled)))
-        }
-        # sampling_interval - Report as a single value (EDI) or range (NEON)
-        if (length(d[[x]]$std_dev_interval_betw_years) == 1) {
-          sampling_interval <- round(unlist(d[[x]]$std_dev_interval_betw_years), 2)
-        } else {
-          sampling_interval <- paste0(
-            "min = ", min(unlist(d[[x]]$std_dev_interval_betw_years)), ", ",
-            "max = ", max(unlist(d[[x]]$std_dev_interval_betw_years)))
-        }
+        num_years <- unlist(d[[x]]$number_of_years_sampled)
+
         # source_id
         if (!is.null(d[[x]]$source_id)) {
           source_id <- d[[x]]$source_id
         } else {
           source_id <- NA_character_
         }
+
         # source_id_url
         if (!is.null(d[[x]]$source_id_url)) {
           source_id_url <- d[[x]]$source_id_url
         } else {
           source_id_url <- NA_character_
         }
+
         # Return
         list(
           source = d[[x]]$source,
@@ -297,8 +289,6 @@ search_data <- function(text, VariableName, SampleMedium, TimeSupport,
           description = d[[x]]$description,
           abstract = d[[x]]$abstract,
           years = num_years,
-          sampling_interval = sampling_interval,
-          sites = sites,
           url = d[[x]]$url,
           source_id = source_id,
           source_id_url = source_id_url)
@@ -319,6 +309,7 @@ search_data <- function(text, VariableName, SampleMedium, TimeSupport,
 run_category_search <- function(category_name) {
 
   category <- try(get(category_name), silent = TRUE)
+
 
   if (!methods::is(category, "try-error")) {
     var_i <- rep(F, length(d[[i]][[category_name]]))
