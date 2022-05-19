@@ -1,6 +1,6 @@
-search_data <- function(text = NULL, VariableName, SampleMedium, TimeSupport,
-                        GeneralCategory, SiteType, starts_before, ends_after,
-                        num_years, area, boolean = "AND") {
+search_data <- function(text, VariableName, SampleMedium, TimeSupport,
+                        GeneralCategory, SiteType, starts_before,
+                        ends_after, num_years, area, boolean = "AND") {
 
   # Validate arguments --------------------------------------------------------
 
@@ -35,7 +35,6 @@ search_data <- function(text = NULL, VariableName, SampleMedium, TimeSupport,
          version = 3)
     d <- hymetDP_search_index
   }
-
   # Initialize an index of available datasets (use_i) for recording successful
   # search hits, and an index of available sites within each dataset (sites_i)
   # corresponding with taxa, num_taxa, and area search arguments.
@@ -60,29 +59,14 @@ search_data <- function(text = NULL, VariableName, SampleMedium, TimeSupport,
     length(d))
   names(use_i) <- names(d)
 
-  sites_i <- rep(
-    list(
-      list(
-        text = NA_character_,
-        VariableName = NA_character_,
-        SampleMedium = NA_character_,
-        TimeSupport = NA_character_,
-        GeneralCategory = NA_character_,
-        SiteType = NA_character_,
-        starts_before = NA_character_,
-        ends_after = NA_character_,
-        num_years = NA_character_,
-        area = NA_character_)),
-    length(d))
-  names(sites_i) <- names(d)
-
   # Search --------------------------------------------------------------------
   # Apply user specified search criteria to each dataset while recording
   # successful hits.
 
   for (i in seq_along(d)) {
     arg_i <- rep(F, length(formals()))
-
+print(arg_i)
+print(formals())
     # Search text
 
     if (!missing(text)) {
@@ -104,12 +88,8 @@ search_data <- function(text = NULL, VariableName, SampleMedium, TimeSupport,
               collapse = ", ")),
           tolower(paste(text, collapse = "|")))
       }
-      if (isTRUE(use_i[[i]]$text)) {
-        sites_i[[i]]$text <- names(d[[i]]$coordinates)
-      }
     } else {
       use_i[[i]]$text <- NULL
-      sites_i[[i]]$text <- NULL
     }
 
     # Search VariableName
@@ -147,29 +127,18 @@ search_data <- function(text = NULL, VariableName, SampleMedium, TimeSupport,
     #   sites_i[[i]]$VariableName <- NULL
     # }
 
-    i_list <- run_category_search('VariableName')
-
-    use_i <- return_use_i(i_list)
-    sites_i <- return_sites_i(i_list)
-
+    use_i <- run_category_search('VariableName', use_i, i)
 
     # Search SampleMedium
-    i_list <- run_category_search('SampleMedium')
-
-    use_i <- return_use_i(i_list)
-    sites_i <- return_sites_i(i_list)
+    use_i <- run_category_search('SampleMedium', use_i, i)
 
     # Search GeneralCategory
-    i_list <- run_category_search('GeneralCategory')
-
-    use_i <- return_use_i(i_list)
-    sites_i <- return_sites_i(i_list)
+    use_i <- run_category_search('GeneralCategory', use_i, i)
 
     # Search SiteType
-    i_list <- run_category_search('SiteType')
+    use_i <- run_category_search('SiteType', use_i, i)
 
-    use_i <- return_use_i(i_list)
-    sites_i <- return_sites_i(i_list)
+
 
 
     # TODO Time Support (should be similar to num_years)
@@ -181,11 +150,9 @@ search_data <- function(text = NULL, VariableName, SampleMedium, TimeSupport,
         (unname(unlist(d[[i]]$number_of_years_sampled)) <= num_years[2])
       if (any(years_i, na.rm = T)) {
         use_i[[i]]$num_years <- T
-        sites_i[[i]]$num_years <- names(d[[i]]$number_of_years_sampled)[years_i]
       }
     } else {
       use_i[[i]]$num_years <- NULL
-      sites_i[[i]]$num_years <- NULL
     }
 
 
@@ -216,25 +183,9 @@ search_data <- function(text = NULL, VariableName, SampleMedium, TimeSupport,
       }
       if (any(geographic_area_i, na.rm = T)) {
         use_i[[i]]$area <- T
-        sites_i[[i]]$area <- names(d[[i]]$coordinates)[geographic_area_i]
       }
     } else {
       use_i[[i]]$area <- NULL
-      sites_i[[i]]$area <- NULL
-    }
-
-    # If no arguments are specified, then return the full list of sites for
-    # each dataset
-
-    if (missing(text) & missing(VariableName) & missing(SampleMedium) &
-        missing(GeneralCategory) & missing(SiteType) & missing(num_years) &
-        missing(area)) {
-      sites_i <- lapply(
-        names(d),
-        function(x) {
-          list(all_sites = names(d[[x]]$coordinates))
-        })
-      names(sites_i) <- names(d)
     }
 
     # Indicate whether all search parameters were met
@@ -247,11 +198,12 @@ search_data <- function(text = NULL, VariableName, SampleMedium, TimeSupport,
 
   }
 
+  print(use_i)
 
   # Return results ------------------------------------------------------------
 
   d <- d[unname(unlist(use_i))]
-  sites_i <- sites_i[unname(unlist(use_i))]
+  print(names(d))
   output <- data.table::rbindlist(
     lapply(
       names(d),
@@ -306,7 +258,7 @@ search_data <- function(text = NULL, VariableName, SampleMedium, TimeSupport,
 }
 
 
-run_category_search <- function(category_name) {
+run_category_search <- function(category_name, x, i) {
 
   category <- try(get(category_name), silent = TRUE)
 
@@ -337,41 +289,10 @@ run_category_search <- function(category_name) {
       }
     }
     if (any(var_i, na.rm = T)) {
-      use_i[[i]][[category_name]] <- T
-      sites_i[[i]][[category_name]] <- d[[i]][[category_name]][var_i]
+      x[[i]][[category_name]] <- T
     }
   } else {
-    use_i[[i]][[category_name]] <- NULL
-    sites_i[[i]][[category_name]] <- NULL
+    x[[i]][[category_name]] <- NULL
   }
-
-  return(list(use_i, sites_i))
-}
-
-
-
-# Return the use_i list
-#
-# @param l (list) list object returned from \code{run_category_search()}
-#
-# @details Simple helper function
-#
-# @return (list) the updated use_i list
-#
-return_use_i <- function(l) {
-  l[[1]]
-}
-
-
-
-# Return the sites_i list
-#
-# @param l (list) list object returned from \code{run_category_search()}
-#
-# @details Simple helper function
-#
-# @return (list) the updated sites_i list
-#
-return_sites_i <- function(l) {
-  l[[2]]
+  x
 }

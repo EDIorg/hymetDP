@@ -20,6 +20,9 @@ validate_arguments <- function(fun.name, fun.args) {
 
   # Parameterize ------------------------------------------------------------
 
+  use_i <- sapply(fun.args, function(X) identical(X, quote(expr=)))
+  fun.args[use_i] <- list(NULL)
+
   criteria <- read_criteria()
 
 
@@ -221,7 +224,7 @@ validate_arguments <- function(fun.name, fun.args) {
 
     # starts_before
 
-    if (!is.null(fun.args$starts_before) & !is.Date(fun.args$starts_before)) {
+    if (!is.null(fun.args$starts_before) & !lubridate::is.Date(fun.args$starts_before)) {
       if (any(class(tryCatch(as.Date(fun.args$starts_before),
                              error=function(e) e)) == 'error')) {
 
@@ -231,7 +234,7 @@ validate_arguments <- function(fun.name, fun.args) {
 
     # ends_after
 
-    if (!is.null(fun.args$ends_after) & !is.Date(fun.args$ends_after)) {
+    if (!is.null(fun.args$ends_after) & !lubridate::is.Date(fun.args$ends_after)) {
       if (any(class(tryCatch(as.Date(fun.args$ends_after),
                              error=function(e) e)) == 'error')) {
 
