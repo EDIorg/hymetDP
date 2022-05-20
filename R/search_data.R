@@ -109,12 +109,9 @@ search_data <- function(text, VariableName, SampleMedium, GeneralCategory,
     d <- hymetDP_search_index
   }
   # Initialize an index of available datasets (use_i) for recording successful
-  # search hits, and an index of available sites within each dataset (sites_i)
-  # corresponding with taxa, num_taxa, and area search arguments.
+  # search hits.
   # These are used later to collate the search results. use_i is initialized
   # with logical because it will be used to select the matched datasets.
-  # sites_i is initialized with NA_character_ because they will be returned
-  # to the user in a data frame.
 
   use_i <- rep(
     list(
@@ -440,44 +437,4 @@ search_data <- function(text, VariableName, SampleMedium, GeneralCategory,
     return(output)
   }
 
-}
-
-
-run_category_search <- function(category_name, x, i) {
-
-  category <- try(get(category_name), silent = TRUE)
-
-
-  if (!methods::is(category, "try-error")) {
-    var_i <- rep(F, length(d[[i]][[category_name]]))
-    for (k in 1:length(d[[i]][[category_name]])) {
-      if (boolean == "AND") {
-        var_i[k] <- try(
-          all(
-            stringr::str_detect(
-              tolower(d[[i]][[category_name]][[k]]),
-              tolower(category))),
-          silent = TRUE)
-        if (methods::is(var_i[k], "try-error")) {
-          # if (class(var_i[k]) == "try-error") {
-          var_i[k] <- FALSE
-        }
-      } else if (boolean == "OR") {
-        var_i[k] <- try(
-          stringr::str_detect(
-            tolower(d[[i]][[category_name]][[k]]),
-            tolower(paste(category, collapse = "|"))),
-          silent = TRUE)
-        if (methods::is(var_i[k], "try-error")) {
-          var_i[k] <- FALSE
-        }
-      }
-    }
-    if (any(var_i, na.rm = T)) {
-      x[[i]][[category_name]] <- T
-    }
-  } else {
-    x[[i]][[category_name]] <- NULL
-  }
-  x
 }
