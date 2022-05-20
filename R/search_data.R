@@ -65,8 +65,7 @@ search_data <- function(text, VariableName, SampleMedium, TimeSupport,
 
   for (i in seq_along(d)) {
     arg_i <- rep(F, length(formals()))
-print(arg_i)
-print(formals())
+
     # Search text
 
     if (!missing(text)) {
@@ -93,55 +92,140 @@ print(formals())
     }
 
     # Search VariableName
-    # if (!missing(VariableName)) {
-    #   var_i <- rep(F, length(d[[i]]$VariableName))
-    #   for (k in 1:length(d[[i]]$VariableName)) {
-    #     if (boolean == "AND") {
-    #       var_i[k] <- try(
-    #         all(
-    #           stringr::str_detect(
-    #             tolower(d[[i]]$VariableName[[k]]),
-    #             tolower(VariableName))),
-    #         silent = TRUE)
-    #       if (methods::is(var_i[k], "try-error")) {
-    #         # if (class(var_i[k]) == "try-error") {
-    #         var_i[k] <- FALSE
-    #       }
-    #     } else if (boolean == "OR") {
-    #       var_i[k] <- try(
-    #         stringr::str_detect(
-    #           tolower(d[[i]]$VariableName[[k]]),
-    #           tolower(paste(VariableName, collapse = "|"))),
-    #         silent = TRUE)
-    #       if (methods::is(var_i[k], "try-error")) {
-    #         var_i[k] <- FALSE
-    #       }
-    #     }
-    #   }
-    #   if (any(var_i, na.rm = T)) {
-    #     use_i[[i]]$VariableName <- T
-    #     sites_i[[i]]$VariableName <- d[[i]]$VariableName[var_i]
-    #   }
-    # } else {
-    #   use_i[[i]]$VariableName <- NULL
-    #   sites_i[[i]]$VariableName <- NULL
-    # }
+    if (!missing(VariableName)) {
+      var_i <- rep(F, length(d[[i]]$VariableName))
+      for (k in 1:length(d[[i]]$VariableName)) {
+        if (boolean == "AND") {
+          var_i[k] <- try(
+            all(
+              stringr::str_detect(
+                tolower(d[[i]]$VariableName[[k]]),
+                tolower(VariableName))),
+            silent = TRUE)
+          if (methods::is(var_i[k], "try-error")) {
+            # if (class(var_i[k]) == "try-error") {
+            var_i[k] <- FALSE
+          }
+        } else if (boolean == "OR") {
+          var_i[k] <- try(
+            stringr::str_detect(
+              tolower(d[[i]]$VariableName[[k]]),
+              tolower(paste(VariableName, collapse = "|"))),
+            silent = TRUE)
+          if (methods::is(var_i[k], "try-error")) {
+            var_i[k] <- FALSE
+          }
+        }
+      }
+      if (any(var_i, na.rm = T)) {
+        use_i[[i]]$VariableName <- T
+      }
+    } else {
+      use_i[[i]]$VariableName <- NULL
+    }
 
-    use_i <- run_category_search('VariableName', use_i, i)
-
-    # Search SampleMedium
-    use_i <- run_category_search('SampleMedium', use_i, i)
+    # Search VariableName
+    if (!missing(SampleMedium)) {
+      var_i <- rep(F, length(d[[i]]$SampleMedium))
+      for (k in 1:length(d[[i]]$SampleMedium)) {
+        if (boolean == "AND") {
+          var_i[k] <- try(
+            all(
+              stringr::str_detect(
+                tolower(d[[i]]$SampleMedium[[k]]),
+                tolower(SampleMedium))),
+            silent = TRUE)
+          if (methods::is(var_i[k], "try-error")) {
+            # if (class(var_i[k]) == "try-error") {
+            var_i[k] <- FALSE
+          }
+        } else if (boolean == "OR") {
+          var_i[k] <- try(
+            stringr::str_detect(
+              tolower(d[[i]]$SampleMedium[[k]]),
+              tolower(paste(SampleMedium, collapse = "|"))),
+            silent = TRUE)
+          if (methods::is(var_i[k], "try-error")) {
+            var_i[k] <- FALSE
+          }
+        }
+      }
+      if (any(var_i, na.rm = T)) {
+        use_i[[i]]$SampleMedium <- T
+      }
+    } else {
+      use_i[[i]]$SampleMedium <- NULL
+    }
 
     # Search GeneralCategory
-    use_i <- run_category_search('GeneralCategory', use_i, i)
+    if (!missing(GeneralCategory)) {
+      var_i <- rep(F, length(d[[i]]$GeneralCategory))
+      for (k in 1:length(d[[i]]$GeneralCategory)) {
+        if (boolean == "AND") {
+          var_i[k] <- try(
+            all(
+              stringr::str_detect(
+                tolower(d[[i]]$GeneralCategory[[k]]),
+                tolower(GeneralCategory))),
+            silent = TRUE)
+          if (methods::is(var_i[k], "try-error")) {
+            # if (class(var_i[k]) == "try-error") {
+            var_i[k] <- FALSE
+          }
+        } else if (boolean == "OR") {
+          var_i[k] <- try(
+            stringr::str_detect(
+              tolower(d[[i]]$GeneralCategory[[k]]),
+              tolower(paste(GeneralCategory, collapse = "|"))),
+            silent = TRUE)
+          if (methods::is(var_i[k], "try-error")) {
+            var_i[k] <- FALSE
+          }
+        }
+      }
+      if (any(var_i, na.rm = T)) {
+        use_i[[i]]$GeneralCategory <- T
+      }
+    } else {
+      use_i[[i]]$GeneralCategory <- NULL
+    }
 
     # Search SiteType
-    use_i <- run_category_search('SiteType', use_i, i)
-
-
+    if (!missing(SiteType)) {
+      var_i <- rep(F, length(d[[i]]$SiteType))
+      for (k in 1:length(d[[i]]$SiteType)) {
+        if (boolean == "AND") {
+          var_i[k] <- try(
+            all(
+              stringr::str_detect(
+                tolower(d[[i]]$SiteType[[k]]),
+                tolower(SiteType))),
+            silent = TRUE)
+          if (methods::is(var_i[k], "try-error")) {
+            # if (class(var_i[k]) == "try-error") {
+            var_i[k] <- FALSE
+          }
+        } else if (boolean == "OR") {
+          var_i[k] <- try(
+            stringr::str_detect(
+              tolower(d[[i]]$SiteType[[k]]),
+              tolower(paste(SiteType, collapse = "|"))),
+            silent = TRUE)
+          if (methods::is(var_i[k], "try-error")) {
+            var_i[k] <- FALSE
+          }
+        }
+      }
+      if (any(var_i, na.rm = T)) {
+        use_i[[i]]$SiteType <- T
+      }
+    } else {
+      use_i[[i]]$SiteType <- NULL
+    }
 
 
     # TODO Time Support (should be similar to num_years)
+    use_i[[i]]$TimeSupport <- NULL
 
     # Search temporal coverage
 
@@ -157,7 +241,9 @@ print(formals())
 
 
     # TODO starts_before
+    use_i[[i]]$starts_before <- NULL
     # TODO ends_after
+    use_i[[i]]$ends_after <- NULL
 
     # Search geographic coverage - Methods support point locations (location
     # falls within the area defined by area) and areas (overlap
@@ -188,6 +274,7 @@ print(formals())
       use_i[[i]]$area <- NULL
     }
 
+   # print(use_i)
     # Indicate whether all search parameters were met
     use_i[i] <- unlist(
       lapply(
@@ -198,12 +285,10 @@ print(formals())
 
   }
 
-  print(use_i)
+  #print(use_i)
 
   # Return results ------------------------------------------------------------
-
   d <- d[unname(unlist(use_i))]
-  print(names(d))
   output <- data.table::rbindlist(
     lapply(
       names(d),
@@ -238,7 +323,6 @@ print(formals())
           source = d[[x]]$source,
           id = x,
           title = d[[x]]$title,
-          description = d[[x]]$description,
           abstract = d[[x]]$abstract,
           years = num_years,
           url = d[[x]]$url,
