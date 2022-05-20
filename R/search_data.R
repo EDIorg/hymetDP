@@ -299,8 +299,17 @@ search_data <- function(text, VariableName, SampleMedium, GeneralCategory,
 
 
 
-    # TODO Time Support (should be similar to num_years)
-    use_i[[i]]$TimeSupport <- NULL
+    # Filter on Time Support
+    if (!missing(TimeSupport)) {
+      time_i <- (unname(unlist(d[[i]]$TimeSupport)) <= TimeSupport)
+      if (any(time_i, na.rm = T)) {
+        use_i[[i]]$TimeSupport <- T
+      }
+    } else {
+      use_i[[i]]$TimeSupport <- NULL
+    }
+
+
 
     # Search temporal coverage
 
@@ -315,10 +324,27 @@ search_data <- function(text, VariableName, SampleMedium, GeneralCategory,
     }
 
 
-    # TODO starts_before
-    use_i[[i]]$starts_before <- NULL
-    # TODO ends_after
-    use_i[[i]]$ends_after <- NULL
+    # starts_before
+
+    if (!missing(starts_before)) {
+      startdate_i <- (unname(unlist(d[[i]]$BeginDateTimeUTC)) < starts_before)
+      if (any(startdate_i, na.rm = T)) {
+        use_i[[i]]$starts_before <- T
+      }
+    } else {
+      use_i[[i]]$starts_before <- NULL
+    }
+
+
+    # ends_after
+    if (!missing(ends_after)) {
+      enddate_i <- (unname(unlist(d[[i]]$EndDateTimeUTC)) > ends_after)
+      if (any(enddate_i, na.rm = T)) {
+        use_i[[i]]$ends_after <- T
+      }
+    } else {
+      use_i[[i]]$ends_after <- NULL
+    }
 
     # Search geographic coverage - Methods support point locations (location
     # falls within the area defined by area) and areas (overlap
