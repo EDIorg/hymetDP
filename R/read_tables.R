@@ -60,7 +60,26 @@ read_tables <- function(eml,
   tbl_metadata <- xml2::xml_find_all(eml, ".//dataTable/physical")
 
   # Use only selected tables
+
+  if (!is.null(table.names)) {
+    if (!all(stringr::str_detect(table.names, "\\.\\w+"))) {
+      stop("The files specified in table.names should include file extensions. Make sure to specify an objectName.", call. = FALSE)
+    }
+
+    if (!all(table.names %in% unlist(xml2::as_list(xml2::xml_find_all(eml, ".//dataTable/physical/objectName"))))) {
+
+      use_i <- !table.names %in% unlist(xml2::as_list(xml2::xml_find_all(eml, ".//dataTable/physical/objectName")))
+
+      stop(paste0("There are no files named", knitr::combine_words(table.names[use_i]), ". Please remove these from the function call"), call. = FALSE)
+    }
+
+
+  }
+
+
   if (!is.null(table.names) & any(table.names %in% unlist(xml2::as_list(xml2::xml_find_all(eml, ".//dataTable/physical/objectName"))))) {
+
+
     xp <- lapply(table.names, function(x) paste0("..//physical[objectName='",x,"']"))
     tbl_metadata <- xml2::xml_find_all(tbl_metadata, paste(xp, collapse="|"))
   }

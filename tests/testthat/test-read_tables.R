@@ -44,3 +44,28 @@ test_that("only selected table is downloaded", {
 
   expect_equal(length(tables), 1)
 })
+
+test_that("only filenames with extensions are accepted", {
+
+  expect_error(
+    read_tables(
+      eml = eml,
+      strip.white = TRUE,
+      na.strings = "",
+      convert.missing.value = TRUE,
+      add.units = TRUE,
+      table.names = "WildflowerCES_FrenchBroadRiverBasin_site_info"))
+})
+
+test_that("all table.names must be in package", {
+
+  expect_error(
+    read_tables(
+      eml = eml,
+      strip.white = TRUE,
+      na.strings = "",
+      convert.missing.value = TRUE,
+      add.units = TRUE,
+      table.names = c("WildflowerCES_FrenchBroadRiverBasin_site_info.csv", "WildflowerNumber2")))
+})
+
