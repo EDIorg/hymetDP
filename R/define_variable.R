@@ -93,11 +93,15 @@ define_variable <- function(
 
   validate_arguments(fun.name = "define_variable", fun.args = as.list(environment()))
 
+  # Assign the L0_flat to a variable
+
+  flat_input <- L0_flat
+
   # if set to null, defaults to `unit` from table. Validate returns an error if unit_<variable_code> is not in CV
 
   if(is.null(variable_units)) {
 
-    unit_col <- unique(L0_flat[L0_flat$variable_name == local_variable,]$unit)
+    unit_col <- unique(flat_input[flat_input$variable_name == local_variable,]$unit)
 
     if (length(unit_col) > 1) {
 
@@ -119,14 +123,14 @@ define_variable <- function(
   # TODO are global variables like this ok?
 
   cv <- validate_odm_terms(fun.name = "define_variable",
-                            fun.args = as.list(environment()))
+                           fun.args = as.list(environment()))
 
 
   # If VariableCode column doesnt exist, create it and make this variable id 1
 
   VariableCode <-  NA_integer_
 
-  if (!"VariableCode" %in% names(L0_flat)) {
+  if (!"VariableCode" %in% names(flat_input)) {
 
     VariableCode <- 1
 
@@ -134,7 +138,7 @@ define_variable <- function(
 
     # Increment VariableCode for subsequent variables
 
-    VariableCode <- max(L0_flat$VariableCode, na.rm = TRUE) + 1
+    VariableCode <- max(flat_input$VariableCode, na.rm = TRUE) + 1
 
   }
 
@@ -155,47 +159,29 @@ define_variable <- function(
     NoDataValue = no_data
   )
 
-  # Create table of variable information
-
-  # variable_table <- data.table::data.table(
-  #   local_variable_name = local_variable,
-  #   VariableCode = VariableCode,
-  #   VariableName = variable_name,
-  #   VariableUnitsName = variable_units,
-  #   SampleMedium = sample_medium,
-  #   ValueType = value_type,
-  #   IsRegular = is_regular,
-  #   TimeSupport = time_support,
-  #   TimeUnitsName = time_units,
-  #   DataType = data_type,
-  #   GeneralCategory = general_category,
-  #   NoDataValue = no_data,
-  #   key = 'local_variable_name'
-  # )
-
   # This is necessary to use setNames() in the by parameter of the join
 
   lvn = "local_variable_name"
 
   # Join variable table to flat
 
-  if (!"VariableCode" %in% names(L0_flat)) {
+  if (!"VariableCode" %in% names(flat_input)) {
 
     # For the first variable added to flat table
 
-    flat_output <- lazy_dt(L0_flat) %>%
-      dtplyr::left_join(variable_table,
+    flat_output <- flat_input %>%
+      dplyr::left_join(variable_table,
                        by = stats::setNames(lvn, local_variable_column))
 
   } else {
 
     # Save the final column names
 
-    final_columns <- names(L0_flat)
+    final_columns <- names(flat_input)
 
     # Merge tables with a join, merge columns with coalesce, select final columns with select
 
-    flat_output <- L0_flat %>%
+    flat_output <- flat_input %>%
       dplyr::left_join(
         variable_table, by = stats::setNames(lvn, local_variable_column)) %>%
       dplyr::mutate(
