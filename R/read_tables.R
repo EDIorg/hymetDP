@@ -70,7 +70,7 @@ read_tables <- function(eml,
 
       use_i <- !table.names %in% unlist(xml2::as_list(xml2::xml_find_all(eml, ".//dataTable/physical/objectName")))
 
-      stop(paste0("There are no files named", knitr::combine_words(table.names[use_i]), ". Please remove these from the function call"), call. = FALSE)
+      stop(paste0("There are no files named ", knitr::combine_words(table.names[use_i]), ". Please remove these from the function call."), call. = FALSE)
     }
 
 
