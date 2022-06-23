@@ -123,7 +123,7 @@ define_variable <- function(
   # TODO are global variables like this ok?
 
   cv <- validate_odm_terms(fun.name = "define_variable",
-                            fun.args = as.list(environment()))
+                           fun.args = as.list(environment()))
 
 
   # If VariableCode column doesnt exist, create it and make this variable id 1

@@ -729,34 +729,51 @@ validate_controlled_vocabulary_terms <- function(data.list) {
         lapply(
           colnames(data.list[[x]]),
           function(k) {
-            cv_cols <- criteria$cv[!is.na(criteria$cv)]
+            cv_cols <- criteria$column[!is.na(criteria$cv)]
             if (k %in% cv_cols) {
-              cv_to_check <- cv_cols$cv[
-                (cv_cols$table %in% "SeriesCatalog")
-                  (cv_cols$column %in% "DataType")]
+              cv_to_check <- na.omit(criteria$cv[criteria$column == k])[1]
               detected <- unique(data.list[[x]][[k]])
+              issues = NULL
               for (t in detected) {
                 if (cv_to_check == "UnitsCV") {
                   if (!t %in% UnitsCV$UnitsName) {
-                    issues <- list(column = k, bad_term = t)
+                    issues <- list(unlist(issues), t)
+
                   }
                 } else if (cv_to_check == "SpatialReferencesCV") {
                   if (!t %in% SpatialReferencesCV$SRSName) {
-                    issues <- list(column = k, bad_term = t)
+                    issues <- list(unlist(issues), t)
+
                   }
                 } else {
                   this_cv <- get(cv_to_check)
                   if (!t %in% this_cv[["Term"]]) {
-                    issues <- list(column = k, bad_term = t)
+                    issues <- list(unlist(issues), t)
                   }
                 }
               }
-              if (exists("issues", inherits = FALSE)) {
+              if (length(issues) == 1) {
                 paste0(
                   "Controlled Vocabulary terms. The column ", k, " in the table ",
-                  x, " contains the term ", bad_term, " which is not a term in the ",
+                  x, " contains the term ", knitr::combine_words(paste0("'",issues, "'")), " which is not a term in the ",
+                  cv_to_check, " ODM Controlled Vocabulary. Choose a term from the ",
                   cv_to_check, " ODM Controlled Vocabulary.")
               }
+              if (length(issues) > 1) {
+                if (length(unlist(issues)) == 1) {
+                  paste0(
+                    "Controlled Vocabulary terms. The column ", k, " in the table ",
+                    x, " contains the term ", knitr::combine_words(paste0("'",unlist(issues), "'")), " which is not a term in the ",
+                    cv_to_check, " ODM Controlled Vocabulary. Choose a term from the ",
+                    cv_to_check, " ODM Controlled Vocabulary.")
+                }
+                paste0(
+                  "Controlled Vocabulary terms. The column ", k, " in the table ",
+                  x, " contains the terms ", knitr::combine_words(paste0("'",unlist(issues), "'")), " which are not terms in the ",
+                  cv_to_check, " ODM Controlled Vocabulary. Choose terms from the ",
+                  cv_to_check, " ODM Controlled Vocabulary.")
+              }
+
             }
           })
       }))

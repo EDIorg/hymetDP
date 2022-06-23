@@ -10,20 +10,20 @@
 #'
 #' @examples
 #' # Read as XML
-#' qualityReport <- read_data_package_report("knb-lter-knz.260.4")
+#' qualityReport <- read_data_package_report_hymet("knb-lter-knz.260.4")
 #' qualityReport
 #'
 #' # Read as HTML
-#' qualityReport <- read_data_package_report("knb-lter-knz.260.4", frmt = "html")
+#' qualityReport <- read_data_package_report_hymet("knb-lter-knz.260.4", frmt = "html")
 #' qualityReport
 #'
 #' # Read as character
-#' qualityReport <- read_data_package_report("knb-lter-knz.260.4", frmt = "char")
+#' qualityReport <- read_data_package_report_hymet("knb-lter-knz.260.4", frmt = "char")
 #' # writeLines(qualityReport, "./data/report.txt"))
 #'
 #' @keywords internal
 #'
-read_data_package_report <- function(packageId,
+read_data_package_report_hymet <- function(packageId,
                                      frmt = "xml",
                                      env = "production") {
   url <- paste0(base_url(env), "/package/report/eml/",
