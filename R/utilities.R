@@ -1177,6 +1177,9 @@ read_metadata <- function(packageId, env = "production") {
 #' revisions
 #' #> [1] 1 2
 #' }
+#'
+#' @noRd
+#'
 list_data_package_revisions <- function(scope,
                                         identifier,
                                         filter = NULL,
@@ -1240,6 +1243,9 @@ list_data_package_revisions <- function(scope,
 #' #> [8] <rdf:Description rdf:about="http://www.openarchives.org/ore/terms ...
 #' #> [9] <rdf:Description rdf:about="http://www.openarchives.org/ore/terms ...
 #' }
+#'
+#' @noRd
+#'
 read_data_package <- function(packageId, ore = FALSE, env = "production") {
   url <- paste0(
     base_url(env), "/package/eml/",
@@ -1290,6 +1296,9 @@ read_data_package <- function(packageId, ore = FALSE, env = "production") {
 #' entityName
 #' #> [1] "691_arthropods_00742cd00ab0d3d02337e28d1c919654.csv"
 #' }
+#'
+#' @noRd
+#'
 read_data_entity_name <- function(packageId, entityId, env = "production") {
   url <- paste0(
     base_url(env), "/package/name/eml/",

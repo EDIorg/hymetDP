@@ -38,9 +38,4 @@ eml
 
 
 }
-\seealso{
-Other Accessing: 
-\code{\link{read_data_entity_name}()},
-\code{\link{read_data_package}()}
-}
 \concept{Accessing}

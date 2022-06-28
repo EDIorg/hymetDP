@@ -124,10 +124,19 @@
     <loc>https://EDIorg.github.io/hymetDP/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://EDIorg.github.io/hymetDP/reference/list_data_package_revisions.html</loc>
+  </url>
+  <url>
     <loc>https://EDIorg.github.io/hymetDP/reference/pipe.html</loc>
   </url>
   <url>
     <loc>https://EDIorg.github.io/hymetDP/reference/read_data.html</loc>
+  </url>
+  <url>
+    <loc>https://EDIorg.github.io/hymetDP/reference/read_data_entity_name.html</loc>
+  </url>
+  <url>
+    <loc>https://EDIorg.github.io/hymetDP/reference/read_data_package.html</loc>
   </url>
   <url>
     <loc>https://EDIorg.github.io/hymetDP/reference/read_data_package_report.html</loc>
