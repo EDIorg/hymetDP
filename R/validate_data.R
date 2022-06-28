@@ -731,7 +731,7 @@ validate_controlled_vocabulary_terms <- function(data.list) {
           function(k) {
             cv_cols <- criteria$column[!is.na(criteria$cv)]
             if (k %in% cv_cols) {
-              cv_to_check <- na.omit(criteria$cv[criteria$column == k])[1]
+              cv_to_check <- stats::na.omit(criteria$cv[criteria$column == k])[1]
               detected <- unique(data.list[[x]][[k]])
               issues = NULL
               for (t in detected) {

@@ -36,14 +36,15 @@ Imports:
     knitr (>= 1.36),
     kit,
     lutz,
-    stats,
     EML,
     data.table,
     emld,
     httr,
     lubridate,
     tidyr,
-    uuid
+    uuid,
+    methods,
+    stats
 VignetteBuilder: knitr
 URL: https://github.com/EDIorg/hymetDP
 BugReports: https://github.com/EDIorg/hymetDP/issues

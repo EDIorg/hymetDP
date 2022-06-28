@@ -293,7 +293,7 @@ get_usgs_sitetype <- function(s) {
 #'
 get_usgs_variable <- function(p) {
 
-  res <- supported_USGS_params[supported_USGS_params$usgs_code==p]
+  res <- hymetDP::supported_USGS_params[hymetDP::supported_USGS_params$usgs_code==p]
 
   return(res)
 }
