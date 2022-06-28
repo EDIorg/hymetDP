@@ -31,7 +31,6 @@ Imports:
     magrittr,
     purrr,
     dplyr,
-    rlang,
     xml2,
     knitr (>= 1.36),
     kit,
