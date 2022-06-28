@@ -4,7 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="hymetDP">
 <title>Create hymetDP Data • hymetDP</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -12,12 +13,11 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Create hymetDP Data">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Create hymetDP Data">
 <meta property="og:description" content="hymetDP">
 <meta property="og:image" content="https://EDIorg.github.io/hymetDP/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -25,70 +25,62 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">hymetDP</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
-      </span>
-    </div>
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+    
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../reference/index.html">Functions</a>
+    <nav class="navbar fixed-top navbar-default navbar-expand-lg bg-light"><div class="container">
+    
+    <a class="navbar-brand me-2" href="../index.html">hymetDP</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Functions</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/create.html">Create</a>
-    </li>
-    <li>
-      <a href="../articles/use_usgs.html">Create from USGS Data</a>
-    </li>
-  </ul>
-</li>
-      </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/EDIorg/hymetDP/">
-    <span class="fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
-</div>
-<!--/.nav-collapse -->
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/create.html">Create</a>
+    <a class="dropdown-item" href="../articles/use_usgs.html">Create from USGS Data</a>
   </div>
-<!--/.container -->
+</li>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/EDIorg/hymetDP/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
-<!--/.navbar -->
 
-      
+    
+  </div>
+</nav><div class="container template-article">
 
-      </header><script src="create_files/header-attrs-2.12/header-attrs.js"></script><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Create hymetDP Data</h1>
+
+
+
+<div class="row">
+  <main id="main"><div class="page-header">
+      <img src="../logo.png" class="logo" alt=""><h1>Create hymetDP Data</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/EDIorg/hymetDP/blob/master/vignettes/create.Rmd"><code>vignettes/create.Rmd</code></a></small>
-      <div class="hidden name"><code>create.Rmd</code></div>
-
+      <small class="dont-index">Source: <a href="https://github.com/EDIorg/hymetDP/blob/HEAD/vignettes/create.Rmd" class="external-link"><code>vignettes/create.Rmd</code></a></small>
+      <div class="d-none name"><code>create.Rmd</code></div>
     </div>
 
     
@@ -96,13 +88,13 @@
 <p>Ideally, each hymetDP dataset (Level-1; L1) is created from a source dataset (Level-0; L0) by a unique processing function. Inputs are typically from the APIs of data repositories and monitoring networks, and outputs can be a list of R objects or a set of archivable files. The output form you choose may depend on multiple factors including the source data license (it may prohibit archive) and the overall processing time (on-demand processing may be prohibitively long). In either case, the derived hymetDP dataset is delivered to users in a consistent format by <code><a href="../reference/read_data.html">read_data()</a></code> and the processing function provides a fully reproducible and automated routine for updating the derived dataset whenever a new version of the source data are released.</p>
 <p>Below is an example function that reads a source dataset from the Environmental Data Initiative (EDI) repository and converts it into a hymetDP dataset, which in turn is archived in EDI. For an example of creating a hymetDP dataset on-demand (i.e. not archived), see the create_USGS_hymet.R source code.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EDIorg/hymetDP">hymetDP</a></span><span class="op">)</span></code></pre></div>
-<div id="for-archive-in-a-data-repository" class="section level2">
-<h2 class="hasAnchor">
-<a href="#for-archive-in-a-data-repository" class="anchor"></a>For archive in a data repository</h2>
-<div id="example-function" class="section level4">
-<h4 class="hasAnchor">
-<a href="#example-function" class="anchor"></a>Example function:</h4>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EDIorg/hymetDP" class="external-link">hymetDP</a></span><span class="op">)</span></code></pre></div>
+<div class="section level2">
+<h2 id="for-archive-in-a-data-repository">For archive in a data repository<a class="anchor" aria-label="anchor" href="#for-archive-in-a-data-repository"></a>
+</h2>
+<div class="section level4">
+<h4 id="example-function">Example function:<a class="anchor" aria-label="anchor" href="#example-function"></a>
+</h4>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># -----------------------------------------------------------------------------</span>
 <span class="co"># This function converts source dataset "knb-lter-mcm.9003" (archived in the EDI</span>
@@ -139,14 +131,14 @@
 <span class="co"># -----------------------------------------------------------------------------</span>
 <span class="co"># Libraries used by this function</span>
 
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EDIorg/hymetDP">hymetDP</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EDIorg/EDIutils">EDIutils</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xml2.r-lib.org/">xml2</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://andyteucher.ca/lutz">lutz</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EDIorg/hymetDP" class="external-link">hymetDP</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/EDIutils" class="external-link">EDIutils</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org" class="external-link">lubridate</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://xml2.r-lib.org/" class="external-link">xml2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://andyteucher.ca/lutz" class="external-link">lutz</a></span><span class="op">)</span>
 
 <span class="va">create_hymetDP</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">path</span> <span class="op">=</span> <span class="cn">NULL</span>,
                                  <span class="va">source_id</span> <span class="op">=</span> <span class="st">'knb-lter-mcm.9003.11'</span>,
@@ -193,16 +185,16 @@
   <span class="co"># Convert the datetime column to the ISO-8601 format, assign the timezone and</span>
   <span class="co"># UTCoffset, and create the hymetDP required date columns</span>
 
-  <span class="va">wide</span><span class="op">$</span><span class="va">LocalDateTime</span> <span class="op">&lt;-</span> <span class="va">wide</span><span class="op">$</span><span class="va">DATE_TIME</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/strptime.html">strptime</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"%m/%d/%y %H:%M"</span>, tz <span class="op">=</span> <span class="st">"Antarctica/McMurdo"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span>tz <span class="op">=</span> <span class="st">"Antarctica/McMurdo"</span><span class="op">)</span>
+  <span class="va">wide</span><span class="op">$</span><span class="va">LocalDateTime</span> <span class="op">&lt;-</span> <span class="va">wide</span><span class="op">$</span><span class="va">DATE_TIME</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/strptime.html" class="external-link">strptime</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"%m/%d/%y %H:%M"</span>, tz <span class="op">=</span> <span class="st">"Antarctica/McMurdo"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html" class="external-link">as_datetime</a></span><span class="op">(</span>tz <span class="op">=</span> <span class="st">"Antarctica/McMurdo"</span><span class="op">)</span>
 
-  <span class="va">wide</span><span class="op">$</span><span class="va">UTCOffset</span> <span class="op">&lt;-</span> <span class="fu">lutz</span><span class="fu">::</span><span class="fu"><a href="https://andyteucher.ca/lutz/reference/tz_offset.html">tz_offset</a></span><span class="op">(</span><span class="va">wide</span><span class="op">$</span><span class="va">LocalDateTime</span>, <span class="st">"Antarctica/McMurdo"</span><span class="op">)</span><span class="op">$</span><span class="va">utc_offset_h</span>
+  <span class="va">wide</span><span class="op">$</span><span class="va">UTCOffset</span> <span class="op">&lt;-</span> <span class="fu">lutz</span><span class="fu">::</span><span class="fu"><a href="https://andyteucher.ca/lutz/reference/tz_offset.html" class="external-link">tz_offset</a></span><span class="op">(</span><span class="va">wide</span><span class="op">$</span><span class="va">LocalDateTime</span>, <span class="st">"Antarctica/McMurdo"</span><span class="op">)</span><span class="op">$</span><span class="va">utc_offset_h</span>
 
-  <span class="va">wide</span><span class="op">$</span><span class="va">DateTimeUTC</span> <span class="op">&lt;-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/with_tz.html">with_tz</a></span><span class="op">(</span><span class="va">wide</span><span class="op">$</span><span class="va">LocalDateTime</span>, <span class="st">"Etc/UTC"</span><span class="op">)</span>
+  <span class="va">wide</span><span class="op">$</span><span class="va">DateTimeUTC</span> <span class="op">&lt;-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/with_tz.html" class="external-link">with_tz</a></span><span class="op">(</span><span class="va">wide</span><span class="op">$</span><span class="va">LocalDateTime</span>, <span class="st">"Etc/UTC"</span><span class="op">)</span>
 
   <span class="co"># Remove columns that will not be used in the final hymetDP tables</span>
   
-  <span class="va">wide</span> <span class="op">&lt;-</span> <span class="va">wide</span> <span class="op">%&gt;%</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>
+  <span class="va">wide</span> <span class="op">&lt;-</span> <span class="va">wide</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span>
       <span class="op">-</span><span class="va">DATASET_CODE</span>,
       <span class="op">-</span><span class="va">STRMGAGEID</span>,
       <span class="op">-</span><span class="va">DATE_TIME</span>,
@@ -222,13 +214,13 @@
   <span class="co"># columnValues will in turn be associated with their original values in the</span>
   <span class="co"># value column.</span>
   
-  <span class="va">wide</span> <span class="op">&lt;-</span> <span class="va">wide</span> <span class="op">%&gt;%</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op">(</span>
-      <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"DataValue."</span>, <span class="va">.</span><span class="op">)</span>,
-      .cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DSCHRGE_RATE"</span>,<span class="st">"WATER_TEMP"</span>,<span class="st">"CONDUCTIVITY"</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">wide</span> <span class="op">&lt;-</span> <span class="va">wide</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename_with</a></span><span class="op">(</span>
+      <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"DataValue."</span>, <span class="va">.</span><span class="op">)</span>,
+      .cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DSCHRGE_RATE"</span>,<span class="st">"WATER_TEMP"</span>,<span class="st">"CONDUCTIVITY"</span><span class="op">)</span><span class="op">)</span>
 
-  <span class="va">wide</span> <span class="op">&lt;-</span> <span class="va">wide</span> <span class="op">%&gt;%</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>
+  <span class="va">wide</span> <span class="op">&lt;-</span> <span class="va">wide</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>
       Qualifier.DSCHRGE_RATE <span class="op">=</span> <span class="va">DSCHRGE_QLTY</span>,
       Qualifier.WATER_TEMP <span class="op">=</span> <span class="va">WATER_TEMP_QLTY</span>,
       Qualifier.CONDUCTIVITY <span class="op">=</span> <span class="va">CONDUCTIVITY_QLTY</span>,
@@ -236,10 +228,10 @@
       unit.WATER_TEMP <span class="op">=</span> <span class="va">unit_WATER_TEMP</span>,
       unit.CONDUCTIVITY <span class="op">=</span> <span class="va">unit_CONDUCTIVITY</span><span class="op">)</span>
 
-  <span class="va">flat</span> <span class="op">&lt;-</span> <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>
+  <span class="va">flat</span> <span class="op">&lt;-</span> <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span>
     <span class="va">wide</span>,
-    cols <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DSCHRGE"</span>, <span class="st">"WATER_TEMP"</span>, <span class="st">"CONDUCTIVITY"</span><span class="op">)</span><span class="op">)</span>,
-    names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">".value"</span>, <span class="st">"variable_name"</span><span class="op">)</span>,
+    cols <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">matches</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DSCHRGE"</span>, <span class="st">"WATER_TEMP"</span>, <span class="st">"CONDUCTIVITY"</span><span class="op">)</span><span class="op">)</span>,
+    names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">".value"</span>, <span class="st">"variable_name"</span><span class="op">)</span>,
     names_sep <span class="op">=</span> <span class="st">"\\."</span><span class="op">)</span>
 
   <span class="co"># We're now in a good place to begin adding columns of the hymetDP tables we</span>
@@ -250,7 +242,7 @@
   <span class="co"># Every row of the flat table represents a single data value in the hymetDP</span>
   <span class="co"># model. We assign a unique, integer ValueID to every entry:</span>
   
-  <span class="va">flat</span><span class="op">$</span><span class="va">ValueID</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">flat</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">flat</span><span class="op">$</span><span class="va">ValueID</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">flat</span><span class="op">)</span><span class="op">)</span>
 
   <span class="co"># Assign variable code, define variable code function ---------------------</span>
 
@@ -344,7 +336,7 @@
     L0_flat <span class="op">=</span> <span class="va">flat</span>,
     local_variable_column <span class="op">=</span> <span class="st">"variable_name"</span>,
     local_variable <span class="op">=</span> <span class="st">"DSCHRGE_RATE"</span>,
-    VariableCode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>,
+    VariableCode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>,
     MethodDescription <span class="op">=</span> <span class="st">[2868 chars quoted with '"']</span>,
     MethodLink <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
 
@@ -355,36 +347,36 @@
   <span class="co"># has a single site, we only need to extract the single coordinate from the</span>
   <span class="co"># metadata.</span>
   
-  <span class="va">geo_cov</span> <span class="op">&lt;-</span> <span class="va">eml</span> <span class="op">%&gt;%</span>
-    <span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html">xml_find_all</a></span><span class="op">(</span><span class="st">'.//geographicCoverage'</span><span class="op">)</span>
+  <span class="va">geo_cov</span> <span class="op">&lt;-</span> <span class="va">eml</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+    <span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html" class="external-link">xml_find_all</a></span><span class="op">(</span><span class="st">'.//geographicCoverage'</span><span class="op">)</span>
 
-  <span class="va">site_name</span> <span class="op">&lt;-</span> <span class="va">geo_cov</span> <span class="op">%&gt;%</span>
-    <span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html">xml_find_all</a></span><span class="op">(</span><span class="st">'.//geographicDescription'</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html">xml_text</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="st">'\\n'</span>, <span class="st">''</span><span class="op">)</span>
+  <span class="va">site_name</span> <span class="op">&lt;-</span> <span class="va">geo_cov</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+    <span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html" class="external-link">xml_find_all</a></span><span class="op">(</span><span class="st">'.//geographicDescription'</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+    <span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html" class="external-link">xml_text</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+    <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html" class="external-link">str_replace_all</a></span><span class="op">(</span><span class="st">'\\n'</span>, <span class="st">''</span><span class="op">)</span>
 
-  <span class="va">bounds</span> <span class="op">&lt;-</span> <span class="va">geo_cov</span> <span class="op">%&gt;%</span>
-    <span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html">xml_find_all</a></span><span class="op">(</span><span class="st">'.//boundingCoordinates'</span><span class="op">)</span>
-  <span class="va">lon</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">bounds</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span>
-      <span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html">xml_double</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html">xml_find_all</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'.//westBoundingCoordinate'</span><span class="op">)</span><span class="op">)</span>,
-      <span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html">xml_double</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html">xml_find_all</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'.//eastBoundingCoordinate'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">bounds</span> <span class="op">&lt;-</span> <span class="va">geo_cov</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+    <span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html" class="external-link">xml_find_all</a></span><span class="op">(</span><span class="st">'.//boundingCoordinates'</span><span class="op">)</span>
+  <span class="va">lon</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">bounds</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span>
+      <span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html" class="external-link">xml_double</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html" class="external-link">xml_find_all</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'.//westBoundingCoordinate'</span><span class="op">)</span><span class="op">)</span>,
+      <span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html" class="external-link">xml_double</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html" class="external-link">xml_find_all</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'.//eastBoundingCoordinate'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
   <span class="op">}</span><span class="op">)</span>
 
-  <span class="va">lat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">bounds</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span>
-      <span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html">xml_double</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html">xml_find_all</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'.//northBoundingCoordinate'</span><span class="op">)</span><span class="op">)</span>,
-      <span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html">xml_double</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html">xml_find_all</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'.//southBoundingCoordinate'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">lat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">bounds</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span>
+      <span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html" class="external-link">xml_double</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html" class="external-link">xml_find_all</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'.//northBoundingCoordinate'</span><span class="op">)</span><span class="op">)</span>,
+      <span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html" class="external-link">xml_double</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html" class="external-link">xml_find_all</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'.//southBoundingCoordinate'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
   <span class="op">}</span><span class="op">)</span>
 
 
-  <span class="va">elev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">bounds</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span>
-      <span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html">xml_double</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html">xml_find_all</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'.//boundingAltitudes/altitudeMinimum'</span><span class="op">)</span><span class="op">)</span>,
-      <span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html">xml_double</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html">xml_find_all</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'.//boundingAltitudes/altitudeMaximum'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">elev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">bounds</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span>
+      <span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html" class="external-link">xml_double</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html" class="external-link">xml_find_all</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'.//boundingAltitudes/altitudeMinimum'</span><span class="op">)</span><span class="op">)</span>,
+      <span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html" class="external-link">xml_double</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html" class="external-link">xml_find_all</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'.//boundingAltitudes/altitudeMaximum'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
   <span class="op">}</span><span class="op">)</span>
 
-  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">elev</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html">xml_text</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html">xml_find_all</a></span><span class="op">(</span><span class="va">bounds</span>, <span class="st">'.//boundingAltitudes/altitudeUnits'</span><span class="op">)</span><span class="op">)</span> <span class="op">!=</span> <span class="st">'meter'</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"Altitude must be converted to meter for hymetDP"</span><span class="op">)</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">elev</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html" class="external-link">xml_text</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html" class="external-link">xml_find_all</a></span><span class="op">(</span><span class="va">bounds</span>, <span class="st">'.//boundingAltitudes/altitudeUnits'</span><span class="op">)</span><span class="op">)</span> <span class="op">!=</span> <span class="st">'meter'</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/warning.html" class="external-link">warning</a></span><span class="op">(</span><span class="st">"Altitude must be converted to meter for hymetDP"</span><span class="op">)</span>
 
   <span class="co"># create a Sites table</span>
   
@@ -408,10 +400,10 @@
   <span class="co"># table. Other information, specifically, SourceDescription, SourceLink,</span>
   <span class="co"># Citation can be sourced automatically from the metadata.</span>
   
-  <span class="va">flat</span><span class="op">$</span><span class="va">Organization</span> <span class="op">&lt;-</span> <span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html">xml_text</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html">xml_find_first</a></span><span class="op">(</span><span class="va">eml</span>, <span class="st">'.//metadataProvider/organizationName'</span><span class="op">)</span><span class="op">)</span>
-  <span class="va">flat</span><span class="op">$</span><span class="va">ContactName</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html">xml_text</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html">xml_find_first</a></span><span class="op">(</span><span class="va">eml</span>, <span class="st">'.//contact/individualName/givenName'</span><span class="op">)</span><span class="op">)</span>, <span class="st">' '</span>,
-                             <span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html">xml_text</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html">xml_find_first</a></span><span class="op">(</span><span class="va">eml</span>, <span class="st">'.//contact/individualName/surName'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-  <span class="va">flat</span><span class="op">$</span><span class="va">Email</span> <span class="op">&lt;-</span> <span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html">xml_text</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html">xml_find_first</a></span><span class="op">(</span><span class="va">eml</span>, <span class="st">'.//contact/electronicMailAddress'</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">flat</span><span class="op">$</span><span class="va">Organization</span> <span class="op">&lt;-</span> <span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html" class="external-link">xml_text</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html" class="external-link">xml_find_first</a></span><span class="op">(</span><span class="va">eml</span>, <span class="st">'.//metadataProvider/organizationName'</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">flat</span><span class="op">$</span><span class="va">ContactName</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html" class="external-link">xml_text</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html" class="external-link">xml_find_first</a></span><span class="op">(</span><span class="va">eml</span>, <span class="st">'.//contact/individualName/givenName'</span><span class="op">)</span><span class="op">)</span>, <span class="st">' '</span>,
+                             <span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html" class="external-link">xml_text</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html" class="external-link">xml_find_first</a></span><span class="op">(</span><span class="va">eml</span>, <span class="st">'.//contact/individualName/surName'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">flat</span><span class="op">$</span><span class="va">Email</span> <span class="op">&lt;-</span> <span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_text.html" class="external-link">xml_text</a></span><span class="op">(</span><span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/xml_find_all.html" class="external-link">xml_find_first</a></span><span class="op">(</span><span class="va">eml</span>, <span class="st">'.//contact/electronicMailAddress'</span><span class="op">)</span><span class="op">)</span>
   <span class="co"># flat$Address &lt;- xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/deliveryPoint'))</span>
   <span class="co"># flat$City &lt;- xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/city'))</span>
   <span class="co"># flat$State &lt;- xml2::xml_text(xml2::xml_find_first(eml, './/contact/address/administrativeArea'))</span>
@@ -439,22 +431,22 @@
 
   <span class="co"># Clean up the codes in the table</span>
 
-  <span class="va">flat</span><span class="op">$</span><span class="va">Qualifier</span> <span class="op">&lt;-</span> <span class="va">flat</span><span class="op">$</span><span class="va">Qualifier</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="va">flat</span><span class="op">$</span><span class="va">Qualifier</span> <span class="op">&lt;-</span> <span class="va">flat</span><span class="op">$</span><span class="va">Qualifier</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="op">)</span>
 
-  <span class="va">flat</span><span class="op">$</span><span class="va">Qualifier</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"fair"</span>, <span class="va">flat</span><span class="op">$</span><span class="va">Qualifier</span>, ignore.case<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"fair"</span>
-  <span class="va">flat</span><span class="op">$</span><span class="va">Qualifier</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"good"</span>, <span class="va">flat</span><span class="op">$</span><span class="va">Qualifier</span>, ignore.case<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"good"</span>
-  <span class="va">flat</span><span class="op">$</span><span class="va">Qualifier</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"poor"</span>, <span class="va">flat</span><span class="op">$</span><span class="va">Qualifier</span>, ignore.case<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"poor"</span>
-  <span class="va">flat</span><span class="op">$</span><span class="va">Qualifier</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"[^fair|good|missing|poor]"</span>, <span class="va">flat</span><span class="op">$</span><span class="va">Qualifier</span>, ignore.case<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA_character_</span>
+  <span class="va">flat</span><span class="op">$</span><span class="va">Qualifier</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"fair"</span>, <span class="va">flat</span><span class="op">$</span><span class="va">Qualifier</span>, ignore.case<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"fair"</span>
+  <span class="va">flat</span><span class="op">$</span><span class="va">Qualifier</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"good"</span>, <span class="va">flat</span><span class="op">$</span><span class="va">Qualifier</span>, ignore.case<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"good"</span>
+  <span class="va">flat</span><span class="op">$</span><span class="va">Qualifier</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"poor"</span>, <span class="va">flat</span><span class="op">$</span><span class="va">Qualifier</span>, ignore.case<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"poor"</span>
+  <span class="va">flat</span><span class="op">$</span><span class="va">Qualifier</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"[^fair|good|missing|poor]"</span>, <span class="va">flat</span><span class="op">$</span><span class="va">Qualifier</span>, ignore.case<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA_character_</span>
 
 
-  <span class="va">flat</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+  <span class="va">flat</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
     <span class="va">flat</span>,
     QualifierCode <span class="op">=</span> <span class="va">Qualifier</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span>
-      <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-        <span class="st">"QualifierCode"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"good"</span>, <span class="st">"fair"</span>, <span class="st">"poor"</span>, <span class="st">"missing"</span><span class="op">)</span>,
-        <span class="st">"QualifierDescription"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'most accurate within 10%'</span>,
+  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span>
+      <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
+        <span class="st">"QualifierCode"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"good"</span>, <span class="st">"fair"</span>, <span class="st">"poor"</span>, <span class="st">"missing"</span><span class="op">)</span>,
+        <span class="st">"QualifierDescription"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'most accurate within 10%'</span>,
                                    <span class="st">'most data accurate within 25%'</span>,
                                    <span class="st">'significant amounts of data may be &gt;25% off'</span>,
                                    <span class="st">"missing"</span><span class="op">)</span><span class="op">)</span>,
@@ -610,7 +602,7 @@
   
   <span class="co"># Add contact information for the author of this script and dataset</span>
 
-  <span class="va">additional_contact</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
+  <span class="va">additional_contact</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
     givenName <span class="op">=</span> <span class="st">'Kyle'</span>,
     surName <span class="op">=</span> <span class="st">'Zollo-Venecek'</span>,
     organizationName <span class="op">=</span> <span class="st">'Environmental Data Initiative'</span>,
@@ -629,15 +621,15 @@
     user_domain <span class="op">=</span> <span class="st">'edi'</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 </div>
-<div id="example-function-call" class="section level4">
-<h4 class="hasAnchor">
-<a href="#example-function-call" class="anchor"></a>Example function call:</h4>
+<div class="section level4">
+<h4 id="example-function-call">Example function call:<a class="anchor" aria-label="anchor" href="#example-function-call"></a>
+</h4>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># Create directory for tables and metadata</span>
 
-<span class="va">mypath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"/edi_10101"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span><span class="op">(</span><span class="va">mypath</span><span class="op">)</span>
+<span class="va">mypath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"/edi_10101"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">mypath</span><span class="op">)</span>
 
 <span class="co"># Create hymetDP dataset "edi.10101.1" from source dataset "knb-lter-mcm.9003.11"</span>
 
@@ -696,7 +688,7 @@
 
 <span class="co"># The working directory contains a valid set of hymetDP tables and metadata, </span>
 <span class="co"># which is ready for upload to EDI (or any other EML based repository) </span>
-<span class="fu"><a href="https://rdrr.io/r/base/list.files.html">dir</a></span><span class="op">(</span><span class="va">mypath</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">dir</a></span><span class="op">(</span><span class="va">mypath</span><span class="op">)</span>
 <span class="co">#&gt;  [1] "create_hymetDP.R"        </span>
 <span class="co">#&gt;  [2] "DataValues.csv"          </span>
 <span class="co">#&gt;  [3] "edi.10101.1.xml"         </span>
@@ -709,31 +701,28 @@
 <span class="co">#&gt; [10] "Variables.csv"  </span></code></pre></div>
 </div>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
-
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="copyright">
-  <p>Developed by Kyle Zollo-Venecek.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p></p>
+<p>Developed by Kyle Zollo-Venecek.</p>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+<div class="pkgdown-footer-right">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
 
   
 
+  
 
   </body>
 </html>

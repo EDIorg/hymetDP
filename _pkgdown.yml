@@ -31,6 +31,7 @@ reference:
   - title: Use
     desc: Search, read, manipulate, plot, and save validate_data
     contents:
+    - search_data
     - read_data
   - title: Controlled Vocabularies
     desc: CUAHSI ODM Controlled Vocabularies

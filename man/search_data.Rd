@@ -92,8 +92,8 @@ search_data(
   text = c("stream", "river"),
   VariableName = c("Conductivity", "Discharge"),
   SampleMedium = "water",
-  GeneralCategory = "hydrology"
-  SiteType = "Stream"
+  GeneralCategory = "hydrology",
+  SiteType = "Stream",
   TimeSupport = 30,
   starts_before = "2010-01-01",
   ends_after = "2015-01-01",
