@@ -79,7 +79,6 @@ read_tables <- function(eml,
 
   if (!is.null(table.names) & any(table.names %in% unlist(xml2::as_list(xml2::xml_find_all(eml, ".//dataTable/physical/objectName"))))) {
 
-
     xp <- lapply(table.names, function(x) paste0("..//physical[objectName='",x,"']"))
     tbl_metadata <- xml2::xml_find_all(tbl_metadata, paste(xp, collapse="|"))
   }

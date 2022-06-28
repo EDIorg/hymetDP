@@ -20,6 +20,9 @@ validate_arguments <- function(fun.name, fun.args) {
 
   # Parameterize ------------------------------------------------------------
 
+  use_i <- sapply(fun.args, function(X) identical(X, quote(expr=)))
+  fun.args[use_i] <- list(NULL)
+
   criteria <- read_criteria()
 
 
@@ -160,18 +163,113 @@ validate_arguments <- function(fun.name, fun.args) {
 
         stop(paste0("The following tables are missing columns:\n", stringr::str_flatten(errors)))
       }
-
-
-
     }
-
-
-
-
   }
 
 
+  # search_data() -------------------------------------------------------------
 
+  if (fun.name == "search_data") {
+
+    # text
+
+    if (!is.null(fun.args$text) & !is.character(fun.args$text)) {
+      stop("Input 'text' must be of class 'character'.", call. = F)
+    }
+
+    # variable_name
+
+    if (!is.null(fun.args$variable_name) & !is.character(fun.args$variable_name)) {
+      stop("Input 'variable_name' must be of class 'character'.", call. = F)
+    }
+
+    # sample_medium
+
+    if (!is.null(fun.args$sample_medium) & !is.character(fun.args$sample_medium)) {
+      stop("Input 'sample_medium' must be of class 'character'.", call. = F)
+    }
+
+    # general_category
+
+    if (!is.null(fun.args$general_category) & !is.character(fun.args$general_category)) {
+      stop("Input 'general_category' must be of class 'character'.", call. = F)
+    }
+
+    # time_support
+
+    if (!is.null(fun.args$time_support)) {
+      if (!is.numeric(fun.args$time_support)) {
+        stop("Input 'time_support' must be of class 'numeric'.", call. = F)
+      }
+      if (length(fun.args$time_support) != 2) {
+        stop(
+          "Input 'time_support' must have a minimum and maximum value.",
+          call. = F)
+      }
+    }
+
+
+    # number_years
+
+    if (!is.null(fun.args$number_years)) {
+      if (!is.numeric(fun.args$number_years)) {
+        stop("Input 'number_years' must be of class 'numeric'.", call. = F)
+      }
+      if (length(fun.args$number_years) != 2) {
+        stop(
+          "Input 'number_years' must have a minimum and maximum value.",
+          call. = F)
+      }
+    }
+
+    # starts_before
+
+    if (!is.null(fun.args$starts_before) & !lubridate::is.Date(fun.args$starts_before)) {
+      if (any(class(tryCatch(as.Date(fun.args$starts_before),
+                             error=function(e) e)) == 'error')) {
+
+        stop("Input 'starts_before' must be well-formatted date.", call. = F)
+      }
+    }
+
+    # ends_after
+
+    if (!is.null(fun.args$ends_after) & !lubridate::is.Date(fun.args$ends_after)) {
+      if (any(class(tryCatch(as.Date(fun.args$ends_after),
+                             error=function(e) e)) == 'error')) {
+
+        stop("Input 'ends_after' must be well-formatted date.", call. = F)
+      }
+    }
+
+    # area
+
+    if (!is.null(fun.args$area)) {
+      if (!is.numeric(fun.args$area)) {
+        stop(
+          "Input 'area' must be of class 'numeric'.",
+          call. = F)
+      }
+      if (length(fun.args$area) != 4) {
+        stop(
+          paste0(
+            "Input 'area' must have North, East, South, and West ",
+            "coordinates." ),
+          call. = F)
+      }
+    }
+
+    # boolean
+
+    if (!is.null(fun.args$boolean)) {
+      if (!(tolower(fun.args$boolean) %in% c("and", "or"))) {
+        stop(
+          "Valid inputs to 'boolean' are: 'AND', 'OR'",
+          call. = F)
+      }
+    }
+
+  }
 
 
 }

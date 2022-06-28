@@ -69,3 +69,4 @@ test_that("all table.names must be in package", {
       table.names = c("WildflowerCES_FrenchBroadRiverBasin_site_info.csv", "WildflowerNumber2")))
 })
 
+
