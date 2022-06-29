@@ -319,6 +319,7 @@ create_hymetDP <- function(path,
     script = "create_hymetDP.R",
     script_description =
       "A function for converting <pid> to hymetDP",
+    title_extension = "",
     contact = additional_contact,
     user_id = '',
     user_domain = '')

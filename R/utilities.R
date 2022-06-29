@@ -1332,3 +1332,164 @@ text2char <- function(txt) {
   )[[1]]
   return(res)
 }
+
+
+
+#' Convert xml to data.frame
+#'
+#' @param xml (xml_document) XML document returned by \code{xml2::read_xml()}
+#'
+#' @return (data.frame) \code{xml} as a data.frame
+#'
+#' @note Only supports XML documents with one or two layers of nesting.
+#'
+#' @noRd
+#'
+xml2df <- function(xml) {
+  node2df <- function(x) {
+    chldrn <- xml2::xml_children(x)
+    nms <- xml2::xml_name(chldrn, )
+    vals <- xml2::xml_text(chldrn)
+    names(vals) <- nms
+    res <- data.frame(as.list(vals))
+    return(res)
+  }
+  is_nested <- any(xml2::xml_length(xml2::xml_children(xml)) > 0)
+  if (is_nested) {
+    chldrn <- xml2::xml_children(xml)
+    lst <- lapply(chldrn, node2df)
+    res <- do.call("rbind", lst)
+  } else {
+    res <- node2df(xml)
+  }
+  return(res)
+}
+
+
+
+#' Set hymetDP user agent for http requests
+#'
+#' @return (request) hymetDP user agent
+#'
+#' @noRd
+#'
+set_user_agent <- function() {
+  res <- httr::user_agent("https://github.com/EDIorg/hymetDP")
+  return(res)
+}
+
+
+
+
+#' Search data packages
+#'
+#' @description Searches data packages in the EDI data repository using the
+#' specified Solr query.
+#'
+#' @param query (character) Query (see details below)
+#' @param as (character) Format of the returned object. Can be: "data.frame"
+#' or "xml".
+#' @param env (character) Repository environment. Can be: "production",
+#' "staging", or "development".
+#'
+#' @noRd
+#'
+api_search_data_packages <- function(query,
+                                 as = "data.frame",
+                                 env = "production") {
+  # A two part query is needed to get the full result set. First get the number
+  # of results matching the query, then submit a second query to return that
+  # number of results.
+  # First query
+  query <- gsub(pattern = "\"", replacement = "%22", x = query)
+  url <- paste0(
+    base_url(env),
+    "/package/search/eml?defType=edismax&", query
+  )
+  resp <- httr::GET(url, set_user_agent(), handle = httr::handle(""))
+  res <- httr::content(resp, as = "text", encoding = "UTF-8")
+  httr::stop_for_status(resp, res)
+  res <- xml2::read_xml(res)
+  numfound <- xml2::xml_attr(res, "numFound")
+  # Second query
+  url <- paste0(url, "&rows=", numfound)
+  resp <- httr::GET(url, set_user_agent(), handle = httr::handle(""))
+  res <- httr::content(resp, as = "text", encoding = "UTF-8")
+  httr::stop_for_status(resp, res)
+  res <- xml2::read_xml(res)
+  ifelse(as == "data.frame", return(xml2df(res)), return(res))
+}
+
+
+
+
+
+#' Create a title extension for a hymetDP L1 package
+#'
+#' @description This function creates a "title extension" that is appended to the end of the L0 data package title which will become the L1 data package title.
+#'
+#' @param L0_title (character) The title of the source (L0) data package
+#' @param proposed_extension (character) The user-supplied, preferred extension. This will be used unless an L1 data package exists that already uses this extension.
+#' @param all_titles (data.frame) A table with one column: title. Only specified in testing; typically this table is created from an API search of the L0 title.
+#'
+#' @return (character) The full title extension.
+#'
+#' @noRd
+#'
+create_full_title_extension <- function(L0_title,
+                                        proposed_extension,
+                                        all_titles = NULL) {
+  root_title <- stringr::str_replace_all(L0_title, " ", "+")
+
+  if (is.null(all_titles)) {
+    all_titles <- api_search_data_packages(query = paste0('q="',
+                                                          root_title,
+                                                          '"&fl=title'))}
+
+  hymet_titles <- all_titles %>%
+    dplyr::filter(
+      stringr::str_detect(title, "Reformatted to the hymetDP Design Pattern"))
+
+  if (nrow(hymet_titles) > 0) {
+
+    hymet_title_extensions <- hymet_titles$title %>%
+      stringr::str_extract_all("(?<=; ).+(?=\\))") %>% unlist()
+
+    if (proposed_extension != "" & !proposed_extension %in% hymet_title_extensions) {
+
+      new_extension <- proposed_extension
+    } else {
+
+      if (length(hymet_title_extensions) != 0) {
+
+        standard_extensions <- hymet_title_extensions %>%
+          stringr::str_extract_all("(?<=Package )\\w+") %>% unlist()
+
+        if (length(standard_extensions) != 0){
+
+          new_extension <- paste0("Package ", LETTERS[max(match(standard_extensions, LETTERS)) + 1]) # TODO this only works for 26 auto-assigned packages. Next step is to extend.
+        } else {
+          new_extension <- "Package A"
+        }
+
+      } else {
+        new_extension <- "Package A"
+      }
+
+      #if exists standard extensions
+
+    }
+  } else {
+
+    new_extension <- proposed_extension
+  }
+
+  if (new_extension == "") {
+    full_extension <- "(Reformatted to the hymetDP Design Pattern)"
+  } else {
+    full_extension <- paste0("(Reformatted to the hymetDP Design Pattern; ", new_extension,")")
+  }
+
+  full_extension
+}
+

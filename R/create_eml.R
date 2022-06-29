@@ -8,6 +8,7 @@
 #' @param script (character) Name of file used to convert \code{source_id} to
 #'   \code{derived_id}.
 #' @param script_description (character) Description of \code{script}.
+#' @param title_extension (character) Extension to append to the L0 data package title
 #' @param is_about (named character) An optional argument for specifying dataset
 #'   level annotations describing what this dataset "is about".
 #' @param contact (data.frame) Contact information for the person that created
@@ -94,6 +95,7 @@ create_eml <- function(path,
                        derived_id,
                        script,
                        script_description,
+                       title_extension = "",
                        is_about = NULL,
                        contact,
                        user_id,
@@ -572,11 +574,16 @@ create_eml <- function(path,
 
   # Update <title> ------------------------------------------------------------
 
+  full_title_extension <- create_full_title_extension(L0_title = eml_L0$dataset$title,
+                                                      proposed_extension = title_extension)
+
   # Add notification the user that this is an hymetDP data package
 
   message("    <title>")
   eml_L0$dataset$title <- paste(
-    eml_L0$dataset$title, "(Reformatted to the hymetDP Design Pattern)")
+    eml_L0$dataset$title, full_title_extension)
+
+  # TODO Insert S1 solution here (end)
 
   # Update <pubDate> ----------------------------------------------------------
 

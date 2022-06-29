@@ -10,6 +10,7 @@ create_eml(
   derived_id,
   script,
   script_description,
+  title_extension = "",
   is_about = NULL,
   contact,
   user_id,
@@ -30,6 +31,8 @@ supported repository. Currently, the EDI Data Repository is supported.}
 \code{derived_id}.}
 
 \item{script_description}{(character) Description of \code{script}.}
+
+\item{title_extension}{(character) Extension to append to the L0 data package title}
 
 \item{is_about}{(named character) An optional argument for specifying dataset
 level annotations describing what this dataset "is about".}
