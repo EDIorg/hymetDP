@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Create hymetDP Dataset from USGS Data">
 <meta property="og:description" content="hymetDP">
@@ -74,7 +74,7 @@
 
 
 <script src="use_usgs_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <main id="main"><div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Create hymetDP Dataset from USGS Data</h1>
             
       
@@ -86,7 +86,7 @@
     
 <p>Publicly available hydrological and meteorological data from USGS can be discovered and accessed from the National Water Infrastructure Service (NWIS). The NWIS can be accessed using USGS’s R package, dataRetrieval. hymetDP offers users convenient dataRetrieval wrapper functions to simplify the integration of USGS data with published, hymetDP-formatted data packages.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EDIorg/hymetDP" class="external-link">hymetDP</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EDIorg/hymetDP" class="external-link">hymetDP</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="create-a-hymetdp-dataset-from-usgs-data">Create a hymetDP dataset from USGS data<a class="anchor" aria-label="anchor" href="#create-a-hymetdp-dataset-from-usgs-data"></a>
 </h2>
@@ -97,22 +97,22 @@
 <p>Use <code><a href="https://rdrr.io/pkg/dataRetrieval/man/whatNWISsites.html" class="external-link">dataRetrieval::whatNWISsites()</a></code> to discover USGS sites by State or area.</p>
 <p>We can get a table of all USGS stream sites that measure discharge:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sites</span> <span class="op">&lt;-</span> <span class="fu">dataRetrieval</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/whatNWISsites.html" class="external-link">whatNWISsites</a></span><span class="op">(</span>stateCd<span class="op">=</span><span class="st">"PR"</span>, siteType<span class="op">=</span><span class="st">"ST"</span>, parameterCd<span class="op">=</span><span class="st">"00060"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sites</span><span class="op">)</span>
-<span class="co">#&gt;   agency_cd  site_no                         station_nm site_tp_cd dec_lat_va</span>
-<span class="co">#&gt; 1      USGS 50146200           RIO GRANDE NR RINCON, PR         ST   18.36634</span>
-<span class="co">#&gt; 2      USGS 50146400          RIO INGENIO NR AGUADA, PR         ST   18.37856</span>
-<span class="co">#&gt; 3      USGS 50146600          RIO CULEBRA NR AGUADA, PR         ST   18.37189</span>
-<span class="co">#&gt; 4      USGS 50130320       QUEBRADA MAMEY AT JOYUDA, PR         ST   18.12885</span>
-<span class="co">#&gt; 5      USGS 50146100 RIO GRANDE DE ANASCO NR ANASCO, PR         ST   18.27273</span>
-<span class="co">#&gt; 6      USGS 50149100       RIO CULEBRINAS NR AGUADA, PR         ST   18.39884</span>
-<span class="co">#&gt;   dec_long_va colocated           queryTime</span>
-<span class="co">#&gt; 1   -67.23185     FALSE 2022-05-25 15:55:02</span>
-<span class="co">#&gt; 2   -67.20907     FALSE 2022-05-25 15:55:02</span>
-<span class="co">#&gt; 3   -67.19268     FALSE 2022-05-25 15:55:02</span>
-<span class="co">#&gt; 4   -67.16879     FALSE 2022-05-25 15:55:02</span>
-<span class="co">#&gt; 5   -67.16157     FALSE 2022-05-25 15:55:02</span>
-<span class="co">#&gt; 6   -67.16074     FALSE 2022-05-25 15:55:02</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">sites</span> <span class="op">&lt;-</span> <span class="fu">dataRetrieval</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dataRetrieval/man/whatNWISsites.html" class="external-link">whatNWISsites</a></span><span class="op">(</span>stateCd<span class="op">=</span><span class="st">"PR"</span>, siteType<span class="op">=</span><span class="st">"ST"</span>, parameterCd<span class="op">=</span><span class="st">"00060"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sites</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   agency_cd  site_no                         station_nm site_tp_cd dec_lat_va</span></span>
+<span><span class="co">#&gt; 1      USGS 50146200           RIO GRANDE NR RINCON, PR         ST   18.36634</span></span>
+<span><span class="co">#&gt; 2      USGS 50146400          RIO INGENIO NR AGUADA, PR         ST   18.37856</span></span>
+<span><span class="co">#&gt; 3      USGS 50146600          RIO CULEBRA NR AGUADA, PR         ST   18.37189</span></span>
+<span><span class="co">#&gt; 4      USGS 50130320       QUEBRADA MAMEY AT JOYUDA, PR         ST   18.12885</span></span>
+<span><span class="co">#&gt; 5      USGS 50146100 RIO GRANDE DE ANASCO NR ANASCO, PR         ST   18.27273</span></span>
+<span><span class="co">#&gt; 6      USGS 50149100       RIO CULEBRINAS NR AGUADA, PR         ST   18.39884</span></span>
+<span><span class="co">#&gt;   dec_long_va colocated           queryTime</span></span>
+<span><span class="co">#&gt; 1   -67.23185     FALSE 2022-11-11 21:06:46</span></span>
+<span><span class="co">#&gt; 2   -67.20907     FALSE 2022-11-11 21:06:46</span></span>
+<span><span class="co">#&gt; 3   -67.19268     FALSE 2022-11-11 21:06:46</span></span>
+<span><span class="co">#&gt; 4   -67.16879     FALSE 2022-11-11 21:06:46</span></span>
+<span><span class="co">#&gt; 5   -67.16157     FALSE 2022-11-11 21:06:46</span></span>
+<span><span class="co">#&gt; 6   -67.16074     FALSE 2022-11-11 21:06:46</span></span></code></pre></div>
 <p>See <a href="https://waterservices.usgs.gov/rest/Site-Service.html" class="external-link">USGS Site Web Service</a> for a complete list of argument options for <code><a href="https://rdrr.io/pkg/dataRetrieval/man/whatNWISsites.html" class="external-link">dataRetrieval::whatNWISsites()</a></code></p>
 </div>
 <div class="section level3">
@@ -120,146 +120,146 @@
 </h3>
 <p>Inspect the <code>supported_USGS_params</code> to see which USGS parameters are currently supported for conversion to hymetDP.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/View.html" class="external-link">View</a></span><span class="op">(</span><span class="va">supported_USGS_params</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/View.html" class="external-link">View</a></span><span class="op">(</span><span class="va">supported_USGS_params</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="create-the-hymetdp-formatted-dataset-from-usgs-data">Create the hymetDP-formatted dataset from USGS data<a class="anchor" aria-label="anchor" href="#create-the-hymetdp-formatted-dataset-from-usgs-data"></a>
 </h3>
 <p>Specify USGS sites, parameter codes, and start and end dates as arguments to <code><a href="../reference/create_USGS_hymet.html">create_USGS_hymet()</a></code> to compile and format data for the given parameters at the location and the time period.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">site</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"06879650"</span>, <span class="st">"50065500"</span><span class="op">)</span>
-<span class="va">param</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"00060"</span><span class="op">)</span>
-<span class="va">start</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2021-01-01T12:30:00Z"</span><span class="op">)</span>
-<span class="va">end</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2021-01-08T12:30:00Z"</span><span class="op">)</span>
-
-<span class="va">usgs_hymet</span> <span class="op">&lt;-</span> <span class="fu">hymetDP</span><span class="fu">::</span><span class="fu"><a href="../reference/create_USGS_hymet.html">create_USGS_hymet</a></span><span class="op">(</span><span class="va">site</span>, <span class="va">param</span>, <span class="va">start</span>, <span class="va">end</span><span class="op">)</span>
-<span class="co">#&gt; Downloading data from USGS site 06879650, parameter 00060</span>
-<span class="co">#&gt; Downloading data from USGS site 50065500, parameter 00060</span>
-<span class="co">#&gt; Generating hymetDP tables...</span>
-
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">usgs_hymet</span><span class="op">)</span>
-<span class="co">#&gt; List of 7</span>
-<span class="co">#&gt;  $ Sources             :'data.frame':    2 obs. of  12 variables:</span>
-<span class="co">#&gt;   ..$ SourceCode       : chr [1:2] "1" "2"</span>
-<span class="co">#&gt;   ..$ Organization     : chr [1:2] "USGS" "USGS"</span>
-<span class="co">#&gt;   ..$ SourceDescription: chr [1:2] "Data pulled from USGS National Water Infrastructure Service (NWIS) using the dataRetrieval R package" "Data pulled from USGS National Water Infrastructure Service (NWIS) using the dataRetrieval R package"</span>
-<span class="co">#&gt;   ..$ SourceLink       : chr [1:2] "https://waterdata.usgs.gov/monitoring-location/06879650/#parameterCode=00060" "https://waterdata.usgs.gov/monitoring-location/50065500/#parameterCode=00060"</span>
-<span class="co">#&gt;   ..$ ContactName      : chr [1:2] "Unknown" "Unknown"</span>
-<span class="co">#&gt;   ..$ Phone            : chr [1:2] "Unknown" "Unknown"</span>
-<span class="co">#&gt;   ..$ Email            : chr [1:2] "Unknown" "Unknown"</span>
-<span class="co">#&gt;   ..$ Address          : chr [1:2] "Unknown" "Unknown"</span>
-<span class="co">#&gt;   ..$ City             : chr [1:2] "Unknown" "Unknown"</span>
-<span class="co">#&gt;   ..$ State            : chr [1:2] "Kansas" "Puerto Rico"</span>
-<span class="co">#&gt;   ..$ ZipCode          : chr [1:2] "Unknown" "Unknown"</span>
-<span class="co">#&gt;   ..$ Citation         : chr [1:2] "U.S. Geological Survey, 2001, National Water Information System data available on the World Wide Web (Water Dat"| __truncated__ "U.S. Geological Survey, 2001, National Water Information System data available on the World Wide Web (Water Dat"| __truncated__</span>
-<span class="co">#&gt;  $ Methods             :'data.frame':    2 obs. of  3 variables:</span>
-<span class="co">#&gt;   ..$ MethodCode       : chr [1:2] "1" "2"</span>
-<span class="co">#&gt;   ..$ MethodDescription: chr [1:2] "Data pulled from USGS National Water Infrastructure Service (NWIS) using the dataRetrieval R package" "Data pulled from USGS National Water Infrastructure Service (NWIS) using the dataRetrieval R package"</span>
-<span class="co">#&gt;   ..$ MethodLink       : chr [1:2] NA NA</span>
-<span class="co">#&gt;  $ Variables           :'data.frame':    1 obs. of  11 variables:</span>
-<span class="co">#&gt;   ..$ VariableCode     : chr "00060"</span>
-<span class="co">#&gt;   ..$ VariableName     : chr "Streamflow"</span>
-<span class="co">#&gt;   ..$ VariableUnitsName: chr "cubic feet per second"</span>
-<span class="co">#&gt;   ..$ SampleMedium     : chr "Surface water"</span>
-<span class="co">#&gt;   ..$ ValueType        : chr "Derived Value"</span>
-<span class="co">#&gt;   ..$ IsRegular        : logi TRUE</span>
-<span class="co">#&gt;   ..$ TimeSupport      : num 15</span>
-<span class="co">#&gt;   ..$ TimeUnitsName    : chr "minute"</span>
-<span class="co">#&gt;   ..$ DataType         : chr "Continuous"</span>
-<span class="co">#&gt;   ..$ GeneralCategory  : chr "Hydrology"</span>
-<span class="co">#&gt;   ..$ NoDataValue      : num -9999</span>
-<span class="co">#&gt;  $ Sites               :'data.frame':    2 obs. of  15 variables:</span>
-<span class="co">#&gt;   ..$ SiteCode              : chr [1:2] "06879650" "50065500"</span>
-<span class="co">#&gt;   ..$ SiteName              : chr [1:2] "KINGS C NR MANHATTAN, KS" "RIO MAMEYES NR SABANA, PR"</span>
-<span class="co">#&gt;   ..$ Latitude              : num [1:2] 39.1 18.3</span>
-<span class="co">#&gt;   ..$ Longitude             : num [1:2] -96.6 -65.8</span>
-<span class="co">#&gt;   ..$ LatLongDatumSRSName   : chr [1:2] "NAD83" "NAD27"</span>
-<span class="co">#&gt;   ..$ Elevation_m           : num [1:2] NA NA</span>
-<span class="co">#&gt;   ..$ VerticalDatum         : chr [1:2] "Unknown" "Unknown"</span>
-<span class="co">#&gt;   ..$ LocalX                : num [1:2] NA NA</span>
-<span class="co">#&gt;   ..$ LocalY                : num [1:2] NA NA</span>
-<span class="co">#&gt;   ..$ LocalProjectionSRSName: chr [1:2] "Unknown" "Unknown"</span>
-<span class="co">#&gt;   ..$ PosAccuracy_m         : num [1:2] NA NA</span>
-<span class="co">#&gt;   ..$ State                 : chr [1:2] "Kansas" "Puerto Rico"</span>
-<span class="co">#&gt;   ..$ County                : chr [1:2] "Riley County" "Rio Grande Municipio"</span>
-<span class="co">#&gt;   ..$ Comments              : chr [1:2] NA NA</span>
-<span class="co">#&gt;   ..$ SiteType              : chr [1:2] "Stream" "Stream"</span>
-<span class="co">#&gt;  $ QualityControlLevels:'data.frame':    1 obs. of  3 variables:</span>
-<span class="co">#&gt;   ..$ QualityControlLevelCode: chr "A"</span>
-<span class="co">#&gt;   ..$ Definition             : chr "Approved for publication -- Processing and review completed."</span>
-<span class="co">#&gt;   ..$ Explanation            : chr "Water-Level Approval-Status Codes"</span>
-<span class="co">#&gt;  $ DataValues          :'data.frame':    1344 obs. of  15 variables:</span>
-<span class="co">#&gt;   ..$ ValueID                : chr [1:1344] "1" "2" "3" "4" ...</span>
-<span class="co">#&gt;   ..$ DataValue              : num [1:1344] 0 0 0 0 0 0 0 0 0 0 ...</span>
-<span class="co">#&gt;   ..$ ValueAccuracy          : num [1:1344] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ LocalDateTime          : chr [1:1344] "2021-01-01 07:30:00" "2021-01-01 07:45:00" "2021-01-01 08:00:00" "2021-01-01 08:15:00" ...</span>
-<span class="co">#&gt;   ..$ UTCOffset              : num [1:1344] -6 -6 -6 -6 -6 -6 -6 -6 -6 -6 ...</span>
-<span class="co">#&gt;   ..$ DateTimeUTC            : chr [1:1344] "2021-01-01 13:30:00" "2021-01-01 13:45:00" "2021-01-01 14:00:00" "2021-01-01 14:15:00" ...</span>
-<span class="co">#&gt;   ..$ SiteCode               : chr [1:1344] "06879650" "06879650" "06879650" "06879650" ...</span>
-<span class="co">#&gt;   ..$ VariableCode           : chr [1:1344] "00060" "00060" "00060" "00060" ...</span>
-<span class="co">#&gt;   ..$ OffsetValue            : num [1:1344] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ OffsetTypeCode         : chr [1:1344] NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ CensorCode             : chr [1:1344] "unk" "unk" "unk" "unk" ...</span>
-<span class="co">#&gt;   ..$ QualifierCode          : chr [1:1344] NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ MethodCode             : chr [1:1344] "1" "1" "1" "1" ...</span>
-<span class="co">#&gt;   ..$ SourceCode             : chr [1:1344] "1" "1" "1" "1" ...</span>
-<span class="co">#&gt;   ..$ QualityControlLevelCode: chr [1:1344] "A" "A" "A" "A" ...</span>
-<span class="co">#&gt;  $ SeriesCatalog       :'data.frame':    2 obs. of  24 variables:</span>
-<span class="co">#&gt;   ..$ SeriesID               : num [1:2] 1 2</span>
-<span class="co">#&gt;   ..$ SiteCode               : chr [1:2] "06879650" "50065500"</span>
-<span class="co">#&gt;   ..$ SiteName               : chr [1:2] "KINGS C NR MANHATTAN, KS" "RIO MAMEYES NR SABANA, PR"</span>
-<span class="co">#&gt;   ..$ VariableCode           : chr [1:2] "00060" "00060"</span>
-<span class="co">#&gt;   ..$ VariableName           : chr [1:2] "Streamflow" "Streamflow"</span>
-<span class="co">#&gt;   ..$ VariableUnitsName      : chr [1:2] "cubic feet per second" "cubic feet per second"</span>
-<span class="co">#&gt;   ..$ SampleMedium           : chr [1:2] "Surface water" "Surface water"</span>
-<span class="co">#&gt;   ..$ ValueType              : chr [1:2] "Derived Value" "Derived Value"</span>
-<span class="co">#&gt;   ..$ TimeSupport            : num [1:2] 15 15</span>
-<span class="co">#&gt;   ..$ TimeUnitsName          : chr [1:2] "minute" "minute"</span>
-<span class="co">#&gt;   ..$ DataType               : chr [1:2] "Continuous" "Continuous"</span>
-<span class="co">#&gt;   ..$ GeneralCategory        : chr [1:2] "Hydrology" "Hydrology"</span>
-<span class="co">#&gt;   ..$ MethodCode             : chr [1:2] "1" "2"</span>
-<span class="co">#&gt;   ..$ MethodDescription      : chr [1:2] "Data pulled from USGS National Water Infrastructure Service (NWIS) using the dataRetrieval R package" "Data pulled from USGS National Water Infrastructure Service (NWIS) using the dataRetrieval R package"</span>
-<span class="co">#&gt;   ..$ SourceCode             : chr [1:2] "1" "2"</span>
-<span class="co">#&gt;   ..$ Organization           : chr [1:2] "USGS" "USGS"</span>
-<span class="co">#&gt;   ..$ SourceDescription      : chr [1:2] "Data pulled from USGS National Water Infrastructure Service (NWIS) using the dataRetrieval R package" "Data pulled from USGS National Water Infrastructure Service (NWIS) using the dataRetrieval R package"</span>
-<span class="co">#&gt;   ..$ Citation               : chr [1:2] "U.S. Geological Survey, 2001, National Water Information System data available on the World Wide Web (Water Dat"| __truncated__ "U.S. Geological Survey, 2001, National Water Information System data available on the World Wide Web (Water Dat"| __truncated__</span>
-<span class="co">#&gt;   ..$ QualityControlLevelCode: chr [1:2] "A" "A"</span>
-<span class="co">#&gt;   ..$ BeginDateTime          : chr [1:2] "2021-01-01 07:30:00" "2021-01-01 06:30:00"</span>
-<span class="co">#&gt;   ..$ EndDateTime            : chr [1:2] "2021-01-08 07:30:00" "2021-01-08 06:30:00"</span>
-<span class="co">#&gt;   ..$ BeginDateTimeUTC       : chr [1:2] "2021-01-01 13:30:00" "2021-01-01 12:30:00"</span>
-<span class="co">#&gt;   ..$ EndDateTimeUTC         : chr [1:2] "2021-01-08 13:30:00" "2021-01-08 12:30:00"</span>
-<span class="co">#&gt;   ..$ ValueCount             : num [1:2] 673 671</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">site</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"06879650"</span>, <span class="st">"50065500"</span><span class="op">)</span></span>
+<span><span class="va">param</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"00060"</span><span class="op">)</span></span>
+<span><span class="va">start</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2021-01-01T12:30:00Z"</span><span class="op">)</span></span>
+<span><span class="va">end</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2021-01-08T12:30:00Z"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">usgs_hymet</span> <span class="op">&lt;-</span> <span class="fu">hymetDP</span><span class="fu">::</span><span class="fu"><a href="../reference/create_USGS_hymet.html">create_USGS_hymet</a></span><span class="op">(</span><span class="va">site</span>, <span class="va">param</span>, <span class="va">start</span>, <span class="va">end</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Downloading data from USGS site 06879650, parameter 00060</span></span>
+<span><span class="co">#&gt; Downloading data from USGS site 50065500, parameter 00060</span></span>
+<span><span class="co">#&gt; Generating hymetDP tables...</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">usgs_hymet</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 7</span></span>
+<span><span class="co">#&gt;  $ Sources             :'data.frame':    2 obs. of  12 variables:</span></span>
+<span><span class="co">#&gt;   ..$ SourceCode       : chr [1:2] "1" "2"</span></span>
+<span><span class="co">#&gt;   ..$ Organization     : chr [1:2] "USGS" "USGS"</span></span>
+<span><span class="co">#&gt;   ..$ SourceDescription: chr [1:2] "Data pulled from USGS National Water Infrastructure Service (NWIS) using the dataRetrieval R package" "Data pulled from USGS National Water Infrastructure Service (NWIS) using the dataRetrieval R package"</span></span>
+<span><span class="co">#&gt;   ..$ SourceLink       : chr [1:2] "https://waterdata.usgs.gov/monitoring-location/06879650/#parameterCode=00060" "https://waterdata.usgs.gov/monitoring-location/50065500/#parameterCode=00060"</span></span>
+<span><span class="co">#&gt;   ..$ ContactName      : chr [1:2] "Unknown" "Unknown"</span></span>
+<span><span class="co">#&gt;   ..$ Phone            : chr [1:2] "Unknown" "Unknown"</span></span>
+<span><span class="co">#&gt;   ..$ Email            : chr [1:2] "Unknown" "Unknown"</span></span>
+<span><span class="co">#&gt;   ..$ Address          : chr [1:2] "Unknown" "Unknown"</span></span>
+<span><span class="co">#&gt;   ..$ City             : chr [1:2] "Unknown" "Unknown"</span></span>
+<span><span class="co">#&gt;   ..$ State            : chr [1:2] "Kansas" "Puerto Rico"</span></span>
+<span><span class="co">#&gt;   ..$ ZipCode          : chr [1:2] "Unknown" "Unknown"</span></span>
+<span><span class="co">#&gt;   ..$ Citation         : chr [1:2] "U.S. Geological Survey, 2001, National Water Information System data available on the World Wide Web (Water Dat"| __truncated__ "U.S. Geological Survey, 2001, National Water Information System data available on the World Wide Web (Water Dat"| __truncated__</span></span>
+<span><span class="co">#&gt;  $ Methods             :'data.frame':    2 obs. of  3 variables:</span></span>
+<span><span class="co">#&gt;   ..$ MethodCode       : chr [1:2] "1" "2"</span></span>
+<span><span class="co">#&gt;   ..$ MethodDescription: chr [1:2] "Data pulled from USGS National Water Infrastructure Service (NWIS) using the dataRetrieval R package" "Data pulled from USGS National Water Infrastructure Service (NWIS) using the dataRetrieval R package"</span></span>
+<span><span class="co">#&gt;   ..$ MethodLink       : chr [1:2] NA NA</span></span>
+<span><span class="co">#&gt;  $ Variables           :'data.frame':    1 obs. of  11 variables:</span></span>
+<span><span class="co">#&gt;   ..$ VariableCode     : chr "00060"</span></span>
+<span><span class="co">#&gt;   ..$ VariableName     : chr "Streamflow"</span></span>
+<span><span class="co">#&gt;   ..$ VariableUnitsName: chr "cubic feet per second"</span></span>
+<span><span class="co">#&gt;   ..$ SampleMedium     : chr "Surface water"</span></span>
+<span><span class="co">#&gt;   ..$ ValueType        : chr "Derived Value"</span></span>
+<span><span class="co">#&gt;   ..$ IsRegular        : logi TRUE</span></span>
+<span><span class="co">#&gt;   ..$ TimeSupport      : num 15</span></span>
+<span><span class="co">#&gt;   ..$ TimeUnitsName    : chr "minute"</span></span>
+<span><span class="co">#&gt;   ..$ DataType         : chr "Continuous"</span></span>
+<span><span class="co">#&gt;   ..$ GeneralCategory  : chr "Hydrology"</span></span>
+<span><span class="co">#&gt;   ..$ NoDataValue      : num -9999</span></span>
+<span><span class="co">#&gt;  $ Sites               :'data.frame':    2 obs. of  15 variables:</span></span>
+<span><span class="co">#&gt;   ..$ SiteCode              : chr [1:2] "06879650" "50065500"</span></span>
+<span><span class="co">#&gt;   ..$ SiteName              : chr [1:2] "KINGS C NR MANHATTAN, KS" "RIO MAMEYES NR SABANA, PR"</span></span>
+<span><span class="co">#&gt;   ..$ Latitude              : num [1:2] 39.1 18.3</span></span>
+<span><span class="co">#&gt;   ..$ Longitude             : num [1:2] -96.6 -65.8</span></span>
+<span><span class="co">#&gt;   ..$ LatLongDatumSRSName   : chr [1:2] "NAD83" "NAD27"</span></span>
+<span><span class="co">#&gt;   ..$ Elevation_m           : num [1:2] NA NA</span></span>
+<span><span class="co">#&gt;   ..$ VerticalDatum         : chr [1:2] "Unknown" "Unknown"</span></span>
+<span><span class="co">#&gt;   ..$ LocalX                : num [1:2] NA NA</span></span>
+<span><span class="co">#&gt;   ..$ LocalY                : num [1:2] NA NA</span></span>
+<span><span class="co">#&gt;   ..$ LocalProjectionSRSName: chr [1:2] "Unknown" "Unknown"</span></span>
+<span><span class="co">#&gt;   ..$ PosAccuracy_m         : num [1:2] NA NA</span></span>
+<span><span class="co">#&gt;   ..$ State                 : chr [1:2] "Kansas" "Puerto Rico"</span></span>
+<span><span class="co">#&gt;   ..$ County                : chr [1:2] "Riley County" "Rio Grande Municipio"</span></span>
+<span><span class="co">#&gt;   ..$ Comments              : chr [1:2] NA NA</span></span>
+<span><span class="co">#&gt;   ..$ SiteType              : chr [1:2] "Stream" "Stream"</span></span>
+<span><span class="co">#&gt;  $ QualityControlLevels:'data.frame':    1 obs. of  3 variables:</span></span>
+<span><span class="co">#&gt;   ..$ QualityControlLevelCode: chr "A"</span></span>
+<span><span class="co">#&gt;   ..$ Definition             : chr "Approved for publication -- Processing and review completed."</span></span>
+<span><span class="co">#&gt;   ..$ Explanation            : chr "Water-Level Approval-Status Codes"</span></span>
+<span><span class="co">#&gt;  $ DataValues          :'data.frame':    1344 obs. of  15 variables:</span></span>
+<span><span class="co">#&gt;   ..$ ValueID                : chr [1:1344] "1" "2" "3" "4" ...</span></span>
+<span><span class="co">#&gt;   ..$ DataValue              : num [1:1344] 0 0 0 0 0 0 0 0 0 0 ...</span></span>
+<span><span class="co">#&gt;   ..$ ValueAccuracy          : num [1:1344] NA NA NA NA NA NA NA NA NA NA ...</span></span>
+<span><span class="co">#&gt;   ..$ LocalDateTime          : chr [1:1344] "2021-01-01 06:30:00" "2021-01-01 06:45:00" "2021-01-01 07:00:00" "2021-01-01 07:15:00" ...</span></span>
+<span><span class="co">#&gt;   ..$ UTCOffset              : num [1:1344] -6 -6 -6 -6 -6 -6 -6 -6 -6 -6 ...</span></span>
+<span><span class="co">#&gt;   ..$ DateTimeUTC            : chr [1:1344] "2021-01-01 12:30:00" "2021-01-01 12:45:00" "2021-01-01 13:00:00" "2021-01-01 13:15:00" ...</span></span>
+<span><span class="co">#&gt;   ..$ SiteCode               : chr [1:1344] "06879650" "06879650" "06879650" "06879650" ...</span></span>
+<span><span class="co">#&gt;   ..$ VariableCode           : chr [1:1344] "00060" "00060" "00060" "00060" ...</span></span>
+<span><span class="co">#&gt;   ..$ OffsetValue            : num [1:1344] NA NA NA NA NA NA NA NA NA NA ...</span></span>
+<span><span class="co">#&gt;   ..$ OffsetTypeCode         : chr [1:1344] NA NA NA NA ...</span></span>
+<span><span class="co">#&gt;   ..$ CensorCode             : chr [1:1344] "unk" "unk" "unk" "unk" ...</span></span>
+<span><span class="co">#&gt;   ..$ QualifierCode          : chr [1:1344] NA NA NA NA ...</span></span>
+<span><span class="co">#&gt;   ..$ MethodCode             : chr [1:1344] "1" "1" "1" "1" ...</span></span>
+<span><span class="co">#&gt;   ..$ SourceCode             : chr [1:1344] "1" "1" "1" "1" ...</span></span>
+<span><span class="co">#&gt;   ..$ QualityControlLevelCode: chr [1:1344] "A" "A" "A" "A" ...</span></span>
+<span><span class="co">#&gt;  $ SeriesCatalog       :'data.frame':    2 obs. of  24 variables:</span></span>
+<span><span class="co">#&gt;   ..$ SeriesID               : num [1:2] 1 2</span></span>
+<span><span class="co">#&gt;   ..$ SiteCode               : chr [1:2] "06879650" "50065500"</span></span>
+<span><span class="co">#&gt;   ..$ SiteName               : chr [1:2] "KINGS C NR MANHATTAN, KS" "RIO MAMEYES NR SABANA, PR"</span></span>
+<span><span class="co">#&gt;   ..$ VariableCode           : chr [1:2] "00060" "00060"</span></span>
+<span><span class="co">#&gt;   ..$ VariableName           : chr [1:2] "Streamflow" "Streamflow"</span></span>
+<span><span class="co">#&gt;   ..$ VariableUnitsName      : chr [1:2] "cubic feet per second" "cubic feet per second"</span></span>
+<span><span class="co">#&gt;   ..$ SampleMedium           : chr [1:2] "Surface water" "Surface water"</span></span>
+<span><span class="co">#&gt;   ..$ ValueType              : chr [1:2] "Derived Value" "Derived Value"</span></span>
+<span><span class="co">#&gt;   ..$ TimeSupport            : num [1:2] 15 15</span></span>
+<span><span class="co">#&gt;   ..$ TimeUnitsName          : chr [1:2] "minute" "minute"</span></span>
+<span><span class="co">#&gt;   ..$ DataType               : chr [1:2] "Continuous" "Continuous"</span></span>
+<span><span class="co">#&gt;   ..$ GeneralCategory        : chr [1:2] "Hydrology" "Hydrology"</span></span>
+<span><span class="co">#&gt;   ..$ MethodCode             : chr [1:2] "1" "2"</span></span>
+<span><span class="co">#&gt;   ..$ MethodDescription      : chr [1:2] "Data pulled from USGS National Water Infrastructure Service (NWIS) using the dataRetrieval R package" "Data pulled from USGS National Water Infrastructure Service (NWIS) using the dataRetrieval R package"</span></span>
+<span><span class="co">#&gt;   ..$ SourceCode             : chr [1:2] "1" "2"</span></span>
+<span><span class="co">#&gt;   ..$ Organization           : chr [1:2] "USGS" "USGS"</span></span>
+<span><span class="co">#&gt;   ..$ SourceDescription      : chr [1:2] "Data pulled from USGS National Water Infrastructure Service (NWIS) using the dataRetrieval R package" "Data pulled from USGS National Water Infrastructure Service (NWIS) using the dataRetrieval R package"</span></span>
+<span><span class="co">#&gt;   ..$ Citation               : chr [1:2] "U.S. Geological Survey, 2001, National Water Information System data available on the World Wide Web (Water Dat"| __truncated__ "U.S. Geological Survey, 2001, National Water Information System data available on the World Wide Web (Water Dat"| __truncated__</span></span>
+<span><span class="co">#&gt;   ..$ QualityControlLevelCode: chr [1:2] "A" "A"</span></span>
+<span><span class="co">#&gt;   ..$ BeginDateTime          : chr [1:2] "2021-01-01 06:30:00" "2021-01-01 06:30:00"</span></span>
+<span><span class="co">#&gt;   ..$ EndDateTime            : chr [1:2] "2021-01-08 06:30:00" "2021-01-08 06:30:00"</span></span>
+<span><span class="co">#&gt;   ..$ BeginDateTimeUTC       : chr [1:2] "2021-01-01 12:30:00" "2021-01-01 12:30:00"</span></span>
+<span><span class="co">#&gt;   ..$ EndDateTimeUTC         : chr [1:2] "2021-01-08 12:30:00" "2021-01-08 12:30:00"</span></span>
+<span><span class="co">#&gt;   ..$ ValueCount             : num [1:2] 673 671</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="write-hymetdp-tables-to-file">Write hymetDP tables to file<a class="anchor" aria-label="anchor" href="#write-hymetdp-tables-to-file"></a>
 </h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">path</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="fu">hymetDP</span><span class="fu">::</span><span class="fu"><a href="../reference/write_tables.html">write_tables</a></span><span class="op">(</span>
-  path <span class="op">=</span> <span class="va">path</span>,
-  DataValues <span class="op">=</span> <span class="va">usgs_hymet</span><span class="op">$</span><span class="va">DataValues</span>,
-  Variables <span class="op">=</span> <span class="va">usgs_hymet</span><span class="op">$</span><span class="va">Variables</span>,
-  Methods <span class="op">=</span> <span class="va">usgs_hymet</span><span class="op">$</span><span class="va">Methods</span>,
-  Sources <span class="op">=</span> <span class="va">usgs_hymet</span><span class="op">$</span><span class="va">Sources</span>,
-  Sites <span class="op">=</span> <span class="va">usgs_hymet</span><span class="op">$</span><span class="va">Sites</span>,
-  QualityControlLevels <span class="op">=</span> <span class="va">usgs_hymet</span><span class="op">$</span><span class="va">QualityControlLevels</span>,
-  SeriesCatalog <span class="op">=</span> <span class="va">usgs_hymet</span><span class="op">$</span><span class="va">SeriesCatalog</span><span class="op">)</span>
-<span class="co">#&gt; Writing tables to file:</span>
-<span class="co">#&gt;   DataValues</span>
-<span class="co">#&gt;   Variables</span>
-<span class="co">#&gt;   Methods</span>
-<span class="co">#&gt;   Sources</span>
-<span class="co">#&gt;   Sites</span>
-<span class="co">#&gt;   QualityControlLevels</span>
-<span class="co">#&gt;   SeriesCatalog</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">path</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">hymetDP</span><span class="fu">::</span><span class="fu"><a href="../reference/write_tables.html">write_tables</a></span><span class="op">(</span></span>
+<span>  path <span class="op">=</span> <span class="va">path</span>,</span>
+<span>  DataValues <span class="op">=</span> <span class="va">usgs_hymet</span><span class="op">$</span><span class="va">DataValues</span>,</span>
+<span>  Variables <span class="op">=</span> <span class="va">usgs_hymet</span><span class="op">$</span><span class="va">Variables</span>,</span>
+<span>  Methods <span class="op">=</span> <span class="va">usgs_hymet</span><span class="op">$</span><span class="va">Methods</span>,</span>
+<span>  Sources <span class="op">=</span> <span class="va">usgs_hymet</span><span class="op">$</span><span class="va">Sources</span>,</span>
+<span>  Sites <span class="op">=</span> <span class="va">usgs_hymet</span><span class="op">$</span><span class="va">Sites</span>,</span>
+<span>  QualityControlLevels <span class="op">=</span> <span class="va">usgs_hymet</span><span class="op">$</span><span class="va">QualityControlLevels</span>,</span>
+<span>  SeriesCatalog <span class="op">=</span> <span class="va">usgs_hymet</span><span class="op">$</span><span class="va">SeriesCatalog</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Writing tables to file:</span></span>
+<span><span class="co">#&gt;   DataValues</span></span>
+<span><span class="co">#&gt;   Variables</span></span>
+<span><span class="co">#&gt;   Methods</span></span>
+<span><span class="co">#&gt;   Sources</span></span>
+<span><span class="co">#&gt;   Sites</span></span>
+<span><span class="co">#&gt;   QualityControlLevels</span></span>
+<span><span class="co">#&gt;   SeriesCatalog</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="create-eml">Create EML<a class="anchor" aria-label="anchor" href="#create-eml"></a>
 </h3>
 <p>Create Ecological Metadata Language (EML) metadata for the derived dataset.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Coming soon!</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Coming soon!</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -275,7 +275,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>
